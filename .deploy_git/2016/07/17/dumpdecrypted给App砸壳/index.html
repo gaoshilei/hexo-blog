@@ -15,16 +15,16 @@
 
 
 
-<meta name="description" content="我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这也导致了">
+<meta name="description" content="我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="dumpdecrypted给App砸壳">
 <meta property="og:url" content="http://www.gaoshilei.com/2016/07/17/dumpdecrypted给App砸壳/index.html">
 <meta property="og:site_name" content="LeonLei的博客">
-<meta property="og:description" content="我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这也导致了">
-<meta property="og:updated_time" content="2016-10-31T08:46:50.887Z">
+<meta property="og:description" content="我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。">
+<meta property="og:updated_time" content="2016-10-31T08:52:01.754Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="dumpdecrypted给App砸壳">
-<meta name="twitter:description" content="我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这也导致了">
+<meta name="twitter:description" content="我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -296,9 +296,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <blockquote>
-<p>我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的<em>壳</em>，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称<em>砸壳</em>。<br>long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这也导致了iOS越狱开发社区普遍认为这个软件助长了盗版的气焰，对iPhoneCake源进行了强烈谴责。迫于压力，iPhoneCake将AppCrackr下架。从此利用纯UI方式砸壳的行为已经走入绝路，只能利用更加geek更加niubility的方式来砸壳，这也是这篇文章介绍的主角<strong>dumpdecrypted</strong><br><a id="more"></a></p>
-<h4 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h4><p>我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的<em>壳</em>，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称<em>砸壳</em>。<br>long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这也导致了iOS越狱开发社区普遍认为这个软件助长了盗版的气焰，对iPhoneCake源进行了强烈谴责。迫于压力，iPhoneCake将AppCrackr下架。从此利用纯UI方式砸壳的行为已经走入绝路，只能利用更加geek更加niubility的方式来砸壳，这也是这篇文章介绍的主角<strong>dumpdecrypted</strong>  </p>
+        <h2 id="intro">我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的<em>壳</em>，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称<em>砸壳</em>。</h2>  
+
+<a id="more"></a>
+<h4 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h4><blockquote>
+<p>我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的<em>壳</em>，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称<em>砸壳</em>。<br>long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这也导致了iOS越狱开发社区普遍认为这个软件助长了盗版的气焰，对iPhoneCake源进行了强烈谴责。迫于压力，iPhoneCake将AppCrackr下架。从此利用纯UI方式砸壳的行为已经走入绝路，只能利用更加geek更加niubility的方式来砸壳，这也是这篇文章介绍的主角<strong>dumpdecrypted</strong>  </p>
 </blockquote>
 <h4 id="2-准备工作"><a href="#2-准备工作" class="headerlink" title="2.准备工作"></a>2.准备工作</h4><ol>
 <li>一部已经越狱的手机 <code>我这里用的是iPhone 5S; iOS 9.1</code></li>
@@ -329,7 +331,7 @@
         <p><span>本文标题:</span><a href="/2016/07/17/dumpdecrypted给App砸壳/">dumpdecrypted给App砸壳</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">LeonLei</a></p>
         <p><span>发布时间:</span>2016-07-18, 00:00:00</p>
-        <p><span>最后更新:</span>2016-10-31, 04:46:50</p>
+        <p><span>最后更新:</span>2016-10-31, 04:52:01</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/07/17/dumpdecrypted给App砸壳/" title="dumpdecrypted给App砸壳">http://www.gaoshilei.com/2016/07/17/dumpdecrypted给App砸壳/</a>
             <span class="copy-path" data-clipboard-text="原文: http://www.gaoshilei.com/2016/07/17/dumpdecrypted给App砸壳/　　作者: LeonLei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -365,7 +367,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-前言"><span class="toc-number">1.</span> <span class="toc-text">1.前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-准备工作"><span class="toc-number">2.</span> <span class="toc-text">2.准备工作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-编译dumpdecrypted"><span class="toc-number">3.</span> <span class="toc-text">3.编译dumpdecrypted</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-开始砸壳"><span class="toc-number">4.</span> <span class="toc-text">4.开始砸壳</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#定位目标App可执行文件的位置"><span class="toc-number">4.1.</span> <span class="toc-text">定位目标App可执行文件的位置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#目标锁定，定位到目标App的Documents位置"><span class="toc-number">4.2.</span> <span class="toc-text">目标锁定，定位到目标App的Documents位置</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#intro"><span class="toc-number">1.</span> <span class="toc-text">我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-前言"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-准备工作"><span class="toc-number">1.0.2.</span> <span class="toc-text">2.准备工作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-编译dumpdecrypted"><span class="toc-number">1.0.3.</span> <span class="toc-text">3.编译dumpdecrypted</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-开始砸壳"><span class="toc-number">1.0.4.</span> <span class="toc-text">4.开始砸壳</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#定位目标App可执行文件的位置"><span class="toc-number">1.0.4.1.</span> <span class="toc-text">定位目标App可执行文件的位置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#目标锁定，定位到目标App的Documents位置"><span class="toc-number">1.0.4.2.</span> <span class="toc-text">目标锁定，定位到目标App的Documents位置</span></a></li></ol></li></ol></li></ol></li></ol>
         
     </div>
     <style>
