@@ -69,6 +69,7 @@ cy# [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomai
 LeonLei-MBP:~ gaoshilei$ scp /Users/gaoshilei/Desktop/reverse/dumpdecrypted/dumpdecrypted.dylib   root@192.168.0.115:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents  
 dumpdecrypted.dylib                                                              100%  193KB 192.9KB/s   00:00  
 ```  
+
 我们已经将dumpdecrypted.dylib拷贝到了微信沙盒的Document目录中，可以砸壳了：  
  
 ```  
@@ -92,6 +93,7 @@ DISCLAIMER: This tool is only meant for security research purposes, not for appl
 [+] Closing dump file
 iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root#  
 ```  
+
 等待命令执行完，此时已经完成砸壳，我们看一下当前目录都有啥：
   
 ```
@@ -109,4 +111,5 @@ drwxr-xr-x  2 mobile      748 Aug 26 13:51 MMappedKV
 -rwxr-xr-x  1 root     197528 Oct 10 15:34 dumpdecrypted.dylib
 -rw-r--r--  1 mobile      448 Aug 26 13:49 mmupdateinfo.archive  
 ```  
+
 砸好壳的微信可执行文件`WeChat.decrypted`已经生成，现在就可以把文件拷到Mac上利用IDA或者Hopper的分析了。
