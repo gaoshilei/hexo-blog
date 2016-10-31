@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="LeonLei的博客">
 <meta property="og:description" content="1.前言
 我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这">
-<meta property="og:updated_time" content="2016-10-31T10:46:29.879Z">
+<meta property="og:updated_time" content="2016-10-31T10:50:46.389Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="dumpdecrypted给App砸壳">
 <meta name="twitter:description" content="1.前言
@@ -319,11 +319,23 @@
 <blockquote>
 <p>这里有两种方式，一种是scp命令行拷贝<br>另一种是iFunBox工具操作  </p>
 </blockquote>
-<p>我这里采用的是第一种scp命令行   </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:~ gaoshilei$ scp /Users/gaoshilei/Desktop/reverse/dumpdecrypted/dumpdecrypted.dylib   root@192.168.0.115:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents  </div><div class="line">dumpdecrypted.dylib                                                            100%  193KB 192.9KB/s   00:00</div><div class="line">```  </div><div class="line"></div><div class="line">我们已经将dumpdecrypted.dylib拷贝到了微信沙盒的Document目录中，可以砸壳了：</div></pre></td></tr></table></figure>
-<p>iPhone-5S:~ root# cd /var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/<br>iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat<br>mach-o decryption dumper<br>DISCLAIMER: This tool is only meant for security research purposes, not for application crackers.<br>[+] detected 64bit ARM binary in memory.<br>[+] offset to cryptid found: @0x100024ca8(from 0x100024000) = ca8<br>[+] Found encrypted data at address 00004000 of length 45678592 bytes - type 1.<br>[+] Opening /private/var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat for reading.<br>[+] Reading header<br>[+] Detecting header type<br>[+] Executable is a plain MACH-O image<br>[+] Opening WeChat.decrypted for writing.<br>[+] Copying the not encrypted start of the file<br>[+] Dumping the decrypted data into the file<br>[+] Copying the not encrypted remainder of the file<br>[+] Setting the LC_ENCRYPTION_INFO-&gt;cryptid to 0 at offset ca8<br>[+] Closing original file<br>[+] Closing dump file<br>iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root#<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">等待命令执行完，此时已经完成砸壳，我们看一下当前目录都有啥：</div></pre></td></tr></table></figure></p>
-<p>iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# ls -o<br>total 55272<br>drwxr-xr-x  6 mobile      272 Aug 26 13:48 00000000000000000000000000000000<br>drwxr-xr-x 20 mobile     1122 Oct 10 15:28 6f696a1b596ce2499419d844f90418aa<br>drwxr-xr-x  3 mobile      136 Oct  9 10:56 CrashReport<br>-rw-r–r–  1 mobile      310 Aug 26 13:49 Ksid<br>-rw-r–r–  1 mobile     1036 Oct 10 13:40 LocalInfo.lst<br>drwxr-xr-x  5 mobile      272 Aug 26 13:49 MMResourceMgr<br>drwxr-xr-x  2 mobile      748 Aug 26 13:51 MMappedKV<br>-rw-r–r–  1 mobile       15 Oct 10 13:40 SafeMode.dat<br>-rw-r–r–  1 root   56380816 Oct 10 15:37 WeChat.decrypted<br>-rwxr-xr-x  1 root     197528 Oct 10 15:34 dumpdecrypted.dylib<br>-rw-r–r–  1 mobile      448 Aug 26 13:49 mmupdateinfo.archive<br>```  </p>
-<p>砸好壳的微信可执行文件<code>WeChat.decrypted</code>已经生成，现在就可以把文件拷到Mac上利用IDA或者Hopper的分析了。</p>
+<p>我这里采用的是第一种scp命令行  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:~ gaoshilei$ scp /Users/gaoshilei/Desktop/reverse/dumpdecrypted/dumpdecrypted.dylib   root@192.168.0.115:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents  </div><div class="line">dumpdecrypted.dylib                                                              100%  193KB 192.9KB/s   00:00 </div><div class="line">```  </div><div class="line"></div><div class="line">我们已经将dumpdecrypted.dylib拷贝到了微信沙盒的Document目录中，可以砸壳了：  </div><div class="line">  </div><div class="line">```  </div><div class="line">iPhone-5S:~ root# cd /var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/</div><div class="line">iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat</div><div class="line">mach-o decryption dumper</div><div class="line">DISCLAIMER: This tool is only meant for security research purposes, not for application crackers.</div><div class="line">[+] detected 64bit ARM binary in memory.</div><div class="line">[+] offset to cryptid found: @0x100024ca8(from 0x100024000) = ca8</div><div class="line">[+] Found encrypted data at address 00004000 of length 45678592 bytes - type 1.</div><div class="line">[+] Opening /private/var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat for reading.</div><div class="line">[+] Reading header</div><div class="line">[+] Detecting header type</div><div class="line">[+] Executable is a plain MACH-O image</div><div class="line">[+] Opening WeChat.decrypted for writing.</div><div class="line">[+] Copying the not encrypted start of the file</div><div class="line">[+] Dumping the decrypted data into the file</div><div class="line">[+] Copying the not encrypted remainder of the file</div><div class="line">[+] Setting the LC_ENCRYPTION_INFO-&gt;cryptid to 0 at offset ca8</div><div class="line">[+] Closing original file</div><div class="line">[+] Closing dump file</div><div class="line">iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root#</div></pre></td></tr></table></figure>
+<p>等待命令执行完，此时已经完成砸壳，我们看一下当前目录都有啥：  </p>
+<pre><code>iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# ls -o
+total 55272
+drwxr-xr-x  6 mobile      272 Aug 26 13:48 00000000000000000000000000000000
+drwxr-xr-x 20 mobile     1122 Oct 10 15:28 6f696a1b596ce2499419d844f90418aa
+drwxr-xr-x  3 mobile      136 Oct  9 10:56 CrashReport
+-rw-r--r--  1 mobile      310 Aug 26 13:49 Ksid
+-rw-r--r--  1 mobile     1036 Oct 10 13:40 LocalInfo.lst
+drwxr-xr-x  5 mobile      272 Aug 26 13:49 MMResourceMgr
+drwxr-xr-x  2 mobile      748 Aug 26 13:51 MMappedKV
+-rw-r--r--  1 mobile       15 Oct 10 13:40 SafeMode.dat
+-rw-r--r--  1 root   56380816 Oct 10 15:37 WeChat.decrypted
+-rwxr-xr-x  1 root     197528 Oct 10 15:34 dumpdecrypted.dylib
+-rw-r--r--  1 mobile      448 Aug 26 13:49 mmupdateinfo.archive
+</code></pre><p>砸好壳的微信可执行文件<code>WeChat.decrypted</code>已经生成，现在就可以把文件拷到Mac上利用IDA或者Hopper的分析了。</p>
 
       
     </div>
@@ -335,7 +347,7 @@
         <p><span>本文标题:</span><a href="/2016/07/17/dumpdecrypted给App砸壳/">dumpdecrypted给App砸壳</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">LeonLei</a></p>
         <p><span>发布时间:</span>2016-07-18, 00:00:00</p>
-        <p><span>最后更新:</span>2016-10-31, 06:46:29</p>
+        <p><span>最后更新:</span>2016-10-31, 06:50:46</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/07/17/dumpdecrypted给App砸壳/" title="dumpdecrypted给App砸壳">http://www.gaoshilei.com/2016/07/17/dumpdecrypted给App砸壳/</a>
             <span class="copy-path" data-clipboard-text="原文: http://www.gaoshilei.com/2016/07/17/dumpdecrypted给App砸壳/　　作者: LeonLei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
