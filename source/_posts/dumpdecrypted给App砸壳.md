@@ -59,8 +59,8 @@ iPhone-5S:~ root# cycript -p WeChat
 cy# [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]
 #"file:///var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/"
 cy# 
-
 ```  
+
 执行到这里我们已经找到了微信的Documents位置，正式开始砸壳！
 
 > 这里有两种方式，一种是scp命令行拷贝  
@@ -72,8 +72,7 @@ cy#
 LeonLei-MBP:~ gaoshilei$ scp /Users/gaoshilei/Desktop/reverse/dumpdecrypted/dumpdecrypted.dylib root@192.168.0.115:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents
 dumpdecrypted.dylib                                                              100%  193KB 192.9KB/s   00:00  
 ```  
-我们已经将dumpdecrypted.dylib拷贝到了微信沙盒的Document目录中，可以砸壳了：  
-  
+我们已经将dumpdecrypted.dylib拷贝到了微信沙盒的Document目录中，可以砸壳了：   
 ```
 iPhone-5S:~ root# cd /var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/
 iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat
