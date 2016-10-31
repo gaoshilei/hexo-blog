@@ -1,12 +1,10 @@
----
 title: dumpdecrypted给App砸壳
 date: 2016-07-18 00:00:00
 ---
 #### 1.前言
 > 我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的*壳*，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称*砸壳*。  
+> long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这也导致了iOS越狱开发社区普遍认为这个软件助长了盗版的气焰，对iPhoneCake源进行了强烈谴责。迫于压力，iPhoneCake将AppCrackr下架。从此利用纯UI方式砸壳的行为已经走入绝路，只能利用更加geek更加niubility的方式来砸壳，这也是这篇文章介绍的主角**dumpdecrypted** 
 <!-- more --> 
-> long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这也导致了iOS越狱开发社区普遍认为这个软件助长了盗版的气焰，对iPhoneCake源进行了强烈谴责。迫于压力，iPhoneCake将AppCrackr下架。从此利用纯UI方式砸壳的行为已经走入绝路，只能利用更加geek更加niubility的方式来砸壳，这也是这篇文章介绍的主角**dumpdecrypted**  
-
 #### 2.准备工作
 1. 一部已经越狱的手机 `我这里用的是iPhone 5S; iOS 9.1`
 2. 已经安装了OpenSSH
@@ -54,13 +52,12 @@ iPhone-5S:~ root# ps -e
 ```
 可以看到目前手机运行的进程中有微信的影子`/var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat` 我们已经找到微信可执行文件的位置
 ##### 目标锁定，定位到目标App的Documents位置  
+ 
 ```
 iPhone-5S:~ root# cycript -p WeChat     
 cy# [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]
-#"file:///var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/"
-
+#"file:///var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/"  
 ```  
-
 执行到这里我们已经找到了微信的Documents位置，正式开始砸壳！
 
 > 这里有两种方式，一种是scp命令行拷贝  
@@ -72,7 +69,8 @@ cy# [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomai
 LeonLei-MBP:~ gaoshilei$ scp /Users/gaoshilei/Desktop/reverse/dumpdecrypted/dumpdecrypted.dylib root@192.168.0.115:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents
 dumpdecrypted.dylib                                                              100%  193KB 192.9KB/s   00:00  
 ```  
-我们已经将dumpdecrypted.dylib拷贝到了微信沙盒的Document目录中，可以砸壳了：   
+我们已经将dumpdecrypted.dylib拷贝到了微信沙盒的Document目录中，可以砸壳了：  
+  
 ```
 iPhone-5S:~ root# cd /var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/
 iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat
