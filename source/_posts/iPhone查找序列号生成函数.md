@@ -1,3 +1,10 @@
+---
+title: iPhone查找序列号生成函数
+date: 2016-08-03 00:00:00
+---
+<Excerpt in index | 首页摘要> 
++<!-- more -->
+<The rest of contents | 余下全文>
 ##  前言  
 在iOS7之前我们可以通过`- (NSString *)uniqueIdentifier`这个方法获取iPhone的唯一标识符，也叫作UDID。不过自从iOS7苹果就把这个方法给禁了，此时我们想要获取iPhone的唯一标识符就很困难。  
 不过苹果提供一个叫做IDFA的标识符，这个IDFA是广告标识符用来追踪广告投放的，不过用户可以在设置中手动重置IDFA，可靠性很低，目前常见的两种标记iPhone的方式为  
