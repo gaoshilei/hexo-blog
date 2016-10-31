@@ -95,7 +95,6 @@ iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF3
 ```  
 
 等待命令执行完，此时已经完成砸壳，我们看一下当前目录都有啥：
-  
 ```
 iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# ls -o
 total 55272
