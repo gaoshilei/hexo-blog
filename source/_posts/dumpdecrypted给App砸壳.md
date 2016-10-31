@@ -2,12 +2,10 @@
 title: dumpdecrypted给App砸壳
 date: 2016-07-18 00:00:00
 ---
-
-<h2 id="intro">我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的*壳*，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称*砸壳*。</h2>  
-
-<!-- more -->
 #### 1.前言
 > 我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的*壳*，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称*砸壳*。  
+
+<!-- more --> 
 > long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这也导致了iOS越狱开发社区普遍认为这个软件助长了盗版的气焰，对iPhoneCake源进行了强烈谴责。迫于压力，iPhoneCake将AppCrackr下架。从此利用纯UI方式砸壳的行为已经走入绝路，只能利用更加geek更加niubility的方式来砸壳，这也是这篇文章介绍的主角**dumpdecrypted**  
 
 #### 2.准备工作
@@ -99,7 +97,8 @@ DISCLAIMER: This tool is only meant for security research purposes, not for appl
 [+] Closing original file
 [+] Closing dump file
 iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root#   
-```
+```  
+
 等待命令执行完，此时已经完成砸壳，我们看一下当前目录都有啥：
   
 ```
