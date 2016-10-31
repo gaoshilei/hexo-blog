@@ -1,0 +1,617 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="debugserver动态调试在iOS上用debugserver来attach进程
+debugserver *:1234 -a “SpringBoard”
+
+在OSX上用lldb远程调试首先在Terminal中运行lldb，然后输入以下命令：
+process connect connect://iOSIP:1234
+
+获取ASLR的offset
+image list -o -f
+
+在内存地址上下断">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeonLei的博客">
+<meta property="og:url" content="http://www.gaoshilei.com/2016/10/31/debugserver动态调试/index.html">
+<meta property="og:site_name" content="LeonLei的博客">
+<meta property="og:description" content="debugserver动态调试在iOS上用debugserver来attach进程
+debugserver *:1234 -a “SpringBoard”
+
+在OSX上用lldb远程调试首先在Terminal中运行lldb，然后输入以下命令：
+process connect connect://iOSIP:1234
+
+获取ASLR的offset
+image list -o -f
+
+在内存地址上下断">
+<meta property="og:updated_time" content="2016-10-31T06:28:33.413Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeonLei的博客">
+<meta name="twitter:description" content="debugserver动态调试在iOS上用debugserver来attach进程
+debugserver *:1234 -a “SpringBoard”
+
+在OSX上用lldb远程调试首先在Terminal中运行lldb，然后输入以下命令：
+process connect connect://iOSIP:1234
+
+获取ASLR的offset
+image list -o -f
+
+在内存地址上下断">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.gaoshilei.com/2016/10/31/debugserver动态调试/"/>
+
+
+  <title>  | LeonLei的博客 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LeonLei的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">代码略懂，精通LOL</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-31T14:28:33+08:00" content="2016-10-31">
+              2016-10-31
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="debugserver动态调试"><a href="#debugserver动态调试" class="headerlink" title="debugserver动态调试"></a>debugserver动态调试</h2><h3 id="在iOS上用debugserver来attach进程"><a href="#在iOS上用debugserver来attach进程" class="headerlink" title="在iOS上用debugserver来attach进程"></a><strong>在iOS上用debugserver来attach进程</strong></h3><blockquote>
+<p>debugserver *:1234 -a “SpringBoard”</p>
+</blockquote>
+<h3 id="在OSX上用lldb远程调试"><a href="#在OSX上用lldb远程调试" class="headerlink" title="在OSX上用lldb远程调试"></a><strong>在OSX上用lldb远程调试</strong></h3><h4 id="首先在Terminal中运行lldb，然后输入以下命令："><a href="#首先在Terminal中运行lldb，然后输入以下命令：" class="headerlink" title="首先在Terminal中运行lldb，然后输入以下命令："></a>首先在Terminal中运行lldb，然后输入以下命令：</h4><blockquote>
+<p>process connect connect://iOSIP:1234</p>
+</blockquote>
+<h3 id="获取ASLR的offset"><a href="#获取ASLR的offset" class="headerlink" title="获取ASLR的offset"></a><strong>获取ASLR的offset</strong></h3><blockquote>
+<p>image list -o -f</p>
+</blockquote>
+<h3 id="在内存地址上下断点"><a href="#在内存地址上下断点" class="headerlink" title="在内存地址上下断点"></a><strong>在内存地址上下断点</strong></h3><blockquote>
+<p>br s -a 0xb446+0x9a000</p>
+</blockquote>
+<p>或</p>
+<blockquote>
+<p>br s -a 0xA5446</p>
+</blockquote>
+<h3 id="还可以通过br-dis、br-en和br-del系列命令来禁用、启用和删除断点。如果要禁用所有断点（dis代表disable"><a href="#还可以通过br-dis、br-en和br-del系列命令来禁用、启用和删除断点。如果要禁用所有断点（dis代表disable" class="headerlink" title="还可以通过br dis、br en和br del系列命令来禁用、启用和删除断点。如果要禁用所有断点（dis代表disable)"></a><strong>还可以通过<code>br dis</code>、<code>br en</code>和<code>br del</code>系列命令来禁用、启用和删除断点。如果要禁用所有断点（<code>dis</code>代表<code>disable</code>)</strong></h3><h4 id="启用某个断点"><a href="#启用某个断点" class="headerlink" title="启用某个断点"></a>启用某个断点</h4><blockquote>
+<p>(lldb) br en 6</p>
+</blockquote>
+<h4 id="禁用某个断点"><a href="#禁用某个断点" class="headerlink" title="禁用某个断点"></a>禁用某个断点</h4><blockquote>
+<p>(lldb) br dis 6</p>
+</blockquote>
+<h4 id="启用所有断点（“en”代表“enable”）的命令如下："><a href="#启用所有断点（“en”代表“enable”）的命令如下：" class="headerlink" title="启用所有断点（“en”代表“enable”）的命令如下："></a>启用所有断点（“en”代表“enable”）的命令如下：</h4><blockquote>
+<p>(lldb) br en<br>All breakpoints enabled. (2 breakpoints)  </p>
+</blockquote>
+<h4 id="删除所有断点（“del”代表“delete”）的命令如下："><a href="#删除所有断点（“del”代表“delete”）的命令如下：" class="headerlink" title="删除所有断点（“del”代表“delete”）的命令如下："></a>删除所有断点（“del”代表“delete”）的命令如下：</h4><blockquote>
+<p>(lldb) br del</p>
+</blockquote>
+<h4 id="删除某个断点"><a href="#删除某个断点" class="headerlink" title="删除某个断点"></a>删除某个断点</h4><blockquote>
+<p>(lldb) br del 8</p>
+</blockquote>
+<h4 id="指定在某个断点得到触发的时候，执行预先设置的指令，它的用法如下"><a href="#指定在某个断点得到触发的时候，执行预先设置的指令，它的用法如下" class="headerlink" title="指定在某个断点得到触发的时候，执行预先设置的指令，它的用法如下:"></a>指定在某个断点得到触发的时候，执行预先设置的指令，它的用法如下:</h4><p><strong>(假设1号断点位于某个objc_msgSend函数上)</strong></p>
+<blockquote>
+<p>(lldb) br com add 1<br>Enter your debugger command(s). Type ‘DONE’ to end.<br>po [$r0 class]<br>p (char *)$r1<br>c<br>DONE  </p>
+</blockquote>
+<p><strong>这里输入了3条指令，1号断点一旦触发，就会顺<br>序执行它们，如下：</strong></p>
+<blockquote>
+<p>(lldb) c<br>Process 97048 resuming<br>__NSArrayM<br>(char *) $11 = 0x26c6bbc3 “count”<br>Process 97048 resuming<br>Command #3 ‘c’ continued the target.  </p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/31/dumpdecrypted给App砸壳/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/31/自己搭建VPN服务器/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="LeonLei" />
+          <p class="site-author-name" itemprop="name">LeonLei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#debugserver动态调试"><span class="nav-number">1.</span> <span class="nav-text">debugserver动态调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在iOS上用debugserver来attach进程"><span class="nav-number">1.1.</span> <span class="nav-text">在iOS上用debugserver来attach进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在OSX上用lldb远程调试"><span class="nav-number">1.2.</span> <span class="nav-text">在OSX上用lldb远程调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先在Terminal中运行lldb，然后输入以下命令："><span class="nav-number">1.2.1.</span> <span class="nav-text">首先在Terminal中运行lldb，然后输入以下命令：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取ASLR的offset"><span class="nav-number">1.3.</span> <span class="nav-text">获取ASLR的offset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在内存地址上下断点"><span class="nav-number">1.4.</span> <span class="nav-text">在内存地址上下断点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还可以通过br-dis、br-en和br-del系列命令来禁用、启用和删除断点。如果要禁用所有断点（dis代表disable"><span class="nav-number">1.5.</span> <span class="nav-text">还可以通过br dis、br en和br del系列命令来禁用、启用和删除断点。如果要禁用所有断点（dis代表disable)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启用某个断点"><span class="nav-number">1.5.1.</span> <span class="nav-text">启用某个断点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#禁用某个断点"><span class="nav-number">1.5.2.</span> <span class="nav-text">禁用某个断点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启用所有断点（“en”代表“enable”）的命令如下："><span class="nav-number">1.5.3.</span> <span class="nav-text">启用所有断点（“en”代表“enable”）的命令如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除所有断点（“del”代表“delete”）的命令如下："><span class="nav-number">1.5.4.</span> <span class="nav-text">删除所有断点（“del”代表“delete”）的命令如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除某个断点"><span class="nav-number">1.5.5.</span> <span class="nav-text">删除某个断点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定在某个断点得到触发的时候，执行预先设置的指令，它的用法如下"><span class="nav-number">1.5.6.</span> <span class="nav-text">指定在某个断点得到触发的时候，执行预先设置的指令，它的用法如下:</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeonLei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

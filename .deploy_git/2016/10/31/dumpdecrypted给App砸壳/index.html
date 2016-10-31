@@ -1,0 +1,575 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="1.前言
+我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeonLei的博客">
+<meta property="og:url" content="http://www.gaoshilei.com/2016/10/31/dumpdecrypted给App砸壳/index.html">
+<meta property="og:site_name" content="LeonLei的博客">
+<meta property="og:description" content="1.前言
+我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这">
+<meta property="og:updated_time" content="2016-10-31T06:28:33.413Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeonLei的博客">
+<meta name="twitter:description" content="1.前言
+我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.gaoshilei.com/2016/10/31/dumpdecrypted给App砸壳/"/>
+
+
+  <title>  | LeonLei的博客 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LeonLei的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">代码略懂，精通LOL</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-31T14:28:33+08:00" content="2016-10-31">
+              2016-10-31
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h4><blockquote>
+<p>我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的<em>壳</em>，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称<em>砸壳</em>。<br>long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这也导致了iOS越狱开发社区普遍认为这个软件助长了盗版的气焰，对iPhoneCake源进行了强烈谴责。迫于压力，iPhoneCake将AppCrackr下架。从此利用纯UI方式砸壳的行为已经走入绝路，只能利用更加geek更加niubility的方式来砸壳，这也是这篇文章介绍的主角<strong>dumpdecrypted</strong>  </p>
+</blockquote>
+<h4 id="2-准备工作"><a href="#2-准备工作" class="headerlink" title="2.准备工作"></a>2.准备工作</h4><ol>
+<li>一部已经越狱的手机 <code>我这里用的是iPhone 5S; iOS 9.1</code></li>
+<li>已经安装了OpenSSH</li>
+<li>已经安装了<a href="http://www.cycript.org" target="_blank" rel="external">Cycript</a></li>
+<li><a href="https://github.com/stefanesser/dumpdecrypted/archive/master.zip" target="_blank" rel="external">dumpdecrypted源码</a>  </li>
+</ol>
+<h4 id="3-编译dumpdecrypted"><a href="#3-编译dumpdecrypted" class="headerlink" title="3.编译dumpdecrypted"></a>3.编译dumpdecrypted</h4><p>下载好之后将文件放到你自己的文件夹中，下面开始编译：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:~ gaoshilei$ cd /Users/gaoshilei/Desktop/reverse/dumpdecrypted  </div><div class="line">LeonLei-MBP:dumpdecrypted gaoshilei$ make</div><div class="line">`xcrun --sdk iphoneos --find gcc` -Os  -Wimplicit -isysroot `xcrun --sdk iphoneos --show-sdk-path` -F`xcrun --sdk iphoneos --show-sdk-path`/System/Library/Frameworks -F`xcrun --sdk iphoneos --show-sdk-path`/System/Library/PrivateFrameworks -arch armv7 -arch armv7s -arch arm64 -dynamiclib -o dumpdecrypted.dylib dumpdecrypted.o</div></pre></td></tr></table></figure>
+<p>进入dumpdecrypted目录下之后，执行make命令，此时目录下会生成一个<code>dumpdecrypted.dylib</code>，这个文件生成一次即可，下次砸壳可以直接使用。</p>
+<h4 id="4-开始砸壳"><a href="#4-开始砸壳" class="headerlink" title="4.开始砸壳"></a>4.开始砸壳</h4><h5 id="定位目标App可执行文件的位置"><a href="#定位目标App可执行文件的位置" class="headerlink" title="定位目标App可执行文件的位置"></a>定位目标App可执行文件的位置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:~ gaoshilei$ ssh root@192.168.0.115</div><div class="line">iPhone-5S:~ root# ps -e</div><div class="line">  PID TTY           TIME CMD</div><div class="line">    1 ??         5:23.51 /sbin/launchd</div><div class="line">   23 ??         0:00.81 /usr/libexec/amfid</div><div class="line">   34 ??         1:28.92 /usr/sbin/mediaserverd</div><div class="line">   36 ??         4:23.49 /usr/libexec/fseventsd</div><div class="line">   38 ??         1:21.05 /System/Library/PrivateFrameworks/AssistantServices.framework/assistantd</div><div class="line">   40 ??         0:01.13 /System/Library/PrivateFrameworks/FileProvider.framework/Support/fileproviderd</div><div class="line">   42 ??         1:56.46 /usr/libexec/routined</div><div class="line">   46 ??         0:03.34 /System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoted</div><div class="line">   48 ??         0:00.86 /usr/libexec/misd</div><div class="line">   50 ??         0:18.48 /System/Library/Frameworks/HealthKit.framework/healthd</div><div class="line">   52 ??        19:18.39 /usr/libexec/configd</div><div class="line">   54 ??         3:30.26 /System/Library/CoreServices/powerd.bundle/powerd</div><div class="line">   58 ??         0:50.73 /usr/libexec/atc</div><div class="line">   60 ??        13:47.50 /usr/sbin/wifid</div><div class="line">   ···              ···</div><div class="line"> 5673 ??         0:04.41 /var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat</div><div class="line"> 5732 ??         0:00.32 /usr/libexec/ptpd -t usb</div><div class="line"> 5735 ??         0:00.07 /usr/libexec/webinspectord</div><div class="line"> 5741 ??         0:00.18 sshd: root@ttys000 </div><div class="line"> 5770 ??         0:00.16 /System/Library/PrivateFrameworks/SyncedDefaults.framework/Support/syncdefaultsd</div><div class="line"> 5785 ??         0:00.05 /System/Library/CoreServices/CFNetworkAgent</div></pre></td></tr></table></figure>
+<p>可以看到目前手机运行的进程中有微信的影子<code>/var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat</code> 我们已经找到微信可执行文件的位置</p>
+<h5 id="目标锁定，定位到目标App的Documents位置"><a href="#目标锁定，定位到目标App的Documents位置" class="headerlink" title="目标锁定，定位到目标App的Documents位置"></a>目标锁定，定位到目标App的Documents位置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">iPhone-5S:~ root# cycript -p WeChat     </div><div class="line">cy# [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]</div><div class="line">#&quot;file:///var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/&quot;</div><div class="line">cy# </div><div class="line"></div><div class="line">```  </div><div class="line">执行到这里我们已经找到了微信的Documents位置，正式开始砸壳！</div><div class="line"></div><div class="line">&gt; 这里有两种方式，一种是scp命令行拷贝  </div><div class="line">&gt; 另一种是iFunBox工具操作  </div><div class="line"></div><div class="line">我这里采用的是第一种scp命令行</div></pre></td></tr></table></figure>
+<p>LeonLei-MBP:~ gaoshilei$ scp /Users/gaoshilei/Desktop/reverse/dumpdecrypted/dumpdecrypted.dylib root@192.168.0.115:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents<br>dumpdecrypted.dylib                                                              100%  193KB 192.9KB/s   00:00<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">我们已经将dumpdecrypted.dylib拷贝到了微信沙盒的Document目录中，可以砸壳了：</div></pre></td></tr></table></figure></p>
+<p>iPhone-5S:~ root# cd /var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/<br>iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat<br>mach-o decryption dumper</p>
+<p>DISCLAIMER: This tool is only meant for security research purposes, not for application crackers.</p>
+<p>[+] detected 64bit ARM binary in memory.<br>[+] offset to cryptid found: @0x100024ca8(from 0x100024000) = ca8<br>[+] Found encrypted data at address 00004000 of length 45678592 bytes - type 1.<br>[+] Opening /private/var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat for reading.<br>[+] Reading header<br>[+] Detecting header type<br>[+] Executable is a plain MACH-O image<br>[+] Opening WeChat.decrypted for writing.<br>[+] Copying the not encrypted start of the file<br>[+] Dumping the decrypted data into the file<br>[+] Copying the not encrypted remainder of the file<br>[+] Setting the LC_ENCRYPTION_INFO-&gt;cryptid to 0 at offset ca8<br>[+] Closing original file<br>[+] Closing dump file<br>iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root#<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">等待命令执行完，此时已经完成砸壳，我们看一下当前目录都有啥：</div></pre></td></tr></table></figure></p>
+<p>iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# ls -o<br>total 55272<br>drwxr-xr-x  6 mobile      272 Aug 26 13:48 00000000000000000000000000000000<br>drwxr-xr-x 20 mobile     1122 Oct 10 15:28 6f696a1b596ce2499419d844f90418aa<br>drwxr-xr-x  3 mobile      136 Oct  9 10:56 CrashReport<br>-rw-r–r–  1 mobile      310 Aug 26 13:49 Ksid<br>-rw-r–r–  1 mobile     1036 Oct 10 13:40 LocalInfo.lst<br>drwxr-xr-x  5 mobile      272 Aug 26 13:49 MMResourceMgr<br>drwxr-xr-x  2 mobile      748 Aug 26 13:51 MMappedKV<br>-rw-r–r–  1 mobile       15 Oct 10 13:40 SafeMode.dat<br>-rw-r–r–  1 root   56380816 Oct 10 15:37 WeChat.decrypted<br>-rwxr-xr-x  1 root     197528 Oct 10 15:34 dumpdecrypted.dylib<br>-rw-r–r–  1 mobile      448 Aug 26 13:49 mmupdateinfo.archive<br>```</p>
+<p>砸好壳的微信可执行文件<code>WeChat.decrypted</code>已经生成，现在就可以把文件拷到Mac上利用IDA或者Hopper的分析了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/31/iPhone查找序列号生成函数/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/31/debugserver动态调试/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="LeonLei" />
+          <p class="site-author-name" itemprop="name">LeonLei</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1.前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-准备工作"><span class="nav-number">2.</span> <span class="nav-text">2.准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-编译dumpdecrypted"><span class="nav-number">3.</span> <span class="nav-text">3.编译dumpdecrypted</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-开始砸壳"><span class="nav-number">4.</span> <span class="nav-text">4.开始砸壳</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定位目标App可执行文件的位置"><span class="nav-number">4.1.</span> <span class="nav-text">定位目标App可执行文件的位置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#目标锁定，定位到目标App的Documents位置"><span class="nav-number">4.2.</span> <span class="nav-text">目标锁定，定位到目标App的Documents位置</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeonLei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
