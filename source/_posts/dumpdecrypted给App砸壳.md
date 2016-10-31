@@ -15,17 +15,17 @@ date: 2016-07-18 00:00:00
 #### 3.编译dumpdecrypted
 下载好之后将文件放到你自己的文件夹中，下面开始编译：  
  
-```
+```  
 LeonLei-MBP:~ gaoshilei$ cd /Users/gaoshilei/Desktop/reverse/dumpdecrypted  
 LeonLei-MBP:dumpdecrypted gaoshilei$ make
 `xcrun --sdk iphoneos --find gcc` -Os  -Wimplicit -isysroot `xcrun --sdk iphoneos --show-sdk-path` -F`xcrun --sdk iphoneos --show-sdk-path`/System/Library/Frameworks -F`xcrun --sdk iphoneos --show-sdk-path`/System/Library/PrivateFrameworks -arch armv7 -arch armv7s -arch arm64 -dynamiclib -o dumpdecrypted.dylib dumpdecrypted.o
-
 ```
 进入dumpdecrypted目录下之后，执行make命令，此时目录下会生成一个`dumpdecrypted.dylib`，这个文件生成一次即可，下次砸壳可以直接使用。
 
 #### 4.开始砸壳  
-##### 定位目标App可执行文件的位置
-```
+##### 定位目标App可执行文件的位置  
+
+```  
 LeonLei-MBP:~ gaoshilei$ ssh root@192.168.0.115
 iPhone-5S:~ root# ps -e
   PID TTY           TIME CMD
@@ -54,7 +54,7 @@ iPhone-5S:~ root# ps -e
 可以看到目前手机运行的进程中有微信的影子`/var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat` 我们已经找到微信可执行文件的位置
 ##### 目标锁定，定位到目标App的Documents位置  
  
-```
+```  
 iPhone-5S:~ root# cycript -p WeChat  
 cy# [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]
 #file:///var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/  
@@ -66,14 +66,14 @@ cy# [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomai
 
 我这里采用的是第一种scp命令行  
  
-```
+```  
 LeonLei-MBP:~ gaoshilei$ scp /Users/gaoshilei/Desktop/reverse/dumpdecrypted/dumpdecrypted.dylib   root@192.168.0.115:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents  
 dumpdecrypted.dylib                                                              100%  193KB 192.9KB/s   00:00 
 ```  
 
 我们已经将dumpdecrypted.dylib拷贝到了微信沙盒的Document目录中，可以砸壳了：  
   
-```
+```  
 iPhone-5S:~ root# cd /var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/
 iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat
 mach-o decryption dumper
@@ -96,7 +96,7 @@ iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF3
 ```
 等待命令执行完，此时已经完成砸壳，我们看一下当前目录都有啥：  
   
-```
+```  
 iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# ls -o
 total 55272
 drwxr-xr-x  6 mobile      272 Aug 26 13:48 00000000000000000000000000000000
