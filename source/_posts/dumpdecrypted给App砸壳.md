@@ -56,7 +56,7 @@ iPhone-5S:~ root# ps -e
 ```  
 iPhone-5S:~ root# cycript -p WeChat   
 cy# [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]
-#"file:///var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/"  
+#file:///var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/ 
 
 ```  
 执行到这里我们已经找到了微信的Documents位置，正式开始砸壳！
