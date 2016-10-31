@@ -53,16 +53,15 @@ iPhone-5S:~ root# ps -e
 可以看到目前手机运行的进程中有微信的影子`/var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat` 我们已经找到微信可执行文件的位置
 ##### 目标锁定，定位到目标App的Documents位置  
  
-```
-iPhone-5S:~ root# cycript -p WeChat     
+```  
+iPhone-5S:~ root# cycript -p WeChat   
 cy# [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]
 #"file:///var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/"  
 ```  
-执行到这里我们已经找到了微信的Documents位置，正式开始砸壳！
 
+执行到这里我们已经找到了微信的Documents位置，正式开始砸壳！
 > 这里有两种方式，一种是scp命令行拷贝  
 > 另一种是iFunBox工具操作  
-
 我这里采用的是第一种scp命令行  
   
 ```
