@@ -18,12 +18,12 @@ tags:
 ##  正文
 ###	一、SSH连接手机（USB模式）
 ####	1.映射端口
-```
+```shell
 LeonLei-MBP:~ gaoshilei$ /Users/gaoshilei/Desktop/reverse/USBSSH/tcprelay.py -t 22:6666
 Forwarding local port 6666 to remote port 22
 ```
 ####	2.连接手机，并且用grep命令快速筛选当前我们要调试的应用Preferences，附加debugserver开始1234端口等待lldb调试
-```
+```OC
 LeonLei-MBP:~ gaoshilei$ ssh root@localhost -p 6666
 iPhone-5S:~ root# ps -e | grep Pre
   270 ??         0:00.29 /System/Library/PrivateFrameworks/MobileSoftwareUpdate.framework/XPCServices/com.apple.MobileSoftwareUpdate.CleanupPreparePathService.xpc/com.apple.MobileSoftwareUpdate.CleanupPreparePathService
@@ -36,14 +36,14 @@ Attaching to process Preferences...
 Listening to port 1234 for a connection from *...
 ```
 ####	3.完成以上两步接下来就可以进行lldb调试了，首先要把远端（手机）的1234端口映射到本地，跟前面提到的SSH端口映射一样
-```
+```Object-C
 LeonLei-MBP:~ gaoshilei$ /Users/gaoshilei/Desktop/reverse/USBSSH/tcprelay.py -t 1234:1234
 Forwarding local port 1234 to remote port 1234
 ```
 ###	二、通过LLDB、IDA寻找线索
 lldb的调试端口已经打开，此时我们可以进入调试
 
-```
+```js
 LeonLei-MBP:~ gaoshilei$ lldb
 (lldb) process connect connect://localhost:1234
 Process 1192 stopped  
@@ -58,7 +58,7 @@ libsystem_kernel.dylib`mach_msg_overwrite_trap:
 ```
 此时我们已经成功进入Preferences的调试阶段，先c一下，让程序继续运行
   
-```
+```shell
 (lldb) c
 Process 1192 resuming
 ```
