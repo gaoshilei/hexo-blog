@@ -30,7 +30,7 @@ permalink: hexo-collapsible-toc
 
 - 审查元素，观察到生成后的目录 HTML 结构大致如下
 
-```html
+```
 <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     <ol class="toc">
