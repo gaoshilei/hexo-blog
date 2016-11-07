@@ -451,7 +451,7 @@
     <div id="comment-box" ></div>
     <div class="ds-thread" id="ds-thread" data-thread-key="2015/08/19/blog-building/" data-title="VPS搭建高速VPN服务器" data-url="http://www.gaoshilei.com/2015/08/19/blog-building/"></div>
     <script>
-        var duoshuoQuery = {short_name:"http://leonlei.duoshuo.com"};
+        var duoshuoQuery = {short_name:"leonlei"};
         var loadComment = function(){
             var d = document, s = d.createElement('script');
             s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
@@ -462,7 +462,7 @@
         
             // Add comment count
             $(function(){ 
-                var jsonUrl = "http://api.duoshuo.com/threads/counts.jsonp?short_name=http://leonlei.duoshuo.com&threads=2015/08/19/blog-building/&callback=?";
+                var jsonUrl = "http://api.duoshuo.com/threads/counts.jsonp?short_name=leonlei&threads=2015/08/19/blog-building/&callback=?";
                 $.getJSON(jsonUrl, function(result){
                     $.each(result.response, function(i, field){
                         var value = field.comments;
@@ -543,24 +543,6 @@
                powered by  <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a> <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>| </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
         
     </div>
 </footer>
