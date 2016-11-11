@@ -1,16 +1,11 @@
 title: VPS搭建高速VPN服务器
-date: 2015-08-20
+date: 2016-05-20
 categories:
-- 术业专攻
+- 实用工具
 tags:
-- GitHub
-- Hexo
-- WordPress
-- JavaScript
-- Markdown
-- HTML
-- CSS
-- jQuery
+- VPS
+- VPN
+- Shadowsockts
 permalink: blog-building
 top: 1
 
