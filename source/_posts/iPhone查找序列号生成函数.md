@@ -1,5 +1,5 @@
 title: iPhone查找序列号生成函数
-date: 2015-08-03 
+date: 2016-09-08
 categories:
 - iOS逆向
 tags:
