@@ -8,7 +8,7 @@ tags:
 permalink: Xcode编译报错Undefined symbols解决方案
 
 ---
-####当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：
+####  当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：
 
 ```
 `Undefined symbols for architecture x86_64:
@@ -23,23 +23,19 @@ permalink: Xcode编译报错Undefined symbols解决方案
 ```
 <!-- more -->
 网上各种说法都有，不过每个人遇到的情况可能不一样，个人总结了3个方案供参考：
-* ####所连接的静态库不支持 x86_64，解决方案：
-
+* ####  所连接的静态库不支持 x86_64，解决方案：
 
 1. 打开Pods的`Build Setting` ，添加`X86_64`architecture
 2. 设置`Build Active Architectures Only`为`NO`
 3. Clean Pods
 4. Build 项目
 
-
-* ####OtherLink Flags问题，解决方案：
-
+* ####  OtherLink Flags问题，解决方案：
 
 打开项目的`TARGETS` > `Build Settings` >`OTHER_LDFLAGS `
 添加` $(inherited)`
 
-* #### 编译文件出错，解决方案：
-
+* ####  编译文件出错，解决方案：
 
 1. 找到
 /Users/***YourName***/Library/Developer/Xcode/DerivedData/***YourProject***/Build/Products/Debug-iphoneos
