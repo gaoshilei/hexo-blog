@@ -15,19 +15,16 @@
 
 
 
-<meta name="description" content="####当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：
-123456789`Undefined symbols for architecture x86_64:  &amp;quot;_OBJC_CLASS_$_AFHTTPRequestOperation&amp;quot;, referenced from:      objc-class-ref in ZRAPIClient.o  &amp;qu">
+<meta name="description" content="当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：123456789`Undefined symbols for architecture x86_64:  &amp;quot;_OBJC_CLASS_$_AFHTTPRequestOperation&amp;quot;, referenced from:      objc-class-ref in ZRAPIClient.o  &amp;quot;_O">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xcode编译报错Undefined symbols解决方案">
 <meta property="og:url" content="http://www.gaoshilei.com/2016/03/15/Xcode编译报错Undefined symbols解决方案/index.html">
 <meta property="og:site_name" content="LeonLei的博客">
-<meta property="og:description" content="####当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：
-123456789`Undefined symbols for architecture x86_64:  &amp;quot;_OBJC_CLASS_$_AFHTTPRequestOperation&amp;quot;, referenced from:      objc-class-ref in ZRAPIClient.o  &amp;qu">
-<meta property="og:updated_time" content="2016-11-11T10:36:32.510Z">
+<meta property="og:description" content="当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：123456789`Undefined symbols for architecture x86_64:  &amp;quot;_OBJC_CLASS_$_AFHTTPRequestOperation&amp;quot;, referenced from:      objc-class-ref in ZRAPIClient.o  &amp;quot;_O">
+<meta property="og:updated_time" content="2016-11-11T10:40:19.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xcode编译报错Undefined symbols解决方案">
-<meta name="twitter:description" content="####当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：
-123456789`Undefined symbols for architecture x86_64:  &amp;quot;_OBJC_CLASS_$_AFHTTPRequestOperation&amp;quot;, referenced from:      objc-class-ref in ZRAPIClient.o  &amp;qu">
+<meta name="twitter:description" content="当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：123456789`Undefined symbols for architecture x86_64:  &amp;quot;_OBJC_CLASS_$_AFHTTPRequestOperation&amp;quot;, referenced from:      objc-class-ref in ZRAPIClient.o  &amp;quot;_O">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -327,28 +324,18 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>####当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">`Undefined symbols for architecture x86_64:</div><div class="line">  &quot;_OBJC_CLASS_$_AFHTTPRequestOperation&quot;, referenced from:</div><div class="line">      objc-class-ref in ZRAPIClient.o</div><div class="line">  &quot;_OBJC_CLASS_$_AFHTTPRequestSerializer&quot;, referenced from:</div><div class="line">      objc-class-ref in ZRAPIClient.o</div><div class="line">  &quot;_OBJC_CLASS_$_AFJSONResponseSerializer&quot;, referenced from:</div><div class="line">      objc-class-ref in ZRAPIClient.o</div><div class="line">  &quot;_OBJC_CLASS_$_BITHockeyManager&quot;, referenced from:</div><div class="line">      objc-class-ref in ZRAppDelegate.o`</div></pre></td></tr></table></figure>
+        <h4 id="当我们用cocopods管理第三方类库时，经常遇到编译报错的问题："><a href="#当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：" class="headerlink" title="当我们用cocopods管理第三方类库时，经常遇到编译报错的问题："></a>当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">`Undefined symbols for architecture x86_64:</div><div class="line">  &quot;_OBJC_CLASS_$_AFHTTPRequestOperation&quot;, referenced from:</div><div class="line">      objc-class-ref in ZRAPIClient.o</div><div class="line">  &quot;_OBJC_CLASS_$_AFHTTPRequestSerializer&quot;, referenced from:</div><div class="line">      objc-class-ref in ZRAPIClient.o</div><div class="line">  &quot;_OBJC_CLASS_$_AFJSONResponseSerializer&quot;, referenced from:</div><div class="line">      objc-class-ref in ZRAPIClient.o</div><div class="line">  &quot;_OBJC_CLASS_$_BITHockeyManager&quot;, referenced from:</div><div class="line">      objc-class-ref in ZRAppDelegate.o`</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>网上各种说法都有，不过每个人遇到的情况可能不一样，个人总结了3个方案供参考：</p>
-<ul>
-<li>####所连接的静态库不支持 x86_64，解决方案：</li>
-</ul>
-<ol>
+<h5 id="所连接的静态库不支持-x86-64，解决方案："><a href="#所连接的静态库不支持-x86-64，解决方案：" class="headerlink" title="所连接的静态库不支持 x86_64，解决方案："></a>所连接的静态库不支持 x86_64，解决方案：</h5><ol>
 <li>打开Pods的<code>Build Setting</code> ，添加<code>X86_64</code>architecture</li>
 <li>设置<code>Build Active Architectures Only</code>为<code>NO</code></li>
 <li>Clean Pods</li>
-<li>Build 项目</li>
+<li>Build 项目  </li>
 </ol>
-<ul>
-<li>####OtherLink Flags问题，解决方案：</li>
-</ul>
-<p>打开项目的<code>TARGETS</code> &gt; <code>Build Settings</code> &gt;<code>OTHER_LDFLAGS</code><br>添加<code>$(inherited)</code></p>
-<ul>
-<li><h4 id="编译文件出错，解决方案："><a href="#编译文件出错，解决方案：" class="headerlink" title="编译文件出错，解决方案："></a>编译文件出错，解决方案：</h4></li>
-</ul>
-<ol>
-<li>找到<br>/Users/<strong><em>YourName</em></strong>/Library/Developer/Xcode/DerivedData/<strong><em>YourProject</em></strong>/Build/Products/Debug-iphoneos</li>
+<h5 id="OtherLink-Flags问题，解决方案："><a href="#OtherLink-Flags问题，解决方案：" class="headerlink" title="OtherLink Flags问题，解决方案："></a>OtherLink Flags问题，解决方案：</h5><p>打开项目的<code>TARGETS</code> &gt; <code>Build Settings</code> &gt;<code>OTHER_LDFLAGS</code><br>添加<code>$(inherited)</code></p>
+<h5 id="编译文件出错，解决方案："><a href="#编译文件出错，解决方案：" class="headerlink" title="编译文件出错，解决方案："></a>编译文件出错，解决方案：</h5><ol>
+<li>找到<br><code>/Users/***YourName***/Library/Developer/Xcode/DerivedData/***YourProject***/Build/Products/Debug-iphoneos</code></li>
 <li>这里可以使用terminal命令行打开，打开终端输入 <code>open &quot;上面的路径&quot;</code>可以直接打开目录</li>
 <li>删除当前报错项目的编译文件，回到项目里面重新Build就不会报错了</li>
 </ol>
@@ -384,7 +371,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#编译文件出错，解决方案："><span class="toc-number">1.</span> <span class="toc-text">编译文件出错，解决方案：</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#当我们用cocopods管理第三方类库时，经常遇到编译报错的问题："><span class="toc-number">1.</span> <span class="toc-text">当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#所连接的静态库不支持-x86-64，解决方案："><span class="toc-number">1.1.</span> <span class="toc-text">所连接的静态库不支持 x86_64，解决方案：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#OtherLink-Flags问题，解决方案："><span class="toc-number">1.2.</span> <span class="toc-text">OtherLink Flags问题，解决方案：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编译文件出错，解决方案："><span class="toc-number">1.3.</span> <span class="toc-text">编译文件出错，解决方案：</span></a></li></ol></li></ol>
         
     </div>
     <style>
