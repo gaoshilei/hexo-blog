@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="LeonLei" />
+
+
+
+<meta name="description" content="title: 手把手教你逆向微信之朋友圈小视频转发（下）date: 2016-11-11categories:
+
+逆向工程tags:
+微信
+逆向工程
+重签名
+
+permalink: blog-building
+
+   接上篇《手把手教你逆向微信之朋友圈小视频转发（上）》
+
+代码编写及重签名打包安装 （下篇）小视频的转发支持4个功能，转发至朋友圈、转发至好友、保存到本地相册、拷贝小视频链接到粘贴板。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeonLei的博客">
+<meta property="og:url" content="http://www.gaoshilei.com/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/index.html">
+<meta property="og:site_name" content="LeonLei的博客">
+<meta property="og:description" content="title: 手把手教你逆向微信之朋友圈小视频转发（下）date: 2016-11-11categories:
+
+逆向工程tags:
+微信
+逆向工程
+重签名
+
+permalink: blog-building
+
+   接上篇《手把手教你逆向微信之朋友圈小视频转发（上）》
+
+代码编写及重签名打包安装 （下篇）小视频的转发支持4个功能，转发至朋友圈、转发至好友、保存到本地相册、拷贝小视频链接到粘贴板。">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8DiOSDev.png">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E7%BC%96%E8%AF%91%E5%A5%BD%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93.png">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-iOSAppSigner.png">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91%E6%95%88%E6%9E%9C%E5%9B%BE.jpg">
+<meta property="og:updated_time" content="2016-11-11T06:52:55.790Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeonLei的博客">
+<meta name="twitter:description" content="title: 手把手教你逆向微信之朋友圈小视频转发（下）date: 2016-11-11categories:
+
+逆向工程tags:
+微信
+逆向工程
+重签名
+
+permalink: blog-building
+
+   接上篇《手把手教你逆向微信之朋友圈小视频转发（上）》
+
+代码编写及重签名打包安装 （下篇）小视频的转发支持4个功能，转发至朋友圈、转发至好友、保存到本地相册、拷贝小视频链接到粘贴板。">
+<meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8DiOSDev.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="LeonLei的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="http://oeat6c2zg.bkt.clouddn.com/12829050723725-1.jpg">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>LeonLei的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="http://oeat6c2zg.bkt.clouddn.com/12829050723725-1.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">LeonLei</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">代码略懂，精通LOL</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:goslei1315@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/goslei1226" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/gaoshilei" title="GitHub"></a>
+                            
+                                <a class="fa Facebook" href="https://www.facebook.com/profile.php?id=100002888296778" title="Facebook"></a>
+                            
+                                <a class="fa Twitter" href="https://twitter.com/LeonLei_Gao" title="Twitter"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shadowsockts/">Shadowsockts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDID/">UDID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPN/">VPN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPS/">VPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serial-Number/">serial Number</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="/">friends</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">一个脱离了低级趣味的伪全栈iOS攻城狮</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">LeonLei</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="http://oeat6c2zg.bkt.clouddn.com/12829050723725-1.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">LeonLei</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">代码略懂，精通LOL</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:goslei1315@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/goslei1226" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/gaoshilei" title="GitHub"></a>
+                            
+                                <a class="fa Facebook" target="_blank" href="https://www.facebook.com/profile.php?id=100002888296778" title="Facebook"></a>
+                            
+                                <a class="fa Twitter" target="_blank" href="https://twitter.com/LeonLei_Gao" title="Twitter"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-手把手教你逆向微信之朋友圈小视频转发（下）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/" class="article-date">
+      <time datetime="2016-11-11T06:52:55.790Z" itemprop="datePublished">2016-11-11</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>title: 手把手教你逆向微信之朋友圈小视频转发（下）<br>date: 2016-11-11<br>categories:</p>
+<ul>
+<li>逆向工程<br>tags:</li>
+<li>微信</li>
+<li>逆向工程</li>
+<li>重签名</li>
+</ul>
+<p>permalink: blog-building</p>
+<blockquote>
+<p>   接上篇<a href="">《手把手教你逆向微信之朋友圈小视频转发（上）》</a></p>
+</blockquote>
+<h2 id="代码编写及重签名打包安装-（下篇）"><a href="#代码编写及重签名打包安装-（下篇）" class="headerlink" title="代码编写及重签名打包安装 （下篇）"></a>代码编写及重签名打包安装 （下篇）</h2><p>小视频的转发支持4个功能，转发至朋友圈、转发至好友、保存到本地相册、拷贝小视频链接到粘贴板。如果小视频没有下载长按时只会出现拷贝url链接。 </p>
+<p><em>（非越狱机和不想利用tweak安装的越狱机<a href="#section_two">点我跳到第二节</a>）</em></p>
+<h3 id="1-越狱机打包安装（tweak安装）"><a href="#1-越狱机打包安装（tweak安装）" class="headerlink" title="1.越狱机打包安装（tweak安装）"></a>1.越狱机打包安装（tweak安装）</h3><ol>
+<li>新建tweak工程</li>
+<li>编写tweak文件</li>
+</ol>
+<p>这里要hook两个类，分别是WCContentItemViewTemplateNewSight和SightMomentEditViewController，在WCContentItemViewTemplateNewSight中hook住onLongTouch方法然后添加menu弹出菜单，依次添加响应的方法，具体的代码如下：  </p>
+<ul>
+<li>拷贝小视频的url链接</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">  NSString *localPath = [[self iOSREMediaItemFromSight] pathForSightData];</div><div class="line">    UISaveVideoAtPathToSavedPhotosAlbum(localPath, nil, nil, nil);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>保存小视频到本地相册</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSString *localPath = [[self iOSREMediaItemFromSight] pathForSightData];</div><div class="line">    UISaveVideoAtPathToSavedPhotosAlbum(localPath, nil, nil, nil);</div></pre></td></tr></table></figure>
+<ul>
+<li>转发到朋友圈</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">SightMomentEditViewController *editSightVC = [[%c(SightMomentEditViewController) alloc] init];</div><div class="line">   NSString *localPath = [[self iOSREMediaItemFromSight] pathForSightData];</div><div class="line">   UIImage *image = [[self valueForKey:@&quot;_sightView&quot;] getImage];</div><div class="line">   [editSightVC setRealMoviePath:localPath];</div><div class="line">   [editSightVC setMoviePath:localPath];</div><div class="line">   [editSightVC setRealThumbImage:image];</div><div class="line">   [editSightVC setThumbImage:image];</div><div class="line">   [WCTimelineVC presentViewController:editSightVC animated:YES completion:^&#123;</div><div class="line"></div><div class="line">   &#125;];</div></pre></td></tr></table></figure>
+<ul>
+<li>转发给好友</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[self sendSightToFriend];</div></pre></td></tr></table></figure>
+<ul>
+<li>长按手势</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">UIMenuController *menuController = [UIMenuController sharedMenuController];</div><div class="line">if (menuController.isMenuVisible) return;//防止出现menu闪屏的情况</div><div class="line">[self becomeFirstResponder];</div><div class="line">NSString *localPath = [[self iOSREMediaItemFromSight] pathForSightData];</div><div class="line">BOOL isExist =[[NSFileManager defaultManager] fileExistsAtPath:localPath];</div><div class="line">UIMenuItem *retweetMenuItem = [[UIMenuItem alloc] initWithTitle:@&quot;朋友圈&quot; action:@selector(SLRetweetSight)];</div><div class="line">UIMenuItem *saveToDiskMenuItem = [[UIMenuItem alloc] initWithTitle:@&quot;保存到相册&quot; action:@selector(SLSightSaveToDisk)];</div><div class="line">UIMenuItem *sendToFriendsMenuItem = [[UIMenuItem alloc] initWithTitle:@&quot;好友&quot; action:@selector(SLSightSendToFriends)];</div><div class="line">UIMenuItem *copyURLMenuItem = [[UIMenuItem alloc] initWithTitle:@&quot;复制链接&quot; action:@selector(SLSightCopyUrl)];</div><div class="line">if(isExist)&#123;</div><div class="line">    [menuController setMenuItems:@[retweetMenuItem,sendToFriendsMenuItem,saveToDiskMenuItem,copyURLMenuItem]];</div><div class="line">&#125;else&#123;</div><div class="line">    [menuController setMenuItems:@[copyURLMenuItem]];</div><div class="line">&#125;</div><div class="line">[menuController setTargetRect:CGRectZero inView:self];</div><div class="line">[menuController setMenuVisible:YES animated:YES];</div></pre></td></tr></table></figure>
+<p>具体的tweak文件我放在了github上，<a href="https://github.com/gaoshilei/WCSightRetweet" target="_blank" rel="external">WCSightRetweet传送门</a></p>
+<ol>
+<li>编写WCTimelineRetweet.h头文件<br>编写这个头文件的目的是防止tweak在编译期间报错，我们可以在编写好tweak试着编译一下，然后根据报错信息来添加这个头文件的内容，在这个文件中要声明在tweak我们用到的微信的类和方法，具体请看代码：  </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">@interface WCUrl : NSObject</div><div class="line">@property(retain, nonatomic) NSString *url;</div><div class="line">@end</div><div class="line">@interface WCContentItem : NSObject</div><div class="line">@property(retain, nonatomic) NSMutableArray *mediaList;</div><div class="line">@end</div><div class="line">@interface WCDataItem : NSObject</div><div class="line">@property(retain, nonatomic) WCContentItem *contentObj;</div><div class="line">@end</div><div class="line">@interface WCMediaItem : NSObject</div><div class="line">@property(retain, nonatomic) WCUrl *dataUrl;</div><div class="line">- (id)pathForSightData;</div><div class="line">@end</div><div class="line">@interface MMServiceCenter : NSObject</div><div class="line">+ (id)defaultCenter;</div><div class="line">- (id)getService:(Class)arg1;</div><div class="line">@end</div><div class="line">@interface WCFacade : NSObject</div><div class="line">- (id)getTimelineDataItemOfIndex:(long long)arg1;</div><div class="line">@end</div><div class="line">@interface WCSightView : UIView</div><div class="line">- (id)getImage;</div><div class="line">@end</div><div class="line">@interface WCContentItemViewTemplateNewSight : UIView&#123;</div><div class="line">    WCSightView *_sightView;</div><div class="line">&#125;</div><div class="line">- (WCMediaItem *)iOSREMediaItemFromSight;</div><div class="line">- (void)iOSREOnSaveToDisk;</div><div class="line">- (void)iOSREOnCopyURL;</div><div class="line">- (void)sendSightToFriend;</div><div class="line">@end</div><div class="line">@interface SightMomentEditViewController : UIViewController</div><div class="line">@property(retain, nonatomic) NSString *moviePath;</div><div class="line">@property(retain, nonatomic) NSString *realMoviePath;</div><div class="line">@property(retain, nonatomic) UIImage *thumbImage;</div><div class="line">@property(retain, nonatomic) UIImage *realThumbImage;</div><div class="line">- (void)makeInputController;</div><div class="line">@end</div><div class="line">@interface MMWindowController : NSObject</div><div class="line">- (id)initWithViewController:(id)arg1 windowLevel:(int)arg2;</div><div class="line">- (void)showWindowAnimated:(_Bool)arg1;</div><div class="line">@end</div><div class="line">@interface WCTimeLineViewController : UIViewController</div><div class="line">- (long long)calcDataItemIndex:(long long)arg1;</div><div class="line">@end</div><div class="line">@interface MMTableViewCell : UIView</div><div class="line">@end</div><div class="line">@interface MMTableView : UIView</div><div class="line">- (id)indexPathForCell:(id)cell;</div><div class="line">@end</div><div class="line">```  </div><div class="line">4.	Makefile文件修改</div><div class="line"></div><div class="line">```OC</div><div class="line">THEOS_DEVICE_IP = 192.168.0.115//手机所在的IP</div><div class="line">include $(THEOS)/makefiles/common.mk</div><div class="line">ARCHS = arm64//支持的CPU架构</div><div class="line">TWEAK_NAME = WCTimelineSightRetweet</div><div class="line">WCTimelineSightRetweet_FILES = Tweak.xm</div><div class="line">WCTimelineSightRetweet_FRAMEWORKS = UIKit CoreGraphics//导入系统的framework</div><div class="line">include $(THEOS_MAKE_PATH)/tweak.mk</div><div class="line"></div><div class="line">after-install::</div><div class="line">	install.exec &quot;killall -9 WeChat&quot;//安装完成杀掉的进程</div></pre></td></tr></table></figure>
+<p>control文件不需要做修改，然后执行命令<code>make package install</code>安装到手机，微信会被杀掉，然后再次打开微信转发小视频的功能已经加上了。  </p>
+<h3 id="2-微信重签名打包安装"><a href="#2-微信重签名打包安装" class="headerlink" title="2.微信重签名打包安装 "></a><span id="section_two">2.微信重签名打包安装 </span></h3><h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><h5 id="（1）-安装iOSOpenDev"><a href="#（1）-安装iOSOpenDev" class="headerlink" title="（1）    安装iOSOpenDev"></a>（1）    安装iOSOpenDev</h5><ol>
+<li><p>安装 <a href="https://www.macports.org/install.php" target="_blank" rel="external">macports</a> (安装过程需要连接VPN,否则无法安装成功)</p>
+</li>
+<li><p>安装完MacPorts后打开终端，输入 <code>sudo port -v selfupdate</code> 更新MacPorts到最新版本，时间可能比较长。</p>
+</li>
+<li><p>更新完MacPorts后安装DPKG文件，在终端输入<code>sudo port -f install dpkg</code></p>
+</li>
+<li><p>下载安装 <a href="http://iosopendev.com/download" target="_blank" rel="external">iOSOpendev</a> 如果安装失败，可以通过 <code>Command + L</code> 查看安装中出现的问题。</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">PackageKit: Install Failed: Error Domain=PKInstallErrorDomain Code=112 &quot;运行软件包“iOSOpenDev-1.6-2.pkg”的脚本时出错。&quot; UserInfo=&#123;NSFilePath=./postinstall, NSURL=file://localhost/Users/ice/Downloads/iOSOpenDev-1.6-2.pkg#iodsetup.pkg, PKInstallPackageIdentifier=com.iosopendev.iosopendev162.iod-setup.pkg, NSLocalizedDescription=运行软件包“iOSOpenDev-1.6-2.pkg”的脚本时出错。&#125; &#123;</div><div class="line">        NSFilePath = &quot;./postinstall&quot;;</div><div class="line">        NSLocalizedDescription = &quot;\U8fd0\U884c\U8f6f\U4ef6\U5305\U201ciOSOpenDev-1.6-2.pkg\U201d\U7684\U811a\U672c\U65f6\U51fa\U9519\U3002&quot;;</div><div class="line">        NSURL = &quot;file://localhost/Users/ice/Downloads/iOSOpenDev-1.6-2.pkg#iodsetup.pkg&quot;;</div><div class="line">        PKInstallPackageIdentifier = &quot;com.iosopendev.iosopendev162.iod-setup.pkg&quot;;</div><div class="line">    &#125;</div><div class="line">```  </div><div class="line">这里有一个解决方案：下载[iOSOpenDevInstallSolve](https://github.com/gaoshilei/iOSOpenDevInstallSolve)中的Specifications文件夹   </div><div class="line">5.  修复安装失败问题  </div><div class="line">打开步骤4下载的Specifications文件夹，里面应该有8个文件,如果你有安装多个xcode注意放到对应的xcode里面。  </div><div class="line">（1）iPhoneOS开头的四个文件放到/应用程序/Xcode/Content/Developer/Platforms/IphoneOS.platform/Developer/Library/Xcode/Specifications文件夹下（如果没有，请自己创建一个Specifications文件夹）  </div><div class="line">（2）iPhone Simulator 开头的另外四个文件放入/应用程序/Xcode/Content/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Specifications文件夹下(如果没有，请同样创建一个)  </div><div class="line">（3）在/应用程序/Xcode/Content/Developer/Platforms/iPhoneSimulator.platform/Developer/文件夹下创建usr文件夹，usr文件夹下再创建一个名为bin的文件夹。  </div><div class="line">**注意：有时候会提示安装失败，打开Xcode新建工程，如果在工程的选项菜单中有iOSOpenDev就表示安装成功了，不用管那个安装提示。**  </div><div class="line"></div><div class="line">#####	（2）	安装ideviceinstaller</div><div class="line">&gt;	安装ipa包用的，也可以通过itool之类的工具，不过ideviceinstaller可以看到安装过程的过程，方便我们找到出错原因。</div><div class="line"></div><div class="line">执行命令</div><div class="line"></div><div class="line">```OC</div><div class="line">brew install ideviceinstaller</div></pre></td></tr></table></figure>
+<p>如果提示brew命令找不到，那就是你的Mac还没有安装<a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">Homebrew</a><br>常见的报错信息：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR: Could not connect to lockdownd, error code -5</div></pre></td></tr></table></figure>
+<p>这个时候只要重新安装libimobiledevice就可以了（因为ideviceinstaller依赖很多其他插件）<br>执行下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$   brew uninstall libimobiledevice</div><div class="line">$   brew install --HEAD libimobiledevice</div></pre></td></tr></table></figure>
+<p>下载<a href="https://github.com/DanTheMan827/ios-app-signer" target="_blank" rel="external">iOS App Signer</a>重签名工具<em>（省去很多命令行操作，一键重签名！）</em>  </p>
+<p>（3）    下载砸壳的微信应用</p>
+<blockquote>
+<p>   因为AppStore的包是被加密（有壳），无法进行重签名，所以要用砸壳的，可以用dumpdecrypted自己砸壳，也可以直接利用PP助手或者itool助手下载越狱版已经砸过壳的微信应用。  </p>
+</blockquote>
+<p>（4）    安装yololib<br>yololib可以将dylib注入进WeChat二进制文件中，这样才能是你的Hook有作用，下载之后编译得到<a href="https://github.com/gaoshilei/yololib" target="_blank" rel="external">yololib</a></p>
+<h4 id="代码注入以及打包安装"><a href="#代码注入以及打包安装" class="headerlink" title="代码注入以及打包安装"></a>代码注入以及打包安装</h4><p>#####（1）生成静态库<br>在上一步中已经安装好iOSOpendev，此时打开Xcode新建项目，在选择工程界面会出现iOSOpendev的工程，这里我们要选择CaptainHook Tweak项目<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8DiOSDev.png" alt="iOSOpenDev"><br>新建好的工程只有一个.mm文件，我们只需要把所有hook方法写在这个文件中即可。<br>因为非越狱机不能像越狱机一样可以安装tweak插件对原来的应用进行hook，CaptainHook使用的Runtime机制实现，利用宏命令封装类定义、方法替换等功能，简单介绍它的使用方法：  </p>
+<ol>
+<li>hook某个类</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CHDeclareClass(WCContentItemViewTemplateNewSight);</div></pre></td></tr></table></figure>
+<p><code>CHDeclareClass(ClassName)</code>表示要hook哪个类，一般写在对这个类操作的最前面。</p>
+<ol>
+<li>在hook的类种新建方法  </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CHDeclareMethod0(id, WCContentItemViewTemplateNewSight, SLSightDataItem)&#123;......&#125;</div></pre></td></tr></table></figure>
+<p><code>CHDeclareMethod(count, return_type, class_type, name1, arg1, ....)</code>表示新建一个方法，count表示这个方法的参数个数，return_type表示返回类型，class_type填写这个方法所在的类名，name1表示方法名，arg1表示第一个参数，如果没有参数则不填，以此类推。  </p>
+<ol>
+<li>hook原来的方法  </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CHOptimizedMethod0(self, void, WCContentItemViewTemplateNewSight, onLongTouch)&#123;</div><div class="line">CHSuper(0, className, Method);//可选</div><div class="line">......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>CHOptimizedMethod(count, optimization, return_type, class_type, name1, type1, arg1)</code> 表示hook原来的方法（如果不加<code>CHSuper(0, className, Method)</code>表示复写原来的方法，CHSuper表示在当前位置调用原来的方法实现），count表示hook的方法参数个数，optimization一般填self，return_type即方法返回值类型，class_type填当前类的类名，name1是方法名，arg1是参数，如果没有参数不同填写arg，以此类推。  </p>
+<ol>
+<li>构造函数</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">CHConstructor</div><div class="line">&#123;</div><div class="line">    @autoreleasepool</div><div class="line">    &#123;</div><div class="line">        CHLoadLateClass(WCContentItemViewTemplateNewSight);</div><div class="line">        CHHook(0, WCContentItemViewTemplateNewSight, onLongTouch);    </div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是CaptainHook的入口函数，所有被hook的类必须在这里声明加载，类里面的方法要在这里声明hook。<br>然后就可以往类和方法中写代码了，代码太长不贴了，请自行下载<br><strong><a href="https://github.com/gaoshilei/MMPlugin" target="_blank" rel="external">MMPlugin传送门</a></strong><br><strong>这个项目中包含了小视频转发、自动抢红包、修改微信运动步数功能，自动抢红包和修改微信运动步数功能可以手动关闭。</strong></p>
+<blockquote>
+<p>   注意：如果用到了系统的类记住要导入相应的类库（比方说UIKit）和头文件否则编译的时候会报错。</p>
+</blockquote>
+<p>编译成功之后就可以在Products文件夹中找到编译好的静态库了<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E7%BC%96%E8%AF%91%E5%A5%BD%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93.png" alt="编译好的静态库"><br>在finder中找到它，拷贝出来待用。</p>
+<h5 id="2-签名-打包-安装"><a href="#2-签名-打包-安装" class="headerlink" title="(2)    签名+打包+安装"></a>(2)    签名+打包+安装</h5><p>进行到这里目前应该有的材料有：</p>
+<ul>
+<li>砸壳的微信app    </li>
+<li>编译好的MMPlugin.dylib</li>
+<li>安装好的iOS App Signer</li>
+<li>编译好的yololib文件  </li>
+<li>ideviceinstaller</li>
+</ul>
+<p>从原来的微信app中找到WeChat二进制文件拷贝出来待用，<strong>删除weChat.app中的Watch文件夹、PlugIns文件夹中的WeChatShareExtensionNew.appex</strong>，这步操作必须要做，不然安装的时候会报签名错误。<br>执行下面的命令将MMPlugin.dylib注入到WeChat二进制文件中，命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:WeChat gaoshilei$ ./yololib WeChat MMPlugin.dylib</div></pre></td></tr></table></figure>
+<p><strong>执行这个命令时要确保yololib、WeChat、WeChat.app处于同一目录下。</strong> </p>
+<p>完成之后将MMPlugin.dylib和WeChat拷贝到原来的WeChat.app中，覆盖掉原来的WeChat文件。<br>打开iOS App Signer按照下图选择好各项参数：<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-iOSAppSigner.png" alt="iOS App Signer"><br>我这里选择的是企业级证书，个人开发者证书也是可以的，一定要选择生产环境的，选好之后点击start，稍等片刻一个经过重签名的ipa包就生成了。<br>连上你的手机执行下面的命令查看ideviceinstaller是否连接上手机：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:WeChat gaoshilei$ ideviceinfo</div></pre></td></tr></table></figure>
+<p>如果打印出一大堆手机的信息表示连接成功可以安装ipa包，如果不成功请根据错误提示进行调整。执行下面的命令进行安装：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:WeChat gaoshilei$ ideviceinstaller -i WeChat.ipa </div><div class="line">WARNING: could not locate iTunesMetadata.plist in archive!</div><div class="line">WARNING: could not locate Payload/WeChat.app/SC_Info/WeChat.sinf in archive!</div><div class="line">Copying &apos;WeChat.ipa&apos; to device... DONE.</div><div class="line">Installing &apos;com.xxxxxxxxxxxx&apos;</div><div class="line"> - CreatingStagingDirectory (5%)</div><div class="line"> - ExtractingPackage (15%)</div><div class="line"> - InspectingPackage (20%)</div><div class="line"> - TakingInstallLock (20%)</div><div class="line"> - PreflightingApplication (30%)</div><div class="line"> - InstallingEmbeddedProfile (30%)</div><div class="line"> - VerifyingApplication (40%)</div><div class="line"> - CreatingContainer (50%)</div><div class="line"> - InstallingApplication (60%)</div><div class="line"> - PostflightingApplication (70%)</div><div class="line"> - SandboxingApplication (80%)</div><div class="line"> - GeneratingApplicationMap (90%)</div><div class="line"> - Complete</div></pre></td></tr></table></figure>
+<p>安装完成，在手机上打开微信试试我们添加的新功能吧！如果某个环节卡住会报错，请根据报错信息进行修改。请看效果图：<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91%E6%95%88%E6%9E%9C%E5%9B%BE.jpg" alt="小视频转发">  </p>
+<h4 id="有任何问题请在文章评论区留言，或者在博客首页点击邮件联系我。"><a href="#有任何问题请在文章评论区留言，或者在博客首页点击邮件联系我。" class="headerlink" title="有任何问题请在文章评论区留言，或者在博客首页点击邮件联系我。"></a>有任何问题请在文章评论区留言，或者在博客首页点击邮件联系我。</h4>
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（上）/">
+                    
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/07/17/dumpdecrypted给App砸壳/">
+                    dumpdecrypted给App砸壳
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#代码编写及重签名打包安装-（下篇）"><span class="toc-number">1.</span> <span class="toc-text">代码编写及重签名打包安装 （下篇）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-越狱机打包安装（tweak安装）"><span class="toc-number">1.1.</span> <span class="toc-text">1.越狱机打包安装（tweak安装）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-微信重签名打包安装"><span class="toc-number">1.2.</span> <span class="toc-text">2.微信重签名打包安装 </span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#准备工作"><span class="toc-number">1.2.1.</span> <span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#（1）-安装iOSOpenDev"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">（1）    安装iOSOpenDev</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码注入以及打包安装"><span class="toc-number">1.2.2.</span> <span class="toc-text">代码注入以及打包安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-签名-打包-安装"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">(2)    签名+打包+安装</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#有任何问题请在文章评论区留言，或者在博客首页点击邮件联系我。"><span class="toc-number">1.2.3.</span> <span class="toc-text">有任何问题请在文章评论区留言，或者在博客首页点击邮件联系我。</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"　| LeonLei的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/" data-title="" data-url="http://www.gaoshilei.com/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"leonlei"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = 'http://oeat6c2zg.bkt.clouddn.com/embed.js';
+	    s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（上）/" title="上一篇: ">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/07/17/dumpdecrypted给App砸壳/" title="下一篇: dumpdecrypted给App砸壳">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（上）/">手把手教你逆向微信之朋友圈小视频转发（上）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/">手把手教你逆向微信之朋友圈小视频转发（下）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/17/dumpdecrypted给App砸壳/">dumpdecrypted给App砸壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/19/blog-building/">VPS搭建高速VPN服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/08/02/iPhone查找序列号生成函数/">iPhone查找序列号生成函数</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 LeonLei
+            </div>
+            <div class="footer-right">
+               powered by  <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a> <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
