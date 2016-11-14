@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-selRef_section%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E8%80%85.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-btnRelease.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91sub_10261D0AC.png">
-<meta property="og:updated_time" content="2016-11-11T09:53:54.692Z">
+<meta property="og:updated_time" content="2016-11-14T15:26:25.382Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手把手教你逆向微信之朋友圈小视频转发（上）">
 <meta name="twitter:description" content="前言此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。本篇文章由于篇幅太长分成了两篇，上篇讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，下篇讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢">
@@ -351,7 +351,7 @@
 <li><a href="https://github.com/DanTheMan827/ios-app-signer" target="_blank" rel="external">iOS App Signer</a></li>
 <li>编译好的<a href="https://github.com/gaoshilei/yololib" target="_blank" rel="external">yololib</a></li>
 </ol>
-<p><strong>逆向环境为MacOS    +    iPhone5S 9.1越狱机</strong><br>先用dumpdecrypted给微信砸壳（不会的请我写的看<a href="http://www.gaoshilei.com/2016/07/17/dumpdecrypted给App砸壳/">这篇教程</a>），获得一个WeChat.decrypted文件，先把这个文件扔到IDA中分析（60MB左右的二进制文件，IDA差不多40分钟才能分析完），用class-dump导出所有头文件</p>
+<p><strong>逆向环境为MacOS    +    iPhone5S 9.1越狱机</strong><br>先用dumpdecrypted给微信砸壳（不会的请我写的看<a href="http://www.gaoshilei.com/2016/08/08/dumpdecrypted给App砸壳/">这篇教程</a>），获得一个WeChat.decrypted文件，先把这个文件扔到IDA中分析（60MB左右的二进制文件，IDA差不多40分钟才能分析完），用class-dump导出所有头文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:~ gaoshilei$ class-dump -S -s -H /Users/gaoshilei/Desktop/reverse/binary_for_class-dump/WeChat.decrypted -o /Users/gaoshilei/Desktop/reverse/binary_for_class-dump/class-Header/WeChat</div></pre></td></tr></table></figure>
 <p>我滴个亲娘！一共有8000个头文件，微信果然工程量浩大！稳定一下情绪，理一理思路继续搞。要取得小视频的下载链接，找到播放视频的View，顺藤摸瓜就能找到小视频的URL。用Reveal查看小视频的播放窗口<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91Reveal.png" alt="Reveal"><br>可以看出来WCContentItemViewTemplateNewSigh这个对象是小视频的播放窗口，它的subView有WCSightView，SightView、SightPlayerView，这几个类就是我们的切入点。<br>保存视频到favorite的时候是长按视频弹出选项的，那么在WCContentItemViewTemplateNewSight这个类里面可能有手势相关的方法，去刚才导出的头文件中找线索。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)onLongTouch;</div><div class="line">- (void)onLongPressedWCSight:(id)arg1;</div><div class="line">- (void)onLongPressedWCSightFullScreenWindow:(id)arg1;</div></pre></td></tr></table></figure>
