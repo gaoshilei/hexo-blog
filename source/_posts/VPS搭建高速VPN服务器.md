@@ -6,8 +6,7 @@ tags:
 - VPS
 - VPN
 - Shadowsockts
-permalink: blog-building
-top: 1
+permalink: VPS
 
 ---
 
