@@ -1,4 +1,4 @@
-title: iOS静态库的制作（包含第三方静态库）
+title: iOS静态库SDK制作（包含第三方静态库）
 date: 2016-11-18
 categories:
 - 技术笔记
