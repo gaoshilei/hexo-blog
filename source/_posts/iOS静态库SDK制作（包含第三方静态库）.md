@@ -67,7 +67,7 @@ Framework的英文释意是框架，主要由Headers、binary文件、.bundle这
 **所以总结： Framework是库的打包形式，既可以是动态库也是静态库。**
 
 ####	2.	.a静态库
-这类静态库与Framework基本类似，不同的是在打包成.a文件的同时，还需要提供头文件，使用时相较于Framework比较麻烦，（例如[微信支付SDK](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419319164&token=&lang=zh_CN)，不同的是[支付宝SDK](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.Ijm3sG&treeId=193&articleId=104509&docType=1)是以framework的形式打包的）。.a这样打包不够方便，而Framework编译完成暴露的头文件都已经放好了。 
+这类静态库与Framework基本类似，不同的是在打包成.a文件的同时，还需要提供头文件，使用时相较于Framework比较麻烦，（例如[微信支付SDK](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419319164&token=&lang=zh_CN)使用的是.a，不同的是[支付宝SDK](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.Ijm3sG&treeId=193&articleId=104509&docType=1)是以framework的形式打包的）。.a这样打包不够方便，而Framework编译完成暴露的头文件都已经放好了。 
 
 ####	3.	.dylib/.tbd 动态库 
 这类动态库我们也经常用，基本上都是系统提供的，一般不能自己制作，就算你通过其他方式制作使用，也肯定不能上架的，这里没什么好讲的。 
