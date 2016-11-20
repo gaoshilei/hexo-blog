@@ -1,5 +1,5 @@
 ---
-title: iOS静态库SDK制作包含第三方静态库
+title: iOS静态库SDK制作（包含第三方静态库）
 date: 2016-11-18
 categories:
 - 技术笔记
@@ -8,7 +8,8 @@ tags:
 - 动态库
 - framework
 - SDK
-permalink:frameworkmade  
+permalink: Static Library 
+
 ---
 
 ##		前言  
