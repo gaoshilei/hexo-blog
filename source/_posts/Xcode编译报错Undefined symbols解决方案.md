@@ -23,6 +23,8 @@ permalink: Xcode编译报错Undefined symbols解决方案
 ```
 
 <!-- more -->
+
+转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com)
 网上各种说法都有，不过每个人遇到的情况可能不一样，个人总结了3个方案供参考：
 #####  所连接的静态库不支持 x86_64，解决方案：
 
