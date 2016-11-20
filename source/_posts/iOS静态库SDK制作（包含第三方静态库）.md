@@ -19,7 +19,6 @@ permalink: Static Library
 
 <!-- more -->
 
-[个人博客传送门](http://www.gaoshilei.com)   欢迎交流学习！
 ##		一.	静态库和动态库的详细介绍  
 我们平时的工程中或多或少都要引入第三方的SDK，就算你没有引入第三方的，至少引用过系统的Framework吧？其实这些SDK和Framework都属于库，库又分为静态库和动态库，我们平时导入的第三方SDK有的是Framework，有的是.a，到底哪些是动态库，哪些是静态库呢？下面分别介绍静态库、动态库，Framework和.a以及.dylib/.tbd区别  	
 ###	一.	静态库与动态库
@@ -68,12 +67,12 @@ Framework的英文释意是框架，主要由Headers、binary文件、.bundle这
 **所以总结： Framework是库的打包形式，既可以是动态库也是静态库。**
 
 ####	2.	.a静态库
-这类静态库与Framework基本类似，不同的是在打包成.a文件的同时，还需要提供头文件，使用时相较于Framework比较麻烦，（例如[微信支付SDK](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419319164&token=&lang=zh_CN)）。这样打包不够方便，Framework编译完成暴露的头文件都已经放好了。  
+这类静态库与Framework基本类似，不同的是在打包成.a文件的同时，还需要提供头文件，使用时相较于Framework比较麻烦，（例如[微信支付SDK](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419319164&token=&lang=zh_CN)，不同的是[支付宝SDK](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.Ijm3sG&treeId=193&articleId=104509&docType=1)是以framework的形式打包的）。.a这样打包不够方便，而Framework编译完成暴露的头文件都已经放好了。 
 
 ####	3.	.dylib/.tbd 动态库 
 这类动态库我们也经常用，基本上都是系统提供的，一般不能自己制作，就算你通过其他方式制作使用，也肯定不能上架的，这里没什么好讲的。 
 
-##		二.	FrameWork（静态库+动态库）的制作
+##		二.	Framework的制作
 动态库与静态库的制作流程基本一样，包括头文件的暴露等，唯一不同的是Mach-O文件的编译形式。本节将介绍Xcode制作Framework的过程，本次制作的Framework静态库依赖其他第三方静态库（Framework和.a）。
 
 1>	新建工程
