@@ -45,7 +45,7 @@ Forwarding local port 1234 to remote port 1234
 ###	二、通过LLDB、IDA寻找线索
 lldb的调试端口已经打开，此时我们可以进入调试
 
-```js
+```
 LeonLei-MBP:~ gaoshilei$ lldb
 (lldb) process connect connect://localhost:1234
 Process 1192 stopped  
@@ -60,7 +60,7 @@ libsystem_kernel.dylib`mach_msg_overwrite_trap:
 ```
 此时我们已经成功进入Preferences的调试阶段，先c一下，让程序继续运行
   
-```shell
+```
 (lldb) c
 Process 1192 resuming
 ```
@@ -80,7 +80,7 @@ Process 1192 resuming
 ```
 我们要找的image的序号在这里是44，它的基地址偏移为0x2e50000，我们把从iPhone中导出的PrivateFrameworks中的Preferences.framework丢到IDA中进行分析，这个二进制文件比较小，很快就分析完成，在前面我们已经知道iPhone的唯一序列号serial number是通过PSListController生成的，并且我们知道这是一个cell，我们要去调试`[PSListController tableView:cellForRowAtIndexPath:]`这个方法，从中找到cell值的来源，从而找到获取序列号的方法。
 
-```
+```ObjC
 __text:00000001908040C8 ; -[PSListController tableView:cellForRowAtIndexPath:]
 __text:00000001908040C8 __PSListController_tableView_cellForRowAtIndexPath__
 __text:00000001908040C8                                         ; DATA XREF: __objc_const:000000019C069B88o
