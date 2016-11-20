@@ -405,7 +405,7 @@ DNPMVG0EFF9V
 tweak的创建这里就不赘述了，我把我的tweak和makefile文件内容贴一下：
 > tweak文件：
 
-```
+```ObjC
 tweak.xm:
 extern "C" NSString *MGCopyAnswer(NSString*);
 %hook SpringBoard
@@ -420,7 +420,7 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:serialNumber message:nil
 这里注入系统的SpringBoard，在SB启动的时候hook住applicationDidFinishLaunching：函数，并且在这个函数里面添加获取序列号的代码，并且以弹框的形式展现出来。  
 > makefile文件:
 
-```
+```logo
 THEOS_DEVICE_IP = 192.168.0.115
 include $(THEOS)/makefiles/common.mk
 TWEAK_NAME = SerialNumber
