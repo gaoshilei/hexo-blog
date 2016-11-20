@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E7%BC%96%E8%AF%91%E5%A5%BD%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-iOSAppSigner.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91%E6%95%88%E6%9E%9C%E5%9B%BE.jpg">
-<meta property="og:updated_time" content="2016-11-11T09:42:02.823Z">
+<meta property="og:updated_time" content="2016-11-20T08:15:04.318Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手把手教你逆向微信之朋友圈小视频转发（下）">
 <meta name="twitter:description" content="接上篇《手把手教你逆向微信之朋友圈小视频转发（上）》
@@ -338,7 +338,8 @@
         <blockquote>
 <p>   接上篇<a href="http://www.gaoshilei.com/2016/11/09/手把手教你逆向微信之朋友圈小视频转发（上）/">《手把手教你逆向微信之朋友圈小视频转发（上）》</a></p>
 </blockquote>
-<h2 id="代码编写及重签名打包安装-（下篇）"><a href="#代码编写及重签名打包安装-（下篇）" class="headerlink" title="代码编写及重签名打包安装 （下篇）"></a>代码编写及重签名打包安装 （下篇）</h2><p>小视频的转发支持4个功能，转发至朋友圈、转发至好友、保存到本地相册、拷贝小视频链接到粘贴板。如果小视频没有下载长按时只会出现拷贝url链接。<br><a id="more"></a><br><em>（非越狱机和不想利用tweak安装的越狱机<a href="#section_two">点我跳到第二节</a>）</em></p>
+<h2 id="代码编写及重签名打包安装-（下篇）"><a href="#代码编写及重签名打包安装-（下篇）" class="headerlink" title="代码编写及重签名打包安装 （下篇）"></a>代码编写及重签名打包安装 （下篇）</h2><p>小视频的转发支持4个功能，转发至朋友圈、转发至好友、保存到本地相册、拷贝小视频链接到粘贴板。如果小视频没有下载长按时只会出现拷贝url链接。<br><a id="more"></a><br>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a>  </p>
+<p><em>（非越狱机和不想利用tweak安装的越狱机<a href="#section_two">点我跳到第二节</a>）</em></p>
 <h3 id="1-越狱机打包安装（tweak安装）"><a href="#1-越狱机打包安装（tweak安装）" class="headerlink" title="1.越狱机打包安装（tweak安装）"></a>1.越狱机打包安装（tweak安装）</h3><p>1&gt;    新建tweak工程<br>2&gt;    编写tweak文件</p>
 <p>这里要hook两个类，分别是WCContentItemViewTemplateNewSight和SightMomentEditViewController，在WCContentItemViewTemplateNewSight中hook住onLongTouch方法然后添加menu弹出菜单，依次添加响应的方法，具体的代码如下：  </p>
 <ul>

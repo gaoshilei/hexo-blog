@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-selRef_section%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E8%80%85.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-btnRelease.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91sub_10261D0AC.png">
-<meta property="og:updated_time" content="2016-11-14T15:26:25.382Z">
+<meta property="og:updated_time" content="2016-11-20T08:15:04.317Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手把手教你逆向微信之朋友圈小视频转发（上）">
 <meta name="twitter:description" content="前言此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。本篇文章由于篇幅太长分成了两篇，上篇讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，下篇讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢">
@@ -332,6 +332,7 @@
           
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。<br>本篇文章由于篇幅太长分成了两篇，<strong>上篇</strong>讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，<strong>下篇</strong>讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。<br><strong>正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢按照本文的套路一步步逆向找到，这里就不再赘述。</strong><br>在实践之前，需要准备好一部越狱的手机，然后将下文列出的所有工具安装好。IDA跟Reveal都是破解版，IDA的正版要2000多刀，对于这么牛逼的逆向工具确实物有所值，不过不是专门研究逆向的公司也没必要用正版的，下个Windows的破解版就好，Mac上暂时没找到。Mac上可以用hopper代替IDA，也是一款很牛逼的逆向工具。废话不多说，正式开始吧！</p>
 <a id="more"></a>
+<p>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a>  </p>
 <h1 id="逆向微信朋友圈（上篇）"><a href="#逆向微信朋友圈（上篇）" class="headerlink" title="逆向微信朋友圈（上篇）"></a>逆向微信朋友圈（上篇）</h1><h2 id="一、获取朋友圈的小视频"><a href="#一、获取朋友圈的小视频" class="headerlink" title="一、获取朋友圈的小视频"></a>一、获取朋友圈的小视频</h2><blockquote>
 <p>   注意：本文逆向的微信的二进制文件为6.3.28版本，如果是不同的微信版本，二进制文件中的基地址也不相同</p>
 </blockquote>
