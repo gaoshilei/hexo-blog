@@ -362,7 +362,7 @@ DNPMVG0EFF9V
 ```
 在这里我们打印了变量x0的值为**DNPMVG0EFF9V**，这就是我们苦苦寻找的序列号。不难看出，序列号就是在0x19376ebd8这行拿到的，范围越来越小，敌人无路可逃！下面我们就要对这行进行分析，我们按照之前的步骤，再次走到0x19376ebd8这个位置，这不过这次我们不要`step-over`，我们用`si`跳入看看
 
-```
+```ObjC
 (lldb) si
 Process 2107 stopped
 * thread #1: tid = 0xe8e23, 0x0000000198e58640 libMobileGestalt.dylib`MGCopyAnswer, queue = 'com.apple.main-thread', stop reason = instruction step into
@@ -420,7 +420,7 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:serialNumber message:nil
 这里注入系统的SpringBoard，在SB启动的时候hook住applicationDidFinishLaunching：函数，并且在这个函数里面添加获取序列号的代码，并且以弹框的形式展现出来。  
 > makefile文件:
 
-```logo
+```ObjC
 THEOS_DEVICE_IP = 192.168.0.115
 include $(THEOS)/makefiles/common.mk
 TWEAK_NAME = SerialNumber
