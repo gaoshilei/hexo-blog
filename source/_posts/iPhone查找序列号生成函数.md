@@ -123,7 +123,7 @@ __text:0000000190804120                 ADRP            X8, #off_19DACC558@PAGE
 ```
 我们在Preference.framework中基地址为0x190804114的位置打个断点，具体的做法是：
 
-```
+```ObjC
 (lldb) br s -a 0x190804114+0x2e50000
 Breakpoint 1: where = Preferences`-[PSListController tableView:cellForRowAtIndexPath:] + 76, address = 0x0000000193654114
 Process 1192 stopped
@@ -146,7 +146,7 @@ Preferences`-[PSListController tableView:cellForRowAtIndexPath:]:
 ```
 我们执行ni让程序继续（这里的`ni`命令相当于Xcode的那个下箭头命令，也就是下一行）
 
-```
+```ObjC
 (lldb) ni
 Process 1192 stopped
 * thread #1: tid = 0x523a6, 0x0000000193654118 Preferences`-[PSListController tableView:cellForRowAtIndexPath:] + 80, queue = 'com.apple.main-thread', stop reason = instruction step over
@@ -181,7 +181,7 @@ Preferences`-[PSListController tableView:cellForRowAtIndexPath:]:
 ```
 打印出来的x0和x27都是随机数，还是没有什么收获，我们继续
 
-```
+```ObjC
 (lldb) ni
 Process 1192 stopped
 * thread #1: tid = 0x523a6, 0x0000000193654120 Preferences`-[PSListController tableView:cellForRowAtIndexPath:] + 88, queue = 'com.apple.main-thread', stop reason = instruction step over
@@ -218,7 +218,7 @@ G: <PSSpecifier 0x131029dc0: ID TRUST_STORE_GROUP, Name '' target <(null): 0x0>>
 ```
 我们让程序执行下一步，发现此时x0已经有值了，可以明显的看出，x0的值是在0x190804114~0x19080411C这段代码生成的，下面我们的工作重点就是寻找这段代码干了什么，胜利就在眼前！下面我们验证一下这里面到底有没有我们要的序列号：
 
-```
+```ObjC
 (lldb) po [[$x0 objectAtIndex:13] class]
 PSSpecifier
 (lldb) po [[$x0 objectAtIndex:13] properties]
@@ -232,7 +232,7 @@ PSSpecifier
 我们打印数组中存放cell数据的object属于哪个类，发现是`PSSpecifier`，我们找到之前导出的类的头文件，发现这个类有一个叫做`properties`的实例方法，我们调用一下发现我们要的序列号就在里面`value = DNPMVG0EFF9V`，这跟iPhone设置中看到的序列号是一致的。猜测这个数组里面存放着系统设置中`PSUIAboutController`中所有cel的数据，这个数组下一个肯定要传递到cell生成的方法中，这个就不做验证了，大事重要，我们继续找序列号的生成方法。
 这个`PSSpecifier`中有一个`AboutDataSource`对象，这个非常可疑，从名称上可以判断，这个类是专门用于数据处理的，不过在这之前我们还是先验证一下，在0x190804114~0x19080411C这段地址中，执行了`_PSListController._specifiers`，我们从`PSListController`的头文件（下文有讲怎么获取）中可以看到有一个specifiers属性，我们在IDA分析的文件中找到`[PSListController specifiers]`，我们先定位到方法在二进制文件中的位置：
 
-```
+```ObjC
 __text:00000001907FE4A8 ; -[PSListController specifiers]
 __text:00000001907FE4A8 __PSListController_specifiers_          ; DATA XREF: __objc_const:000000019C069A08o
 __text:00000001907FE4A8
@@ -279,7 +279,7 @@ Breakpoint 9: where = Preferences`-[PSListController specifiers] + 40, address =
 ```
 我们从设置中进入通用>关于，发现一开始就走到了这个断点，我们猜测，一进入关于页面，系统会首先把所有cell的数据都准备好，然后加载UI
 
-```
+```ObjC
 Process 1192 stopped
 * thread #1: tid = 0x523a6, 0x000000019364e4d0 Preferences`-[PSListController specifiers] + 40, queue = 'com.apple.main-thread', stop reason = breakpoint 9.1
     frame #0: 0x000000019364e4d0 Preferences`-[PSListController specifiers] + 40
