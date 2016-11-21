@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-selRef_section%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E8%80%85.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-btnRelease.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91sub_10261D0AC.png">
-<meta property="og:updated_time" content="2016-11-20T08:15:04.317Z">
+<meta property="og:updated_time" content="2016-11-21T07:17:28.060Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手把手教你逆向微信之朋友圈小视频转发（上）">
 <meta name="twitter:description" content="前言此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。本篇文章由于篇幅太长分成了两篇，上篇讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，下篇讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢">
@@ -203,7 +203,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocopods/">Cocopods</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SDK/">SDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shadowsockts/">Shadowsockts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDID/">UDID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPN/">VPN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPS/">VPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework/">framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serial-Number/">serial Number</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态库/">动态库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逆向工程/">逆向工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重签名/">重签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态库/">静态库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑科技/">黑科技</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocopods/">Cocopods</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDA/">IDA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SDK/">SDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shadowsockts/">Shadowsockts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDID/">UDID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPN/">VPN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPS/">VPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpdecrypted/">dumpdecrypted</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework/">framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serial-Number/">serial Number</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态库/">动态库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编语言/">汇编语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/砸壳/">砸壳</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重签名/">重签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态库/">静态库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑科技/">黑科技</a></li></ul>
                     </div>
                 </section>
                 
@@ -314,13 +314,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/逆向工程/">逆向工程</a>
+    <a class="article-category-link" href="/categories/iOS逆向/">iOS逆向</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信/">微信</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/逆向工程/">逆向工程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/重签名/">重签名</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDA/">IDA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信/">微信</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/汇编语言/">汇编语言</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/重签名/">重签名</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
