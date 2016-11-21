@@ -1,5 +1,12 @@
+---
 title: dumpdecrypted给App砸壳
 date: 2016-08-09
+categories:
+- 逆向工程
+tags:
+- dumpdecrypted
+- 砸壳
+permalink: dumpdecrypted给App砸壳
 ---
 #### 1.前言
 > 我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的*壳*，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称*砸壳*。  
