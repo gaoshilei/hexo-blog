@@ -100,7 +100,7 @@ permalink: iOSAppToLibrary
 这就是为什么必须要保留PAGEZERO这个段，同时大小不能为0。  
 
 ###	修改符号表
-正常的线上应用是不存在符号表的，但是如果你之前用了我的另一个工具 [restore-symbol] (https://github.com/tobefuturer/restore-symbol)来恢复符号表的话，这个地方自然也需要做一些处理，处理方法同rebase类似，减去0xFFFFC000.
+正常的线上应用是不存在符号表的，但是如果你之前用了我的另一个工具 [restore-symbol](https://github.com/tobefuturer/restore-symbol)来恢复符号表的话，这个地方自然也需要做一些处理，处理方法同rebase类似，减去0xFFFFC000.
 
 不过有一些符号需要单独过滤，比如这个：  
 ![](http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20%E4%BF%AE%E6%94%B9%E7%AC%A6%E5%8F%B7%E8%A1%A8.jpg)  
@@ -183,7 +183,8 @@ int main(int argc, char * argv[]) {
     base64_encode(output, & length,  input, (int)strlen(input));
     NSLog(@"\n-----------call c function---------\nbase64: %s -> %s\n-----------------------------------", input,  output);
 }
-```
+```  
+
 ps：示例代码中，我刻意除掉了界面部分的代码，因为支付宝的+load函数里swizzle了UI层的一些方法，会导致crash，如果想干掉那些+load方法的话，看下面。  
 
 ##	关于绕过检测代码  
