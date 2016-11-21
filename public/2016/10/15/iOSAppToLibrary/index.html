@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="LeonLei" />
+
+
+
+<meta name="description" content="文章转载自杨君的小黑屋，对排版进行了一些调整
+前言本文会介绍一个自己写的工具，能够把第三方iOS应用转成动态库，并加载到自己的App中，文章最后会以支付宝为例，展示如何调用其中的C函数和OC方法。工具开源地址：https://github.com/tobefuturer/app2dylib">
+<meta property="og:type" content="article">
+<meta property="og:title" content="黑科技：把第三方iOS应用转成动态库">
+<meta property="og:url" content="http://www.gaoshilei.com/2016/10/15/iOSAppToLibrary/index.html">
+<meta property="og:site_name" content="LeonLei的博客">
+<meta property="og:description" content="文章转载自杨君的小黑屋，对排版进行了一些调整
+前言本文会介绍一个自己写的工具，能够把第三方iOS应用转成动态库，并加载到自己的App中，文章最后会以支付宝为例，展示如何调用其中的C函数和OC方法。工具开源地址：https://github.com/tobefuturer/app2dylib">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%E5%BA%94%E7%94%A8%E4%B8%8E%E5%8A%A8%E6%80%81%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%E5%A4%B4%E9%83%A8%E6%96%87%E4%BB%B6%E4%B8%8D%E5%90%8C.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%E5%A4%9A%E4%B8%80%E4%B8%AA%E7%B1%BB%E5%9E%8B.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%E5%A4%9A%E5%87%BA%E4%B8%80%E4%B8%AA%20PAGEZERO%E6%AE%B5.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-PAGEZERO%E6%AE%B5%E4%BF%AE%E6%94%B9%E5%89%8D.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-PAGEZERO%E6%AE%B5%E4%BF%AE%E6%94%B9%E5%90%8E.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20rebase%20%E5%81%8F%E7%A7%BB%E9%87%8F.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20rebase%20%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20rebase%20%E4%B8%AD%E6%8C%87%E9%92%88%E5%87%8F0xFFFFC000.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20rebase%20opcode.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20REBASE_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20%E4%BF%AE%E6%94%B9%E7%AC%A6%E5%8F%B7%E8%A1%A8.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20%E5%BF%B5%E8%8C%9Ctwitter.jpg">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20Xcode%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.jpg">
+<meta property="og:updated_time" content="2016-11-21T07:05:49.636Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="黑科技：把第三方iOS应用转成动态库">
+<meta name="twitter:description" content="文章转载自杨君的小黑屋，对排版进行了一些调整
+前言本文会介绍一个自己写的工具，能够把第三方iOS应用转成动态库，并加载到自己的App中，文章最后会以支付宝为例，展示如何调用其中的C函数和OC方法。工具开源地址：https://github.com/tobefuturer/app2dylib">
+<meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%E5%BA%94%E7%94%A8%E4%B8%8E%E5%8A%A8%E6%80%81%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="LeonLei的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="http://oeat6c2zg.bkt.clouddn.com/12829050723725-1.jpg">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>黑科技：把第三方iOS应用转成动态库 | LeonLei的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="http://oeat6c2zg.bkt.clouddn.com/12829050723725-1.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">LeonLei</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">代码略懂，精通LOL</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:goslei1315@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/goslei1226" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/gaoshilei" title="GitHub"></a>
+                            
+                                <a class="fa Facebook" href="https://www.facebook.com/profile.php?id=100002888296778" title="Facebook"></a>
+                            
+                                <a class="fa Twitter" href="https://twitter.com/LeonLei_Gao" title="Twitter"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocopods/">Cocopods</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SDK/">SDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shadowsockts/">Shadowsockts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDID/">UDID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPN/">VPN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPS/">VPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework/">framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serial-Number/">serial Number</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态库/">动态库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逆向工程/">逆向工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重签名/">重签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态库/">静态库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑科技/">黑科技</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="/">friends</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">一个脱离了低级趣味的伪全栈iOS攻城狮</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">LeonLei</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="http://oeat6c2zg.bkt.clouddn.com/12829050723725-1.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">LeonLei</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">代码略懂，精通LOL</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:goslei1315@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/goslei1226" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/gaoshilei" title="GitHub"></a>
+                            
+                                <a class="fa Facebook" target="_blank" href="https://www.facebook.com/profile.php?id=100002888296778" title="Facebook"></a>
+                            
+                                <a class="fa Twitter" target="_blank" href="https://twitter.com/LeonLei_Gao" title="Twitter"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-iOSAppToLibrary" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/15/iOSAppToLibrary/" class="article-date">
+      <time datetime="2016-10-15T16:00:00.000Z" itemprop="datePublished">2016-10-16</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      黑科技：把第三方iOS应用转成动态库
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/他山之石/">他山之石</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态库/">动态库</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/黑科技/">黑科技</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><strong>文章转载自<a href="http://blog.imjun.net" target="_blank" rel="external">杨君的小黑屋</a>，对排版进行了一些调整</strong></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文会介绍一个自己写的工具，能够把第三方iOS应用转成动态库，并加载到自己的App中，文章最后会以支付宝为例，展示如何调用其中的C函数和OC方法。<br>工具开源地址：<br><a href="https://github.com/tobefuturer/app2dylib" target="_blank" rel="external">https://github.com/tobefuturer/app2dylib</a><br><a id="more"></a></p>
+<h2 id="有什么用"><a href="#有什么用" class="headerlink" title="有什么用"></a>有什么用</h2><p>为什么要把第三方应用转成动态库呢？与一般的注入动态库+重签名打包的手段有什么不一样呢？</p>
+<p>好处主要有下面几点：  </p>
+<ol>
+<li>可以直接调用别人的算法<br>逆向分析别人的应用时，可能会遇到一些私有算法，如果搞不定的话，直接拿来用就好。  </li>
+<li>掌控程序的控制权<br>程序的主体是自己的App，第三方应用的代码只是以动态库的形式加载，主要的控制权还是在我们自己手里，所以可以直接绕过应用的检测代码（文章最后有关于这部分攻防的讨论）。  </li>
+<li>同个进程内加载多个应用<br>重签名打包毕竟只能是原来的应用，但是如果是动态库的话，可以同时加载多个应用到进程内了，比如你想同时把美图秀秀和饿了么加载进来也是可以的（秀秀不饿，想想去年大众点评那个APPmixer的软广 - -! ）。  </li>
+</ol>
+<h2 id="应用和动态库的异同"><a href="#应用和动态库的异同" class="headerlink" title="应用和动态库的异同"></a>应用和动态库的异同</h2><p>我们要把应用转成动态库，首先要知道这两者之前有什么相同与不同，有相同的才存在转换的可能，而不同之处就是我们要重点关注的了。  </p>
+<h3 id="相同点："><a href="#相同点：" class="headerlink" title="相同点："></a>相同点：</h3><p><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%E5%BA%94%E7%94%A8%E4%B8%8E%E5%8A%A8%E6%80%81%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB.jpg" alt="应用和动态库的异同"><br>可执行文件和动态库都是标准的 Mach-O 文件格式，两者的文件头部结构非常类似，特别是其中的代码段（TEXT）,和数据段（DATA）结构完全一致，这也是后面转换工作的基础。  </p>
+<h3 id="不同点："><a href="#不同点：" class="headerlink" title="不同点："></a>不同点：</h3><p>不同点就是我们转换工作的重点了，主要有：  </p>
+<ol>
+<li>头部的文件类型<br>一个是 MH_EXECUTE 可执行文件， 一个是 MH_DYLIB 动态库， 还有各种头部的Flags，要特别留意下可执行文件中Flags部分的 MH_PIE 标志，后面再详细说。<br><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%E5%A4%B4%E9%83%A8%E6%96%87%E4%BB%B6%E4%B8%8D%E5%90%8C.jpg" alt="头部的文件类型不同">  </li>
+<li>动态库文件中多一个类型为 LC_ID_DYLIB 的 Load Command, 作用是动态库的标识符，一般为文件路径。路径可以随便填，但是这部分必须要有，是codesign的要求。<br><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%E5%A4%9A%E4%B8%80%E4%B8%AA%E7%B1%BB%E5%9E%8B.jpg" alt="LC_ID_DYLIB 的 Load Command">  </li>
+<li>可执行文件会多出一个 PAGEZERO段，动态库中没有。这个段开始地址为0（NULL指针指向的位置），是一个不可读、不可写、不可执行的空间，能够在空指针访问时抛出异常。这个段的大小，32位上是0x4000，64位上是4G。这个段的处理也是转换工作的重点之一，之前有人尝试转换，不成功就是因为没有处理好 PAGEZERO.<br><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%E5%A4%9A%E5%87%BA%E4%B8%80%E4%B8%AA%20PAGEZERO%E6%AE%B5.jpg" alt="多出的PAGEZERO段">  </li>
+</ol>
+<h2 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h2><h3 id="修改文件类型"><a href="#修改文件类型" class="headerlink" title="修改文件类型"></a>修改文件类型</h3><p>第一步是修改文件的头部信息，把文件类型从可执行文件修改成动态库，同时把一些Flags修改好。</p>
+<p>这里一个比较关键的Flag是可执行文件中的 MH_PIE 标志位，（position-independent executable）。</p>
+<p>这个标志位，表明可执行文件能够在内存中任意位置正确地运行，而不受其绝对地址影响的特性，这一特性是动态库所必须的一个特性。没有这个标志位的可执行文件是没有办法转换成动态库的。iOS系统中，arm64架构下，目前这个标志位是必须的，不然程序无法运行（系统的安全性要求），但是armv7架构下，可以没有这个标志位，所以支付宝armv7版本的可执行文件是不能转成动态库的，就是这个原因。不过所有的arm64的应用都是可以转换的，后面演示时用的支付宝是arm64架构的。  </p>
+<h3 id="头部中添加-LC-ID-DYLIB"><a href="#头部中添加-LC-ID-DYLIB" class="headerlink" title="头部中添加 LC_ID_DYLIB"></a>头部中添加 LC_ID_DYLIB</h3><p>直接在文件头部中按照文档格式插入一个Load Command，并填入合适的数据。这里要注意下插入内容的字节数必须是8字节对齐的。  </p>
+<h3 id="修改PAGEZERO段"><a href="#修改PAGEZERO段" class="headerlink" title="修改PAGEZERO段"></a>修改PAGEZERO段</h3><p>这部分是最重要的一部分，因为arm64上这个段的大小有4G，直接往内存中加载，会提示没有足够的连续的地址空间，所以必须要调整这个段的大小，而要调整 PAGEZERO 这个段的大小, 又会引起一连串的地址空间的变化，所以不能盲目的直接改，必须结合dyld的源码来对应修改。（注意这里不能直接把 PAGEZERO 这个段给去掉，也不能直接把大小调成0，因为涉及到dyld的rebase操作，详细看后面）  </p>
+<h4 id="1-所有段的地址都要重新计算"><a href="#1-所有段的地址都要重新计算" class="headerlink" title="1.    所有段的地址都要重新计算"></a>1.    所有段的地址都要重新计算</h4><p>单纯减少 PAGEZERO 段的占用空间，作用不大，因为dyld加载动态库的时候，要求是所有的段一起进行mmap（详细可以查看dyld源码的ImageLoaderMachO::assignSegmentAddresses函数），所以必须把接下来所有的段的地址都重新计算一次。</p>
+<p>同时要保证，前后两个段没有地址空间重叠，并且每个段都是按0x4000对齐。因为 PAGEZERO 是所有段中的第一个，所以可以直接把 PAGEZERO 的大小调整到0x4000，然后后面每一个段都按顺序依次减少同样大小(0xFFFFC000 = 0x100000000 - 0x4000)，同时能保证每个段在文件内的偏移量不变。</p>
+<p><strong>修改前：</strong><br><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-PAGEZERO%E6%AE%B5%E4%BF%AE%E6%94%B9%E5%89%8D.jpg" alt="PAGEZERO段修改前">  </p>
+<p><strong>修改后：</strong><br><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-PAGEZERO%E6%AE%B5%E4%BF%AE%E6%94%B9%E5%90%8E.jpg" alt="PAGEZERO段修改后">  </p>
+<h4 id="2-对动态库进行rebase操作"><a href="#2-对动态库进行rebase操作" class="headerlink" title="2.    对动态库进行rebase操作"></a>2.    对动态库进行rebase操作</h4><p>这里的rebase是系统为了解决动态库虚拟内存地址冲突，在加载动态库时进行的基地址重定位操作。</p>
+<p>这一步操作是整个流程里最重要的，因为按照前面的操作，整个文件地址空间已经发生了变化，如果dyld依然按照原来的地址进行rebase，必然会失败。</p>
+<p>那么rebase操作需要做哪些工作呢？</p>
+<p>相关的信息储存在 Mach-O 文件的 LINKEDIT 段中, 并由 LC_DYLD_INFO_ONLY 指定 rebase info 在文件中的偏移量<br><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20rebase%20%E5%81%8F%E7%A7%BB%E9%87%8F.jpg" alt="rebase在文件中的偏移量">  </p>
+<p>详细的rebase信息:<br><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20rebase%20%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.jpg" alt="详细的rebase信息">  </p>
+<p>红框里那些Pointer的意思是说，在内存地址为 0x367C698 的地方有一个指针，这个指针需要进行rebase操作, 操作的内容就是和前面调整地址空间一样，每个指针减去 0xFFFFC000。<br><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20rebase%20%E4%B8%AD%E6%8C%87%E9%92%88%E5%87%8F0xFFFFC000.jpg" alt="">  </p>
+<h4 id="3-为什么不能直接去掉PAGEZERO这个段"><a href="#3-为什么不能直接去掉PAGEZERO这个段" class="headerlink" title="3.    为什么不能直接去掉PAGEZERO这个段"></a>3.    为什么不能直接去掉PAGEZERO这个段</h4><p>这个原因要涉及到文件中rebase信息的储存格式，上面的图中，可以看出rebase要处理的是一个个指针，但是实际上这些信息在文件中并不是以指针数组的形式存在，而是以一连串rebase opcode的形式存在，上面看到的一个个指针其实是 Mach O View 这个软件帮我们将opcode整理得到的。<br><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20rebase%20opcode.jpg" alt="">  </p>
+<p>这些opcode中有一种操作比较关键，REBASE_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB。<br><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20REBASE_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB.jpg" alt="">  </p>
+<p>这个opcode的意思是, 接下去需要调整文件的中的第2个段，就是图中segment(2)所表示的含义。</p>
+<p>所以说，如果把PAGEZERO这个段给去掉了，文件中各个段的序号也就都错位了，与rebase中的信息就对应不上了。<br>而且把这个段大小改为0，也是不行的，因为dyld在加载的过程中，会重新自动过滤掉大小为0的段，也会导致同样的段序号错位的问题。（有兴趣的同学可以看下dyld的源码，在ImageLoaderMachO类的构造函数里）<br>这就是为什么必须要保留PAGEZERO这个段，同时大小不能为0。  </p>
+<h3 id="修改符号表"><a href="#修改符号表" class="headerlink" title="修改符号表"></a>修改符号表</h3><p>正常的线上应用是不存在符号表的，但是如果你之前用了我的另一个工具 [restore-symbol] (<a href="https://github.com/tobefuturer/restore-symbol)来恢复符号表的话，这个地方自然也需要做一些处理，处理方法同rebase类似，减去0xFFFFC000" target="_blank" rel="external">https://github.com/tobefuturer/restore-symbol)来恢复符号表的话，这个地方自然也需要做一些处理，处理方法同rebase类似，减去0xFFFFC000</a>.</p>
+<p>不过有一些符号需要单独过滤，比如这个：<br><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20%E4%BF%AE%E6%94%B9%E7%AC%A6%E5%8F%B7%E8%A1%A8.jpg" alt="">  </p>
+<p>这个radr://5614542是个什么神奇的符号呢，google就能发现，念茜的twitter上提过这个奇葩的符号。(女神果然是女神, 棒~ 😂)<br><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20%E5%BF%B5%E8%8C%9Ctwitter.jpg" alt="">  </p>
+<h2 id="实际效果"><a href="#实际效果" class="headerlink" title="实际效果"></a>实际效果</h2><p>工具开源在<a href="https://github.com/tobefuturer/app2dylib" target="_blank" rel="external">github</a>上，用法：  </p>
+<h3 id="1-下载源码编译："><a href="#1-下载源码编译：" class="headerlink" title="1.    下载源码编译："></a>1.    下载源码编译：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git clone --recursive https://github.com/tobefuturer/app2dylib.git</div><div class="line">cd app2dylib &amp;&amp; make</div><div class="line">./app2dylib</div></pre></td></tr></table></figure>
+<h3 id="2-把支付宝arm64砸壳，然后提取可执行文件，用上面的工具把支付宝的可执行文件转成动态库"><a href="#2-把支付宝arm64砸壳，然后提取可执行文件，用上面的工具把支付宝的可执行文件转成动态库" class="headerlink" title="2.    把支付宝arm64砸壳，然后提取可执行文件，用上面的工具把支付宝的可执行文件转成动态库"></a>2.    把支付宝arm64砸壳，然后提取可执行文件，用上面的工具把支付宝的可执行文件转成动态库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./app2dylib /tmp/AlipayWallet -o /tmp/libAlipayApp.dylib</div></pre></td></tr></table></figure>
+<h3 id="3-用-Xcode-新建工程，并把新生成的dylib拖进去，调整好各项设置"><a href="#3-用-Xcode-新建工程，并把新生成的dylib拖进去，调整好各项设置" class="headerlink" title="3.    用 Xcode 新建工程，并把新生成的dylib拖进去，调整好各项设置."></a>3.    用 Xcode 新建工程，并把新生成的dylib拖进去，调整好各项设置.</h3><p><img src="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20Xcode%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.jpg" alt="">  </p>
+<p>Run Script里的代码(目的是为了对dylib进行签名)  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">cd $&#123;BUILT_PRODUCTS_DIR&#125;</div><div class="line">cd $&#123;FULL_PRODUCT_NAME&#125;</div><div class="line">/usr/bin/codesign --force --sign $&#123;EXPANDED_CODE_SIGN_IDENTITY&#125; --timestamp=none libAlipayApp.dylib</div><div class="line">```   </div><div class="line">###	4.	怎么调用动态库里的方法呢？  </div><div class="line">为方便大家尝试，这里选两个分析起来比较简单的函数调用演示给大家。</div><div class="line"></div><div class="line">一个是OC的方法 `+[aluSecurity rsaEncryptText:pubKey:]`, 可以直接用oc运行时调用。</div><div class="line"></div><div class="line">另一个是C的函数 `int base64_encode(char * output, int * output_length, char * input, int input_length)`</div><div class="line">这个需要先确定 base64_encode 这个C函数的函数签名和在dylib中的偏移地址（我这边的9.9.3版本是0xa798e4），可以用ida分析得到。</div><div class="line"></div><div class="line">运行结果：  </div><div class="line">![](http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%20%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg)  </div><div class="line"></div><div class="line">```C</div><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">#import &lt;dlfcn.h&gt;</div><div class="line">#import &lt;mach/mach.h&gt;</div><div class="line">#import &lt;mach-o/loader.h&gt;</div><div class="line">#import &lt;mach-o/dyld.h&gt;</div><div class="line">#import &lt;objc/runtime.h&gt;</div><div class="line">int main(int argc, char * argv[]) &#123;</div><div class="line">    NSLog(@&quot;\n===Start===\n&quot;);</div><div class="line">    NSString * dylibName = @&quot;libAlipayApp&quot;;</div><div class="line">    NSString * path = [[NSBundle mainBundle] pathForResource:dylibName ofType:@&quot;dylib&quot;];</div><div class="line">    if (dlopen(path.UTF8String, RTLD_NOW) == NULL)&#123;</div><div class="line">        NSLog(@&quot;dlopen failed ，error %s&quot;, dlerror());</div><div class="line">        return 0;</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    //运行时 直接调用oc方法</div><div class="line">    NSString * plain = @&quot;alipay&quot;;</div><div class="line">    NSString * pubkey = @&quot;MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDZ6i9VNEGEaZaYE7XffA9XRj15cp/ZKhHYY43EEva8LIhCWi29EREaF4JjZVMwFpUAfrL+9gpA7NMQmaMRHbrz1KHe2Ho4HpUhEac8M9zUbNvaDKSlhx0lq/15TQP+57oQbfJ9oKKd+he4Yd6jpBI3UtGmwJyN/T1S0DQ0aXR8OQIDAQAB&quot;;</div><div class="line">    NSString * cipher = [NSClassFromString(@&quot;aluSecurity&quot;) performSelector:NSSelectorFromString(@&quot;rsaEncryptText:pubKey:&quot;) withObject:plain withObject:pubkey];</div><div class="line">    NSLog(@&quot;\n-----------call oc method---------\n明文：%@\n密文： %@\n-----------------------------------&quot;, plain,cipher);</div><div class="line">    </div><div class="line">    //确认dylib加载在内存中的地址</div><div class="line">    uint64_t slide = 0;</div><div class="line">    for (int i = 0; i &lt;  _dyld_image_count(); i ++)</div><div class="line">        if ([[NSString stringWithUTF8String:_dyld_get_image_name(i)] isEqualToString:path])</div><div class="line">            slide = _dyld_get_image_vmaddr_slide(i);</div><div class="line">    assert(slide != 0);</div><div class="line">    </div><div class="line">    </div><div class="line">    typedef int (*BASE64_ENCODE_FUNC_TYPE) (char * output, int * output_size , char * input, int input_length);</div><div class="line">    /** 根据偏移算出函数地址， 然后调用*/</div><div class="line">    long long base64_encode_offset_in_dylib = 0xa798e4;</div><div class="line">    BASE64_ENCODE_FUNC_TYPE base64_encode = (BASE64_ENCODE_FUNC_TYPE)(slide + base64_encode_offset_in_dylib);</div><div class="line">    char output[1000] = &#123;0&#125;;</div><div class="line">    int length = 1000;</div><div class="line">    char * input = &quot;alipay&quot;;</div><div class="line">    base64_encode(output, &amp; length,  input, (int)strlen(input));</div><div class="line">    NSLog(@&quot;\n-----------call c function---------\nbase64: %s -&gt; %s\n-----------------------------------&quot;, input,  output);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ps：示例代码中，我刻意除掉了界面部分的代码，因为支付宝的+load函数里swizzle了UI层的一些方法，会导致crash，如果想干掉那些+load方法的话，看下面。  </p>
+<h2 id="关于绕过检测代码"><a href="#关于绕过检测代码" class="headerlink" title="关于绕过检测代码"></a>关于绕过检测代码</h2><p>文章开头的简介中有提到，以动态库的形式加载，能够绕过应用的检测代码，这说法不完全，因为如果把检测代码写在类的+load方法里或者mod_init_func函数（ 全局静态变量的构造函数和<strong>attribute</strong>((constructor))指定的函数 ）里，在dylib加载的时候也是可以得到调用的。</p>
+<p>那么也就衍生出两种配搭的对抗方案：<br><strong>i）越狱机</strong><br>+load方法的调用是在libobjc.dylib中的call_load_methods函数， mod_init_func函数的调用是在dyld中的doModInitFunctions函数，可以直接用CydiaSubstrate inline hook掉这两个函数，而且动态库是由我们自己加载的，所以可以控制hook和加载dylib的时序。</p>
+<p><strong>ii) 非越狱机</strong><br>非越狱机上，没有办法inline hook，但是可以利用_dyld_register_func_for_add_image 这个函数注册回调，这个回调是发生在动态库加载到内存后，+load方法和mod_init_func函数调用前，所以可以在这个回调里把+load方法改名，把mod_init_func段改名等等，也就可以使得各种检测函数没法调用了。</p>
+<p>总之，主要的控制权还是在我们手中。<br>测试环境：<br>iPhone 6Plus 、iOS 9.3.1 、arm64<br>支付宝9.9.3</p>
+<p>参考链接&amp;致谢  </p>
+<ol>
+<li>dyld的源码：<a href="https://opensource.apple.com/source/dyld/" target="_blank" rel="external">https://opensource.apple.com/source/dyld/</a>  </li>
+<li>iOS逆向的论坛 <a href="http://iosre.com/" target="_blank" rel="external">http://iosre.com/</a></li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/11/09/手把手教你逆向微信之朋友圈小视频转发（上）/">
+                    手把手教你逆向微信之朋友圈小视频转发（上）
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/09/07/iPhone查找序列号生成函数/">
+                    iPhone查找序列号生成函数
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有什么用"><span class="toc-number">2.</span> <span class="toc-text">有什么用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用和动态库的异同"><span class="toc-number">3.</span> <span class="toc-text">应用和动态库的异同</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相同点："><span class="toc-number">3.1.</span> <span class="toc-text">相同点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不同点："><span class="toc-number">3.2.</span> <span class="toc-text">不同点：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现细节"><span class="toc-number">4.</span> <span class="toc-text">实现细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改文件类型"><span class="toc-number">4.1.</span> <span class="toc-text">修改文件类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#头部中添加-LC-ID-DYLIB"><span class="toc-number">4.2.</span> <span class="toc-text">头部中添加 LC_ID_DYLIB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改PAGEZERO段"><span class="toc-number">4.3.</span> <span class="toc-text">修改PAGEZERO段</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-所有段的地址都要重新计算"><span class="toc-number">4.3.1.</span> <span class="toc-text">1.    所有段的地址都要重新计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-对动态库进行rebase操作"><span class="toc-number">4.3.2.</span> <span class="toc-text">2.    对动态库进行rebase操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-为什么不能直接去掉PAGEZERO这个段"><span class="toc-number">4.3.3.</span> <span class="toc-text">3.    为什么不能直接去掉PAGEZERO这个段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改符号表"><span class="toc-number">4.4.</span> <span class="toc-text">修改符号表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实际效果"><span class="toc-number">5.</span> <span class="toc-text">实际效果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-下载源码编译："><span class="toc-number">5.1.</span> <span class="toc-text">1.    下载源码编译：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-把支付宝arm64砸壳，然后提取可执行文件，用上面的工具把支付宝的可执行文件转成动态库"><span class="toc-number">5.2.</span> <span class="toc-text">2.    把支付宝arm64砸壳，然后提取可执行文件，用上面的工具把支付宝的可执行文件转成动态库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-用-Xcode-新建工程，并把新生成的dylib拖进去，调整好各项设置"><span class="toc-number">5.3.</span> <span class="toc-text">3.    用 Xcode 新建工程，并把新生成的dylib拖进去，调整好各项设置.</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于绕过检测代码"><span class="toc-number">6.</span> <span class="toc-text">关于绕过检测代码</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"黑科技：把第三方iOS应用转成动态库　| LeonLei的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/10/15/iOSAppToLibrary/" data-title="黑科技：把第三方iOS应用转成动态库" data-url="http://www.gaoshilei.com/2016/10/15/iOSAppToLibrary/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"leonlei"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = 'http://oeat6c2zg.bkt.clouddn.com/embed.js';
+	    s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/11/09/手把手教你逆向微信之朋友圈小视频转发（上）/" title="上一篇: 手把手教你逆向微信之朋友圈小视频转发（上）">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/09/07/iPhone查找序列号生成函数/" title="下一篇: iPhone查找序列号生成函数">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/11/17/Static Library/">iOS静态库SDK制作（包含第三方静态库）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（下）/">手把手教你逆向微信之朋友圈小视频转发（下）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/09/手把手教你逆向微信之朋友圈小视频转发（上）/">手把手教你逆向微信之朋友圈小视频转发（上）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/15/iOSAppToLibrary/">黑科技：把第三方iOS应用转成动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/07/iPhone查找序列号生成函数/">iPhone查找序列号生成函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/08/dumpdecrypted给App砸壳/">dumpdecrypted给App砸壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/19/VPS/">VPS搭建高速VPN服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/15/Xcode编译报错Undefined symbols解决方案/">Xcode编译报错Undefined symbols解决方案</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 LeonLei
+            </div>
+            <div class="footer-right">
+               powered by  <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a> <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
