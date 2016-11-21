@@ -2,7 +2,7 @@
 title: dumpdecrypted给App砸壳
 date: 2016-08-09
 categories:
-- 逆向工程
+- iOS逆向
 tags:
 - dumpdecrypted
 - 砸壳
