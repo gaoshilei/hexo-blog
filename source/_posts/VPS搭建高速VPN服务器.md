@@ -1,3 +1,4 @@
+---
 title: VPS搭建高速VPN服务器
 date: 2016-05-20
 categories:
@@ -5,7 +6,7 @@ categories:
 tags:
 - VPS
 - VPN
-- Shadowsockts
+- Shadowsocks
 permalink: VPS
 
 ---
