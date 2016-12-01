@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/RunLoop.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/RunLoop_1.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/runloop-nsnetwork.png">
-<meta property="og:updated_time" content="2016-12-01T15:34:12.266Z">
+<meta property="og:updated_time" content="2016-12-01T15:35:20.782Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解RunLoop">
 <meta name="twitter:description" content="一、    RunLoop初识日常的开发工作中，我们几乎很少注意RunLoop，因为我们基本上“用不到”RunLoop。包括我在内应该有很多人都不了解这个东西，只是听说过。最近有空查了不少资料终于把RunLoop运行原理搞清楚了。本文会对RunLoop的原理进行深入探讨，但是不涉及底层的实现。我们平时开发中的很多东西都和RunLoop相关，比如：">
@@ -328,7 +328,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="一、-RunLoop初识"><a href="#一、-RunLoop初识" class="headerlink" title="一、    RunLoop初识"></a>一、    RunLoop初识</h1><p>日常的开发工作中，我们几乎很少注意RunLoop，因为我们基本上“用不到”RunLoop。包括我在内应该有很多人都不了解这个东西，只是听说过。最近有空查了不少资料终于把RunLoop运行原理搞清楚了。<br>本文会对RunLoop的原理进行深入探讨，但是不涉及底层的实现。<br>我们平时开发中的很多东西都和RunLoop相关，比如：<br><a id="more"></a></p>
+        <h1 id="一、-RunLoop初识"><a href="#一、-RunLoop初识" class="headerlink" title="一、    RunLoop初识"></a>一、    RunLoop初识</h1><p>日常的开发工作中，我们几乎很少注意RunLoop，因为我们基本上“用不到”RunLoop。包括我在内应该有很多人都不了解这个东西，只是听说过。最近有空查了不少资料终于把RunLoop运行原理搞清楚了。<br>本文会对RunLoop的原理进行深入探讨，但是不涉及底层的实现。<br>我们平时开发中的很多东西都和RunLoop相关，比如：<br><a id="more"></a><br>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a> </p>
 <ul>
 <li>AutoreleasePool   </li>
 <li>NSTimer  </li>
@@ -342,9 +342,8 @@
 </ul>
 <p>RunLoop机制贯穿整个App的生命周期的，这里提前剧透个彩蛋：  </p>
 <blockquote>
-<p>   我们都知道：如果主线程的RunLoop挂掉了，App也就挂掉了 </p>
+<p>   我们都知道：如果主线程的RunLoop挂掉了，App也就挂掉了  </p>
 </blockquote>
-<p>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a>  </p>
 <p><strong>BUT：</strong><br>我们通过RunLoop机制可以让崩溃的App继续保持运行，非常英吹思婷！后面会有介绍。  </p>
 <h1 id="二、-RunLoop详解"><a href="#二、-RunLoop详解" class="headerlink" title="二、    RunLoop详解"></a>二、    RunLoop详解</h1><p>计算机处理任务有进程和线程的概念，安卓中一个应用可以开启多个进程，而在iOS中一个App只能开启一个进程，但是线程可以开启多个。线程是用来处理事务的，多个线程处理事务是为了防止线程堵塞；一般来说一个线程一次只能执行一个任务，任务执行完成这个线程就会退出。<br>某些情况下我们需要这个线程一直运行着，不管有没有任务执行（<em>比方说App的主线程</em>），所以需要一种机制来维持线程的生命周期，iOS中叫做RunLoop，安卓里面的Looper机制和此类似。<br>为了让线程不退出随时候命处理事件而不退出，可以将逻辑简化为下面的代码  </p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">do</span>&#123;</div><div class="line">var message = getNewmessages();<span class="comment">//接收来自外部的消息</span></div><div class="line">exec(message);<span class="comment">//处理消息任务</span></div><div class="line">&#125;<span class="keyword">while</span>(<span class="number">0</span>==isQuit)</div></pre></td></tr></table></figure>
