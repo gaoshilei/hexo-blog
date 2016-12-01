@@ -18,6 +18,7 @@ permalink: RunLoop
 本文会对RunLoop的原理进行深入探讨，但是不涉及底层的实现。  
 我们平时开发中的很多东西都和RunLoop相关，比如：  
 <!-- more -->
+转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com) 
 
 -	AutoreleasePool   
 -	NSTimer  
@@ -30,9 +31,7 @@ permalink: RunLoop
 -	触摸事件以及各种硬件传感器 
 
 RunLoop机制贯穿整个App的生命周期的，这里提前剧透个彩蛋：  
->	我们都知道：如果主线程的RunLoop挂掉了，App也就挂掉了 
-
-转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com)  
+>	我们都知道：如果主线程的RunLoop挂掉了，App也就挂掉了  
 
 **BUT：**  
 我们通过RunLoop机制可以让崩溃的App继续保持运行，非常英吹思婷！后面会有介绍。  
