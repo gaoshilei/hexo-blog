@@ -17,6 +17,7 @@ permalink: RunLoop
 日常的开发工作中，我们几乎很少注意RunLoop，因为我们基本上“用不到”RunLoop。包括我在内应该有很多人都不了解这个东西，只是听说过。最近有空查了不少资料终于把RunLoop运行原理搞清楚了。  
 本文会对RunLoop的原理进行深入探讨，但是不涉及底层的实现。  
 我们平时开发中的很多东西都和RunLoop相关，比如：  
+<!-- more -->
 
 -	AutoreleasePool   
 -	NSTimer  
@@ -30,8 +31,6 @@ permalink: RunLoop
 
 RunLoop机制贯穿整个App的生命周期的，这里提前剧透个彩蛋：  
 >	我们都知道：如果主线程的RunLoop挂掉了，App也就挂掉了 
-
-<!-- more -->
 
 转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com)  
 
