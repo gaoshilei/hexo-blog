@@ -18,7 +18,6 @@ permalink: RunLoop
 本文会对RunLoop的原理进行深入探讨，但是不涉及底层的实现。  
 我们平时开发中的很多东西都和RunLoop相关，比如：  
 <!-- more -->
-转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com) 
 
 -	AutoreleasePool   
 -	NSTimer  
@@ -34,9 +33,11 @@ RunLoop机制贯穿整个App的生命周期的，这里提前剧透个彩蛋：
 >	我们都知道：如果主线程的RunLoop挂掉了，App也就挂掉了  
 
 **BUT：**  
-我们通过RunLoop机制可以让崩溃的App继续保持运行，非常英吹思婷！后面会有介绍。  
+我们通过RunLoop机制可以让崩溃的App继续保持运行，非常英吹思婷！后面会有介绍。 
 
-#	二、	RunLoop详解   
+转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com)   
+
+#	二、	RunLoop详解   
 
 计算机处理任务有进程和线程的概念，安卓中一个应用可以开启多个进程，而在iOS中一个App只能开启一个进程，但是线程可以开启多个。线程是用来处理事务的，多个线程处理事务是为了防止线程堵塞；一般来说一个线程一次只能执行一个任务，任务执行完成这个线程就会退出。  
 某些情况下我们需要这个线程一直运行着，不管有没有任务执行（*比方说App的主线程*），所以需要一种机制来维持线程的生命周期，iOS中叫做RunLoop，安卓里面的Looper机制和此类似。  
@@ -44,8 +45,8 @@ RunLoop机制贯穿整个App的生命周期的，这里提前剧透个彩蛋：
 
 ```ObjC
 do{
-var message = getNewmessages();//接收来自外部的消息
-exec(message);//处理消息任务
+    var message = getNewmessages();//接收来自外部的消息
+    exec(message);//处理消息任务
 }while(0==isQuit)
 ```
 
@@ -96,20 +97,20 @@ CFRunLoopMode 和 CFRunLoop的结构大致如下：
 
 ```ObjC
 struct __CFRunLoopMode {
-CFStringRef _name;            // Mode Name, 例如 @"kCFRunLoopDefaultMode"
-CFMutableSetRef _sources0;    // Set
-CFMutableSetRef _sources1;    // Set
-CFMutableArrayRef _observers; // Array
-CFMutableArrayRef _timers;    // Array
-...
+    CFStringRef _name;            // Mode Name, 例如 @"kCFRunLoopDefaultMode"
+    CFMutableSetRef _sources0;    // Set
+    CFMutableSetRef _sources1;    // Set
+    CFMutableArrayRef _observers; // Array
+    CFMutableArrayRef _timers;    // Array
+    ...
 };
 
 struct __CFRunLoop {
-CFMutableSetRef _commonModes;     // Set
-CFMutableSetRef _commonModeItems; // Set<Source/Observer/Timer>
-CFRunLoopModeRef _currentMode;    // Current Runloop Mode
-CFMutableSetRef _modes;           // Set
-...
+    CFMutableSetRef _commonModes;     // Set
+    CFMutableSetRef _commonModeItems; // Set<Source/Observer/Timer>
+    CFRunLoopModeRef _currentMode;    // Current Runloop Mode
+    CFMutableSetRef _modes;           // Set
+    ...
 };
 ```
 
@@ -158,13 +159,13 @@ CFRunLoopObserverRef 是观察者，每个 Observer 都包含了一个回调（�
 
 ```ObjC
 enum CFRunLoopActivity {
-kCFRunLoopEntry                     = (1 << 0),    // 即将进入Loop   
-kCFRunLoopBeforeTimers 		= (1 << 1),    // 即将处理 Timer    	
-kCFRunLoopBeforeSources		= (1 << 2),    // 即将处理 Source  
-kCFRunLoopBeforeWaiting		= (1 << 5),    // 即将进入休眠     
-kCFRunLoopAfterWaiting 		= (1 << 6),    // 刚从休眠中唤醒   
-kCFRunLoopExit                      = (1 << 7),    // 即将退出Loop  
-kCFRunLoopAllActivities		= 0x0FFFFFFFU  // 包含上面所有状态  
+    kCFRunLoopEntry                     = (1 << 0),    // 即将进入Loop   
+    kCFRunLoopBeforeTimers 		= (1 << 1),    // 即将处理 Timer    	
+    kCFRunLoopBeforeSources		= (1 << 2),    // 即将处理 Source  
+    kCFRunLoopBeforeWaiting		= (1 << 5),    // 即将进入休眠     
+    kCFRunLoopAfterWaiting 		= (1 << 6),    // 刚从休眠中唤醒   
+    kCFRunLoopExit                      = (1 << 7),    // 即将退出Loop  
+    kCFRunLoopAllActivities		= 0x0FFFFFFFU  // 包含上面所有状态  
 };
 typedef enum CFRunLoopActivity CFRunLoopActivity;
 ```
