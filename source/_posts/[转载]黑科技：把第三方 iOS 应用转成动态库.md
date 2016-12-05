@@ -6,9 +6,9 @@ categories:
 tags:
 - 黑科技
 - 动态库
-permalink: iOSAppToLibrary
-
+permalink: iOSAppToLibrary  
 ---
+
 **文章转载自[杨君的小黑屋](http://blog.imjun.net)，对排版进行了一些调整**
 
 ##	前言  
