@@ -567,24 +567,26 @@
 
 
     
-      <div class="duoshuo" id="comments">
-    <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/11/20/RunLoop/" data-title="深入理解RunLoop" data-url="http://www.gaoshilei.com/2016/11/20/RunLoop/"></div>
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
     <script>
-        var duoshuoQuery = {short_name:"leonlei"};
+        var disqus_config = function(){
+            this.page.url = 'http://www.gaoshilei.com/2016/11/20/RunLoop/';
+            this.page.identifier = '2016/11/20/RunLoop/';
+        };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
-            s.src = 'http://oeat6c2zg.bkt.clouddn.com/embed.js';
-	    s.async = true; s.charset = 'UTF-8';
+            s.src = '//leonlei.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
         }
-
-        
     </script>
     
     <script> loadComment(); </script>
 
-</div>
+</section>
+
 
     
 
