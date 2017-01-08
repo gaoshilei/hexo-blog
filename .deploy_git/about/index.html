@@ -386,19 +386,25 @@
 
 
     
-        <section class="youyan" id="comments">
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="about/index.html" data-title="关于我" data-url="http://www.gaoshilei.com/about/index.html"></div>
     <script>
+        var duoshuoQuery = {short_name:"leonlei"};
         var loadComment = function(){
             var d = document, s = d.createElement('script');
-            s.src = 'http://v2.uyan.cc/code/uyan.js?uid=2122855';
+            s.src = 'http://oeat6c2zg.bkt.clouddn.com/embed.js';
+	    s.async = true; s.charset = 'UTF-8';
             (d.head || d.body).appendChild(s);
         }
+
+        
     </script>
     
     <script> loadComment(); </script>
 
-    <div id="uyan_frame"></div>
-</section>
+</div>
+
     
 
 
@@ -414,7 +420,7 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2016 LeonLei
+                2016-2017 LeonLei
             </div>
             <div class="footer-right">
                powered by  <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a> <i class="fa fa-heart animated infinite pulse"></i>
