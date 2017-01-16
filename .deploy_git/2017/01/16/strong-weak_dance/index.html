@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="LeonLei" />
+
+
+
+<meta name="description" content="下文的讨论基于ARC  
+
+平时开发中我们遇到block里面引用self的情况，大部分都是这样处理的  
+123456__weak typeof(self) weakSelf = self;self.myBlock =  ^&amp;#123;__strong typeof(self) strongSelf = weakSelf;    [strongSelf doSomething];">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你真的会用strong-weak dance吗？">
+<meta property="og:url" content="http://www.gaoshilei.com/2017/01/16/strong-weak_dance/index.html">
+<meta property="og:site_name" content="LeonLei的博客">
+<meta property="og:description" content="下文的讨论基于ARC  
+
+平时开发中我们遇到block里面引用self的情况，大部分都是这样处理的  
+123456__weak typeof(self) weakSelf = self;self.myBlock =  ^&amp;#123;__strong typeof(self) strongSelf = weakSelf;    [strongSelf doSomething];">
+<meta property="og:updated_time" content="2017-01-16T07:55:12.961Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你真的会用strong-weak dance吗？">
+<meta name="twitter:description" content="下文的讨论基于ARC  
+
+平时开发中我们遇到block里面引用self的情况，大部分都是这样处理的  
+123456__weak typeof(self) weakSelf = self;self.myBlock =  ^&amp;#123;__strong typeof(self) strongSelf = weakSelf;    [strongSelf doSomething];">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="LeonLei的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="http://oeat6c2zg.bkt.clouddn.com/12829050723725-1.jpg">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>你真的会用strong-weak dance吗？ | LeonLei的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="http://oeat6c2zg.bkt.clouddn.com/12829050723725-1.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">LeonLei</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">代码略懂，精通LOL</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:goslei1315@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/goslei1226" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/gaoshilei" title="GitHub"></a>
+                            
+                                <a class="fa Facebook" href="https://www.facebook.com/profile.php?id=100002888296778" title="Facebook"></a>
+                            
+                                <a class="fa Twitter" href="https://twitter.com/LeonLei_Gao" title="Twitter"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AFNetworking/">AFNetworking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AutoreleasePool/">AutoreleasePool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocopods/">Cocopods</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDA/">IDA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSTimer/">NSTimer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RunLoop/">RunLoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SDK/">SDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shadowsocks/">Shadowsocks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDID/">UDID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPN/">VPN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPS/">VPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/block/">block</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpdecrypted/">dumpdecrypted</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework/">framework</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/retain-cycle/">retain cycle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serial-Number/">serial Number</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态库/">动态库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编语言/">汇编语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/砸壳/">砸壳</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重签名/">重签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态库/">静态库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑科技/">黑科技</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="/">friends</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">一个脱离了低级趣味的伪全栈iOS攻城狮</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">LeonLei</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="http://oeat6c2zg.bkt.clouddn.com/12829050723725-1.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">LeonLei</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">代码略懂，精通LOL</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:goslei1315@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/goslei1226" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/gaoshilei" title="GitHub"></a>
+                            
+                                <a class="fa Facebook" target="_blank" href="https://www.facebook.com/profile.php?id=100002888296778" title="Facebook"></a>
+                            
+                                <a class="fa Twitter" target="_blank" href="https://twitter.com/LeonLei_Gao" title="Twitter"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-strong-weak_dance" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/01/16/strong-weak_dance/" class="article-date">
+      <time datetime="2017-01-16T07:34:45.000Z" itemprop="datePublished">2017-01-16</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      你真的会用strong-weak dance吗？
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/block/">block</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/retain-cycle/">retain cycle</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>   下文的讨论基于ARC  </p>
+</blockquote>
+<p>平时开发中我们遇到block里面引用self的情况，大部分都是这样处理的  </p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">__<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) weakSelf = <span class="keyword">self</span>;</div><div class="line"><span class="keyword">self</span>.myBlock =  ^&#123;</div><div class="line">__<span class="keyword">strong</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) strongSelf = weakSelf;</div><div class="line">    [strongSelf doSomething]; </div><div class="line">    [strongSelf doSomethingElse]; </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>我们习惯了这样用，<strong>貌似这样用了之后可以解决循环引用的问题，而且可以保证block执行之前self不会被释放掉？真相总是残酷的，然而事实并非如此！</strong>下面将会对block中引用self的三种方式进行讨论，并给出原因和另外一种解决方案。</p>
+<a id="more"></a>
+<h2 id="1-block中直接引用self"><a href="#1-block中直接引用self" class="headerlink" title="1.  block中直接引用self"></a>1.  block中直接引用self</h2><p>这种情况使用是block被没有被self强引用，因此这样不会导致retain cycle。  </p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dispatch_block_t completionHandler = ^&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, <span class="keyword">self</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-在block外部创建weakself变量，在block中引用weakself"><a href="#2-在block外部创建weakself变量，在block中引用weakself" class="headerlink" title="2.在block外部创建weakself变量，在block中引用weakself"></a>2.在block外部创建weakself变量，在block中引用weakself</h2><p>当block被self强引用，此时如果在block内强引用self将会导致retain cycle。所以我们就想到了在block外部创建一个weakself，然后block在创建的时候捕获到的是weakself，这样就不会导致retain cycle。  </p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">__<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) weakSelf = <span class="keyword">self</span>;</div><div class="line">dispatch_block_t block =  ^&#123;</div><div class="line">    [weakSelf doSomething]; </div><div class="line">    [weakSelf doSomethingElse]; </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>但是要注意的是block捕获的是weakself变量，如果在执行doSomething的过程中self被释放掉，由于是弱引用，weakself也将置空，下面的doSomethingElse是无法得到执行的，看一个例子：</p>
+<p>下面的例子展示的是，在block调用之后的1秒后释放self，在block中调用doSomething，2秒之后再调用doAnotherThing，意味着调用doAnotherThing之前self已经被释放了  </p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//viewController.m</span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="keyword">self</span>.sself = [strongweakself new];</div><div class="line">    [<span class="keyword">self</span>.sself test];</div><div class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">1</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"self.block被释放!"</span>);</div><div class="line">        <span class="keyword">self</span>.sself = <span class="literal">nil</span>;</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"><span class="comment">//strongweakself.m</span></div><div class="line">-(<span class="keyword">void</span>)test</div><div class="line">&#123;</div><div class="line">    <span class="keyword">self</span>.myobject = [TestObject new];</div><div class="line">    __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) __weakself = <span class="keyword">self</span>;</div><div class="line">    [<span class="keyword">self</span>.myobject setWeakblock:^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"调用block!"</span>);</div><div class="line">        [__weakself doSomething];</div><div class="line">            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">2</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">                [__weakself doAnotherThing];</div><div class="line">            &#125;);</div><div class="line">    &#125;];</div><div class="line">    <span class="keyword">self</span>.myobject.weakblock();</div><div class="line">&#125;</div><div class="line">-(<span class="keyword">void</span>)doSomething</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>,__func__);</div><div class="line">&#125;</div><div class="line">-(<span class="keyword">void</span>)doAnotherThing</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>,__func__);</div><div class="line">&#125;</div><div class="line">-(<span class="keyword">void</span>)dealloc&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>,__func__);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从打印日志可以看出，block执行大约1秒之后self被dealloc，doAnotherThing并没有得到调用</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="number">2017</span><span class="number">-01</span><span class="number">-16</span> <span class="number">14</span>:<span class="number">31</span>:<span class="number">13.834</span> <span class="keyword">strong</span>-<span class="keyword">weak</span> dance[<span class="number">11366</span>:<span class="number">4727954</span>] 调用block!</div><div class="line"><span class="number">2017</span><span class="number">-01</span><span class="number">-16</span> <span class="number">14</span>:<span class="number">31</span>:<span class="number">13.836</span> <span class="keyword">strong</span>-<span class="keyword">weak</span> dance[<span class="number">11366</span>:<span class="number">4727954</span>] -[strongweakself doSomething]</div><div class="line"><span class="number">2017</span><span class="number">-01</span><span class="number">-16</span> <span class="number">14</span>:<span class="number">31</span>:<span class="number">14.893</span> <span class="keyword">strong</span>-<span class="keyword">weak</span> dance[<span class="number">11366</span>:<span class="number">4727954</span>] <span class="keyword">self</span>.block被释放!</div><div class="line"><span class="number">2017</span><span class="number">-01</span><span class="number">-16</span> <span class="number">14</span>:<span class="number">31</span>:<span class="number">14.893</span> <span class="keyword">strong</span>-<span class="keyword">weak</span> dance[<span class="number">11366</span>:<span class="number">4727954</span>] -[strongweakself dealloc]</div></pre></td></tr></table></figure>
+<p>所以只使用weakself，在self被释放之后，weakself由于self的释放已经为空，后面的self都将失效，所以在block中这样引用self是非常危险的，下面就要谈谈我们最熟悉的strong-weak dance了。</p>
+<h2 id="3-strong-weak-dance"><a href="#3-strong-weak-dance" class="headerlink" title="3.strong-weak dance"></a>3.strong-weak dance</h2><p>对比第二种方案我们看一下doAnotherThing是否可以得到调用，稍微改一下代码，还是在block执行1秒后释放self，我们看看后面的self引用是否有效</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">void</span>)test</div><div class="line">&#123;</div><div class="line">    <span class="keyword">self</span>.myobject = [TestObject new];</div><div class="line">    __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) __weakself = <span class="keyword">self</span>;</div><div class="line">    [<span class="keyword">self</span>.myobject setWeakblock:^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"调用block!"</span>);</div><div class="line">        __<span class="keyword">strong</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) __strongself= __weakself;</div><div class="line">        [__strongself doSomething];</div><div class="line">        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">2</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">            [__strongself doAnotherThing];</div><div class="line">        &#125;);</div><div class="line">    &#125;];</div><div class="line">    <span class="keyword">self</span>.myobject.weakblock();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此时看打印日志：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">2017</span><span class="number">-01</span><span class="number">-16</span> <span class="number">14</span>:<span class="number">36</span>:<span class="number">39.039</span> <span class="keyword">strong</span>-<span class="keyword">weak</span> dance[<span class="number">11374</span>:<span class="number">4728878</span>] 调用block!</div><div class="line"><span class="number">2017</span><span class="number">-01</span><span class="number">-16</span> <span class="number">14</span>:<span class="number">36</span>:<span class="number">39.039</span> <span class="keyword">strong</span>-<span class="keyword">weak</span> dance[<span class="number">11374</span>:<span class="number">4728878</span>] -[strongweakself doSomething]</div><div class="line"><span class="number">2017</span><span class="number">-01</span><span class="number">-16</span> <span class="number">14</span>:<span class="number">36</span>:<span class="number">40.110</span> <span class="keyword">strong</span>-<span class="keyword">weak</span> dance[<span class="number">11374</span>:<span class="number">4728878</span>] <span class="keyword">self</span>.block被释放!</div><div class="line"><span class="number">2017</span><span class="number">-01</span><span class="number">-16</span> <span class="number">14</span>:<span class="number">36</span>:<span class="number">41.213</span> <span class="keyword">strong</span>-<span class="keyword">weak</span> dance[<span class="number">11374</span>:<span class="number">4728878</span>] -[strongweakself doAnotherThing]</div><div class="line"><span class="number">2017</span><span class="number">-01</span><span class="number">-16</span> <span class="number">14</span>:<span class="number">36</span>:<span class="number">41.213</span> <span class="keyword">strong</span>-<span class="keyword">weak</span> dance[<span class="number">11374</span>:<span class="number">4728878</span>] -[strongweakself dealloc]</div></pre></td></tr></table></figure>
+<p>虽然self被释放掉了，但是并没有dealloc，因为block内部的strongself对他进行了一次retain，当doAnotherThing执行完毕，strongself对他的引用计数减一，self被dealloc彻底销毁。</p>
+<p><strong>那么问题来了！strong-weak dance能不能解决block执行前，self被释放的问题？</strong>下面继续验证<br>我们改一下代码，在1秒之后释放self，在2秒之后执行block（<em>注意延时block中对于self的处理是weakself，防止延时block对self进行retain影响验证结果</em>）</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//viewController.m</span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="keyword">self</span>.sself = [strongweakself new];</div><div class="line">    [<span class="keyword">self</span>.sself test];</div><div class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">1</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"self.block被释放!"</span>);</div><div class="line">        <span class="keyword">self</span>.sself = <span class="literal">nil</span>;</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//strongweakself.m</span></div><div class="line">-(<span class="keyword">void</span>)test</div><div class="line">&#123;</div><div class="line">    <span class="keyword">self</span>.myobject = [TestObject new];</div><div class="line">    __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) __weakself = <span class="keyword">self</span>;</div><div class="line">    [<span class="keyword">self</span>.myobject setWeakblock:^&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"调用block!"</span>);</div><div class="line">    __<span class="keyword">strong</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) __strongself= __weakself;</div><div class="line">    [__strongself doSomething];</div><div class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">2</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">        [__strongself doAnotherThing];</div><div class="line">    &#125;);</div><div class="line">    &#125;];</div><div class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">2</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,__weakself);</div><div class="line">        __weakself.myobject.weakblock();</div><div class="line">&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看一下日志：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="number">2017</span><span class="number">-01</span><span class="number">-16</span> <span class="number">14</span>:<span class="number">44</span>:<span class="number">26.314</span> <span class="keyword">strong</span>-<span class="keyword">weak</span> dance[<span class="number">11395</span>:<span class="number">4730727</span>] <span class="keyword">self</span>.block被释放!</div><div class="line"><span class="number">2017</span><span class="number">-01</span><span class="number">-16</span> <span class="number">14</span>:<span class="number">44</span>:<span class="number">26.314</span> <span class="keyword">strong</span>-<span class="keyword">weak</span> dance[<span class="number">11395</span>:<span class="number">4730727</span>] -[strongweakself dealloc]</div><div class="line"><span class="number">2017</span><span class="number">-01</span><span class="number">-16</span> <span class="number">14</span>:<span class="number">44</span>:<span class="number">27.372</span> <span class="keyword">strong</span>-<span class="keyword">weak</span> dance[<span class="number">11395</span>:<span class="number">4730727</span>] (null)</div></pre></td></tr></table></figure>
+<p>当开始调用block的时候报错了，self这时已经被dealloc掉。strong-weak dance并没有解决这种问题。看到这心是不是凉了半截？真相就是如此，我们平时一直使用的strong-weak dance也只能解决block得到调用之后self不被释放的问题。  </p>
+<p>这是我们最常用的是一种方案，因为block创建时捕获的是weakself，所以block执行之前不能够控制self的生命周期，所以这样不会导致整个block对self进行强引用。之后在block内部创建一个对self进行retain的变量strongself，<strong>strongself 作为局部变量强引用了 self 并且会在block执行完毕的时候被自动销毁，这样既可以保证在block执行期间 self 不会被外界干掉，同时也解决了retain cycle的问题。</strong></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过上面几个小栗子可以看出来：strong-weak dance确实是比较好的解决方案，但是也不是万能的，他不能解决block调用之前self被释放的问题，下面将block中引用self分为4中场景：</p>
+<h4 id="1-使用self"><a href="#1-使用self" class="headerlink" title="1.    使用self"></a>1.    使用self</h4><p>当self不持有、不间接持有block时，可以在block内部直接引用self。</p>
+<h4 id="2-使用weakself"><a href="#2-使用weakself" class="headerlink" title="2.使用weakself"></a>2.使用weakself</h4><p>当self持有或间接持有block，可以通过在外部创建self的弱引用weakself然后捕获到block内部进行使用，但是这样使用存在一定风险，一般也不推荐使用。</p>
+<h4 id="3-使用strong-weak-dance"><a href="#3-使用strong-weak-dance" class="headerlink" title="3.使用strong-weak dance"></a>3.使用strong-weak dance</h4><p>当self持有或间接持有block，此时要使用strong-weak dance。<br>这种方法也不是万能的，在block被执行前，block对self依然只是弱引用，进入block里面才会retain一次，保证在block执行期间self都不会被释放掉。</p>
+<h4 id="4-block中强引用self并且打破retain-cycle"><a href="#4-block中强引用self并且打破retain-cycle" class="headerlink" title="4.    block中强引用self并且打破retain cycle"></a>4.    block中强引用self并且打破retain cycle</h4><p><strong>不管是weakself还是strong-weak dance，目的都是避免retain cycle，strong-weak dance的本质也是在block中搞了一个局部变量来打破这种循环引用的；</strong><br>如果我们在block中直接使用self，并且在适当的时机打破这种循环（比如说在block执行完成将这个block销毁）也可以避免retain cycle，并且这种在block创建时就强引用的方式，在block被调用前 self 不会被释放掉，可以弥补strong-weak dance的不足。</p>
+<p>关于本文的内容可能存在不足的地方，欢迎大家指正！</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="http://albertodebortoli.com/blog/2013/08/03/objective-c-blocks-caveat" target="_blank" rel="external">http://albertodebortoli.com/blog/2013/08/03/objective-c-blocks-caveat</a></li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/11/20/RunLoop/">
+                    深入理解RunLoop
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-block中直接引用self"><span class="toc-number">1.</span> <span class="toc-text">1.  block中直接引用self</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-在block外部创建weakself变量，在block中引用weakself"><span class="toc-number">2.</span> <span class="toc-text">2.在block外部创建weakself变量，在block中引用weakself</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-strong-weak-dance"><span class="toc-number">3.</span> <span class="toc-text">3.strong-weak dance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-使用self"><span class="toc-number">4.0.1.</span> <span class="toc-text">1.    使用self</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-使用weakself"><span class="toc-number">4.0.2.</span> <span class="toc-text">2.使用weakself</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-使用strong-weak-dance"><span class="toc-number">4.0.3.</span> <span class="toc-text">3.使用strong-weak dance</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-block中强引用self并且打破retain-cycle"><span class="toc-number">4.0.4.</span> <span class="toc-text">4.    block中强引用self并且打破retain cycle</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"你真的会用strong-weak dance吗？　| LeonLei的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/01/16/strong-weak_dance/" data-title="你真的会用strong-weak dance吗？" data-url="http://www.gaoshilei.com/2017/01/16/strong-weak_dance/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"leonlei"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = 'http://oeat6c2zg.bkt.clouddn.com/embed.js';
+	    s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/11/20/RunLoop/" title="下一篇: 深入理解RunLoop">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/16/strong-weak_dance/">你真的会用strong-weak dance吗？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/20/RunLoop/">深入理解RunLoop</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/17/Static Library/">iOS静态库SDK制作（包含第三方静态库）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（下）/">手把手教你逆向微信之朋友圈小视频转发（下）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/09/手把手教你逆向微信之朋友圈小视频转发（上）/">手把手教你逆向微信之朋友圈小视频转发（上）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/15/iOSAppToLibrary/">【转载】黑科技：把第三方iOS应用转成动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/07/iPhone查找序列号生成函数/">iPhone查找序列号生成函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/08/dumpdecrypted给App砸壳/">dumpdecrypted给App砸壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/19/VPS/">VPS搭建高速VPN服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/15/Xcode编译报错Undefined symbols解决方案/">Xcode编译报错Undefined symbols解决方案</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2017 LeonLei
+            </div>
+            <div class="footer-right">
+               powered by  <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a> <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
