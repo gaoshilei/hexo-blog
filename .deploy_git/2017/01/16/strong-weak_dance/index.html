@@ -27,7 +27,7 @@
 
 平时开发中我们遇到block里面引用self的情况，大部分都是这样处理的  
 123456__weak typeof(self) weakSelf = self;self.myBlock =  ^&amp;#123;__strong typeof(self) strongSelf = weakSelf;    [strongSelf doSomething];">
-<meta property="og:updated_time" content="2017-01-16T07:55:12.961Z">
+<meta property="og:updated_time" content="2017-02-11T09:48:42.576Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你真的会用strong-weak dance吗？">
 <meta name="twitter:description" content="下文的讨论基于ARC  
@@ -338,6 +338,7 @@
 </blockquote>
 <p>平时开发中我们遇到block里面引用self的情况，大部分都是这样处理的  </p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">__<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) weakSelf = <span class="keyword">self</span>;</div><div class="line"><span class="keyword">self</span>.myBlock =  ^&#123;</div><div class="line">__<span class="keyword">strong</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) strongSelf = weakSelf;</div><div class="line">    [strongSelf doSomething]; </div><div class="line">    [strongSelf doSomethingElse]; </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a>   </p>
 <p>我们习惯了这样用，<strong>貌似这样用了之后可以解决循环引用的问题，而且可以保证block执行之前self不会被释放掉？真相总是残酷的，然而事实并非如此！</strong>下面将会对block中引用self的三种方式进行讨论，并给出原因和另外一种解决方案。</p>
 <a id="more"></a>
 <h2 id="1-block中直接引用self"><a href="#1-block中直接引用self" class="headerlink" title="1.  block中直接引用self"></a>1.  block中直接引用self</h2><p>这种情况使用是block被没有被self强引用，因此这样不会导致retain cycle。  </p>
@@ -384,7 +385,7 @@
         
             <div id="article-nav-older" class="article-nav-title">
                 <a href="/2016/11/20/RunLoop/">
-                    深入理解RunLoop
+                    RunLoop的前世今生
                 </a>
             </div>
         
@@ -478,13 +479,13 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/11/20/RunLoop/" title="下一篇: 深入理解RunLoop">
+            <a href="/2016/11/20/RunLoop/" title="下一篇: RunLoop的前世今生">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/16/strong-weak_dance/">你真的会用strong-weak dance吗？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/20/RunLoop/">深入理解RunLoop</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/17/Static Library/">iOS静态库SDK制作（包含第三方静态库）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（下）/">手把手教你逆向微信之朋友圈小视频转发（下）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/09/手把手教你逆向微信之朋友圈小视频转发（上）/">手把手教你逆向微信之朋友圈小视频转发（上）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/15/iOSAppToLibrary/">【转载】黑科技：把第三方iOS应用转成动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/07/iPhone查找序列号生成函数/">iPhone查找序列号生成函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/08/dumpdecrypted给App砸壳/">dumpdecrypted给App砸壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/19/VPS/">VPS搭建高速VPN服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/15/Xcode编译报错Undefined symbols解决方案/">Xcode编译报错Undefined symbols解决方案</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/16/strong-weak_dance/">你真的会用strong-weak dance吗？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/20/RunLoop/">RunLoop的前世今生</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/17/Static Library/">iOS静态库SDK制作（包含第三方静态库）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（下）/">手把手教你逆向微信之朋友圈小视频转发（下）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/09/手把手教你逆向微信之朋友圈小视频转发（上）/">手把手教你逆向微信之朋友圈小视频转发（上）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/15/iOSAppToLibrary/">【转载】黑科技：把第三方iOS应用转成动态库</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/07/iPhone查找序列号生成函数/">iPhone查找序列号生成函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/08/dumpdecrypted给App砸壳/">dumpdecrypted给App砸壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/19/VPS/">VPS搭建高速VPN服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/15/Xcode编译报错Undefined symbols解决方案/">Xcode编译报错Undefined symbols解决方案</a></li></ul>
 
 
 
