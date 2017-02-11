@@ -25,6 +25,7 @@ permalink: strong-weak_dance
     };  
 ```
 
+转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com)   
 
 我们习惯了这样用，**貌似这样用了之后可以解决循环引用的问题，而且可以保证block执行之前self不会被释放掉？真相总是残酷的，然而事实并非如此！**下面将会对block中引用self的三种方式进行讨论，并给出原因和另外一种解决方案。
 
