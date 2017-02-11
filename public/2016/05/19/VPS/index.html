@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E4%BD%BF%E7%94%A8%E7%95%8C%E9%9D%A2.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E8%AE%BE%E7%BD%AE.png">
-<meta property="og:updated_time" content="2017-02-11T09:58:54.805Z">
+<meta property="og:updated_time" content="2017-02-11T10:05:26.982Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPS搭建高速VPN服务器">
 <meta name="twitter:description" content="前言：(废话较多，不想看的略过直接看后面的教程)
@@ -373,8 +373,8 @@
 <h5 id="2-安装Net-Speeder"><a href="#2-安装Net-Speeder" class="headerlink" title="2.    安装Net-Speeder"></a>2.    安装Net-Speeder</h5><p>输入下面的命令进行安装：<br><code>wget https://coding.net/u/njzhenghao/p/download/git/raw/master/net_speeder-installer.sh</code><br>这里我用的是别人git上的sh脚本，有现成的为何不用呢，是吧？！</p>
 <h5 id="3-编译并安装"><a href="#3-编译并安装" class="headerlink" title="3.    编译并安装"></a>3.    编译并安装</h5><p>输入下面的命令编译Net-Speeder：<br><code>bash net_speeder-installer.sh</code><br>命令执行成功之后，执行reboot重启主机，或者在后台面板重启主机也行。（<strong>此时远程主机的连接会断开，需要重新连接</strong>） </p>
 <h5 id="4-端口加速"><a href="#4-端口加速" class="headerlink" title="4.    端口加速"></a>4.    端口加速</h5><p>最后一步，加速端口：<br><code>nohup /usr/local/net_speeder/net_speeder venet0 &quot;ip&quot; &gt;/dev/null 2&gt;&amp;1 &amp;</code><br>执行完这个命令应该会有一个端口号打印出来，证明加速成功了！别着急还有最后一步，点开Shadowsocks Server菜单点击退出，<em>不要点退出Shadowsocks Server</em>，然后再次打开App，现在打开YouTube看个视频试试吧！现在墙外网站下载速度一般都在500KB左右，当然这个速度也受到你所在运营商的网络环境影响。（<strong>注意：加速端口这个命令每次重启主机都需要执行一次，因为这个脚本没有加到开机自启动，反正我们没事也不重启主机，我懒得弄了，大家自己Google吧，哈哈！</strong>）  </p>
-<hr>
-<p>11.25更新<br>有些网友反应速度有时候很慢，我今天也遇到了这种情况，解决方案如下：<br>先通过命令连上VPS  </p>
+<p><strong>11.25更新</strong>  </p>
+<p>有些网友反应速度有时候很慢，我今天也遇到了这种情况，解决方案如下：<br>先通过命令连上VPS  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -l root -p port IP</div></pre></td></tr></table></figure>
 <p>然后重启主机  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reboot</div></pre></td></tr></table></figure>
