@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E4%BD%BF%E7%94%A8%E7%95%8C%E9%9D%A2.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E8%AE%BE%E7%BD%AE.png">
-<meta property="og:updated_time" content="2016-11-21T07:18:53.040Z">
+<meta property="og:updated_time" content="2017-02-11T09:58:54.805Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPS搭建高速VPN服务器">
 <meta name="twitter:description" content="前言：(废话较多，不想看的略过直接看后面的教程)
@@ -352,7 +352,7 @@
 <h5 id="搬瓦工官网链接：https-bandwagonhost-com"><a href="#搬瓦工官网链接：https-bandwagonhost-com" class="headerlink" title="搬瓦工官网链接：https://bandwagonhost.com"></a>搬瓦工官网链接：<a href="https://bandwagonhost.com/aff.php?aff=10505" target="_blank" rel="external">https://bandwagonhost.com</a></h5><p>（<em>不挂VPN访问不是很稳定，如果访问不了的话先借个VPN用一下吧，哈哈！</em>）  </p>
 <p>进入之后要注册，之后就可以购买主机了，根据你自己的经济情况来选择。（<em>其实不同主机的带宽都是一样的，只不过在配置上有差别，如果不是搭建大型的网站对配置有要求，只是想有个专线VPN的话，$19.99一年就足够用了。</em>）  </p>
 <blockquote>
-<p><strong>我在购买主机的时候有一个小坑要提一下，搬瓦工的支付方式只支持PayPal，国内强大的支付宝居然不能支付！所以又去注册一个PayPal，坑来了：</strong><br>PayPal分国内版和国际版，国内版是不支持美元支付的，而且两者的账户是不通的，所以你注册了国内版是无法支付的，国际版的地址是：<a href="https://www.paypal.com/c2/webapps/mpp/home" target="_blank" rel="external">https://www.paypal.com</a>，虽然是中文，但是货币是USD美元，绑定一张银联的卡就可以购物了。<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNPayPal.png" width="500">   </p>
+<p><strong>我在购买主机的时候有一个小坑要提一下，<del>搬瓦工的支付方式只支持PayPal，国内强大的支付宝居然不能支付！所以又去注册一个PayPal，</del>坑来了：</strong><br>PayPal分国内版和国际版，国内版是不支持美元支付的，而且两者的账户是不通的，所以你注册了国内版是无法支付的，国际版的地址是：<a href="https://www.paypal.com/c2/webapps/mpp/home" target="_blank" rel="external">https://www.paypal.com</a>，虽然是中文，但是货币是USD美元，绑定一张银联的卡就可以购物了。<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNPayPal.png" width="500">   </p>
 </blockquote>
 <p><strong>这里做个修正：搬瓦工已经推出支付宝支付了，check out的时候选择alipay就可以了</strong></p>
 <h3 id="二-配置服务器"><a href="#二-配置服务器" class="headerlink" title="二.    配置服务器"></a>二.    配置服务器</h3><h4 id="1-进入控制面板，修改当前的root密码"><a href="#1-进入控制面板，修改当前的root密码" class="headerlink" title="1.    进入控制面板，修改当前的root密码"></a>1.    进入控制面板，修改当前的root密码</h4><p>进入账户之后我们可以在MyServices中看到服务器列表：<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPN%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%97%E8%A1%A8.png" alt="服务器列表"><br>进入KiwiVM管理后台，我们可以看到左侧有个菜单栏，点击Root Shell-interactive，此时会以H5的形式打开一个terminal窗口，执行<code>passwd</code>命令修改root密码<br>（<em>如果你不嫌系统分配的root密码不好记、每次ssh进主机都要复制粘贴密码，那么略过这步，**</em>如果你忘记了root密码也可以直接通过这里修改，什么？！你忘记搬瓦工的账号密码无法进入后台面板？用你注册填写的邮箱或者手机号找回吧！**）<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPN%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81.png" alt="修改root密码"></p>
@@ -360,7 +360,11 @@
 <h4 id="3-安装Shadowsocks-Server"><a href="#3-安装Shadowsocks-Server" class="headerlink" title="3.    安装Shadowsocks Server"></a>3.    安装Shadowsocks Server</h4><blockquote>
 <p>搬瓦工也提供了openVPN一键安装，个人感觉Shadowsocks更好用，有两种加速模式，访问会更快速。<br><strong>其实这篇文章介绍的是SS的安装，它跟VPN的原理差不多，因为SS采用的是自由协议，一般被墙的可能性要小得多，所以更加稳定！一般不需要区分SS跟VPN的差别，SS在稳定性上更有优势，你值得拥有！</strong></p>
 </blockquote>
-<p>左侧菜单栏找到Shadowsocks Server，点进去安装就好了（<strong>注意：搬瓦工提供的一键安装功能只支持CentOS6</strong>，你也可以通过命令行的方式安装），安装好的Shadowsocks Server界面是这样的：<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server.png" width="500"><br>此时VPN已经可以用了，不过还差一个客户端，Windows版本的客户端在后台面板就有链接，Mac用户请<a href="https://sourceforge.net/projects/shadowsocksgui/" target="_blank" rel="external">点击这里下载</a>如果无法访问，我已经下载好放到我的网盘了<a href="https://pan.baidu.com/s/1boXspQJ" target="_blank" rel="external">ShadowsocksX-2.6.3.dmg</a>，安装好打开Shadowsocks Server，在Mac的工具栏会有一个小飞机的图标<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E4%BD%BF%E7%94%A8%E7%95%8C%E9%9D%A2.png" width="300" height="400"><br>点开服务器，配置IP和密码，只需要修改地址和密码，其他不用改就OK了。<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E8%AE%BE%E7%BD%AE.png" width="500" height="300"><br>上两张图显示Shadowsocks Server有两种加速模式 ，<strong>一般情况下勾选自动代理模式就可以了，这个这个模式下会自动判断你当前访问的域名是否在GFW名单里面，如果是就启用代理，如果不是就正常访问，这样我们在访问墙内网站的时候也不会受到任何影响</strong> ，如果你遇到网站无法访问，有可能是这个网站近期被墙了，你没有更新本地的GFW名单，如果你确定这个网站是可以打开的，切换到全局模式就可以访问了 </p>
+<p>左侧菜单栏找到Shadowsocks Server，点进去安装就好了（<strong>注意：搬瓦工提供的一键安装功能只支持CentOS6</strong>，你也可以通过命令行的方式安装），安装好的Shadowsocks Server界面是这样的：<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server.png" width="500"><br>此时VPN已经可以用了，不过还差一个客户端，Windows版本的客户端在后台面板就有链接，Mac用户请<a href="https://sourceforge.net/projects/shadowsocksgui/" target="_blank" rel="external">点击这里下载</a>如果无法访问，我已经下载好放到我的网盘了<a href="https://pan.baidu.com/s/1boXspQJ" target="_blank" rel="external">ShadowsocksX-2.6.3.dmg</a>，安装好打开Shadowsocks Server，在Mac的工具栏会有一个小飞机的图标<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E4%BD%BF%E7%94%A8%E7%95%8C%E9%9D%A2.png" width="300" height="400">  </p>
+<blockquote>
+<p> 11.25更新：由于iPhone的Shadowsocks Server只在英国地区销售，国内的AppStore是下载不到的，大家可以在AppStore搜wingy，配置过程跟mac差不多，主要是IP、 Port和密码，加密协议都用默认的aes-256-cfb就行，然后手机也可以愉快的上网了。</p>
+</blockquote>
+<p>点开服务器，配置IP和密码，只需要修改地址和密码，其他不用改就OK了。<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E8%AE%BE%E7%BD%AE.png" width="500" height="300"><br>上两张图显示Shadowsocks Server有两种加速模式 ，<strong>一般情况下勾选自动代理模式就可以了，这个这个模式下会自动判断你当前访问的域名是否在GFW名单里面，如果是就启用代理，如果不是就正常访问，这样我们在访问墙内网站的时候也不会受到任何影响</strong> ，如果你遇到网站无法访问，有可能是这个网站近期被墙了，你没有更新本地的GFW名单，如果你确定这个网站是可以打开的，切换到全局模式就可以访问了 </p>
 <blockquote>
 <p>Shadowsocks Server自动代理模式原理是根据GFWList配置了一个PAC文件，名单中的域名全部走代理，你可以手动修改这个配置文件，添加你要访问的被墙的网站，它就是一个js文件，你点击编辑自动模式的PAC文件便会跳转到这个js所在的位置，那个GFWList自动更新功能坏掉了，作者一直也没更新，不过不影响平时使用。  </p>
 </blockquote>
@@ -369,6 +373,14 @@
 <h5 id="2-安装Net-Speeder"><a href="#2-安装Net-Speeder" class="headerlink" title="2.    安装Net-Speeder"></a>2.    安装Net-Speeder</h5><p>输入下面的命令进行安装：<br><code>wget https://coding.net/u/njzhenghao/p/download/git/raw/master/net_speeder-installer.sh</code><br>这里我用的是别人git上的sh脚本，有现成的为何不用呢，是吧？！</p>
 <h5 id="3-编译并安装"><a href="#3-编译并安装" class="headerlink" title="3.    编译并安装"></a>3.    编译并安装</h5><p>输入下面的命令编译Net-Speeder：<br><code>bash net_speeder-installer.sh</code><br>命令执行成功之后，执行reboot重启主机，或者在后台面板重启主机也行。（<strong>此时远程主机的连接会断开，需要重新连接</strong>） </p>
 <h5 id="4-端口加速"><a href="#4-端口加速" class="headerlink" title="4.    端口加速"></a>4.    端口加速</h5><p>最后一步，加速端口：<br><code>nohup /usr/local/net_speeder/net_speeder venet0 &quot;ip&quot; &gt;/dev/null 2&gt;&amp;1 &amp;</code><br>执行完这个命令应该会有一个端口号打印出来，证明加速成功了！别着急还有最后一步，点开Shadowsocks Server菜单点击退出，<em>不要点退出Shadowsocks Server</em>，然后再次打开App，现在打开YouTube看个视频试试吧！现在墙外网站下载速度一般都在500KB左右，当然这个速度也受到你所在运营商的网络环境影响。（<strong>注意：加速端口这个命令每次重启主机都需要执行一次，因为这个脚本没有加到开机自启动，反正我们没事也不重启主机，我懒得弄了，大家自己Google吧，哈哈！</strong>）  </p>
+<hr>
+<p>11.25更新<br>有些网友反应速度有时候很慢，我今天也遇到了这种情况，解决方案如下：<br>先通过命令连上VPS  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -l root -p port IP</div></pre></td></tr></table></figure>
+<p>然后重启主机  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reboot</div></pre></td></tr></table></figure>
+<p>此时连接断开，不用管，去看一下此时的SS是否正常使用，确定可以访问之后，再连上VPS开启端口加速  </p>
+<pre><code>nohup /usr/local/net_speeder/net_speeder venet0 &quot;ip&quot; &gt;/dev/null 2&gt;&amp;1 &amp;
+</code></pre><p>这种情况应该是主机的SS服务挂掉了，这种情况很少遇到，我使用了这么久今天第一次遇到，这么操作之后SS又恢复到原来丝滑般的享受 。</p>
 
       
     </div>
