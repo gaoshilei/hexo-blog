@@ -30,7 +30,7 @@ permalink: VPS
 
 进入之后要注册，之后就可以购买主机了，根据你自己的经济情况来选择。（*其实不同主机的带宽都是一样的，只不过在配置上有差别，如果不是搭建大型的网站对配置有要求，只是想有个专线VPN的话，$19.99一年就足够用了。*）  
 
-> **我在购买主机的时候有一个小坑要提一下，搬瓦工的支付方式只支持PayPal，国内强大的支付宝居然不能支付！所以又去注册一个PayPal，坑来了：**  
+> **我在购买主机的时候有一个小坑要提一下，~~搬瓦工的支付方式只支持PayPal，国内强大的支付宝居然不能支付！所以又去注册一个PayPal，~~坑来了：** 
 PayPal分国内版和国际版，国内版是不支持美元支付的，而且两者的账户是不通的，所以你注册了国内版是无法支付的，国际版的地址是：[https://www.paypal.com](https://www.paypal.com/c2/webapps/mpp/home)，虽然是中文，但是货币是USD美元，绑定一张银联的卡就可以购物了。
 <img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNPayPal.png" width="500"/>   
  
@@ -55,6 +55,9 @@ PayPal分国内版和国际版，国内版是不支持美元支付的，而且�
 <img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server.png" width="500"/>  
 此时VPN已经可以用了，不过还差一个客户端，Windows版本的客户端在后台面板就有链接，Mac用户请[点击这里下载](https://sourceforge.net/projects/shadowsocksgui/)如果无法访问，我已经下载好放到我的网盘了[ShadowsocksX-2.6.3.dmg](https://pan.baidu.com/s/1boXspQJ)，安装好打开Shadowsocks Server，在Mac的工具栏会有一个小飞机的图标  
 <img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E4%BD%BF%E7%94%A8%E7%95%8C%E9%9D%A2.png" width="300" height="400" />  
+
+>  11.25更新：由于iPhone的Shadowsocks Server只在英国地区销售，国内的AppStore是下载不到的，大家可以在AppStore搜wingy，配置过程跟mac差不多，主要是IP、 Port和密码，加密协议都用默认的aes-256-cfb就行，然后手机也可以愉快的上网了。
+
 点开服务器，配置IP和密码，只需要修改地址和密码，其他不用改就OK了。
 <img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E8%AE%BE%E7%BD%AE.png" width="500" height="300"/>  
 上两张图显示Shadowsocks Server有两种加速模式 ，**一般情况下勾选自动代理模式就可以了，这个这个模式下会自动判断你当前访问的域名是否在GFW名单里面，如果是就启用代理，如果不是就正常访问，这样我们在访问墙内网站的时候也不会受到任何影响** ，如果你遇到网站无法访问，有可能是这个网站近期被墙了，你没有更新本地的GFW名单，如果你确定这个网站是可以打开的，切换到全局模式就可以访问了 
@@ -77,3 +80,26 @@ PayPal分国内版和国际版，国内版是不支持美元支付的，而且�
 最后一步，加速端口：  
 `nohup /usr/local/net_speeder/net_speeder venet0 "ip" >/dev/null 2>&1 &`  
 执行完这个命令应该会有一个端口号打印出来，证明加速成功了！别着急还有最后一步，点开Shadowsocks Server菜单点击退出，*不要点退出Shadowsocks Server*，然后再次打开App，现在打开YouTube看个视频试试吧！现在墙外网站下载速度一般都在500KB左右，当然这个速度也受到你所在运营商的网络环境影响。（**注意：加速端口这个命令每次重启主机都需要执行一次，因为这个脚本没有加到开机自启动，反正我们没事也不重启主机，我懒得弄了，大家自己Google吧，哈哈！**）  
+
+---
+11.25更新  
+有些网友反应速度有时候很慢，我今天也遇到了这种情况，解决方案如下：  
+先通过命令连上VPS  
+
+```
+ssh -l root -p port IP
+```
+
+然后重启主机  
+
+```
+reboot
+```
+
+此时连接断开，不用管，去看一下此时的SS是否正常使用，确定可以访问之后，再连上VPS开启端口加速  
+
+```
+nohup /usr/local/net_speeder/net_speeder venet0 "ip" >/dev/null 2>&1 &
+```  
+
+这种情况应该是主机的SS服务挂掉了，这种情况很少遇到，我使用了这么久今天第一次遇到，这么操作之后SS又恢复到原来丝滑般的享受 。
