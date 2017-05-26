@@ -12,8 +12,6 @@ permalink: weex-1
 
 ---
 
-# Weex从入门到超神（一）
-
 ![](http://oeat6c2zg.bkt.clouddn.com/Weex_logo.png)
 ##		前言
 随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？  
@@ -22,7 +20,7 @@ permalink: weex-1
 
 去年阿里巴巴开源了一个类似 RN 的框架 **[Weex](http://weex.apache.org/cn/)** ，虽然面世才一年多，已经收获了广泛的关注，今年 Weex 已经被纳入 Apache 基金会的孵化项目。
 ![](http://oeat6c2zg.bkt.clouddn.com/Weex_Apache.png)
-
+<!-- more -->
 ##		为什么选择 Weex  
 
 转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com)  
