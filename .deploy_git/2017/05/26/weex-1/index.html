@@ -6,26 +6,23 @@
   
   <title>Weex从入门到超神（一） | LeonLei的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Weex从入门到超神（一）
-前言随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？  
-两年前 Facebook 团队发布了一个全新的移动端和前端无缝衔接的框架 React Native，很明显是用 React 开发">
+  <meta name="description" content="前言随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？  
+两年前 Facebook 团队发布了一个全新的移动端和前端无缝衔接的框架 React Native，很明显是用 React 开发的，支持在 Native">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Weex从入门到超神（一）">
 <meta property="og:url" content="http://www.gaoshilei.com/2017/05/26/weex-1/index.html">
 <meta property="og:site_name" content="LeonLei的博客">
-<meta property="og:description" content="Weex从入门到超神（一）
-前言随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？  
-两年前 Facebook 团队发布了一个全新的移动端和前端无缝衔接的框架 React Native，很明显是用 React 开发">
+<meta property="og:description" content="前言随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？  
+两年前 Facebook 团队发布了一个全新的移动端和前端无缝衔接的框架 React Native，很明显是用 React 开发的，支持在 Native">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/Weex_logo.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/Weex_Apache.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/weex&vue.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/Weex_theroy.png">
-<meta property="og:updated_time" content="2017-05-26T07:32:11.620Z">
+<meta property="og:updated_time" content="2017-05-26T07:34:03.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Weex从入门到超神（一）">
-<meta name="twitter:description" content="Weex从入门到超神（一）
-前言随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？  
-两年前 Facebook 团队发布了一个全新的移动端和前端无缝衔接的框架 React Native，很明显是用 React 开发">
+<meta name="twitter:description" content="前言随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？  
+两年前 Facebook 团队发布了一个全新的移动端和前端无缝衔接的框架 React Native，很明显是用 React 开发的，支持在 Native">
 <meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/Weex_logo.png">
   
     <link rel="alternative" href="/atom.xml" title="LeonLei的博客" type="application/atom+xml">
@@ -112,10 +109,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Weex从入门到超神（一）"><a href="#Weex从入门到超神（一）" class="headerlink" title="Weex从入门到超神（一）"></a>Weex从入门到超神（一）</h1><p><img src="http://oeat6c2zg.bkt.clouddn.com/Weex_logo.png" alt=""></p>
+        <p><img src="http://oeat6c2zg.bkt.clouddn.com/Weex_logo.png" alt=""></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？  </p>
 <p>两年前 Facebook 团队发布了一个全新的移动端和前端无缝衔接的框架 React Native，很明显是用 React 开发的，支持在 Native 上运行的这么一个玩意，这相对于苹果漫长的审核机制的确是一个福音。可是 React 的学习曲线比较陡，网上大部分教程的性质都是 <strong>“React Native 从入门到放弃”</strong>，RN虽好，但是对于大多数移动开发者来说学习成本过高。   </p>
-<p>去年阿里巴巴开源了一个类似 RN 的框架 <strong><a href="http://weex.apache.org/cn/" target="_blank" rel="external">Weex</a></strong> ，虽然面世才一年多，已经收获了广泛的关注，今年 Weex 已经被纳入 Apache 基金会的孵化项目。<br><img src="http://oeat6c2zg.bkt.clouddn.com/Weex_Apache.png" alt=""></p>
+<p>去年阿里巴巴开源了一个类似 RN 的框架 <strong><a href="http://weex.apache.org/cn/" target="_blank" rel="external">Weex</a></strong> ，虽然面世才一年多，已经收获了广泛的关注，今年 Weex 已经被纳入 Apache 基金会的孵化项目。<br><img src="http://oeat6c2zg.bkt.clouddn.com/Weex_Apache.png" alt=""><br><a id="more"></a></p>
 <h2 id="为什么选择-Weex"><a href="#为什么选择-Weex" class="headerlink" title="为什么选择 Weex"></a>为什么选择 Weex</h2><p>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a>  </p>
 <p>作为 Native 开发者，我们很清楚 Native 走到今天所面临的困境，相较于前端比较呆板不够灵活，任何改动都需要重新打包提交审核然后发布版本，这个周期最短也要1~2天的时间，一直有人在说要用 H5 替代 Native ,这不是危言耸听，移动端市场正在遭受着冲击。  </p>
 <p>大部分中小型的互联网公司都是小步快走的模式进行版本迭代，版本发布的灵活性就显得尤为重要，可能产品早上想的功能点晚上就要上线，Native 肯定是办不到的，H5 这个时候就显示出它的优势了；但是 H5 有一个致命的缺点就是性能太差，用户体验远达不到 Native 带来的那种丝滑流畅般的享受。所以这两年，RN 和 Weex 悄然崛起就是为了解决这种矛盾。</p>
