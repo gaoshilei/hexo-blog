@@ -17,10 +17,11 @@ permalink: weex-1
 随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？  
   
 两年前 Facebook 团队发布了一个全新的移动端和前端无缝衔接的框架 React Native，很明显是用 React 开发的，支持在 Native 上运行的这么一个玩意，这相对于苹果漫长的审核机制的确是一个福音。可是 React 的学习曲线比较陡，网上大部分教程的性质都是 **“React Native 从入门到放弃”**，RN虽好，但是对于大多数移动开发者来说学习成本过高。   
+<!-- more -->
 
 去年阿里巴巴开源了一个类似 RN 的框架 **[Weex](http://weex.apache.org/cn/)** ，虽然面世才一年多，已经收获了广泛的关注，今年 Weex 已经被纳入 Apache 基金会的孵化项目。
 ![](http://oeat6c2zg.bkt.clouddn.com/Weex_Apache.png)
-<!-- more -->
+
 ##		为什么选择 Weex  
 
 转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com)  
