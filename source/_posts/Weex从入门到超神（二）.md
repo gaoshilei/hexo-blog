@@ -42,7 +42,7 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
     } else {
         [[WXSDKManager bridgeMgr] registerComponents:@[dict]];
     }
-```   
+```
 
 首先通过一个工厂类`WXComponentFactory`注册 Component，  
 
@@ -53,7 +53,7 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
 ```ObjC  
 @property (nonatomic, strong) NSMutableDictionary *asyncMethods;
 @property (nonatomic, strong) NSMutableDictionary *syncMethods;
-```  
+```
 
 然后再从`WXComponentFactory`拿到对应 Component 的方法列表字典，需要注意的是这里拿到的方法列表只是**异步方法**，得到的是这样的字典：
 
@@ -75,7 +75,7 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
     } else {
         [_methodQueue addObject:@{@"method":method, @"args":args}];
     }  
-```  
+```
 
 最后将 Component 注册到了`JSContext`中，
 
@@ -97,7 +97,7 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
         [self _layoutAndSyncUI];
     }
 }
-```  
+```
 
 这个方法是 Vue 页面渲染时所调用的方法，这个方法会递归添加 Component，同时会向视图中添加与 Component 相对应的 UIView。从代码的后半部分可以看到，如果当前 Component 有`{@"append":@"tree"}`属性并且它的父 Component 没有这个属性将会强制对页面进行重新布局。可以看到这样做是为了防止UI绘制任务太多堆积在一起影响同步队列任务的执行。    
 
@@ -172,7 +172,7 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
 
     _jsContext[@"callAddElement"] = callAddElementBlock;
 }
-```  
+```
 
 这是一个更新 Dom 添加 UIView 的方法，这里需要把 Native 的方法暴露给 JS 调用。但是有一个问题：  
 >  OC 的方法参数格式和 JS 的不一样，不能直接提供给 JS 调用。  
@@ -188,7 +188,7 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
                 attributes:(NSDictionary *)attributes
                     events:(NSArray *)events
               weexInstance:(WXSDKInstance *)weexInstance
-```  
+```
 
 这个方法会在 JS 调用`callCreateBody`时被 invoke。 
 
@@ -211,7 +211,7 @@ Module 注册流程和 Component 基本一致，首先通过`WXModuleFactory`注
     
     return name;
 }
-```  
+```
 
 注册 Moudle 的`registerMethods`方法与注册 Component 是一样的，都是`WXInvocationConfig`中的实例方法，`wx_export_method_sync_`前缀的同步方法注册到 syncMethods 中，`wx_export_method_`前缀的异步方法注册到 asyncMethods 中。再将 Moudle 的同步和异步方法取出来注入到`JSContext`中
 
@@ -239,7 +239,7 @@ Module 注册流程和 Component 基本一致，首先通过`WXModuleFactory`注
 ```
 
 这是`WXDomModule`中所有的方法，*Moudle 中方法注册比 Component 更有意义，因为 Moudle 中基本上都是暴露给 Vue 调用的 Native 方法。*   
-接下来我们来看一下 syncMethods 和 asyncMethods 有什么不同： 
+接下来我们来看一下 syncMethods 和 asyncMethods 有什么不同：  
  
 
 
