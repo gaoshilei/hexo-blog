@@ -18,6 +18,8 @@ permalink: weex-2
 ![](http://oeat6c2zg.bkt.clouddn.com/FA269E01D9C3794449AA6748EA6280C6.png)  
 鉴于对于项目中使用 Weex 的一些经验和心得，还是希望写出来和大家一起分享。  
 
+<!-- more -->
+
 ## 应用层核心组件
 Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js` 代码。不过在注入这段代码之前会先注册一些默认的 `Component`、`Module`和`Handler`，**这就是 Weex 与 Native 应用层交互最核心的部分**，可以理解为“组件”。其中 Component 是为了映射 Html 的一些标签，Module 中是提供一些 Native 的一些方法供 Weex 调用，Handler 是一些协议的实现。  
 
