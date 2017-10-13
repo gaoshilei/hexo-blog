@@ -352,7 +352,8 @@ Handlers 的注册和使用非常简单，直接将对应的 class 注册到 `WX
 {
     id handler = [[WXHandlerFactory sharedInstance].handlers objectForKey:NSStringFromProtocol(protocol)];
     return handler;
-}```
+}
+```
 
 直接拿出即可。
  
