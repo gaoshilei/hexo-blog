@@ -86,8 +86,8 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
 
 ```ObjC    
 - (void)_recursivelyAddComponent:(NSDictionary *)componentData toSupercomponent:(WXComponent *)supercomponent atIndex:(NSInteger)index appendingInTree:(BOOL)appendingInTree {
-		...    
-	BOOL appendTree = !appendingInTree && [component.attributes[@"append"] isEqualToString:@"tree"];
+		...    
+    BOOL appendTree = !appendingInTree && [component.attributes[@"append"] isEqualToString:@"tree"];
     // if ancestor is appending tree, child should not be laid out again even it is appending tree.
     for(NSDictionary *subcomponentData in subcomponentsData){
         [self _recursivelyAddComponent:subcomponentData toSupercomponent:component atIndex:-1 appendingInTree:appendTree || appendingInTree];
