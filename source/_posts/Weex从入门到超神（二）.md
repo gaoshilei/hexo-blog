@@ -213,7 +213,7 @@ Module 注册流程和 Component 基本一致，首先通过`WXModuleFactory`注
 }
 ```
 
-注册 Moudle 的`registerMethods`方法与注册 Component 是一样的，都是`WXInvocationConfig`中的实例方法，`wx_export_method_sync_`前缀的同步方法注册到 syncMethods 中，`wx_export_method_`前缀的异步方法注册到 asyncMethods 中。再将 Moudle 的同步和异步方法取出来注入到`JSContext`中
+注册 Moudle 的`registerMethods`方法与注册 Component 是一样的，都是将方法注册到`WXInvocationConfig`中，`wx_export_method_sync_`前缀的同步方法注册到 syncMethods 中，`wx_export_method_`前缀的异步方法注册到 asyncMethods 中。再将 Moudle 的同步和异步方法取出来调用`registerComponents`注入到`JSContext`中
 
 ```ObjC  
 {
@@ -238,8 +238,123 @@ Module 注册流程和 Component 基本一致，首先通过`WXModuleFactory`注
 }
 ```
 
-这是`WXDomModule`中所有的方法，*Moudle 中方法注册比 Component 更有意义，因为 Moudle 中基本上都是暴露给 Vue 调用的 Native 方法。*   
-接下来我们来看一下 syncMethods 和 asyncMethods 有什么不同：  
+这是`WXDomModule`中所有的方法，*Moudle 中的方法注册比 Component 更有意义，因为 Moudle 中基本上都是暴露给 Vue 调用的 Native 方法。*   
+**接下来我们来看一下 Moudle 的方法如何被调用以及 syncMethods 和 asyncMethods 有什么不同。**  
+在前面的`jsBridge`懒加载中，有一个注册方法是跟 Moudle 中方法有关的，Moudle 中的方法会在这个注册方法的回调中被 invoke，换言之，Vue 调用 Moudle 中的方法会在这个回调中被唤起  
+
+```ObjC  
+    [_jsBridge registerCallNativeModule:^NSInvocation*(NSString *instanceId, NSString *moduleName, NSString *methodName, NSArray *arguments, NSDictionary *options) {
+        
+        WXSDKInstance *instance = [WXSDKManager instanceForID:instanceId];
+        
+        if (!instance) {
+            WXLogInfo(@"instance not found for callNativeModule:%@.%@, maybe already destroyed", moduleName, methodName);
+            return nil;
+        }
+        
+        WXModuleMethod *method = [[WXModuleMethod alloc] initWithModuleName:moduleName methodName:methodName arguments:arguments instance:instance];
+        if(![moduleName isEqualToString:@"dom"] && instance.needPrerender){
+            [WXPrerenderManager storePrerenderModuleTasks:method forUrl:instance.scriptURL.absoluteString];
+            return nil;
+        }
+        return [method invoke];
+    }];
+```
+
+在`WXModuleMethod`中可以看到`-(NSInvocation *)invoke`这个方法，Moudle 中的方法将会通过这个方法被 invoke
+
+```ObjC  
+		...
+    
+    Class moduleClass =  [WXModuleFactory classWithModuleName:_moduleName];
+    if (!moduleClass) {
+        NSString *errorMessage = [NSString stringWithFormat:@"Module：%@ doesn't exist, maybe it has not been registered", _moduleName];
+        WX_MONITOR_FAIL(WXMTJSBridge, WX_ERR_INVOKE_NATIVE, errorMessage);
+        return nil;
+    }
+    
+    id<WXModuleProtocol> moduleInstance = [self.instance moduleForClass:moduleClass];
+    WXAssert(moduleInstance, @"No instance found for module name:%@, class:%@", _moduleName, moduleClass);
+    BOOL isSync = NO;
+    SEL selector = [WXModuleFactory selectorWithModuleName:self.moduleName methodName:self.methodName isSync:&isSync];
+   
+    if (![moduleInstance respondsToSelector:selector]) {
+        // if not implement the selector, then dispatch default module method
+        if ([self.methodName isEqualToString:@"addEventListener"]) {
+            [self.instance _addModuleEventObserversWithModuleMethod:self];
+        } else if ([self.methodName isEqualToString:@"removeAllEventListeners"]) {
+            [self.instance _removeModuleEventObserverWithModuleMethod:self];
+        } else {
+            NSString *errorMessage = [NSString stringWithFormat:@"method：%@ for module:%@ doesn't exist, maybe it has not been registered", self.methodName, _moduleName];
+            WX_MONITOR_FAIL(WXMTJSBridge, WX_ERR_INVOKE_NATIVE, errorMessage);
+        }
+        return nil;
+    }
+	
+    [self commitModuleInvoke];
+    NSInvocation *invocation = [self invocationWithTarget:moduleInstance selector:selector];
+    
+    if (isSync) {
+        [invocation invoke];
+        return invocation;
+    } else {
+        [self _dispatchInvocation:invocation moduleInstance:moduleInstance];
+        return nil;
+    }
+```
+
+先通过 `WXModuleFactory` 拿到对应的方法 Selector，然后再拿到这个方法对应的 NSInvocation ，最后 invoke 这个 NSInvocation。对于 syncMethods 和 asyncMethods 有两种 invoke 方式。如果是 syncMethod 会直接 invoke ，如果是 asyncMethod，会将它派发到某个指定的线程中进行 invoke，这样做的好处是不会阻塞当前线程。到这里 Moudle 的大概的运行原理都清除了，不过还有一个问题，Moudle 的方法是怎么暴露给 Vue 的呢？  
+在 Moudle 中我们通过 Weex 提供的宏可以将方法暴露出来：
+
+```ObjC  
+#define WX_EXPORT_METHOD(method) WX_EXPORT_METHOD_INTERNAL(method,wx_export_method_)
+#define WX_EXPORT_METHOD_SYNC(method) WX_EXPORT_METHOD_INTERNAL(method,wx_export_method_sync_)
+```
+
+分别提供了 syncMethod 和 asyncMethod 的宏，展开其实是这样的
+
+```ObjC  
+#define WX_EXPORT_METHOD_INTERNAL(method, token) \
++ (NSString *)WX_CONCAT_WRAPPER(token, __LINE__) { \
+    return NSStringFromSelector(method); \
+}
+```  
+这里会自动将方法名和当前的行数拼成一个新的方法名，这样做的好处是可以保证方法的唯一性，例如 `WXDomModule` 中的 `createBody:` 方法利用宏暴露出来，最终展开形式是这样的  
+
+```ObjC  
++ (NSString *)wx_export_method_40 { \
+    return NSStringFromSelector(createBody:); \
+}
+```  
+
+在`WXInvocationConfig`中调用`- (void)registerMethods`注册方法的时候，首先拿到当前 class 中所有的类方法**（宏包装成的方法，并不是实际要注册的方法）**，然后通过判断有无`wx_export_method_sync_`前缀和`wx_export_method_`前缀来判断是否为暴露的方法，然后再调用该类方法，获得最终的实例方法字符串
+
+```ObjC  
+method = ((NSString* (*)(id, SEL))[currentClass methodForSelector:selector])(currentClass, selector);
+```
+
+拿到需要注册的实例方法字符串，再将方法字符串注册到`WXInvocationConfig`的对应方法 map 中。  
+
+
+### 3. 组件：Handlers  
+
+Handlers 的注册和使用非常简单，直接将对应的 class 注册到 `WXHandlerFactory` map中
+
+```ObjC  
+[[WXHandlerFactory sharedInstance].handlers setObject:handler forKey:NSStringFromProtocol(protocol)];
+
+```
+
+需要使用的时候也非常简单粗暴，通过`WXHandlerFactory`的方法和相应的 protocol
+
+```ObjC  
++ (id)handlerForProtocol:(Protocol *)
+{
+    id handler = [[WXHandlerFactory sharedInstance].handlers objectForKey:NSStringFromProtocol(protocol)];
+    return handler;
+}```
+
+直接拿出即可。
  
 
 
