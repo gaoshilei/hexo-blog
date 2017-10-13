@@ -48,14 +48,14 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
 
 >  这个工厂类（单例）中管理了所有的 Component ，注册的每一个 Component 都会用一个对应的 `WXComponentConfig`来保存标签name、对应的class和属性，最后由`WXComponentFactory`来统一管理这些`WXComponentConfig `   
 
-这一步同时注册了 Component 中的 methods，关于 method 也有两类，一类是包含`wx_export_method_sync_`前缀的同步方法，另一类是包含`wx_export_method_`前缀的异步方法（*这两种方法有什么不同，后面会有介绍*）。在`WXComponentConfig`的父类`WXInvocationConfig`储存了 Component 的方法map:  
+这一步同时注册了 Component 中的 methods，关于 method 也有两类，一类是包含`wx_export_method_sync_`前缀的同步方法，另一类是包含`wx_export_method_`前缀的异步方法（*这两种方法有什么不同，后面会有介绍*）。在`WXComponentConfig`的父类`WXInvocationConfig`储存了 Component 的方法map:
 
 ```
 @property (nonatomic, strong) NSMutableDictionary *asyncMethods;
 @property (nonatomic, strong) NSMutableDictionary *syncMethods;
 ```  
 
-然后再从`WXComponentFactory`拿到对应 Component 的方法列表字典，需要注意的是这里拿到的方法列表只是**异步方法**，得到的是这样的字典：  
+然后再从`WXComponentFactory`拿到对应 Component 的方法列表字典，需要注意的是这里拿到的方法列表只是**异步方法**，得到的是这样的字典：
 
 ```Objective-C  
 {
@@ -67,7 +67,7 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
 ```
 
 不过大部分 Component 并没有`wx_export`前缀的 method，所以很多这里拿到的方法都为空。  
-最后也是最关键的一步，要将 Component 注册到`WXBridgeContext`中。  
+最后也是最关键的一步，要将 Component 注册到`WXBridgeContext`中。
 
 ```Objective-C  
     if (self.frameworkLoadFinished) {
@@ -82,7 +82,7 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
 >  还记得文章开头介绍的`native-bundle-main.js`吗？这里的注册调用了js中的`registerComponents`方法，这个 Component 与 Vue 就联系起来了，在 Vue 就可以使用这个 Component。
  
 并且从上面的这段代码可以看出来，Component 的注册操作是在 JSFramework 加载完成才会进行，如果`native-bundle-main.js`没有加载完成，所有的 Component 的方法注册操作都会被加到队列中等待。其中的第二个参数`args`就是上面我们拿到的字典。不过有属性的 和没属性的有点区别，有属性的会将属性添加到之前拿到的字典中作为`args`再去注册。  
-要搞清楚这个属性干嘛的，我们先看一下`WXComponentManager`中的相关源码： 
+要搞清楚这个属性干嘛的，我们先看一下`WXComponentManager`中的相关源码：
 
 ```Objective-C  
 - (void)_recursivelyAddComponent:(NSDictionary *)componentData toSupercomponent:(WXComponent *)supercomponent atIndex:(NSInteger)index appendingInTree:(BOOL)appendingInTree {
@@ -102,7 +102,7 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
 这个方法是 Vue 页面渲染时所调用的方法，这个方法会递归添加 Component，同时会向视图中添加与 Component 相对应的 UIView。从代码的后半部分可以看到，如果当前 Component 有`{@"append":@"tree"}`属性并且它的父 Component 没有这个属性将会强制对页面进行重新布局。可以看到这样做是为了防止UI绘制任务太多堆积在一起影响同步队列任务的执行。    
 
 搞清楚了 Component 的注册机制，下面重点扒一下 Component 的运行原理：Vue 标签是如何加载以及渲染到视图上的。  
-从刚才的注册过程中发现，最后一步是通过`_jsBridge`调用`callJSMethod`这个方法来注册的，而且从`WXBridgeContext`中可以看到，这个`_jsBridge`就是`WXJSCoreBridge`的实例。`WXJSCoreBridge`可以认为是 Weex 与 Vue 进行通信的最底层的部分。在调用`callJSMethod`方法之前，`_jsBridge`向 JavaScriptCore 中注册了很多全局 function，因为`jsBridge`是懒加载的，所以这些操作只会执行一次，具体请看精简后的源码：  
+从刚才的注册过程中发现，最后一步是通过`_jsBridge`调用`callJSMethod`这个方法来注册的，而且从`WXBridgeContext`中可以看到，这个`_jsBridge`就是`WXJSCoreBridge`的实例。`WXJSCoreBridge`可以认为是 Weex 与 Vue 进行通信的最底层的部分。在调用`callJSMethod`方法之前，`_jsBridge`向 JavaScriptCore 中注册了很多全局 function，因为`jsBridge`是懒加载的，所以这些操作只会执行一次，具体请看精简后的源码：
 
 ```Objective-C
     [_jsBridge registerCallNative:^NSInteger(NSString *instance, NSArray *tasks, NSString *callback) {	
@@ -153,7 +153,7 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
     }];
 ```
 
-从这些方法名看，大多数都是一些与 Dom 更新相关的方法，我们在`WXJSCoreBridge`中更细致的看一下是怎么实现的：  
+从这些方法名看，大多数都是一些与 Dom 更新相关的方法，我们在`WXJSCoreBridge`中更细致的看一下是怎么实现的：
 
 ```Objective-C
 - (void)registerCallAddElement:(WXJSCallAddElement)callAddElement
@@ -179,7 +179,7 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
 
 所以这里用了两个 Block 嵌套的方式，在 JS 中调用方法时会先 invoke 里层的 callAddElementBlock，这层 Block 将 JS 传进来的参数转换成 OC 的参数格式，再执行 callAddElement 并返回一个 JSValue 给 JS，callAddElement Block中是在`WXComponentManager`中完成的关于 Component 的一些操作，这在上面介绍 Component 包含 `tree`属性问题时已经介绍过了。  
 至此，简单来说就是：Weex 的页面渲染是通过先向 JSCore 注入方法，Vue 加载完成就可以调用这些方法并传入相应的参数完成 Component 的渲染和视图的更新。  
-要注意，每一个 `WXSDKInstance` 对应一个 Vue 页面，Vue 加载之前就会创建对应的 WXSDKInstance，所有的 Component 都继承自`WXComponent`，他们的初始化方法都是  
+要注意，每一个 `WXSDKInstance` 对应一个 Vue 页面，Vue 加载之前就会创建对应的 WXSDKInstance，所有的 Component 都继承自`WXComponent`，他们的初始化方法都是
 
 ```Objective-C
 -(instancetype)initWithRef:(NSString *)ref
@@ -193,7 +193,7 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
 这个方法会在 JS 调用`callCreateBody`时被 invoke。 
 
 ### 2. 组件：Module  
-Module 注册流程和 Component 基本一致，首先通过`WXModuleFactory`注册 Module  
+Module 注册流程和 Component 基本一致，首先通过`WXModuleFactory`注册 Module
 
 ```Objective-C
 - (NSString *)_registerModule:(NSString *)name withClass:(Class)clazz
@@ -213,7 +213,7 @@ Module 注册流程和 Component 基本一致，首先通过`WXModuleFactory`注
 }
 ```  
 
-注册 Moudle 的`registerMethods`方法与注册 Component 是一样的，都是`WXInvocationConfig`中的实例方法，`wx_export_method_sync_`前缀的同步方法注册到 syncMethods 中，`wx_export_method_`前缀的异步方法注册到 asyncMethods 中。再将 Moudle 的同步和异步方法取出来注入到`JSContext`中  
+注册 Moudle 的`registerMethods`方法与注册 Component 是一样的，都是`WXInvocationConfig`中的实例方法，`wx_export_method_sync_`前缀的同步方法注册到 syncMethods 中，`wx_export_method_`前缀的异步方法注册到 asyncMethods 中。再将 Moudle 的同步和异步方法取出来注入到`JSContext`中
 
 ```Objective-C
 {
@@ -239,7 +239,8 @@ Module 注册流程和 Component 基本一致，首先通过`WXModuleFactory`注
 ```
 
 这是`WXDomModule`中所有的方法，*Moudle 中方法注册比 Component 更有意义，因为 Moudle 中基本上都是暴露给 Vue 调用的 Native 方法。*   
-接下来我们来看一下 syncMethods 和 asyncMethods 有什么不同： 
+接下来我们来看一下 syncMethods 和 asyncMethods 有什么不同：  
+
 
  
 
