@@ -2,7 +2,7 @@
 本文档主要用来记录自己搭建hexo博客的一些命令和过程，方便以后重装。  
 下文的环境为 CentOS6.9  
 ## 安装依赖和相关服务  
-###1、 安装 NodeJS 和 NPM
+### 1、 安装 NodeJS 和 NPM
 
 ```shell
 [root@California_VPS ~]# curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
@@ -24,7 +24,7 @@ v8.8.1
 5.4.2
 ```  
 
-###2、安装 Nginx  
+### 2、安装 Nginx  
 通过 yum方式安装比较麻烦，还需要安装epel依赖库，下面介绍一种最简单的安装方法 
 
 ```shell  
@@ -49,7 +49,7 @@ enabled=1
 然后打开服务器所在的IP测试nginx是否安装完成。
 
 
-###3、安装 Hexo
+### 3、安装 Hexo
 按照官网的文档执行命令  
 
 ```shell  
@@ -114,7 +114,7 @@ cat ~/.ssh/id_rsa.pub
 ```  
 再将这个公钥拷贝到 github 的账户配置中即可。   
 
-###4、配置博客  
+### 4、配置博客  
 
 从 github 上把之前的博客 clone 下来，放到 root 目录下：  
 
@@ -181,7 +181,7 @@ server {
 # npm install hexo-generator-baidu-sitemap --save  
 ```  
 
-###5、全站 HTTPS 
+### 5、全站 HTTPS 
 使用 Let’s Encrypt 的免费证书，不过每三个月要续签一次，安装可以通过 Certbot 的傻瓜式操作  
 
 ```shell  
@@ -234,7 +234,6 @@ crond (pid  1164) is running...
 [root@California_VPS etc]# crontab -l 
 0 0 * * 0 /root/www/certbot-auto renew
 ```
-
 
 
 
