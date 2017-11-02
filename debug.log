@@ -162,3 +162,48 @@
 {"name":"hexo","hostname":"california_vps","pid":20433,"level":20,"msg":"Rendering index: \u001b[35mindex.html\u001b[39m","time":"2016-10-31T06:09:39.026Z","v":0}
 {"name":"hexo","hostname":"california_vps","pid":20433,"level":30,"msg":"Bye!","time":"2016-10-31T06:10:52.369Z","v":0}
 {"name":"hexo","hostname":"california_vps","pid":20433,"level":20,"msg":"Database saved","time":"2016-10-31T06:10:52.422Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Hexo version: \u001b[35m3.2.2\u001b[39m","time":"2017-11-02T08:17:58.493Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Working directory: \u001b[35m~/hexo-blog/\u001b[39m","time":"2017-11-02T08:17:58.495Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Config loaded: \u001b[35m~/hexo-blog/_config.yml\u001b[39m","time":"2017-11-02T08:17:58.610Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-deployer-git\u001b[39m","time":"2017-11-02T08:17:58.625Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-archive\u001b[39m","time":"2017-11-02T08:17:58.629Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-baidu-sitemap\u001b[39m","time":"2017-11-02T08:17:58.633Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-category\u001b[39m","time":"2017-11-02T08:17:58.635Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-index\u001b[39m","time":"2017-11-02T08:17:58.637Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-sitemap\u001b[39m","time":"2017-11-02T08:17:58.639Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-generator-tag\u001b[39m","time":"2017-11-02T08:17:58.641Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-renderer-ejs\u001b[39m","time":"2017-11-02T08:17:58.642Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-renderer-marked\u001b[39m","time":"2017-11-02T08:17:58.648Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-renderer-stylus\u001b[39m","time":"2017-11-02T08:17:58.649Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Plugin loaded: \u001b[35mhexo-server\u001b[39m","time":"2017-11-02T08:17:58.714Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Loading database.","time":"2017-11-02T08:17:58.721Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":30,"msg":"Start processing","time":"2017-11-02T08:17:59.090Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m404/index.md\u001b[39m","time":"2017-11-02T08:17:59.126Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m_posts/RunLoop的前世今生.md\u001b[39m","time":"2017-11-02T08:17:59.126Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m_posts/VPS搭建高速VPN服务器.md\u001b[39m","time":"2017-11-02T08:17:59.127Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m_posts/Weex从入门到超神（一）.md\u001b[39m","time":"2017-11-02T08:17:59.127Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m_posts/Weex从入门到超神（二）.md\u001b[39m","time":"2017-11-02T08:17:59.127Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m_posts/Xcode编译报错Undefined symbols解决方案.md\u001b[39m","time":"2017-11-02T08:17:59.127Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m_posts/dumpdecrypted给App砸壳.md\u001b[39m","time":"2017-11-02T08:17:59.127Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m_posts/iOS静态库SDK制作（包含第三方静态库）.md\u001b[39m","time":"2017-11-02T08:17:59.127Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m_posts/iPhone查找序列号生成函数.md\u001b[39m","time":"2017-11-02T08:17:59.127Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m_posts/strong-weak-dance.md\u001b[39m","time":"2017-11-02T08:17:59.128Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m_posts/手把手教你逆向微信之朋友圈小视频转发（上）.md\u001b[39m","time":"2017-11-02T08:17:59.128Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m_posts/手把手教你逆向微信之朋友圈小视频转发（下）.md\u001b[39m","time":"2017-11-02T08:17:59.128Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35m_posts/黑科技：把第三方 iOS 应用转成动态库.md\u001b[39m","time":"2017-11-02T08:17:59.128Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35mabout/index.md\u001b[39m","time":"2017-11-02T08:17:59.128Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Processed: \u001b[35mtags/index.md\u001b[39m","time":"2017-11-02T08:17:59.128Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Generator: \u001b[35mpage\u001b[39m","time":"2017-11-02T08:17:59.182Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Generator: \u001b[35mpost\u001b[39m","time":"2017-11-02T08:17:59.182Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Generator: \u001b[35marchive\u001b[39m","time":"2017-11-02T08:17:59.182Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Generator: \u001b[35mbaidusitemap\u001b[39m","time":"2017-11-02T08:17:59.182Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Generator: \u001b[35mcategory\u001b[39m","time":"2017-11-02T08:17:59.182Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Generator: \u001b[35mindex\u001b[39m","time":"2017-11-02T08:17:59.182Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Generator: \u001b[35msitemap\u001b[39m","time":"2017-11-02T08:17:59.183Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Generator: \u001b[35mtag\u001b[39m","time":"2017-11-02T08:17:59.183Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Generator: \u001b[35masset\u001b[39m","time":"2017-11-02T08:17:59.183Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":30,"msg":"Hexo is running at \u001b[4mhttp://localhost:4000/\u001b[24m. Press Ctrl+C to stop.","time":"2017-11-02T08:17:59.192Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":20,"msg":"Database saved","time":"2017-11-02T08:17:59.222Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":40,"msg":"No layout: \u001b[35mindex.html\u001b[39m","time":"2017-11-02T08:18:07.741Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":40,"msg":"No layout: \u001b[35mindex.html\u001b[39m","time":"2017-11-02T08:18:10.585Z","v":0}
+{"name":"hexo","hostname":"California_VPS","pid":7318,"level":40,"msg":"No layout: \u001b[35mindex.html\u001b[39m","time":"2017-11-02T08:18:15.102Z","v":0}
