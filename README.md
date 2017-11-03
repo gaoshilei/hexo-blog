@@ -233,14 +233,103 @@ crond (pid  1164) is running...
 ```shell  
 [root@California_VPS etc]# crontab -l 
 0 0 * * 0 /root/www/certbot-auto renew
+```  
+
+### 6、配置 webhooks 自动更新博客  
+每次在本地更新了博客，push 到 github 上，还要去 VPS 再 git pull 一下，确实很麻烦，配置好 webhooks 就可以在 github 有 push 操作时自动更新并部署博客。  
+
+webhooks 在 github 对应仓库直接设置就行，重点是服务器的接收和相应的操作。  
+有 Python、PHP、NodeJS 多种方式可以接收 webhooks , 由于 hexo 是基于 NodeJS 的，所以这里用 NodeJS 来接收 github 的 push 事件。 
+
+安装依赖库 `github-webhook-handler`：  
+
+```shell  
+[root@California_VPS ~]# npm install -g github-webhook-handler
+``` 
+
+安装完成之后配置 `webhooks.js`  
+
+```shell  
+[root@California_VPS hexo-blog]# vim webhooks.js 
+```  
+
+然后将下面代码的拷贝进去  
+
+```js   
+var http = require('http')
+var createHandler = require('github-webhook-handler')
+var handler = createHandler({ path: '/webhooks_push', secret: 'leonlei1226' })
+// 上面的 secret 保持和 GitHub 后台设置的一致
+
+function run_cmd(cmd, args, callback) {
+  var spawn = require('child_process').spawn;
+  var child = spawn(cmd, args);
+  var resp = "";
+
+  child.stdout.on('data', function(buffer) { resp += buffer.toString(); });
+  child.stdout.on('end', function() { callback (resp) });
+}
+
+http.createServer(function (req, res) {
+  handler(req, res, function (err) {
+    res.statusCode = 404
+    res.end('no such location')
+  })
+}).listen(6666)
+
+handler.on('error', function (err) {
+  console.error('Error:', err.message)
+})
+
+handler.on('push', function (event) {
+  console.log('Received a push event for %s to %s',
+    event.payload.repository.name,
+    event.payload.ref);
+    run_cmd('sh', ['./deploy.sh'], function(text){ console.log(text) });
+})
+```  
+
+其中 **secret** 要和 github 仓库中 webhooks 设置的一致，**6666** 是监听端口可以随便改，不要冲突就行，**./deploy.sh** 是接收到 push 事件时需要执行的shell脚本，与 `webhooks.js` 都存放在博客目录下；**path: '/webhooks_push** 是 github 通知服务器的地址，完整的地址是这样的`http://www.gaoshilei.com:6666/webhooks_push`
+
+配置`./deploy.sh`  
+
+```shell  
+[root@California_VPS hexo-blog]# vim deploy.sh
 ```
 
+将下面代码拷贝进去
 
+```shell  
+git pull origin master
+hexo g
+```
 
+然后运行  
 
+```shell  
+[root@California_VPS hexo-blog]# node webhooks.js 
+```  
 
+就可以实现本地更新 push 到 github ，服务器会自动更新部署博客。  
+最后要将进程加入守护，通过 pm2 来实现  
 
+```shell  
+[root@California_VPS ~]# npm install pm2 --global
+```  
 
+然后通过 pm2 启动 `webhooks.js`  
 
+```shell  
+[root@California_VPS hexo-blog]# pm2 start webhooks.js 
+[PM2] Starting /root/hexo-blog/webhooks.js in fork_mode (1 instance)
+[PM2] Done.
+┌──────────┬────┬──────┬───────┬────────┬─────────┬────────┬─────┬───────────┬──────┬──────────┐
+│ App name │ id │ mode │ pid   │ status │ restart │ uptime │ cpu │ mem       │ user │ watching │
+├──────────┼────┼──────┼───────┼────────┼─────────┼────────┼─────┼───────────┼──────┼──────────┤
+│ webhooks │ 0  │ fork │ 10010 │ online │ 0       │ 0s     │ 14% │ 24.2 MB   │ root │ disabled │
+└──────────┴────┴──────┴───────┴────────┴─────────┴────────┴─────┴───────────┴──────┴──────────┘
+ Use `pm2 show <id|name>` to get more details about an app  
+```  
 
+大功告成！
 
