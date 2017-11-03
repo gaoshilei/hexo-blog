@@ -1,11 +1,41 @@
 var http = require('http')
-var exec = require('child_process').exec
-
+var createHandler = require('github-webhook-handler')
+var handler = createHandler({ path: '/webhooks_push', secret: 'leonlei1226' }) 
+// 上面的 secret 保持和 GitHub 后台设置的一致
+ 
+function run_cmd(cmd, args, callback) {
+  var spawn = require('child_process').spawn;
+  var child = spawn(cmd, args);
+  var resp = "";
+ 
+  child.stdout.on('data', function(buffer) { resp += buffer.toString(); });
+  child.stdout.on('end', function() { callback (resp) });
+}
+ 
 http.createServer(function (req, res) {
-    // 该路径与WebHooks中的路径部分需要完全匹配，实现简易的授权认证。
-    if(req.url === '/webhooks/push/666666'){
-        // 如果url匹配，表示认证通过，则执行 sh ./deploy.sh
-        exec('sh ./deploy.sh')
-    }
-    res.end()
-}).listen(4000)
+  handler(req, res, function (err) {
+    res.statusCode = 404
+    res.end('no such location')
+  })
+}).listen(6666)
+ 
+handler.on('error', function (err) {
+  console.error('Error:', err.message)
+})
+ 
+handler.on('push', function (event) {
+  console.log('Received a push event for %s to %s',
+    event.payload.repository.name,
+    event.payload.ref);
+    run_cmd('sh', ['./deploy.sh'], function(text){ console.log(text) });
+})
+ 
+/*
+handler.on('issues', function (event) {
+  console.log('Received an issue event for % action=%s: #%d %s',
+    event.payload.repository.name,
+    event.payload.action,
+    event.payload.issue.number,
+    event.payload.issue.title)
+})
+*/
