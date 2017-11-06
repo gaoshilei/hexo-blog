@@ -1,0 +1,599 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>iOS静态库SDK制作（包含第三方静态库） | LeonLei的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="LeonLei">
+    
+
+    
+    <meta name="description" content="前言    以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。  最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
+<meta name="keywords" content="静态库,动态库,framework,SDK">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS静态库SDK制作（包含第三方静态库）">
+<meta property="og:url" content="http://www.gaoshilei.com/2016/11/18/Static Library/index.html">
+<meta property="og:site_name" content="LeonLei的博客">
+<meta property="og:description" content="前言    以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。  最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E9%9D%99%E6%80%81%E5%BA%93.png">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E5%BA%93.png">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E6%83%85%E5%86%B5.png">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%B7%A5%E7%A8%8B%E6%80%A7%E8%B4%A8.png">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9A%B4%E9%9C%B2%E5%A4%B4%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%80%89%E6%8B%A9%E7%BC%96%E8%AF%91%E6%96%B9%E5%BC%8F.png">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E7%B3%BB%E7%BB%9F%E5%8A%A8%E6%80%81%E5%BA%93%E6%8A%A5%E9%94%99.png">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9B%BF%E6%8D%A2%E4%BE%9D%E8%B5%96%E5%BA%93.png">
+<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%88%B6%E4%BD%9C%E5%AE%8C%E6%88%90%E4%BD%BF%E7%94%A8.png">
+<meta property="og:updated_time" content="2017-11-02T13:09:57.230Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS静态库SDK制作（包含第三方静态库）">
+<meta name="twitter:description" content="前言    以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。  最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
+<meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="LeonLei的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="LeonLei的博客">LeonLei的博客</a></h1>
+				<h2 class="blog-motto">代码略懂，精通LOL</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.gaoshilei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/11/18/Static Library/" title="iOS静态库SDK制作（包含第三方静态库）" itemprop="url">iOS静态库SDK制作（包含第三方静态库）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LeonLei" target="_blank" itemprop="author">LeonLei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-11-17T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-11-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一-静态库和动态库的详细介绍"><span class="toc-number">2.</span> <span class="toc-text">一.    静态库和动态库的详细介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-静态库与动态库"><span class="toc-number">2.1.</span> <span class="toc-text">一.    静态库与动态库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-静态库"><span class="toc-number">2.1.1.</span> <span class="toc-text">1. 静态库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-动态库"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.    动态库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-Framework、-a、-dylib-tbd"><span class="toc-number">2.2.</span> <span class="toc-text">二.    Framework、.a、.dylib/.tbd</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Framework"><span class="toc-number">2.2.1.</span> <span class="toc-text">1.    Framework</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-a静态库"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.    .a静态库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-dylib-tbd-动态库"><span class="toc-number">2.2.3.</span> <span class="toc-text">3.    .dylib/.tbd 动态库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-Framework的制作"><span class="toc-number">3.</span> <span class="toc-text">二.    Framework的制作</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>   以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。</p>
+</blockquote>
+<p>最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少走弯路。 制作之前最好把功课做足，看看静态库和动态库到底是什么东西。  </p>
+<a id="more"></a>
+<p>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a>  </p>
+<h2 id="一-静态库和动态库的详细介绍"><a href="#一-静态库和动态库的详细介绍" class="headerlink" title="一.    静态库和动态库的详细介绍"></a>一.    静态库和动态库的详细介绍</h2><p>我们平时的工程中或多或少都要引入第三方的SDK，就算你没有引入第三方的，至少引用过系统的Framework吧？其实这些SDK和Framework都属于库，库又分为静态库和动态库，我们平时导入的第三方SDK有的是Framework，有的是.a，到底哪些是动态库，哪些是静态库呢？下面分别介绍静态库、动态库，Framework和.a以及.dylib/.tbd区别      </p>
+<h3 id="一-静态库与动态库"><a href="#一-静态库与动态库" class="headerlink" title="一.    静态库与动态库"></a>一.    静态库与动态库</h3><p>首先要解释一下什么是库，库(Library)其实就是一段编译好的二进制代码，加上头文件就可以供别人使用，一般会有两种情况要用到库：  </p>
+<ul>
+<li>某些代码需要给别人使用，但是我们不希望别人看到源码，就需要以库的形式进行封装，只暴露出头文件。  </li>
+<li>对于某些不会进行大的改动的代码，比方说很多大公司常用且很少变动的模块都会编译成库，这样做的好处一是可以节省编译时间，二来对于代码的管理也非常方便。  </li>
+</ul>
+<p>因为库是已经编译好的二进制文件了，编译的时候只需要link一下，<strong>既然提到了link那就有不同的形式了，静态和动态，与之相对应的就是静态库和动态库</strong>。   </p>
+<h4 id="1-静态库"><a href="#1-静态库" class="headerlink" title="1. 静态库"></a>1. 静态库</h4><p>平时我们用的第三方SDK基本上都是静态库，静态库的几个特点：  </p>
+<ul>
+<li>在App项目编译的时候会被拷贝一份编译到目标程序中，相当于将静态库嵌入了，所以得到的App二进制文件会变大。</li>
+<li>在使用的时候，需要手动导入静态库所依赖的其他类库。<em>（比如说某个SDK中使用到了CoreMotion.framework，在使用的时候需要手动导入。有的SDK需要link十几个系统库，这个时候非常恶心，只能一个一个手动加，这是静态库一个很大的不便之处。）</em> </li>
+<li>导入静态库的应用可以减少对外界的依赖，如果导入的是第三方动态库，动态库找不到的话应用就会崩掉，例如Linux上经常出现的lib not found。</li>
+<li>静态库很大的一个优点是减少耦合性，因为静态库中是不可以包含其他静态库的，使用的时候要另外导入它的依赖库，最大限度的保证了每一个静态库都是独立的，不会重复引用。</li>
+</ul>
+<h4 id="2-动态库"><a href="#2-动态库" class="headerlink" title="2.    动态库"></a>2.    动态库</h4><p>这个是我们最常用的一类库，使用频率最高的UIKit.framework和Fundation.framework都属于动态库，所有.dylib和.tbd结尾的都属于动态库。动态库的几个特点：  </p>
+<ul>
+<li>平时使用的系统库都放在iOS系统中，在你打包应用程序的时候这些库不会拷贝到你的程序中，当需要使用的时候会动态从iOS系统中加载它们，因为这个原因，动态库也被称作共享库。编译时才载入的特性，也可以让我们随时对库进行替换，而不需要重新编译代码。</li>
+<li>这些库是所有应用公用的，换一种说法就是节省了应用安装包的体积，这是区别静态库很重要的一个特点，因为静态库使用一次就要拷贝一次，非常浪费资源。  </li>
+<li>动态库在制作的时候可以直接包含静态库，也能自动link所需要的依赖库。</li>
+<li>使用动态库的时候不需要再次link依赖库，即导即用，这个就厉害了。<strong>唯一需要注意的是在导入自己制作的动态库时，需要在Embedded Binaries中导入，不然会报错：image not found。此时这个动态库会跟静态库一样被拷贝到目标程序中进行编译，苹果又把这种Framework叫做<a href="https://developer.apple.com/library/content/documentation/General/Conceptual/ExtensibilityPG/ExtensionScenarios.html" target="_blank" rel="external">Embedded Framework</a></strong>  </li>
+</ul>
+<p><strong>关于动态库要搞清楚一点，我们自己制作的动态库与系统动态库的区别，我们自己制作的动态库引入App项目的时候需要embed进项目，也就是要拷贝到目标程序中，这就有点不像动态库的特性了，苹果这么做也是考虑安全问题吧！</strong><br>至于能不能正常上架，我也不清楚，查了大量资料都是抄来抄去没说清楚，我猜测是不能上架的，因为一般的第三方SDK也都是静态库的形式，我猜测一个重要原因是iOS的应用本来就是运行在沙盒里面的，不同应用之间不能共享代码，同时动态下载代码苹果肯定也是明令禁止的，所以动态库也就失去意义了。当然可能还有其他因素，欢迎交流学习！</p>
+<h3 id="二-Framework、-a、-dylib-tbd"><a href="#二-Framework、-a、-dylib-tbd" class="headerlink" title="二.    Framework、.a、.dylib/.tbd"></a>二.    Framework、.a、.dylib/.tbd</h3><h4 id="1-Framework"><a href="#1-Framework" class="headerlink" title="1.    Framework"></a>1.    Framework</h4><p>Framework的英文释意是框架，主要由Headers、binary文件、.bundle这三部分构成，除此之外还有Info.plist和Modules，后两者主要记录Framework的版本之类的信息，一般都会删掉，不做讨论  </p>
+<ul>
+<li><strong>Headers</strong><br>包含我们在制作Framework的时候暴露的头文件，所有被暴露的.h都放在这里。</li>
+<li><strong>binary文件</strong><br>整个Framework的核心，所有代码都被编译成了这样一坨二进制文件，这里要注意的是添加的依赖库不会被编译进来，用的时候还需要重新link其他依赖库。  </li>
+<li><strong>.bundle</strong><br>资源文件都打包放在这里。在制作Framework的时候不可以把图片直接放在项目中，否则制作好之后图片是一张一张的出现在项目中非常乱，需要新建一个bundle将图片放进去，这里的bundle提供整个SDK的图片资源。<br><strong>注意：</strong>图片放进bundle之后不可以用<code>[UIImage ImageWithName:]</code>读取图片。要先找到bundle包再拿图片。  </li>
+</ul>
+<p>这里要纠正一个误区</p>
+<blockquote>
+<p>   很多人认为系统的Framework就是动态库，我们自己制作的Framework就是静态库。  </p>
+</blockquote>
+<p>其实Framework既可以是静态库也可以是动态库，这取决于编译成的Mach-O（就是那个二进制文件）是动态库还是静态库，Framework本质上并不是一个库，它是苹果为了方便开发者提供了一种库的打包方式，Framework会将Mach-O文件、头文件和资源包全都包含进来，不需要你再手动整理，我们也可以通过Xcode来制作framework动态库使用。<br><strong>所以总结： Framework是库的打包形式，既可以是动态库也是静态库。</strong></p>
+<h4 id="2-a静态库"><a href="#2-a静态库" class="headerlink" title="2.    .a静态库"></a>2.    .a静态库</h4><p>这类静态库与Framework基本类似，不同的是在打包成.a文件的同时，还需要提供头文件，使用时相较于Framework比较麻烦，（例如<a href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&amp;t=resource/res_list&amp;verify=1&amp;id=open1419319164&amp;token=&amp;lang=zh_CN" target="_blank" rel="external">微信支付SDK</a>使用的是.a，不同的是<a href="https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.Ijm3sG&amp;treeId=193&amp;articleId=104509&amp;docType=1" target="_blank" rel="external">支付宝SDK</a>是以framework的形式打包的）。.a这样打包不够方便，而Framework编译完成暴露的头文件都已经放好了。 </p>
+<h4 id="3-dylib-tbd-动态库"><a href="#3-dylib-tbd-动态库" class="headerlink" title="3.    .dylib/.tbd 动态库"></a>3.    .dylib/.tbd 动态库</h4><p>这类动态库我们也经常用，基本上都是系统提供的，一般不能自己制作，就算你通过其他方式制作使用，也肯定不能上架的，这里没什么好讲的。 </p>
+<h2 id="二-Framework的制作"><a href="#二-Framework的制作" class="headerlink" title="二.    Framework的制作"></a>二.    Framework的制作</h2><p>动态库与静态库的制作流程基本一样，包括头文件的暴露等，唯一不同的是Mach-O文件的编译形式。本节将介绍Xcode制作Framework的过程，本次制作的Framework静态库依赖其他第三方静态库（Framework和.a）。</p>
+<p>1&gt;    新建工程<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png" alt="新建Framework工程"><br>这里要选Framework，如果选择右边的Static Library制作出来的是.a静态库。</p>
+<p>2&gt;    导入所有要打包的文件和其他第三方静态库<br>正常导入要打包的文件就可以了，在导入第三方静态库的时候要注意，不要选择添加到target中，如果添加进去要去target里面把第三方静态库删掉（只需导入，不要添加进target）<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E9%9D%99%E6%80%81%E5%BA%93.png" alt="导入第三方静态库"><br>导入第三方静态库之后再link依赖的系统库，像这样<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E5%BA%93.png" alt="link依赖库"><br>注意上面的运行目标，因为我用的是Xcode8，最低支持到iOS8。<br>要打包的文件和第三方静态库全部导入完成<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E6%83%85%E5%86%B5.png" alt="所有文件导入情况">   </p>
+<p>3&gt;    项目性质修改<br>把项目的membership需改为public，否则头文件暴露将会不正常<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%B7%A5%E7%A8%8B%E6%80%A7%E8%B4%A8.png" alt="修改项目的membership">  </p>
+<p>4&gt;    暴露头文件<br>将头文件暴露出去，供外界使用，所有的编译文件都在Project中，需要右击添加到public里面<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9A%B4%E9%9C%B2%E5%A4%B4%E6%96%87%E4%BB%B6.png" alt="暴露头文件">  </p>
+<p><strong>5&gt;    选择Mach-O的编译方式</strong><br>这是最重要的一步，这一步决定我们制作出来的是静态库还是动态库，默认选择的是Dynamic Library，要手动选择Static Library<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%80%89%E6%8B%A9%E7%BC%96%E8%AF%91%E6%96%B9%E5%BC%8F.png" alt="Mach-O 形式"></p>
+<p>6&gt;    编译<br>如果你的依赖库里面有lib开头的dylib动态库，此时应该会报错<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E7%B3%BB%E7%BB%9F%E5%8A%A8%E6%80%81%E5%BA%93%E6%8A%A5%E9%94%99.png" alt="动态库链接报错"><br>什么意思呢？大概就是没找到对应的库文件，因为tbd是苹果提供的新的动态库格式，之前都是dylib，不知道这里又抽什么风，下面解决问题。  </p>
+<p>7&gt;    tbd动态库报错修改<br>先把原来的.tbd删掉，然后再次添加，这个时候选择add other，在弹出的窗口中按快捷键shift + command + G 调出finder的前往窗口，输入/usr/lib，然后添加相应的dylib动态库<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9B%BF%E6%8D%A2%E4%BE%9D%E8%B5%96%E5%BA%93.png" alt="修改的动态库"><br>替换完成之后重新编译项目，生成Framework(可在Product文件中右击在finder中显示找到)  </p>
+<p>8&gt;    使用<br>新建一个文件夹，将制作好的静态库拷贝出来放进去，再将第三方静态库拷贝到相同的文件夹中，此时只要将这个文件夹提供给外界使用就可以了，这是我写的测试demo验证打包好的SDK是否可以正常使用<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%88%B6%E4%BD%9C%E5%AE%8C%E6%88%90%E4%BD%BF%E7%94%A8.png" alt="制作完成使用"><br>至此我们已经完成了Framework中包含其他第三方静态库的制作。<br><strong>如果需要制作动态库，只需要在第5步中将Mach-O的形式改为Dynamic Library就可以了，其他步骤一样</strong>   </p>
+<p>如果有问题请在留言区留言，或者邮件给我，互相交流学习！  </p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/静态库/">静态库</a><a href="/tags/动态库/">动态库</a><a href="/tags/framework/">framework</a><a href="/tags/SDK/">SDK</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.gaoshilei.com/2016/11/18/Static Library/" data-title="iOS静态库SDK制作（包含第三方静态库） | LeonLei的博客" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/11/20/RunLoop/" title="RunLoop的前世今生">
+  <strong>上一篇：</strong><br/>
+  <span>
+  RunLoop的前世今生</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/"  title="手把手教你逆向微信之朋友圈小视频转发（下）">
+ <strong>下一篇：</strong><br/> 
+ <span>手把手教你逆向微信之朋友圈小视频转发（下）
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/iOS逆向/" title="iOS逆向">iOS逆向<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/他山之石/" title="他山之石">他山之石<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/备忘录/" title="备忘录">备忘录<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/实用工具/" title="实用工具">实用工具<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/技术笔记/" title="技术笔记">技术笔记<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/跳坑指南/" title="跳坑指南">跳坑指南<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Weex/" title="Weex">Weex<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vue/" title="Vue">Vue<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JS/" title="JS">JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/前端/" title="前端">前端<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态库/" title="动态库">动态库<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/汇编语言/" title="汇编语言">汇编语言<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IDA/" title="IDA">IDA<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/重签名/" title="重签名">重签名<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/砸壳/" title="砸壳">砸壳<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NSTimer/" title="NSTimer">NSTimer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Cocopods/" title="Cocopods">Cocopods<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dumpdecrypted/" title="dumpdecrypted">dumpdecrypted<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/block/" title="block">block<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/retain-cycle/" title="retain cycle">retain cycle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/静态库/" title="静态库">静态库<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AutoreleasePool/" title="AutoreleasePool">AutoreleasePool<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/framework/" title="framework">framework<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="LeonLei">LeonLei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1268002586'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s23.cnzz.com/z_stat.php%3Fid%3D1268002586' type='text/javascript'%3E%3C/script%3E"));</script>
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

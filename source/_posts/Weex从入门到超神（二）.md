@@ -12,7 +12,6 @@ permalink: weex-2
 
 ---
 
-## 前言  
 距离我写的上一篇文章 [Weex从入门到超神（一）](https://gaoshilei.com/2017/05/26/weex-1/) 已经过了挺久了（惭愧而不失礼貌的微笑），起初写那篇文章的初衷是因为项目中使用到了 Weex ,所以准备对 Weex 做一个心得式的笔记，后来无意间发现[简书“霜神”](http://www.jianshu.com/u/12201cdd5d7a)已经对 Weex 写过几篇剖析比较深刻的文章，还有其他一些原因（懒），所以就没有继续写下去。  
 最近由于Facebook的 [BSD license](https://github.com/facebook/react/blob/master/LICENSE)，React 被前端社区的同学们推到了风口浪尖，React&RN、Vue&Weex 又成为了大家码前码后讨论的话题。Apache 社区还因为 Facebook 的 BSD license，全面封杀使用了 BSD license 的开源项目，貌似一切都很精彩，迫于前端同(da)学(lao)的淫威还有社区的强烈谴责，上周 Facebook 终于认怂了，承诺这周将 React 以及 gayhub 上面的其他几个项目的开源协议从 BSD 改成 MIT，下图是我脑补的场景：  
 ![](http://oeat6c2zg.bkt.clouddn.com/FA269E01D9C3794449AA6748EA6280C6.png)  
@@ -27,7 +26,8 @@ Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js
 **为了便于下文的描述和理解，我把 Native 这边的 SDK 称作 Weex，前端的 Vue 和 Weex 库以及 Vue 编译后的 js 统称为 Vue**
 
 ### 1. 组件：Component
-目前 Weex 一共提供了26种 Component，比较常见的有 `div`、`image`、`scroller`... ，有些跟 html 标签重名，有些是 Weex 自定义的。Weex 注册的 Component 有两种类型，一类是有`{@"append":@"tree"}`属性的标签，另一类是没有`{@"append":@"tree"}`属性的标签。要搞清楚这两类标签有什么不同，我们就要看一下 Component 的注册的源码实现。
+目前 Weex 一共提供了26种 Component，比较常见的有 `div`、`image`、`scroller`... ，有些跟 html 标签重名，有些是 Weex 自定义的。Weex 注册的 Component 有两种类型，一类是有
+`{@"append":@"tree"}`属性的标签，另一类是没有`{@"append":@"tree"}`属性的标签。要搞清楚这两类标签有什么不同，我们就要看一下 Component 的注册的源码实现。
 
 ```ObjC  
     [WXComponentFactory registerComponent:name withClass:clazz withPros:properties];

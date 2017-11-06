@@ -1,0 +1,596 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>dumpdecrypted给App砸壳 | LeonLei的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="LeonLei">
+    
+
+    
+    <meta name="description" content="1.前言 我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这">
+<meta name="keywords" content="dumpdecrypted,砸壳">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dumpdecrypted给App砸壳">
+<meta property="og:url" content="http://www.gaoshilei.com/2016/08/09/dumpdecrypted给App砸壳/index.html">
+<meta property="og:site_name" content="LeonLei的博客">
+<meta property="og:description" content="1.前言 我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-03T09:41:25.693Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dumpdecrypted给App砸壳">
+<meta name="twitter:description" content="1.前言 我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这">
+
+    
+    <link rel="alternative" href="/atom.xml" title="LeonLei的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="LeonLei的博客">LeonLei的博客</a></h1>
+				<h2 class="blog-motto">代码略懂，精通LOL</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.gaoshilei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/09/dumpdecrypted给App砸壳/" title="dumpdecrypted给App砸壳" itemprop="url">dumpdecrypted给App砸壳</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LeonLei" target="_blank" itemprop="author">LeonLei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-08-08T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-08-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-前言"><span class="toc-number">1.</span> <span class="toc-text">1.前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-准备工作"><span class="toc-number">2.</span> <span class="toc-text">2.准备工作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-编译dumpdecrypted"><span class="toc-number">3.</span> <span class="toc-text">3.编译dumpdecrypted</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-开始砸壳"><span class="toc-number">4.</span> <span class="toc-text">4.开始砸壳</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#定位目标App可执行文件的位置"><span class="toc-number">4.1.</span> <span class="toc-text">定位目标App可执行文件的位置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#目标锁定，定位到目标App的Documents位置"><span class="toc-number">4.2.</span> <span class="toc-text">目标锁定，定位到目标App的Documents位置</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h4 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h4><blockquote>
+<p>我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的<em>壳</em>，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称<em>砸壳</em>。<br>long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这也导致了iOS越狱开发社区普遍认为这个软件助长了盗版的气焰，对iPhoneCake源进行了强烈谴责。迫于压力，iPhoneCake将AppCrackr下架。从此利用纯UI方式砸壳的行为已经走入绝路，只能利用更加geek更加niubility的方式来砸壳，这也是这篇文章介绍的主角<strong>dumpdecrypted</strong>  </p>
+</blockquote>
+<a id="more"></a> 
+<p>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a>  </p>
+<h4 id="2-准备工作"><a href="#2-准备工作" class="headerlink" title="2.准备工作"></a>2.准备工作</h4><ol>
+<li>一部已经越狱的手机 <code>我这里用的是iPhone 5S; iOS 9.1</code></li>
+<li>已经安装了OpenSSH</li>
+<li>已经安装了<a href="http://www.cycript.org" target="_blank" rel="external">Cycript</a></li>
+<li><a href="https://github.com/stefanesser/dumpdecrypted/archive/master.zip" target="_blank" rel="external">dumpdecrypted源码</a>  </li>
+</ol>
+<h4 id="3-编译dumpdecrypted"><a href="#3-编译dumpdecrypted" class="headerlink" title="3.编译dumpdecrypted"></a>3.编译dumpdecrypted</h4><p>下载好之后将文件放到你自己的文件夹中，下面开始编译：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:~ gaoshilei$ cd /Users/gaoshilei/Desktop/reverse/dumpdecrypted  </div><div class="line">LeonLei-MBP:dumpdecrypted gaoshilei$ make</div><div class="line">`xcrun --sdk iphoneos --find gcc` -Os  -Wimplicit -isysroot `xcrun --sdk iphoneos --show-sdk-path` -F`xcrun --sdk iphoneos --show-sdk-path`/System/Library/Frameworks -F`xcrun --sdk iphoneos --show-sdk-path`/System/Library/PrivateFrameworks -arch armv7 -arch armv7s -arch arm64 -dynamiclib -o dumpdecrypted.dylib dumpdecrypted.o</div></pre></td></tr></table></figure>
+<p>进入dumpdecrypted目录下之后，执行make命令，此时目录下会生成一个<code>dumpdecrypted.dylib</code>，这个文件生成一次即可，下次砸壳可以直接使用。</p>
+<h4 id="4-开始砸壳"><a href="#4-开始砸壳" class="headerlink" title="4.开始砸壳"></a>4.开始砸壳</h4><h5 id="定位目标App可执行文件的位置"><a href="#定位目标App可执行文件的位置" class="headerlink" title="定位目标App可执行文件的位置"></a>定位目标App可执行文件的位置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:~ gaoshilei$ ssh root@192.168.0.115</div><div class="line">iPhone-5S:~ root# ps -e</div><div class="line">  PID TTY           TIME CMD</div><div class="line">    1 ??         5:23.51 /sbin/launchd</div><div class="line">   23 ??         0:00.81 /usr/libexec/amfid</div><div class="line">   34 ??         1:28.92 /usr/sbin/mediaserverd</div><div class="line">   36 ??         4:23.49 /usr/libexec/fseventsd</div><div class="line">   38 ??         1:21.05 /System/Library/PrivateFrameworks/AssistantServices.framework/assistantd</div><div class="line">   40 ??         0:01.13 /System/Library/PrivateFrameworks/FileProvider.framework/Support/fileproviderd</div><div class="line">   42 ??         1:56.46 /usr/libexec/routined</div><div class="line">   46 ??         0:03.34 /System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoted</div><div class="line">   48 ??         0:00.86 /usr/libexec/misd</div><div class="line">   50 ??         0:18.48 /System/Library/Frameworks/HealthKit.framework/healthd</div><div class="line">   52 ??        19:18.39 /usr/libexec/configd</div><div class="line">   54 ??         3:30.26 /System/Library/CoreServices/powerd.bundle/powerd</div><div class="line">   58 ??         0:50.73 /usr/libexec/atc</div><div class="line">   60 ??        13:47.50 /usr/sbin/wifid</div><div class="line">   ···              ···</div><div class="line"> 5673 ??         0:04.41 /var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat</div><div class="line"> 5732 ??         0:00.32 /usr/libexec/ptpd -t usb</div><div class="line"> 5735 ??         0:00.07 /usr/libexec/webinspectord</div><div class="line"> 5741 ??         0:00.18 sshd: root@ttys000 </div><div class="line"> 5770 ??         0:00.16 /System/Library/PrivateFrameworks/SyncedDefaults.framework/Support/syncdefaultsd</div><div class="line"> 5785 ??         0:00.05 /System/Library/CoreServices/CFNetworkAgent</div></pre></td></tr></table></figure>
+<p>可以看到目前手机运行的进程中有微信的影子<code>/var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat</code> 我们已经找到微信可执行文件的位置</p>
+<h5 id="目标锁定，定位到目标App的Documents位置"><a href="#目标锁定，定位到目标App的Documents位置" class="headerlink" title="目标锁定，定位到目标App的Documents位置"></a>目标锁定，定位到目标App的Documents位置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">iPhone-5S:~ root# cycript -p WeChat  </div><div class="line">cy# [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]</div><div class="line">#file:///var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/</div></pre></td></tr></table></figure>
+<p>执行到这里我们已经找到了微信的Documents位置，正式开始砸壳！</p>
+<blockquote>
+<p>这里有两种方式，一种是scp命令行拷贝<br>另一种是iFunBox工具操作  </p>
+</blockquote>
+<p>我这里采用的是第一种scp命令行  </p>
+<pre><code>LeonLei-MBP:~ gaoshilei$ scp /Users/gaoshilei/Desktop/reverse/dumpdecrypted/dumpdecrypted.dylib   root@192.168.0.115:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents  
+dumpdecrypted.dylib                                                              100%  193KB 192.9KB/s   00:00
+</code></pre><p>我们已经将dumpdecrypted.dylib拷贝到了微信沙盒的Document目录中，可以砸壳了：  </p>
+<pre><code>iPhone-5S:~ root# cd /var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/
+iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat
+mach-o decryption dumper
+DISCLAIMER: This tool is only meant for security research purposes, not for application crackers.
+[+] detected 64bit ARM binary in memory.
+[+] offset to cryptid found: @0x100024ca8(from 0x100024000) = ca8
+[+] Found encrypted data at address 00004000 of length 45678592 bytes - type 1.
+[+] Opening /private/var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat for reading.
+[+] Reading header
+[+] Detecting header type
+[+] Executable is a plain MACH-O image
+[+] Opening WeChat.decrypted for writing.
+[+] Copying the not encrypted start of the file
+[+] Dumping the decrypted data into the file
+[+] Copying the not encrypted remainder of the file
+[+] Setting the LC_ENCRYPTION_INFO-&gt;cryptid to 0 at offset ca8
+[+] Closing original file
+[+] Closing dump file
+iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root#
+</code></pre><p>等待命令执行完，此时已经完成砸壳，我们看一下当前目录都有啥：  </p>
+<pre><code>iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# ls -o
+total 55272
+drwxr-xr-x  6 mobile      272 Aug 26 13:48 00000000000000000000000000000000
+drwxr-xr-x 20 mobile     1122 Oct 10 15:28 6f696a1b596ce2499419d844f90418aa
+drwxr-xr-x  3 mobile      136 Oct  9 10:56 CrashReport
+-rw-r--r--  1 mobile      310 Aug 26 13:49 Ksid
+-rw-r--r--  1 mobile     1036 Oct 10 13:40 LocalInfo.lst
+drwxr-xr-x  5 mobile      272 Aug 26 13:49 MMResourceMgr
+drwxr-xr-x  2 mobile      748 Aug 26 13:51 MMappedKV
+-rw-r--r--  1 mobile       15 Oct 10 13:40 SafeMode.dat
+-rw-r--r--  1 root   56380816 Oct 10 15:37 WeChat.decrypted
+-rwxr-xr-x  1 root     197528 Oct 10 15:34 dumpdecrypted.dylib
+-rw-r--r--  1 mobile      448 Aug 26 13:49 mmupdateinfo.archive
+</code></pre><p>砸好壳的微信可执行文件<code>WeChat.decrypted</code>已经生成，现在就可以把文件拷到Mac上利用IDA或者Hopper的分析了。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS逆向/">iOS逆向</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/dumpdecrypted/">dumpdecrypted</a><a href="/tags/砸壳/">砸壳</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.gaoshilei.com/2016/08/09/dumpdecrypted给App砸壳/" data-title="dumpdecrypted给App砸壳 | LeonLei的博客" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/09/08/iPhone查找序列号生成函数/" title="iPhone查找序列号生成函数">
+  <strong>上一篇：</strong><br/>
+  <span>
+  iPhone查找序列号生成函数</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/05/20/VPS/"  title="VPS搭建高速VPN服务器">
+ <strong>下一篇：</strong><br/> 
+ <span>VPS搭建高速VPN服务器
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/iOS逆向/" title="iOS逆向">iOS逆向<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/他山之石/" title="他山之石">他山之石<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/备忘录/" title="备忘录">备忘录<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/实用工具/" title="实用工具">实用工具<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/技术笔记/" title="技术笔记">技术笔记<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/跳坑指南/" title="跳坑指南">跳坑指南<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Weex/" title="Weex">Weex<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vue/" title="Vue">Vue<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JS/" title="JS">JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/前端/" title="前端">前端<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态库/" title="动态库">动态库<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/汇编语言/" title="汇编语言">汇编语言<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IDA/" title="IDA">IDA<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/重签名/" title="重签名">重签名<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/砸壳/" title="砸壳">砸壳<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NSTimer/" title="NSTimer">NSTimer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Cocopods/" title="Cocopods">Cocopods<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dumpdecrypted/" title="dumpdecrypted">dumpdecrypted<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/block/" title="block">block<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/retain-cycle/" title="retain cycle">retain cycle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/静态库/" title="静态库">静态库<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AutoreleasePool/" title="AutoreleasePool">AutoreleasePool<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/framework/" title="framework">framework<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="LeonLei">LeonLei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1268002586'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s23.cnzz.com/z_stat.php%3Fid%3D1268002586' type='text/javascript'%3E%3C/script%3E"));</script>
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
