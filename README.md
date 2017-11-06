@@ -10,13 +10,13 @@ VPS： CentOS6.9
 [root@California_VPS ~]# curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -  
 ```
 
-<!-- more -->
-
 执行完这个命令之后就可以安装NodeJS  
 
 ```shell  
 [root@California_VPS ~]# yum install -y nodejs
 ```
+
+<!-- more -->
 
 这里安装的是8.X版本，如果安装其他版本将`setup_8.x`中的8改成对应的版本就可以了。  
 安装完成之后执行命令检查安装结果：  
@@ -362,3 +362,4 @@ crond (pid  1164) is running...
 ```
 
 大功告成！
+
