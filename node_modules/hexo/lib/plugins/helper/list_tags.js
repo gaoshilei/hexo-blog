@@ -15,7 +15,6 @@ function listTagsHelper(tags, options) {
   var orderby = options.orderby || 'name';
   var order = options.order || 1;
   var transform = options.transform;
-  var suffix = options.suffix || '';
   var separator = options.hasOwnProperty('separator') ? options.separator : ', ';
   var result = '';
   var self = this;
@@ -37,7 +36,7 @@ function listTagsHelper(tags, options) {
     tags.forEach(function(tag) {
       result += '<li class="' + className + '-list-item">';
 
-      result += '<a class="' + className + '-list-link" href="' + self.url_for(tag.path) + suffix + '">';
+      result += '<a class="' + className + '-list-link" href="' + self.url_for(tag.path) + '">';
       result += transform ? transform(tag.name) : tag.name;
       result += '</a>';
 
@@ -53,7 +52,7 @@ function listTagsHelper(tags, options) {
     tags.forEach(function(tag, i) {
       if (i) result += separator;
 
-      result += '<a class="' + className + '-link" href="' + self.url_for(tag.path) + suffix + '">';
+      result += '<a class="' + className + '-link" href="' + self.url_for(tag.path) + '">';
       result += transform ? transform(tag.name) : tag.name;
 
       if (showCount) {

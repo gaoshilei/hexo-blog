@@ -10,7 +10,6 @@ function Scaffold(context) {
 
 Scaffold.prototype.defaults = {
   normal: [
-    '---',
     'layout: {{ layout }}',
     'title: {{ title }}',
     'date: {{ date }}',

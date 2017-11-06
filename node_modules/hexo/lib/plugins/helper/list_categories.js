@@ -18,7 +18,6 @@ function listCategoriesHelper(categories, options) {
   var transform = options.transform;
   var separator = options.hasOwnProperty('separator') ? options.separator : ', ';
   var showCurrent = options.show_current || false;
-  var suffix = options.suffix || '';
   var childrenIndicator = options.hasOwnProperty('children_indicator') ? options.children_indicator : false;
   var result = '';
   var self = this;
@@ -71,7 +70,7 @@ function listCategoriesHelper(categories, options) {
 
       result += '<li class="' + className + '-list-item' + additionalClassName + '">';
 
-      result += '<a class="' + className + '-list-link' + (isCurrent ? ' current' : '') + '" href="' + self.url_for(cat.path) + suffix + '">';
+      result += '<a class="' + className + '-list-link' + (isCurrent ? ' current' : '') + '" href="' + self.url_for(cat.path) + '">';
       result += transform ? transform(cat.name) : cat.name;
       result += '</a>';
 
@@ -95,7 +94,7 @@ function listCategoriesHelper(categories, options) {
     prepareQuery(parent).forEach(function(cat, i) {
       if (i || level) result += separator;
 
-      result += '<a class="' + className + '-link" href="' + self.url_for(cat.path) + suffix + '">';
+      result += '<a class="' + className + '-link" href="' + self.url_for(cat.path) + '">';
       result += transform ? transform(cat.name) : cat.name;
 
       if (showCount) {

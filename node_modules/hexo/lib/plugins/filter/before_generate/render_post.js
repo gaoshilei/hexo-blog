@@ -2,7 +2,7 @@
 
 var Promise = require('bluebird');
 
-function renderPostFilter(data) {
+function renderPostFilter() {
   var self = this;
 
   function renderPosts(model) {
@@ -12,7 +12,6 @@ function renderPostFilter(data) {
 
     return Promise.map(posts, function(post) {
       post.content = post._content;
-      post.site = {data: data};
 
       return self.post.render(post.full_source, post).then(function() {
         return post.save();

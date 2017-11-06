@@ -1,0 +1,561 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>LeonLei的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="LeonLei">
+    
+
+    
+    <meta name="description" content="前言本文档主要用来记录自己搭建hexo博客的一些命令和过程，方便以后重装。下文的环境为 CentOS6.9   安装依赖和相关服务1、 安装 NodeJS 和 NPM123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeonLei的博客">
+<meta property="og:url" content="http://www.gaoshilei.com/2017/10/30/搭建hexo博客/index.html">
+<meta property="og:site_name" content="LeonLei的博客">
+<meta property="og:description" content="前言本文档主要用来记录自己搭建hexo博客的一些命令和过程，方便以后重装。下文的环境为 CentOS6.9   安装依赖和相关服务1、 安装 NodeJS 和 NPM123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-06T03:58:34.017Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeonLei的博客">
+<meta name="twitter:description" content="前言本文档主要用来记录自己搭建hexo博客的一些命令和过程，方便以后重装。下文的环境为 CentOS6.9   安装依赖和相关服务1、 安装 NodeJS 和 NPM123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263">
+
+    
+    <link rel="alternative" href="/atom.xml" title="LeonLei的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="LeonLei的博客">LeonLei的博客</a></h1>
+				<h2 class="blog-motto">代码略懂，精通LOL</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:www.gaoshilei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/30/搭建hexo博客/" title="" itemprop="url"></a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="LeonLei" target="_blank" itemprop="author">LeonLei</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-30T08:13:04.663Z" itemprop="datePublished"> Published 2017-10-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装依赖和相关服务"><span class="toc-number">1.1.</span> <span class="toc-text">安装依赖和相关服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、-安装-NodeJS-和-NPM"><span class="toc-number">1.1.1.</span> <span class="toc-text">1、 安装 NodeJS 和 NPM</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文档主要用来记录自己搭建hexo博客的一些命令和过程，方便以后重装。<br>下文的环境为 CentOS6.9  </p>
+<h2 id="安装依赖和相关服务"><a href="#安装依赖和相关服务" class="headerlink" title="安装依赖和相关服务"></a>安装依赖和相关服务</h2><h3 id="1、-安装-NodeJS-和-NPM"><a href="#1、-安装-NodeJS-和-NPM" class="headerlink" title="1、 安装 NodeJS 和 NPM"></a>1、 安装 NodeJS 和 NPM</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS ~]# curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -</div><div class="line">```  </div><div class="line"></div><div class="line">执行完这个命令之后就可以安装NodeJS  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS ~]# yum install -y nodejs</div><div class="line">```  </div><div class="line"></div><div class="line">这里安装的是8.X版本，如果安装其他版本将`setup_8.x`中的8改成对应的版本就可以了。  </div><div class="line">安装完成之后执行命令检查安装结果：  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS ~]# node -v</div><div class="line">v8.8.1</div><div class="line">[root@California_VPS ~]# npm -v</div><div class="line">5.4.2</div><div class="line">```  </div><div class="line"></div><div class="line">### 2、安装 Nginx  </div><div class="line">通过 yum方式安装比较麻烦，还需要安装epel依赖库，下面介绍一种最简单的安装方法 </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS ~]# vim /etc/yum.repos.d/nginx.repo </div><div class="line">``` </div><div class="line">先在 yum.repos.d 文件下新建一个`nginx.repo`，然后将下面的内容拷贝进去，`:wq`保存退出</div><div class="line"></div><div class="line">```shell  </div><div class="line">[nginx]</div><div class="line">name=nginx repo</div><div class="line">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/</div><div class="line">gpgcheck=0</div><div class="line">enabled=1 </div><div class="line">```  </div><div class="line"></div><div class="line">执行下面的命令直接从配置文件安装 nginx</div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS ~]# yum install nginx -y</div><div class="line">```  </div><div class="line"></div><div class="line">然后打开服务器所在的IP测试nginx是否安装完成。</div><div class="line"></div><div class="line"></div><div class="line">### 3、安装 Hexo</div><div class="line">按照官网的文档执行命令  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS ~]# npm install -g hexo-cli</div><div class="line">```  </div><div class="line"></div><div class="line">顺利的话一会就安装好了，有时候会遇到 npm 权限问题  </div><div class="line"></div><div class="line">```shell  </div><div class="line">/usr/bin/hexo -&gt; /usr/lib/node_modules/hexo-cli/bin/hexo</div><div class="line"></div><div class="line">&gt; hexo-util@0.6.1 postinstall /usr/lib/node_modules/hexo-cli/node_modules/hexo-util</div><div class="line">&gt; npm run build:highlight</div><div class="line"></div><div class="line"></div><div class="line">&gt; hexo-util@0.6.1 build:highlight /usr/lib/node_modules/hexo-cli/node_modules/hexo-util</div><div class="line">&gt; node scripts/build_highlight_alias.js &gt; highlight_alias.json</div><div class="line"></div><div class="line">sh: highlight_alias.json: 权限不够</div><div class="line">npm ERR! code ELIFECYCLE</div><div class="line">npm ERR! errno 1</div><div class="line">npm ERR! hexo-util@0.6.1 build:highlight: `node scripts/build_highlight_alias.js &gt; highlight_alias.json`</div><div class="line">npm ERR! Exit status 1</div><div class="line">npm ERR! </div><div class="line">npm ERR! Failed at the hexo-util@0.6.1 build:highlight script.</div><div class="line">npm ERR! This is probably not a problem with npm. There is likely additional logging output above.  </div><div class="line">```  </div><div class="line"></div><div class="line">这个时候需要开启 npm 的 unsafe-perm 模式  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS ~]# npm config set unsafe-perm &quot;true&quot;  </div><div class="line">```  </div><div class="line"></div><div class="line">查看是否设置成功  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS ~]# npm config get unsafe-perm</div><div class="line">true</div><div class="line">```  </div><div class="line"></div><div class="line">如果为 `true` 则设置成功，再次执行 hexo 的安装命令即可顺利安装成功。  </div><div class="line"></div><div class="line">因为需要把之前在 github 的博客备份重新拷贝新的服务器上，所以要配置 ssh 公钥方便 git 操作。</div><div class="line"></div><div class="line">先生成公钥</div><div class="line"></div><div class="line">```shell </div><div class="line">[root@California_VPS ~]# ssh-keygen -t rsa -b 4096 -C &quot;xxxxx@xxx.com&quot;  </div><div class="line">```  </div><div class="line"></div><div class="line">这一步会生成ssh公钥，也就是 public key，生成之后可以通过下面的命令查看  </div><div class="line"></div><div class="line">```shell  </div><div class="line">ls -al ~/.ssh</div><div class="line">```  </div><div class="line"></div><div class="line">如果有 `id_rsa` `id_rsa.pub` 证明生成成功，然后通过下面的命令查看 ssh 公钥</div><div class="line"></div><div class="line">```shell  </div><div class="line">cat ~/.ssh/id_rsa.pub</div><div class="line">```  </div><div class="line">再将这个公钥拷贝到 github 的账户配置中即可。   </div><div class="line"></div><div class="line">### 4、配置博客  </div><div class="line"></div><div class="line">从 github 上把之前的博客 clone 下来，放到 root 目录下：  </div><div class="line"></div><div class="line">```shell  </div><div class="line">git clone https://github.com/xiangming/landscape-plus.git  </div><div class="line">``` </div><div class="line"></div><div class="line">然后配置 nginx，让 80 端口指向博客静态页面首页，在 nginx 配置文件目中新建一个`hexo.conf`文件 </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS ~]# vim /etc/nginx/conf.d/hexo.conf  </div><div class="line">```  </div><div class="line"></div><div class="line">写入相应的配置  </div><div class="line"></div><div class="line">```shell  </div><div class="line">server &#123;</div><div class="line">    listen          80;</div><div class="line">    server_name     gaoshilei.com www.gaoshilei.com;</div><div class="line">    location / &#123;</div><div class="line">        root        /root/hexo-blog/public;</div><div class="line">        index       index.html;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">```  </div><div class="line"></div><div class="line">重启 nginx 使服务生效  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS ~]# nginx -s reload</div><div class="line">```  </div><div class="line"></div><div class="line">此时去访问 IP 得到的是一个 404 报错，因为 nginx 是以 nginx 用户运行的，他没有博客目录的读写权限，有两个方法可以解决：  </div><div class="line">1. 给博客目录赋权，让 nginx 用户拥有读写权限</div><div class="line">2. 让 nginx 以 root 用户运行 </div><div class="line"></div><div class="line">我采用第二种方式，修改 nginx 的配置文件  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS ~]# vim /etc/nginx/nginx.conf  </div><div class="line">```  </div><div class="line"></div><div class="line">将 `user  nginx;` 改成 `user  root;` 即可。然后重启 nginx。  </div><div class="line"></div><div class="line">再去访问发现 404 没了，但是页面是一片空白，找了半天原因，之前用到的主题并没有上传到 github 上，将主题拷贝到 `themes` 文件夹下，然后部署 hexo 就可以正常访问了。  </div><div class="line"></div><div class="line">**hexo 常用的命令**  </div><div class="line">生成静态文件并部署网站:</div><div class="line"></div><div class="line">```  </div><div class="line"># hexo generate -d</div><div class="line">```  </div><div class="line"></div><div class="line">清除缓存文件 (db.json) 和已生成的静态文件 (public)  </div><div class="line"></div><div class="line">```  </div><div class="line"># hexo clean  </div><div class="line">```  </div><div class="line"></div><div class="line">生成站点map  </div><div class="line"></div><div class="line">```  </div><div class="line"># npm install hexo-generator-sitemap --save</div><div class="line"># npm install hexo-generator-baidu-sitemap --save  </div><div class="line">```  </div><div class="line"></div><div class="line">### 5、全站 HTTPS </div><div class="line">使用 Let’s Encrypt 的免费证书，不过每三个月要续签一次，安装可以通过 Certbot 的傻瓜式操作  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS www]# wget https://dl.eff.org/certbot-auto</div><div class="line">[root@California_VPS www]# chmod a+x certbot-auto  </div><div class="line">``` </div><div class="line">下载脚本，然后赋权  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS www]# sudo ./certbot-auto --nginx</div><div class="line">```  </div><div class="line"></div><div class="line">执行脚本，获取证书，Certbot 会自动帮我们配置 nginx 的一些配置。走到最后可能遇到这种情况  </div><div class="line"></div><div class="line">&gt;  </div><div class="line">Cannot find a VirtualHost matching domain www.gaoshilei.com. In order for Certbot to correctly perform the challenge please add a corresponding server_name directive to your nginx configuration: https://nginx.org/en/docs/http/server_names.html</div><div class="line"></div><div class="line">之前在配置 nginx.conf 文件的时候忘记加域名了，把 server_name 补全就行了，然后重新执行一次脚本，顺利申请了证书，而且 Certbot 都帮我配置好了，nice！  </div><div class="line">不过这个证书有效期只有三个月，所以需要续签，可以手动续签，证书快过期的时候执行  </div><div class="line"></div><div class="line">```shell  </div><div class="line"># sudo /root/www/certbot-auto renew</div></pre></td></tr></table></figure>
+<p>或者将上面的命令加入 <code>crontab</code> 定时任务  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS etc]# ps -ef | grep cron</div><div class="line">root      1164     1  0 Oct30 ?        00:00:00 crond</div><div class="line">root      8507  8222  0 07:31 pts/0    00:00:00 grep cron  </div><div class="line">[root@California_VPS etc]# service crond status</div><div class="line">crond (pid  1164) is running...</div><div class="line">```  </div><div class="line"></div><div class="line">先检查一下有没有安装 crontab，并且查看 crontab 的运行状态。最后配置  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS etc]# crontab -e</div></pre></td></tr></table></figure>
+<p>添加下面这条命令到配置文件中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0 0 * * 0 /root/www/certbot-auto renew</div></pre></td></tr></table></figure>
+<p>这条命令的意思是每周日的0点0分执行<code>/root/www/certbot-auto renew</code>这条命令。执行下面这条命令查看定时任务列表中是否有刚才添加的任务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS etc]# crontab -l </div><div class="line">0 0 * * 0 /root/www/certbot-auto renew</div><div class="line">```  </div><div class="line"></div><div class="line">### 6、配置 webhooks 自动更新博客  </div><div class="line">每次在本地更新了博客，push 到 github 上，还要去 VPS 再 git pull 一下，确实很麻烦，配置好 webhooks 就可以在 github 有 push 操作时自动更新并部署博客。  </div><div class="line"></div><div class="line">webhooks 在 github 对应仓库直接设置就行，重点是服务器的接收和相应的操作。  </div><div class="line">有 Python、PHP、NodeJS 多种方式可以接收 webhooks , 由于 hexo 是基于 NodeJS 的，所以这里用 NodeJS 来接收 github 的 push 事件。 </div><div class="line"></div><div class="line">安装依赖库 `github-webhook-handler`：  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS ~]# npm install -g github-webhook-handler</div><div class="line">``` </div><div class="line"></div><div class="line">安装完成之后配置 `webhooks.js`  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS hexo-blog]# vim webhooks.js </div><div class="line">```  </div><div class="line"></div><div class="line">然后将下面代码的拷贝进去  </div><div class="line"></div><div class="line">```js   </div><div class="line">var http = require(&apos;http&apos;)</div><div class="line">var createHandler = require(&apos;github-webhook-handler&apos;)</div><div class="line">var handler = createHandler(&#123; path: &apos;/webhooks_push&apos;, secret: &apos;leonlei1226&apos; &#125;)</div><div class="line">// 上面的 secret 保持和 GitHub 后台设置的一致</div><div class="line"></div><div class="line">function run_cmd(cmd, args, callback) &#123;</div><div class="line">  var spawn = require(&apos;child_process&apos;).spawn;</div><div class="line">  var child = spawn(cmd, args);</div><div class="line">  var resp = &quot;&quot;;</div><div class="line"></div><div class="line">  child.stdout.on(&apos;data&apos;, function(buffer) &#123; resp += buffer.toString(); &#125;);</div><div class="line">  child.stdout.on(&apos;end&apos;, function() &#123; callback (resp) &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">http.createServer(function (req, res) &#123;</div><div class="line">  handler(req, res, function (err) &#123;</div><div class="line">    res.statusCode = 404</div><div class="line">    res.end(&apos;no such location&apos;)</div><div class="line">  &#125;)</div><div class="line">&#125;).listen(6666)</div><div class="line"></div><div class="line">handler.on(&apos;error&apos;, function (err) &#123;</div><div class="line">  console.error(&apos;Error:&apos;, err.message)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">handler.on(&apos;push&apos;, function (event) &#123;</div><div class="line">  console.log(&apos;Received a push event for %s to %s&apos;,</div><div class="line">    event.payload.repository.name,</div><div class="line">    event.payload.ref);</div><div class="line">    run_cmd(&apos;sh&apos;, [&apos;./deploy.sh&apos;], function(text)&#123; console.log(text) &#125;);</div><div class="line">&#125;)</div><div class="line">```  </div><div class="line"></div><div class="line">其中 **secret** 要和 github 仓库中 webhooks 设置的一致，**6666** 是监听端口可以随便改，不要冲突就行，**./deploy.sh** 是接收到 push 事件时需要执行的shell脚本，与 `webhooks.js` 都存放在博客目录下；**path: &apos;/webhooks_push** 是 github 通知服务器的地址，完整的地址是这样的`http://www.gaoshilei.com:6666/webhooks_push`  </div><div class="line"></div><div class="line">&gt; 用 https 会报错，github 设置页面会 deliver error，所以把地址改成了 http</div><div class="line"></div><div class="line"></div><div class="line">配置`./deploy.sh`  </div><div class="line"></div><div class="line">```shell  </div><div class="line">[root@California_VPS hexo-blog]# vim deploy.sh</div></pre></td></tr></table></figure>
+<p>将下面代码拷贝进去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git pull origin master</div><div class="line">hexo g</div></pre></td></tr></table></figure>
+<p>然后运行  </p>
+<pre><code class="shell">[root@California_VPS hexo-blog]# node webhooks.js
+</code></pre>
+<p>就可以实现本地更新 push 到 github ，服务器会自动更新部署博客。<br>最后要将进程加入守护，通过 pm2 来实现  </p>
+<pre><code class="shell">[root@California_VPS ~]# npm install pm2 --global
+</code></pre>
+<p>然后通过 pm2 启动 <code>webhooks.js</code>  </p>
+<pre><code class="shell">[root@California_VPS hexo-blog]# pm2 start webhooks.js 
+[PM2] Starting /root/hexo-blog/webhooks.js in fork_mode (1 instance)
+[PM2] Done.
+┌──────────┬────┬──────┬───────┬────────┬─────────┬────────┬─────┬───────────┬──────┬──────────┐
+│ App name │ id │ mode │ pid   │ status │ restart │ uptime │ cpu │ mem       │ user │ watching │
+├──────────┼────┼──────┼───────┼────────┼─────────┼────────┼─────┼───────────┼──────┼──────────┤
+│ webhooks │ 0  │ fork │ 10010 │ online │ 0       │ 0s     │ 14% │ 24.2 MB   │ root │ disabled │
+└──────────┴────┴──────┴───────┴────────┴─────────┴────────┴─────┴───────────┴──────┴──────────┘
+ Use `pm2 show &lt;id|name&gt;` to get more details about an app
+</code></pre>
+<p>大功告成！</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.gaoshilei.com/2017/10/30/搭建hexo博客/" data-title="LeonLei的博客" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/09/26/weex-2/"  title="Weex从入门到超神（二）">
+ <strong>下一篇：</strong><br/> 
+ <span>Weex从入门到超神（二）
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装依赖和相关服务"><span class="toc-number">1.1.</span> <span class="toc-text">安装依赖和相关服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、-安装-NodeJS-和-NPM"><span class="toc-number">1.1.1.</span> <span class="toc-text">1、 安装 NodeJS 和 NPM</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/iOS逆向/" title="iOS逆向">iOS逆向<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/他山之石/" title="他山之石">他山之石<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/实用工具/" title="实用工具">实用工具<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/技术笔记/" title="技术笔记">技术笔记<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/跳坑指南/" title="跳坑指南">跳坑指南<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Weex/" title="Weex">Weex<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JS/" title="JS">JS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/前端/" title="前端">前端<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vue/" title="Vue">Vue<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/动态库/" title="动态库">动态库<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/汇编语言/" title="汇编语言">汇编语言<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IDA/" title="IDA">IDA<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/重签名/" title="重签名">重签名<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/砸壳/" title="砸壳">砸壳<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VPS/" title="VPS">VPS<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/黑科技/" title="黑科技">黑科技<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/静态库/" title="静态库">静态库<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RunLoop/" title="RunLoop">RunLoop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/framework/" title="framework">framework<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SDK/" title="SDK">SDK<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/block/" title="block">block<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="LeonLei">LeonLei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
