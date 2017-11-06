@@ -11,18 +11,14 @@
     
 
     
-    <meta name="description" content="前言
-   以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。
-
-最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
+    <meta name="description" content="前言    以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。  最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
+<meta name="keywords" content="静态库,动态库,framework,SDK">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS静态库SDK制作（包含第三方静态库）">
 <meta property="og:url" content="http://www.gaoshilei.com/2016/11/17/Static Library/index.html">
 <meta property="og:site_name" content="LeonLei的博客">
-<meta property="og:description" content="前言
-   以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。
-
-最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
+<meta property="og:description" content="前言    以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。  最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E9%9D%99%E6%80%81%E5%BA%93.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E5%BA%93.png">
@@ -33,13 +29,10 @@
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E7%B3%BB%E7%BB%9F%E5%8A%A8%E6%80%81%E5%BA%93%E6%8A%A5%E9%94%99.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9B%BF%E6%8D%A2%E4%BE%9D%E8%B5%96%E5%BA%93.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%88%B6%E4%BD%9C%E5%AE%8C%E6%88%90%E4%BD%BF%E7%94%A8.png">
-<meta property="og:updated_time" content="2017-11-02T13:09:57.230Z">
+<meta property="og:updated_time" content="2017-11-01T08:21:45.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS静态库SDK制作（包含第三方静态库）">
-<meta name="twitter:description" content="前言
-   以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。
-
-最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
+<meta name="twitter:description" content="前言    以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。  最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
 <meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png">
 
     
@@ -324,7 +317,7 @@
 			
 		
 			
-				<li><a href="/tags/NSTimer/" title="NSTimer">NSTimer<sup>1</sup></a></li>
+				<li><a href="/tags/VPS/" title="VPS">VPS<sup>1</sup></a></li>
 			
 		
 			
@@ -340,15 +333,7 @@
 			
 		
 			
-				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/block/" title="block">block<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/retain-cycle/" title="retain cycle">retain cycle<sup>1</sup></a></li>
+				<li><a href="/tags/NSTimer/" title="NSTimer">NSTimer<sup>1</sup></a></li>
 			
 		
 			
@@ -356,11 +341,19 @@
 			
 		
 			
-				<li><a href="/tags/AutoreleasePool/" title="AutoreleasePool">AutoreleasePool<sup>1</sup></a></li>
+				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/framework/" title="framework">framework<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SDK/" title="SDK">SDK<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/serial-Number/" title="serial Number">serial Number<sup>1</sup></a></li>
 			
 		
 		</ul>

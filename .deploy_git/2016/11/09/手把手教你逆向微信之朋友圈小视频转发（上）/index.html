@@ -12,17 +12,19 @@
 
     
     <meta name="description" content="前言此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。本篇文章由于篇幅太长分成了两篇，上篇讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，下篇讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢">
+<meta name="keywords" content="微信,汇编语言,IDA,重签名">
 <meta property="og:type" content="article">
 <meta property="og:title" content="手把手教你逆向微信之朋友圈小视频转发（上）">
 <meta property="og:url" content="http://www.gaoshilei.com/2016/11/09/手把手教你逆向微信之朋友圈小视频转发（上）/index.html">
 <meta property="og:site_name" content="LeonLei的博客">
 <meta property="og:description" content="前言此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。本篇文章由于篇幅太长分成了两篇，上篇讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，下篇讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91Reveal.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91-%E8%BD%AC%E5%8F%91%E5%B0%8F%E8%A7%86%E9%A2%91%E4%B8%BA%E7%A9%BA.jpg">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-selRef_section%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E8%80%85.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-btnRelease.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91sub_10261D0AC.png">
-<meta property="og:updated_time" content="2017-11-02T13:09:57.232Z">
+<meta property="og:updated_time" content="2017-11-01T08:21:45.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手把手教你逆向微信之朋友圈小视频转发（上）">
 <meta name="twitter:description" content="前言此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。本篇文章由于篇幅太长分成了两篇，上篇讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，下篇讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢">
@@ -410,7 +412,7 @@
 			
 		
 			
-				<li><a href="/tags/NSTimer/" title="NSTimer">NSTimer<sup>1</sup></a></li>
+				<li><a href="/tags/VPS/" title="VPS">VPS<sup>1</sup></a></li>
 			
 		
 			
@@ -426,15 +428,7 @@
 			
 		
 			
-				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/block/" title="block">block<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/retain-cycle/" title="retain cycle">retain cycle<sup>1</sup></a></li>
+				<li><a href="/tags/NSTimer/" title="NSTimer">NSTimer<sup>1</sup></a></li>
 			
 		
 			
@@ -442,11 +436,19 @@
 			
 		
 			
-				<li><a href="/tags/AutoreleasePool/" title="AutoreleasePool">AutoreleasePool<sup>1</sup></a></li>
+				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/framework/" title="framework">framework<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SDK/" title="SDK">SDK<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/serial-Number/" title="serial Number">serial Number<sup>1</sup></a></li>
 			
 		
 		</ul>

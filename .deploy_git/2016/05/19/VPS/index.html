@@ -11,14 +11,14 @@
     
 
     
-    <meta name="description" content="前言：(废话较多，不想看的略过直接看后面的教程)
-作为一名有着远大理想和抱负的codeMonkey，平时查资料必须Google，百度一下会真的死啊！不是黑百度，确实百度出来的资料内容看一下大致是相同的，搜到的内容就是copy+paste，花了很多时间结果找不到我们想要的东西，最最重要的是搜索结果有一半是广告，这个时候只能求助于Google，无奈天朝的GFW，一直追求自由明主的Google早在10年">
+    <meta name="description" content="前言：(废话较多，不想看的略过直接看后面的教程) 作为一名有着远大理想和抱负的codeMonkey，平时查资料必须Google，百度一下会真的死啊！不是黑百度，确实百度出来的资料内容看一下大致是相同的，搜到的内容就是copy+paste，花了很多时间结果找不到我们想要的东西，最最重要的是搜索结果有一半是广告，这个时候只能求助于Google，无奈天朝的GFW，一直追求自由明主的Google早在10年">
+<meta name="keywords" content="VPS,VPN,Shadowsocks">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VPS搭建高速VPN服务器">
 <meta property="og:url" content="http://www.gaoshilei.com/2016/05/19/VPS/index.html">
 <meta property="og:site_name" content="LeonLei的博客">
-<meta property="og:description" content="前言：(废话较多，不想看的略过直接看后面的教程)
-作为一名有着远大理想和抱负的codeMonkey，平时查资料必须Google，百度一下会真的死啊！不是黑百度，确实百度出来的资料内容看一下大致是相同的，搜到的内容就是copy+paste，花了很多时间结果找不到我们想要的东西，最最重要的是搜索结果有一半是广告，这个时候只能求助于Google，无奈天朝的GFW，一直追求自由明主的Google早在10年">
+<meta property="og:description" content="前言：(废话较多，不想看的略过直接看后面的教程) 作为一名有着远大理想和抱负的codeMonkey，平时查资料必须Google，百度一下会真的死啊！不是黑百度，确实百度出来的资料内容看一下大致是相同的，搜到的内容就是copy+paste，花了很多时间结果找不到我们想要的东西，最最重要的是搜索结果有一半是广告，这个时候只能求助于Google，无奈天朝的GFW，一直追求自由明主的Google早在10年">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNPayPal.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPN%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%97%E8%A1%A8.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPN%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81.png">
@@ -26,11 +26,10 @@
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E4%BD%BF%E7%94%A8%E7%95%8C%E9%9D%A2.png">
 <meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E8%AE%BE%E7%BD%AE.png">
-<meta property="og:updated_time" content="2017-11-02T13:09:57.227Z">
+<meta property="og:updated_time" content="2017-11-01T08:21:45.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPS搭建高速VPN服务器">
-<meta name="twitter:description" content="前言：(废话较多，不想看的略过直接看后面的教程)
-作为一名有着远大理想和抱负的codeMonkey，平时查资料必须Google，百度一下会真的死啊！不是黑百度，确实百度出来的资料内容看一下大致是相同的，搜到的内容就是copy+paste，花了很多时间结果找不到我们想要的东西，最最重要的是搜索结果有一半是广告，这个时候只能求助于Google，无奈天朝的GFW，一直追求自由明主的Google早在10年">
+<meta name="twitter:description" content="前言：(废话较多，不想看的略过直接看后面的教程) 作为一名有着远大理想和抱负的codeMonkey，平时查资料必须Google，百度一下会真的死啊！不是黑百度，确实百度出来的资料内容看一下大致是相同的，搜到的内容就是copy+paste，花了很多时间结果找不到我们想要的东西，最最重要的是搜索结果有一半是广告，这个时候只能求助于Google，无奈天朝的GFW，一直追求自由明主的Google早在10年">
 <meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNPayPal.png">
 
     
@@ -309,7 +308,7 @@
 			
 		
 			
-				<li><a href="/tags/NSTimer/" title="NSTimer">NSTimer<sup>1</sup></a></li>
+				<li><a href="/tags/VPS/" title="VPS">VPS<sup>1</sup></a></li>
 			
 		
 			
@@ -325,15 +324,7 @@
 			
 		
 			
-				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/block/" title="block">block<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/retain-cycle/" title="retain cycle">retain cycle<sup>1</sup></a></li>
+				<li><a href="/tags/NSTimer/" title="NSTimer">NSTimer<sup>1</sup></a></li>
 			
 		
 			
@@ -341,11 +332,19 @@
 			
 		
 			
-				<li><a href="/tags/AutoreleasePool/" title="AutoreleasePool">AutoreleasePool<sup>1</sup></a></li>
+				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/framework/" title="framework">framework<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SDK/" title="SDK">SDK<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/serial-Number/" title="serial Number">serial Number<sup>1</sup></a></li>
 			
 		
 		</ul>

@@ -392,7 +392,7 @@ body >header {
   width: 100%;
   -webkit-box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
   box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
-  background: url("../") center #369;
+  background: url("../") center #2ca6cb;
   color: #fff;
   padding: 1em 0 0.8em;
 }
@@ -451,19 +451,20 @@ body >header a {
 }
 #textlogo h1.site-name {
   width: 86%;
-  font-family: "Helvetica Neue", "Helvetica", "Microsoft YaHei", "WenQuanYi Micro Hei", Arial, sans-serif;
-  font-size: 160%;
-  line-height: 1.9;
-  font-weight: normal;
+  font-family: "covered_by_your_graceregular";
+  font-size: 200%;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 @media only screen and (min-width: 768px) {
   #textlogo h1.site-name {
-    font-size: 190%;
+    font-size: 240%;
   }
 }
 @media only screen and (min-width: 1024px) {
   #textlogo h1.site-name {
-    font-size: 220%;
+    font-size: 280%;
   }
 }
 #textlogo h2.blog-motto {
@@ -545,7 +546,7 @@ header nav ul li a {
   }
 }
 header nav ul li a:hover {
-  background: #224c77;
+  background: #1b7f9e;
   color: #e9cd4c;
 }
 .shownav {
@@ -638,7 +639,7 @@ header nav ul li a:hover {
   }
 }
 #main section.post a:hover {
-  border-left: 0.5em solid #369;
+  border-left: 0.5em solid #2ca6cb;
 }
 #main section.post a h1 {
   color: #2ca6cb;
@@ -687,7 +688,7 @@ header nav ul li a:hover {
   text-decoration: none;
 }
 #main article.post-expand .article-more-link a:hover {
-  background: #369;
+  background: #2ca6cb;
   color: #fff;
   text-decoration: none;
 }
@@ -707,7 +708,7 @@ header nav ul li a:hover {
   border-left: 0.5em solid #ccc;
 }
 .unexpand .prev:hover {
-  border-left: 0.5em solid #369;
+  border-left: 0.5em solid #2ca6cb;
 }
 #page-nav {
   background: #fafafa;
@@ -723,7 +724,7 @@ header nav ul li a:hover {
 }
 #page-nav a:hover {
   background: #ccc;
-  color: #369;
+  color: #2ca6cb;
 }
 #page-nav .prev {
   float: left;
@@ -820,7 +821,7 @@ header nav ul li a:hover {
   transition: color 0.5s;
 }
 .archive-title a:hover {
-  color: #369;
+  color: #2ca6cb;
   -webkit-transition: color 0.5s;
   -moz-transition: color 0.5s;
   -o-transition: color 0.5s;
@@ -900,7 +901,7 @@ article header.article-info >h1 {
   word-break: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  border-left: 5px solid #369;
+  border-left: 5px solid #2ca6cb;
 }
 @media only screen and (min-width: 1024px) {
   article header.article-info >h1 {
@@ -1015,7 +1016,7 @@ article .article-content abbr {
   border-bottom: 1px dotted;
 }
 article .article-content blockquote {
-  border-left: 0.2em solid #369;
+  border-left: 0.2em solid #2ca6cb;
   margin: 0.65em 0 0.65em 1%;
   padding-left: 1%;
   line-height: 1.5;
@@ -1551,7 +1552,7 @@ section.comment {
   transition: color 1s ease-out;
 }
 #toc.toc-aside a:hover {
-  color: #369;
+  color: #2ca6cb;
   -webkit-transition: color 0.3s ease-out;
   -moz-transition: color 0.3s ease-out;
   -o-transition: color 0.3s ease-out;
@@ -1559,7 +1560,7 @@ section.comment {
   transition: color 0.3s ease-out;
 }
 .active {
-  color: #369 !important;
+  color: #2ca6cb !important;
 }
 .openaside {
   display: none;
@@ -1572,7 +1573,7 @@ section.comment {
   color: #fff;
   border: 1px solid #fff;
   border-radius: 5px;
-  background: #369;
+  background: #2ca6cb;
   padding: 0.2em 0.55em;
 }
 .openaside a::before {
@@ -1585,7 +1586,7 @@ section.comment {
   display: none;
 }
 .closeaside a {
-  color: #369;
+  color: #2ca6cb;
 }
 .closeaside a:hover {
   color: #2ca6cb;
@@ -1627,7 +1628,7 @@ section.comment {
   color: #2ca6cb;
 }
 .asidetitle a:hover {
-  color: #369;
+  color: #2ca6cb;
   -webkit-transition: color 0.5s;
   -moz-transition: color 0.5s;
   -o-transition: color 0.5s;
@@ -1656,7 +1657,7 @@ section.comment {
   padding: 0.5em 5%;
 }
 .categorieslist li a:hover {
-  color: #369;
+  color: #2ca6cb;
 }
 .tagslist {
   margin: 1em 0 0;
@@ -1688,11 +1689,11 @@ section.comment {
   background: #dbdbdb;
 }
 .tagslist ul li a:hover {
-  color: #369;
+  color: #2ca6cb;
   background: #e6e6e6;
 }
 .rsspart {
-  background: #369;
+  background: #2ca6cb;
   width: 100%;
 }
 @media only screen and (min-width: 768px) {
@@ -1716,7 +1717,7 @@ section.comment {
   text-align: center;
 }
 .rsspart a:hover {
-  color: #369;
+  color: #2ca6cb;
   background: #fafafa;
 }
 .rsspart a::before {
@@ -1744,7 +1745,7 @@ section.comment {
   padding: 0.5em;
 }
 .archiveslist li a:hover {
-  color: #369;
+  color: #2ca6cb;
   -webkit-transition: color 0.25s;
   -moz-transition: color 0.25s;
   -o-transition: color 0.25s;
@@ -1792,7 +1793,7 @@ section.comment {
   float: left;
 }
 .tagcloudlist .tagcloudlist a:hover {
-  color: #369;
+  color: #2ca6cb;
   -webkit-transition: color 0.25s;
   -moz-transition: color 0.25s;
   -o-transition: color 0.25s;
@@ -1826,7 +1827,7 @@ section.comment {
   padding: 0 3%;
 }
 .linkslist ul a:hover {
-  color: #369;
+  color: #2ca6cb;
   -webkit-transition: color 0.25s;
   -moz-transition: color 0.25s;
   -o-transition: color 0.25s;
@@ -1934,7 +1935,7 @@ footer {
   width: 6.875em;
   height: 6.875em;
   margin: 0 auto;
-  background: no-repeat url("../") left top;
+  background: no-repeat url("../img/author.jpg") left top;
   -webkit-background-size: 6.875em 6.875em;
   -moz-background-size: 6.875em 6.875em;
   background-size: 6.875em 6.875em;
@@ -1960,8 +1961,11 @@ footer {
   }
 }
 .info {
-  font-family: "Helvetica Neue", "Helvetica", "Microsoft YaHei", "WenQuanYi Micro Hei", Arial, sans-serif;
-  line-height: 1.65;
+  font-family: "covered_by_your_graceregular";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 150%;
+  line-height: 1.3em;
   width: 90%;
   margin: 0 auto;
   color: #fff;
@@ -2057,8 +2061,9 @@ footer {
   content: "\f142";
 }
 .copyright {
-  font-family: "Helvetica Neue", "Helvetica", "Microsoft YaHei", "WenQuanYi Micro Hei", Arial, sans-serif;
-  font-size: 0.6em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "covered_by_your_graceregular";
   width: 100%;
   color: #fff;
   text-align: center;
@@ -2221,7 +2226,7 @@ footer {
   font-weight: normal;
 }
 .article-content .gist .gist-file .gist-meta a:hover {
-  color: #369;
+  color: #2ca6cb;
 }
 pre .comment,
 pre .title {

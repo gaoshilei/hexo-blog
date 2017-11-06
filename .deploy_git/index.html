@@ -15,6 +15,7 @@
 <meta property="og:title" content="LeonLei的博客">
 <meta property="og:url" content="http://www.gaoshilei.com/index.html">
 <meta property="og:site_name" content="LeonLei的博客">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeonLei的博客">
 
@@ -91,7 +92,7 @@
 </header>
     <div class="article-content">
         
-        <p>本文档主要用来记录自己借助<a href="https://hexo.io">Hexo</a>搭建博客的一些步骤和命令，方便以后重装；新人也可以通过此篇文章快速搭建自己的个人博客。<br>下文的环境为:<br>VPS： CentOS 6.9<br>本地： MacOS  </p>
+        <p>本文档主要用来记录自己借助<a href="https://hexo.io" target="_blank" rel="external">Hexo</a>搭建博客的一些步骤和命令，方便以后重装；新人也可以通过此篇文章快速搭建自己的个人博客。<br>下文的环境为:<br>VPS： CentOS 6.9<br>本地： MacOS  </p>
 <h2 id="搭建博客"><a href="#搭建博客" class="headerlink" title="搭建博客"></a>搭建博客</h2><h3 id="1、安装-NodeJS-和-NPM"><a href="#1、安装-NodeJS-和-NPM" class="headerlink" title="1、安装 NodeJS 和 NPM"></a>1、安装 NodeJS 和 NPM</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS ~]# curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -</div></pre></td></tr></table></figure>
 <p>执行完这个命令之后就可以安装NodeJS  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS ~]# yum install -y nodejs</div></pre></td></tr></table></figure>
@@ -155,7 +156,7 @@
 </header>
     <div class="article-content">
         
-        <p>距离我写的上一篇文章 <a href="https://gaoshilei.com/2017/05/26/weex-1/">Weex从入门到超神（一）</a> 已经过了挺久了（惭愧而不失礼貌的微笑），起初写那篇文章的初衷是因为项目中使用到了 Weex ,所以准备对 Weex 做一个心得式的笔记，后来无意间发现<a href="http://www.jianshu.com/u/12201cdd5d7a">简书“霜神”</a>已经对 Weex 写过几篇剖析比较深刻的文章，还有其他一些原因（懒），所以就没有继续写下去。<br>最近由于Facebook的 <a href="https://github.com/facebook/react/blob/master/LICENSE">BSD license</a>，React 被前端社区的同学们推到了风口浪尖，React&amp;RN、Vue&amp;Weex 又成为了大家码前码后讨论的话题。Apache 社区还因为 Facebook 的 BSD license，全面封杀使用了 BSD license 的开源项目，貌似一切都很精彩，迫于前端同(da)学(lao)的淫威还有社区的强烈谴责，上周 Facebook 终于认怂了，承诺这周将 React 以及 gayhub 上面的其他几个项目的开源协议从 BSD 改成 MIT，下图是我脑补的场景：<br><img src="http://oeat6c2zg.bkt.clouddn.com/FA269E01D9C3794449AA6748EA6280C6.png" alt=""><br>鉴于对于项目中使用 Weex 的一些经验和心得，还是希望写出来和大家一起分享。<br>
+        <p>距离我写的上一篇文章 <a href="https://gaoshilei.com/2017/05/26/weex-1/" target="_blank" rel="external">Weex从入门到超神（一）</a> 已经过了挺久了（惭愧而不失礼貌的微笑），起初写那篇文章的初衷是因为项目中使用到了 Weex ,所以准备对 Weex 做一个心得式的笔记，后来无意间发现<a href="http://www.jianshu.com/u/12201cdd5d7a" target="_blank" rel="external">简书“霜神”</a>已经对 Weex 写过几篇剖析比较深刻的文章，还有其他一些原因（懒），所以就没有继续写下去。<br>最近由于Facebook的 <a href="https://github.com/facebook/react/blob/master/LICENSE" target="_blank" rel="external">BSD license</a>，React 被前端社区的同学们推到了风口浪尖，React&amp;RN、Vue&amp;Weex 又成为了大家码前码后讨论的话题。Apache 社区还因为 Facebook 的 BSD license，全面封杀使用了 BSD license 的开源项目，貌似一切都很精彩，迫于前端同(da)学(lao)的淫威还有社区的强烈谴责，上周 Facebook 终于认怂了，承诺这周将 React 以及 gayhub 上面的其他几个项目的开源协议从 BSD 改成 MIT，下图是我脑补的场景：<br><img src="http://oeat6c2zg.bkt.clouddn.com/FA269E01D9C3794449AA6748EA6280C6.png" alt=""><br>鉴于对于项目中使用 Weex 的一些经验和心得，还是希望写出来和大家一起分享。<br>
         
         
         <p class="article-more-link">
@@ -799,7 +800,7 @@
 			
 		
 			
-				<li><a href="/tags/NSTimer/" title="NSTimer">NSTimer<sup>1</sup></a></li>
+				<li><a href="/tags/VPS/" title="VPS">VPS<sup>1</sup></a></li>
 			
 		
 			
@@ -815,15 +816,7 @@
 			
 		
 			
-				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/block/" title="block">block<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/retain-cycle/" title="retain cycle">retain cycle<sup>1</sup></a></li>
+				<li><a href="/tags/NSTimer/" title="NSTimer">NSTimer<sup>1</sup></a></li>
 			
 		
 			
@@ -831,11 +824,19 @@
 			
 		
 			
-				<li><a href="/tags/AutoreleasePool/" title="AutoreleasePool">AutoreleasePool<sup>1</sup></a></li>
+				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/framework/" title="framework">framework<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SDK/" title="SDK">SDK<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/serial-Number/" title="serial Number">serial Number<sup>1</sup></a></li>
 			
 		
 		</ul>
