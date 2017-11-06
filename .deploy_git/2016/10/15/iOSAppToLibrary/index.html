@@ -1,17 +1,12 @@
 
- <!DOCTYPE HTML>
-<html lang="zh-Hans">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   
-    <title>【转载】黑科技：把第三方iOS应用转成动态库 | LeonLei的博客</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-    
-    <meta name="author" content="LeonLei">
-    
-
-    
-    <meta name="description" content="文章转载自杨君的小黑屋，对排版进行了一些调整 前言本文会介绍一个自己写的工具，能够把第三方iOS应用转成动态库，并加载到自己的App中，文章最后会以支付宝为例，展示如何调用其中的C函数和OC方法。工具开源地址：https://github.com/tobefuturer/app2dylib">
+  <title>【转载】黑科技：把第三方iOS应用转成动态库 | LeonLei的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="文章转载自杨君的小黑屋，对排版进行了一些调整 前言本文会介绍一个自己写的工具，能够把第三方iOS应用转成动态库，并加载到自己的App中，文章最后会以支付宝为例，展示如何调用其中的C函数和OC方法。工具开源地址：https://github.com/tobefuturer/app2dylib">
 <meta name="keywords" content="动态库,黑科技">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【转载】黑科技：把第三方iOS应用转成动态库">
@@ -39,86 +34,88 @@
 <meta name="twitter:title" content="【转载】黑科技：把第三方iOS应用转成动态库">
 <meta name="twitter:description" content="文章转载自杨君的小黑屋，对排版进行了一些调整 前言本文会介绍一个自己写的工具，能够把第三方iOS应用转成动态库，并加载到自己的App中，文章最后会以支付宝为例，展示如何调用其中的C函数和OC方法。工具开源地址：https://github.com/tobefuturer/app2dylib">
 <meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/App%E8%BD%AC%E6%88%90%E5%8A%A8%E6%80%81%E5%BA%93-%E5%BA%94%E7%94%A8%E4%B8%8E%E5%8A%A8%E6%80%81%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB.jpg">
-
-    
-    <link rel="alternative" href="/atom.xml" title="LeonLei的博客" type="application/atom+xml">
-    
-    
-    <link rel="icon" href="/img/favicon.ico">
-    
-    
-    <link rel="apple-touch-icon" href="/img/jacman.jpg">
-    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
-    
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-
-  <body>
-    <header>
-      
-<div>
-		
-			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="LeonLei的博客" title="LeonLei的博客"/></a>
-			</div>
-			
-			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="LeonLei的博客">LeonLei的博客</a></h1>
-				<h2 class="blog-motto">代码略懂，精通LOL</h2>
-			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
-			</a></div>
-			<nav class="animated">
-				<ul>
-					<ul>
-					 
-						<li><a href="/">Home</a></li>
-					
-						<li><a href="/archives">Archives</a></li>
-					
-						<li><a href="/about">About</a></li>
-					
-					<li>
- 					
-					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
-						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
-						<input type="hidden" name="q" value="site:www.gaoshilei.com">
-					</form>
-					
-					</li>
-				</ul>
-			</nav>			
-</div>
-    </header>
-    <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
   
-	<article itemprop="articleBody"> 
-		<header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/10/15/iOSAppToLibrary/" title="【转载】黑科技：把第三方iOS应用转成动态库" itemprop="url">【转载】黑科技：把第三方iOS应用转成动态库</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="LeonLei" target="_blank" itemprop="author">LeonLei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-10-15T16:00:00.000Z" itemprop="datePublished"> Published 2016-10-15</time>
-    
-  </p>
+    <link rel="alternative" href="/atom.xml" title="LeonLei的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">LeonLei的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">代码略懂，精通LOL</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="www.gaoshilei.com">
+        </form>
+      </div>
+    </div>
+  </div>
 </header>
-	<div class="article-content">
-		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
-		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有什么用"><span class="toc-number">2.</span> <span class="toc-text">有什么用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用和动态库的异同"><span class="toc-number">3.</span> <span class="toc-text">应用和动态库的异同</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相同点："><span class="toc-number">3.1.</span> <span class="toc-text">相同点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不同点："><span class="toc-number">3.2.</span> <span class="toc-text">不同点：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现细节"><span class="toc-number">4.</span> <span class="toc-text">实现细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改文件类型"><span class="toc-number">4.1.</span> <span class="toc-text">修改文件类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#头部中添加-LC-ID-DYLIB"><span class="toc-number">4.2.</span> <span class="toc-text">头部中添加 LC_ID_DYLIB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改PAGEZERO段"><span class="toc-number">4.3.</span> <span class="toc-text">修改PAGEZERO段</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-所有段的地址都要重新计算"><span class="toc-number">4.3.1.</span> <span class="toc-text">1.    所有段的地址都要重新计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-对动态库进行rebase操作"><span class="toc-number">4.3.2.</span> <span class="toc-text">2.    对动态库进行rebase操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-为什么不能直接去掉PAGEZERO这个段"><span class="toc-number">4.3.3.</span> <span class="toc-text">3.    为什么不能直接去掉PAGEZERO这个段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改符号表"><span class="toc-number">4.4.</span> <span class="toc-text">修改符号表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实际效果"><span class="toc-number">5.</span> <span class="toc-text">实际效果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-下载源码编译："><span class="toc-number">5.1.</span> <span class="toc-text">1.    下载源码编译：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-把支付宝arm64砸壳，然后提取可执行文件，用上面的工具把支付宝的可执行文件转成动态库"><span class="toc-number">5.2.</span> <span class="toc-text">2.    把支付宝arm64砸壳，然后提取可执行文件，用上面的工具把支付宝的可执行文件转成动态库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-用-Xcode-新建工程，并把新生成的dylib拖进去，调整好各项设置"><span class="toc-number">5.3.</span> <span class="toc-text">3.    用 Xcode 新建工程，并把新生成的dylib拖进去，调整好各项设置.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-怎么调用动态库里的方法呢？"><span class="toc-number">5.4.</span> <span class="toc-text">4.    怎么调用动态库里的方法呢？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于绕过检测代码"><span class="toc-number">6.</span> <span class="toc-text">关于绕过检测代码</span></a></li></ol>
-		
-		</div>
-		
-		<p><strong>文章转载自<a href="http://blog.imjun.net" target="_blank" rel="external">杨君的小黑屋</a>，对排版进行了一些调整</strong></p>
+    <div class="outer">
+      <section id="main"><article id="post-iOSAppToLibrary" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/15/iOSAppToLibrary/" class="article-date">
+  <time datetime="2016-10-15T16:00:00.000Z" itemprop="datePublished">2016-10-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/他山之石/">他山之石</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【转载】黑科技：把第三方iOS应用转成动态库
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>文章转载自<a href="http://blog.imjun.net" target="_blank" rel="external">杨君的小黑屋</a>，对排版进行了一些调整</strong></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文会介绍一个自己写的工具，能够把第三方iOS应用转成动态库，并加载到自己的App中，文章最后会以支付宝为例，展示如何调用其中的C函数和OC方法。<br>工具开源地址：<br><a href="https://github.com/tobefuturer/app2dylib" target="_blank" rel="external">https://github.com/tobefuturer/app2dylib</a><br><a id="more"></a></p>
 <h2 id="有什么用"><a href="#有什么用" class="headerlink" title="有什么用"></a>有什么用</h2><p>为什么要把第三方应用转成动态库呢？与一般的注入动态库+重签名打包的手段有什么不一样呢？</p>
 <p>好处主要有下面几点：  </p>
@@ -220,471 +217,224 @@ cd ${FULL_PRODUCT_NAME}
 <li>dyld的源码：<a href="https://opensource.apple.com/source/dyld/" target="_blank" rel="external">https://opensource.apple.com/source/dyld/</a>  </li>
 <li>iOS逆向的论坛 <a href="http://iosre.com/" target="_blank" rel="external">http://iosre.com/</a></li>
 </ol>
-  
-	</div>
-		<footer class="article-footer clearfix">
-<div class="article-catetags">
 
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/他山之石/">他山之石</a>
-</div>
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://www.gaoshilei.com/2016/10/15/iOSAppToLibrary/" data-id="cj9o5elrl000w1836au3jmrl9" class="article-share-link" data-share="baidu" data-title="【转载】黑科技：把第三方iOS应用转成动态库">Share</a>
+      
 
+      
+        <a href="http://www.gaoshilei.com/2016/10/15/iOSAppToLibrary/#ds-thread" class="article-comment-link">Comments</a>
+      
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/动态库/">动态库</a><a href="/tags/黑科技/">黑科技</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态库/">动态库</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/黑科技/">黑科技</a></li></ul>
+
+    </footer>
   </div>
-
-</div>
-
-
-
-	<div class="article-share" id="share">
-	
-	  <div data-url="http://www.gaoshilei.com/2016/10/15/iOSAppToLibrary/" data-title="【转载】黑科技：把第三方iOS应用转成动态库 | LeonLei的博客" data-tsina="null" class="share clearfix">
-	  </div>
-	
-	</div>
-
-
-</footer>
-
-   	       
-	</article>
-	
-<nav class="article-nav clearfix">
- 
- <div class="prev" >
- <a href="/2016/11/09/手把手教你逆向微信之朋友圈小视频转发（上）/" title="手把手教你逆向微信之朋友圈小视频转发（上）">
-  <strong>上一篇：</strong><br/>
-  <span>
-  手把手教你逆向微信之朋友圈小视频转发（上）</span>
-</a>
-</div>
-
-
-<div class="next">
-<a href="/2016/09/07/iPhone查找序列号生成函数/"  title="iPhone查找序列号生成函数">
- <strong>下一篇：</strong><br/> 
- <span>iPhone查找序列号生成函数
-</span>
-</a>
-</div>
-
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/09/手把手教你逆向微信之朋友圈小视频转发（上）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          手把手教你逆向微信之朋友圈小视频转发（上）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/09/07/iPhone查找序列号生成函数/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iPhone查找序列号生成函数</div>
+    </a>
+  
 </nav>
 
-	
+  
+</article>
 
 
-</div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
- 
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有什么用"><span class="toc-number">2.</span> <span class="toc-text">有什么用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用和动态库的异同"><span class="toc-number">3.</span> <span class="toc-text">应用和动态库的异同</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相同点："><span class="toc-number">3.1.</span> <span class="toc-text">相同点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不同点："><span class="toc-number">3.2.</span> <span class="toc-text">不同点：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现细节"><span class="toc-number">4.</span> <span class="toc-text">实现细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改文件类型"><span class="toc-number">4.1.</span> <span class="toc-text">修改文件类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#头部中添加-LC-ID-DYLIB"><span class="toc-number">4.2.</span> <span class="toc-text">头部中添加 LC_ID_DYLIB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改PAGEZERO段"><span class="toc-number">4.3.</span> <span class="toc-text">修改PAGEZERO段</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-所有段的地址都要重新计算"><span class="toc-number">4.3.1.</span> <span class="toc-text">1.    所有段的地址都要重新计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-对动态库进行rebase操作"><span class="toc-number">4.3.2.</span> <span class="toc-text">2.    对动态库进行rebase操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-为什么不能直接去掉PAGEZERO这个段"><span class="toc-number">4.3.3.</span> <span class="toc-text">3.    为什么不能直接去掉PAGEZERO这个段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改符号表"><span class="toc-number">4.4.</span> <span class="toc-text">修改符号表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实际效果"><span class="toc-number">5.</span> <span class="toc-text">实际效果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-下载源码编译："><span class="toc-number">5.1.</span> <span class="toc-text">1.    下载源码编译：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-把支付宝arm64砸壳，然后提取可执行文件，用上面的工具把支付宝的可执行文件转成动态库"><span class="toc-number">5.2.</span> <span class="toc-text">2.    把支付宝arm64砸壳，然后提取可执行文件，用上面的工具把支付宝的可执行文件转成动态库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-用-Xcode-新建工程，并把新生成的dylib拖进去，调整好各项设置"><span class="toc-number">5.3.</span> <span class="toc-text">3.    用 Xcode 新建工程，并把新生成的dylib拖进去，调整好各项设置.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-怎么调用动态库里的方法呢？"><span class="toc-number">5.4.</span> <span class="toc-text">4.    怎么调用动态库里的方法呢？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于绕过检测代码"><span class="toc-number">6.</span> <span class="toc-text">关于绕过检测代码</span></a></li></ol>
- 
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2016/10/15/iOSAppToLibrary/" data-title="【转载】黑科技：把第三方iOS应用转成动态库" data-url="http://www.gaoshilei.com/2016/10/15/iOSAppToLibrary/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS逆向/">iOS逆向</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/他山之石/">他山之石</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/备忘录/">备忘录</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/实用工具/">实用工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术笔记/">技术笔记</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/跳坑指南/">跳坑指南</a><span class="category-list-count">1</span></li></ul>
+    </div>
   </div>
 
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
-<aside class="clearfix">
-
   
-
-
-  
-<div class="categorieslist">
-	<p class="asidetitle">Categories</p>
-		<ul>
-		
-		  
-			<li><a href="/categories/iOS逆向/" title="iOS逆向">iOS逆向<sup>4</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/他山之石/" title="他山之石">他山之石<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/备忘录/" title="备忘录">备忘录<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/实用工具/" title="实用工具">实用工具<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/技术笔记/" title="技术笔记">技术笔记<sup>5</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/跳坑指南/" title="跳坑指南">跳坑指南<sup>1</sup></a></li>
-		  
-		
-		</ul>
-</div>
-
-
-  
-<div class="tagslist">
-	<p class="asidetitle">Tags</p>
-		<ul class="clearfix">
-		
-			
-				<li><a href="/tags/Weex/" title="Weex">Weex<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Vue/" title="Vue">Vue<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/JS/" title="JS">JS<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/前端/" title="前端">前端<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/动态库/" title="动态库">动态库<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/微信/" title="微信">微信<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/汇编语言/" title="汇编语言">汇编语言<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/IDA/" title="IDA">IDA<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/重签名/" title="重签名">重签名<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/砸壳/" title="砸壳">砸壳<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/VPS/" title="VPS">VPS<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Cocopods/" title="Cocopods">Cocopods<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/dumpdecrypted/" title="dumpdecrypted">dumpdecrypted<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/NSTimer/" title="NSTimer">NSTimer<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/静态库/" title="静态库">静态库<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/framework/" title="framework">framework<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/SDK/" title="SDK">SDK<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/serial-Number/" title="serial Number">serial Number<sup>1</sup></a></li>
-			
-		
-		</ul>
-</div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">Links</p>
-    <ul>
-        
-          <li>
-            
-            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
-            
-          </li>
-        
-    </ul>
-</div>
-
-  
-
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
-</div>
-
-  <div class="weiboshow">
-  <p class="asidetitle">Weibo</p>
-    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
-</div>
-
-
-</aside>
-</div>
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AFNetworking/">AFNetworking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AutoreleasePool/">AutoreleasePool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocopods/">Cocopods</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDA/">IDA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSTimer/">NSTimer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RunLoop/">RunLoop</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SDK/">SDK</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shadowsocks/">Shadowsocks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDID/">UDID</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPN/">VPN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPS/">VPS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Weex/">Weex</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/block/">block</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dumpdecrypted/">dumpdecrypted</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework/">framework</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/retain-cycle/">retain cycle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/serial-Number/">serial Number</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/个人博客/">个人博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态库/">动态库</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编语言/">汇编语言</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/砸壳/">砸壳</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重签名/">重签名</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态库/">静态库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑科技/">黑科技</a><span class="tag-list-count">1</span></li></ul>
     </div>
-    <footer><div id="footer" >
-	
-	<div class="line">
-		<span></span>
-		<div class="author"></div>
-	</div>
-	
-	
-	<section class="info">
-		<p> Hello ,I&#39;m Larry Page in Google. <br/>
-			This is my blog,believe it or not.</p>
-	</section>
-	 
-	<div class="social-font" class="clearfix">
-		
-		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</div>
-			
-		
+  </div>
 
-		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
-		
-		<a href="/about" target="_blank" title="LeonLei">LeonLei</a>
-		
-		
-		</p>
-</div>
-</footer>
-    <script src="/js/jquery-2.0.3.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.navbar').click(function(){
-    $('header nav').toggleClass('shownav');
-  });
-  var myWidth = 0;
-  function getSize(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-  };
-  var m = $('#main'),
-      a = $('#asidepart'),
-      c = $('.closeaside'),
-      o = $('.openaside');
-  c.click(function(){
-    a.addClass('fadeOut').css('display', 'none');
-    o.css('display', 'block').addClass('fadeIn');
-    m.addClass('moveMain');
-  });
-  o.click(function(){
-    o.css('display', 'none').removeClass('beforeFadeIn');
-    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
-    m.removeClass('moveMain');
-  });
-  $(window).scroll(function(){
-    o.css("top",Math.max(80,260-$(this).scrollTop()));
-  });
   
-  $(window).resize(function(){
-    getSize(); 
-    if (myWidth >= 1024) {
-      $('header nav').removeClass('shownav');
-    }else{
-      m.removeClass('moveMain');
-      a.css('display', 'block').removeClass('fadeOut');
-      o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AFNetworking/" style="font-size: 10px;">AFNetworking</a> <a href="/tags/AutoreleasePool/" style="font-size: 10px;">AutoreleasePool</a> <a href="/tags/Cocopods/" style="font-size: 10px;">Cocopods</a> <a href="/tags/IDA/" style="font-size: 20px;">IDA</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/RunLoop/" style="font-size: 10px;">RunLoop</a> <a href="/tags/SDK/" style="font-size: 10px;">SDK</a> <a href="/tags/Shadowsocks/" style="font-size: 10px;">Shadowsocks</a> <a href="/tags/UDID/" style="font-size: 10px;">UDID</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/VPS/" style="font-size: 10px;">VPS</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Weex/" style="font-size: 20px;">Weex</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/block/" style="font-size: 10px;">block</a> <a href="/tags/dumpdecrypted/" style="font-size: 10px;">dumpdecrypted</a> <a href="/tags/framework/" style="font-size: 10px;">framework</a> <a href="/tags/retain-cycle/" style="font-size: 10px;">retain cycle</a> <a href="/tags/serial-Number/" style="font-size: 10px;">serial Number</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/动态库/" style="font-size: 20px;">动态库</a> <a href="/tags/微信/" style="font-size: 20px;">微信</a> <a href="/tags/汇编语言/" style="font-size: 20px;">汇编语言</a> <a href="/tags/砸壳/" style="font-size: 10px;">砸壳</a> <a href="/tags/重签名/" style="font-size: 20px;">重签名</a> <a href="/tags/静态库/" style="font-size: 10px;">静态库</a> <a href="/tags/黑科技/" style="font-size: 10px;">黑科技</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
         
-    }
-  });
-});
-</script>
+          <li>
+            <a href="/2017/10/30/hexo-init/">快速搭建Hexo博客+webhook自动部署+全站HTTPS</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/26/weex-2/">Weex从入门到超神（二）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/26/weex-1/">Weex从入门到超神（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/16/strong-weak_dance/">你真的会用strong-weak dance吗？</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/20/RunLoop/">RunLoop的前世今生</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://arvinxiang.com" target="_blank">主题作者</a>
+          </li>
+        
+          <li>
+            <a href="http://reqianduan.com" target="_blank">热前端</a>
+          </li>
+        
+          <li>
+            <a href="http://yuancheng.work" target="_blank">远程.work</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 LeonLei<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="totop"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
 <script type="text/javascript">
-$(document).ready(function(){ 
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  c.click(function(){
-    ta.css('display', 'block').addClass('fadeIn');
-  });
-  o.click(function(){
-    ta.css('display', 'none');
-  });
-  $(window).scroll(function(){
-    ta.css("top",Math.max(140,320-$(this).scrollTop()));
-  });
-});
-</script>
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
 
 
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var $this = $('.share'),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      title = $this.attr('data-title'),
-      tsina = $this.attr('data-tsina'),
-      description = $this.attr('description');
-  var html = [
-  '<div class="hoverqrcode clearfix"></div>',
-  '<a class="overlay" id="qrcode"></a>',
-  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
-  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-  $this.append(html);
+<!-- 百度分享 start -->
 
-  $('.hoverqrcode').hide();
-
-  var myWidth = 0;
-  function updatehoverqrcode(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-    var qrsize = myWidth > 1024 ? 200:100;
-    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
-    var p = $('.article-share-qrcode').position();
-    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
-                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
-                          .qrcode(options);
-  };
-  $(window).resize(function(){
-    $('.hoverqrcode').hide();
-  });
-  $('.article-share-qrcode').click(function(){
-    updatehoverqrcode();
-    $('.hoverqrcode').toggle();
-  });
-  $('.article-share-qrcode').hover(function(){}, function(){
-      $('.hoverqrcode').hide();
-  });
-});   
-</script>
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-}); 
-</script>
-
-
-
-<!-- Analytics Begin -->
-
-
-
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
 <script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
 </script>
 
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 
-<!-- Analytics End -->
-
-<!-- Totop Begin -->
-
-	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
-	</div>
-	<script src="/js/totop.js"></script>
-
-<!-- Totop End -->
-
-<!-- MathJax Begin -->
-<!-- mathjax config similar to math.stackexchange -->
 
 
-<!-- MathJax End -->
+<script src="/js/script.js"></script>
 
-<!-- Tiny_search Begin -->
-
-<!-- Tiny_search End -->
-
-  </body>
+</div>
+</body>
 </html>
