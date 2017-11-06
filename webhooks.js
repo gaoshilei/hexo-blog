@@ -12,12 +12,16 @@ function run_cmd(cmd, args, callback) {
   child.stdout.on('end', function() { callback (resp) });
 }
  
-http.createServer(function (req, res) {
-  handler(req, res, function (err) {
-    res.statusCode = 404
-    res.end('no such location')
-  })
-}).listen(6666)
+try {
+  http.createServer(function (req, res) {
+    handler(req, res, function (err) {
+      res.statusCode = 404
+      res.end('no such location')
+    })
+  }).listen(6666);
+} catch(error) {
+    console.error('Error:', error.message)
+}
  
 handler.on('error', function (err) {
   console.error('Error:', err.message)
