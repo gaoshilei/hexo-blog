@@ -142,6 +142,13 @@ cat ~/.ssh/id_rsa.pub
 git clone git@github.com:gaoshilei/hexo-blog.git  
 ```
 
+进入博客目录，一次执行下面的命令
+
+```
+[root@c_vps hexo-blog]# npm install hexo
+[root@c_vps hexo-blog]# npm install
+```
+
 然后配置 nginx，让 80 端口指向博客静态页面首页，在 nginx 配置文件目中新建一个`hexo.conf`文件 
 
 ```shell  
@@ -167,7 +174,7 @@ server {
 [root@California_VPS ~]# nginx -s reload
 ```
 
-此时去访问 IP 得到的是一个 404 报错，因为 nginx 是以 nginx 用户运行的，他没有博客目录的读写权限，有两个方法可以解决：  
+此时去访问博客得到的是一个 404 或者 403 报错，因为 nginx 是以 nginx 用户运行的，他没有博客目录的读写权限，有两个方法可以解决：  
 1. 给博客目录赋权，让 nginx 用户拥有读写权限
 2. 让 nginx 以 root 用户运行 
 
@@ -179,7 +186,7 @@ server {
 
 将 `user  nginx;` 改成 `user  root;` 即可。然后重启 nginx。  
 
-再去访问发现 404 没了，但是页面是一片空白，找了半天原因，之前用到的主题并没有上传到 github 上，将主题拷贝到 `themes` 文件夹下，然后部署 hexo 就可以正常访问了。  
+再去访问发现报错没了，但是页面是一片空白，找了半天原因，之前用到的主题并没有上传到 github 上，将主题拷贝到 `themes` 文件夹下，然后部署 hexo 就可以正常访问了。  
 
 **hexo 常用的命令**  
 生成静态文件并部署网站:  
@@ -257,12 +264,16 @@ function run_cmd(cmd, args, callback) {
   child.stdout.on('end', function() { callback (resp) });
 }
 
-http.createServer(function (req, res) {
-  handler(req, res, function (err) {
-    res.statusCode = 404
-    res.end('no such location')
-  })
-}).listen(6666)
+try {
+  http.createServer(function (req, res) {
+    handler(req, res, function (err) {
+      res.statusCode = 404
+      res.end('no such location')
+    })
+  }).listen(6666)
+}catch(err){
+  console.error('Error:', err.message)
+}
 
 handler.on('error', function (err) {
   console.error('Error:', err.message)
@@ -310,7 +321,7 @@ hexo g
 然后通过 pm2 启动 `webhooks.js`  
 
 ```shell  
-[root@California_VPS hexo-blog]# pm2 start webhooks.js 
+[root@California_VPS hexo-blog]# pm2 start /root/hexo-blog/webhooks.js 
 [PM2] Starting /root/hexo-blog/webhooks.js in fork_mode (1 instance)
 [PM2] Done.
 ┌──────────┬────┬──────┬───────┬────────┬─────────┬────────┬─────┬───────────┬──────┬──────────┐
@@ -320,6 +331,26 @@ hexo g
 └──────────┴────┴──────┴───────┴────────┴─────────┴────────┴─────┴───────────┴──────┴──────────┘
  Use `pm2 show <id|name>` to get more details about an app  
 ```
+
+如果服务器重启，我们还要手动开启webhooks服务，所以我们将上面的命令加入开机启动就可以了，我们写一个sh脚本放到`/etc/profile.d/`目录下，开机这个目录下的所有脚本都会被执行  
+
+```
+[root@California_VPS ~]# cd /etc/profile.d/
+```
+
+将`pm2 start /root/hexo-blog/webhooks.js`命令拷贝到脚本中  
+
+```
+[root@California_VPS profile.d]# vim pm2.sh
+```
+
+保存退出，赋权  
+
+```
+[root@California_VPS profile.d]# chmod +x pm2.sh 
+```
+
+重启机器，然后用命令`pm2 show webhooks`查看webhooks是否启动。
 
 ## 全站 HTTPS 
 使用 Let’s Encrypt 的免费证书，不过每三个月要续签一次，安装可以通过 Certbot 的傻瓜式操作  
