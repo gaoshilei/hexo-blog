@@ -62,8 +62,13 @@ enabled=1
 [root@California_VPS ~]# yum install nginx -y
 ```
 
-然后打开服务器所在的IP测试nginx是否安装完成。
+然后启动nginx  
 
+```
+[root@c_vps ~]# nginx
+```
+
+然后打开服务器所在的IP测试nginx是否安装完成。
 
 ### 3、安装 Hexo
 按照官网的文档执行命令  

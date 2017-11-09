@@ -56,15 +56,7 @@ permalink: SSR
 > This kernel is not supported. Trying fuzzy matching...
 Serverspeeder is not supported on this kernel! View all supported systems and kernels here: https://www.91yun.org/serverspeeder91yun  
 
-需要手动修改内核，或者重新安装系统，锐速目前支持的系统有：  
-
-* CentOS-6.8：2.6.32-642.el7.x86_64
-* CentOS-7.2：3.10.0-327.el7.x86_64
-* CentOS：4.4.0-x86_64-linode63
-* Ubuntu_14.04：4.2.0-35-generic
-* Debian_8：3.16.0-4-amd64  
-
-由于我的系统内核不支持，所以要手动修改。 如果你没有看到上面内容，而是看到了   
+需要手动修改内核，或者重新安装系统， 由于我的系统内核不支持，所以要手动修改。 如果你没有看到上面内容，而是看到了   
 
 ```
 [Running Status]
@@ -156,13 +148,16 @@ kernel-2.6.32-642.el6.x86_64
 
 # 3、安装 BBR 魔改版
 
-**注意： BBR 与速锐只能二选一。**
+**注意：因为内核问题 BBR 与速锐只能二选一。**  
+
+安装魔改版BBR最好选择Debian/Ubuntu系统，因为这两个系统大佬制作了一键安装脚本，而且已经将库编译好了，如果用CentOS需要自己安装gcc4.9+，编译要很长时间，不建议在CentOS安装。下文的介绍主要还是在CentOS环境中操作，Debian/Ubuntu 有一键脚本非常傻瓜，下文也会有介绍。  
 
 BBR 也只支持 KVM 虚拟化的主机 ，所以选主机一定要选 KVM 虚拟化的。  
 
-##  1、升级内核  
+## CentOS
+###  1、升级内核  
 
-安装魔改BBR的系统要求是4.10以上版本的kernel及对应的linux-header，gcc版本应在4.9以上，如果对应的内核版本失效了，可以去`http://elrepo.org`上找镜像网站，镜像网站里面有归档，可以找到对应4.12版本的内核，`http://www.jules.fm/elrepo/archive/`就是其中一个镜像网站。**BBR魔改版只能支持到4.12版本的内核，之前用4.13内核失败了**   
+安装魔改BBR的系统要求是4.10以上版本的kernel及对应的linux-header，gcc版本应在4.9以上，如果对应的内核版本链接失效了，可以去`http://elrepo.org`上找镜像网站，镜像网站里面有归档，可以找到对应4.12版本的内核，`http://www.jules.fm/elrepo/archive/`就是其中一个镜像网站。**BBR魔改版只能支持到4.12版本的内核，之前用4.13内核失败了**   
 
 依次执行下面的命令  
 
@@ -175,7 +170,7 @@ BBR 也只支持 KVM 虚拟化的主机 ，所以选主机一定要选 KVM 虚�
 ```
 
 
-##  2、修改启动引导  
+###  2、修改启动引导  
 
 执行完成之后，修改启动引导，修改配置文件：  
 
@@ -227,7 +222,7 @@ title CentOS 6 (2.6.32-642.el6.x86_64)
 
 如果显示是刚才我们安装的内核证明已经修改成功，如果还是旧的内核，需要重新安装。
 
-##  3、编译安装  
+###  3、编译安装  
 
 先安装基础版本的 gcc 和 gcc++
 
@@ -237,11 +232,11 @@ title CentOS 6 (2.6.32-642.el6.x86_64)
 
 Linux 默认安装的 gcc 版本是4.4.7，而编译魔改 BBR 的 gcc 版本至少要 4.9，所以要手动升级 gcc  
 
-### 1、升级 gcc 版本 
+#### 1、升级 gcc 版本 
 
 因为需要4.9以上的gcc版本，所以我们升级gcc版本到4.9.4，有人要问为什么不升级到最新版，我的原则是够用就行，你也可以到`http://ftp.gnu.org/gnu`查找最新版然后升级下载对应的包就可以了。  
 
-#### 1、 下载安装包：  
+##### 1、 下载安装包：  
 
 ```
 [root@California_VPS ~]# wget http://ftp.gnu.org/gnu/gcc/gcc-4.9.4/gcc-4.9.4.tar.bz2
@@ -255,7 +250,7 @@ Linux 默认安装的 gcc 版本是4.4.7，而编译魔改 BBR 的 gcc 版本至
 
 解压主要消耗CPU性能，搬瓦工的低配VPS都是单核的，这个包将近90MB，所以要比较久大概等个十分钟左右就好了。  
 
-#### 2、下载供编译需求的依赖库
+##### 2、下载供编译需求的依赖库
 
 下载、配置安装依赖库，解压好的文件里面有安装脚本，依次执行下面的命令   
 
@@ -264,7 +259,7 @@ Linux 默认安装的 gcc 版本是4.4.7，而编译魔改 BBR 的 gcc 版本至
 [root@California_VPS gcc-4.9.4]# ./contrib/download_prerequisites
 ```
 
-#### 3、新建目录供编译存放文件
+##### 3、新建目录供编译存放文件
 
 首先新建一个文件夹用来存放编译的文件  
 
@@ -273,23 +268,26 @@ Linux 默认安装的 gcc 版本是4.4.7，而编译魔改 BBR 的 gcc 版本至
 [root@California_VPS gcc-4.9.4]# cd gcc-build-4.9.4/
 ```
 
-####  4、生成 Makefile 文件  
+#####  4、生成 Makefile 文件  
 
 ```
 [root@California_VPS gcc-build-4.9.4]# ../configure -enable-checking=release -enable-languages=c,c++ -disable-multilib
 ```
 
-####  5、编译gcc  
+#####  5、编译gcc  
 
 ```
 [root@California_VPS gcc-build-4.9.4]# make
 ```
 
 这一步时间比较长，大概需要一个多小时（取决于你的CPU性能）。不要重复编译，因为编译期间CPU的使用率基本上都是100%，因为之前装错了内核，后面又编译了一次，于是我在KiwiVM后台看到了这样的提示  
+![](http://oeat6c2zg.bkt.clouddn.com/5272396EC1518BCC63AA0092F77C2D44.jpg)     
+CPU长时间处于满负荷状态，把我的CPU时钟限制了。    
+![](http://oeat6c2zg.bkt.clouddn.com/QQ20171109-110554@2x.png)   
+所以 CentOS 安装 BBR魔改还是要谨慎啊，gcc4.9 编译太费CPU了。
 
 
-
-####  6、安装gcc
+#####  6、安装gcc
 
 ```
 [root@California_VPS gcc-build-4.9.4]# make install
@@ -310,7 +308,7 @@ gcc 版本 4.9.4 (GCC)
 
 升级成功，下面开始正式编译BBR。
 
-### 2、编译安装 BBR
+#### 2、编译安装 BBR
 
 ```
 [root@California_VPS ~]# wget -O ./tcp_tsunami.c https://gist.github.com/anonymous/ba338038e799eafbba173215153a7f3a/raw/55ff1e45c97b46f12261e07ca07633a9922ad55d/tcp_tsunami.c
@@ -332,6 +330,30 @@ tcp_tsunami            16384  5
 ```
 
 如果能看到 tcp_tsunami 证明 BBR 魔改版已安装成功。
+
+## Debian/Ubuntu
+
+### 1、开启 BBR
+
+执行下面脚本一键开启  
+ 
+```
+wget --no-check-certificate -qO 'BBR.sh' 'https://moeclub.org/attachment/LinuxShell/BBR.sh' && chmod a+x BBR.sh && bash BBR.sh -f
+```
+
+### 2、安装魔改版BBR  
+
+```
+wget --no-check-certificate -qO 'BBR_POWERED.sh' 'https://moeclub.org/attachment/LinuxShell/BBR_POWERED.sh' && chmod a+x BBR_POWERED.sh && bash BBR_POWERED.sh
+```
+
+完成之后执行下面的命令检查是否安装成功  
+
+```
+lsmod |grep 'bbr_powered'
+```
+
+如果结果有 `bbr_powered` 则说明加载成功！
 
 # 4、安装 SSR 
 搬瓦工的后台控制面板（KiwiVM）已经提供了一键安装的功能，不过有些协议并不支持，如果想体验完整版的 SSR 的安装，还是自己动手吧！  
