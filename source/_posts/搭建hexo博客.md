@@ -371,7 +371,21 @@ hexo g
 >  
 Cannot find a VirtualHost matching domain www.gaoshilei.com. In order for Certbot to correctly perform the challenge please add a corresponding server_name directive to your nginx configuration: https://nginx.org/en/docs/http/server_names.html
 
-之前在配置 nginx.conf 文件的时候忘记加域名了，把 server_name 补全就行了，然后重新执行一次脚本，顺利申请了证书，而且 Certbot 都帮我配置好了，nice！  
+之前在配置 nginx.conf 文件的时候忘记加域名了，把 server_name 补全就行了，然后重新执行一次脚本。你还可能遇到这样的问题  
+
+```
+Creating virtual environment...
+[root@California_VPS www]# ./certbot-auto: line 864: virtualenv: command not found
+```
+
+缺少`virtualenv`环境，依次执行下面的命令下面进行安装：  
+
+```
+[root@California_VPS www]# curl https://bootstrap.pypa.io/get-pip.py | python -
+[root@California_VPS www]# pip install virtualenv
+```
+
+然后执行上面的命令`sudo ./certbot-auto --nginx`继续安装证书，中间需要我们输入邮箱，域名等等，按照步骤操作就可以，最后顺利申请了证书，而且 Certbot 都帮我配置好了，nice！  
 不过这个证书有效期只有三个月，所以需要续签，可以手动续签，证书快过期的时候执行  
 
 ```shell  
