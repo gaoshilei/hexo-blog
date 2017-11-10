@@ -9,3 +9,6 @@ Disallow: /css/
 Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
+
+Sitemap: http://www.gaoshilei.com/sitemap.xml
+Sitemap: http://www.gaoshilei.com/baidusitemap.xml
