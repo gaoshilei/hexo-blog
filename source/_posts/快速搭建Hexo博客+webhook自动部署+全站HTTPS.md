@@ -350,7 +350,7 @@ hexo g
 
 ## 全站 HTTPS 
 
-使用 Let’s Encrypt 的免费证书，不过每三个月要续签一次，安装可以通过 Certbot 的傻瓜式操作  
+使用 Let’s Encrypt 的免费证书，不过每三个月要续签一次。安装可以通过 Certbot 的傻瓜式操作  
 
 ```shell  
 [root@California_VPS www]# wget https://dl.eff.org/certbot-auto
