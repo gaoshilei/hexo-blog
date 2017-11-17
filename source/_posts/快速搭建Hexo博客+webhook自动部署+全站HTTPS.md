@@ -340,6 +340,7 @@ hexo g
 
 再执行下面的命令，将当前任务列表中的进程都加入开启自启动    
 
+    
 ```
 [root@California_VPS hexo-blog]# pm2 save 
 ```
