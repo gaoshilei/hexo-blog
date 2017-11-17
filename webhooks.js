@@ -30,6 +30,6 @@ try {
       res.end('no such location')
     })
   }).listen(6666)
-}catch(err){
-  console.error('Error:', err.message)
+} catch(e) {
+  console.error('Error:', e.message)
 }
