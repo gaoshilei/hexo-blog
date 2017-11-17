@@ -264,17 +264,6 @@ function run_cmd(cmd, args, callback) {
   child.stdout.on('end', function() { callback (resp) });
 }
 
-try {
-  http.createServer(function (req, res) {
-    handler(req, res, function (err) {
-      res.statusCode = 404
-      res.end('no such location')
-    })
-  }).listen(6666)
-}catch(err){
-  console.error('Error:', err.message)
-}
-
 handler.on('error', function (err) {
   console.error('Error:', err.message)
 })
@@ -285,6 +274,17 @@ handler.on('push', function (event) {
     event.payload.ref);
     run_cmd('sh', ['./deploy.sh'], function(text){ console.log(text) });
 })
+
+try {
+  http.createServer(function (req, res) {
+    handler(req, res, function (err) {
+      res.statusCode = 404
+      res.end('no such location')
+    })
+  }).listen(6666)
+}catch(err){
+  console.error('Error:', err.message)
+}
 ```
 
 其中 **secret** 要和 github 仓库中 webhooks 设置的一致，**6666** 是监听端口可以随便改，不要冲突就行，**./deploy.sh** 是接收到 push 事件时需要执行的shell脚本，与 `webhooks.js` 都存放在博客目录下；**path: '/webhooks_push** 是 github 通知服务器的地址，完整的地址是这样的`http://www.gaoshilei.com:6666/webhooks_push`  
