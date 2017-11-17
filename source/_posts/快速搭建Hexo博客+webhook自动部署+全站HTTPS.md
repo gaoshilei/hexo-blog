@@ -346,7 +346,7 @@ hexo g
 [root@California_VPS hexo-blog]# pm2 save 
 ```
 
-重启机器，然后用命令`pm2 show webhooks`查看webhooks是否启动。
+重启机器，然后用命令`pm2 show webhooks`查看 webhooks 是否已经启动。
 
 ## 全站 HTTPS 
 使用 Let’s Encrypt 的免费证书，不过每三个月要续签一次，安装可以通过 Certbot 的傻瓜式操作  
