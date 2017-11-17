@@ -332,7 +332,8 @@ hexo g
  Use `pm2 show <id|name>` to get more details about an app  
 ```
 
-如果服务器重启，我们还要手动开启webhooks服务，所以我们将上面的命令加入开机启动就可以了，非常方便的是 pm2 已经为我们考虑好了这些。先执行开机自启动脚本命令  
+如果服务器重启，我们还要手动开启webhooks服务，所以我们将上面的命令加入开机启动就可以了，非常方便的是 pm2 已经为我们考虑好了这些。  
+先执行开机自启动脚本命令      
 
 ```
 [root@California_VPS hexo-blog]# pm2 startup
