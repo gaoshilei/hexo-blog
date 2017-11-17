@@ -21,6 +21,6 @@ handler.on('push', function (event) {
   console.log('Received a push event for %s to %s',
     event.payload.repository.name,
     event.payload.ref);
-    run_cmd('/bin/sh', ['./deploy.sh'], function(text){ console.log(text) });
+    run_cmd('/bin/sh', ['/root/hexo-blog/deploy.sh'], function(text){ console.log(text) });
   //上面那行代码表示执行本文件所在目录下的shell脚本deploy.sh
 })
