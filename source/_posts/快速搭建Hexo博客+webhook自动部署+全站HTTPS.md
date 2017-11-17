@@ -332,22 +332,16 @@ hexo g
  Use `pm2 show <id|name>` to get more details about an app  
 ```
 
-如果服务器重启，我们还要手动开启webhooks服务，所以我们将上面的命令加入开机启动就可以了，我们写一个sh脚本放到`/etc/profile.d/`目录下，开机这个目录下的所有脚本都会被执行  
+如果服务器重启，我们还要手动开启webhooks服务，所以我们将上面的命令加入开机启动就可以了，非常方便的是 pm2 已经为我们考虑好了这些。先执行开机自启动脚本命令  
 
 ```
-[root@California_VPS ~]# cd /etc/profile.d/
+[root@California_VPS hexo-blog]# pm2 startup
 ```
 
-将`pm2 start /root/hexo-blog/webhooks.js`命令拷贝到脚本中  
+等执行完成，再执行下面的命令，将当前任务列表中的进程都加入开启自启动    
 
 ```
-[root@California_VPS profile.d]# vim pm2.sh
-```
-
-保存退出，赋权  
-
-```
-[root@California_VPS profile.d]# chmod +x pm2.sh 
+[root@California_VPS hexo-blog]# pm2 save 
 ```
 
 重启机器，然后用命令`pm2 show webhooks`查看webhooks是否启动。
