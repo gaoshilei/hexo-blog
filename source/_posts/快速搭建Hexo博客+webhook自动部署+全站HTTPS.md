@@ -10,7 +10,7 @@ permalink: hexo-init
 
 本文档主要用来记录自己借助[Hexo](https://hexo.io)搭建博客的一些步骤和命令，方便以后重装；新人也可以通过此篇文章快速搭建自己的个人博客。
 下文的环境为:  
-VPS： CentOS 6.9000000
+VPS： CentOS 6.9
 本地： MacOS  
 
 ## 搭建博客
@@ -332,19 +332,20 @@ hexo g
  Use `pm2 show <id|name>` to get more details about an app  
 ```
 
-如果服务器重启，我们还要手动开启webhooks服务，所以我们将上面的命令加入开机启动就可以了，非常方便的是 pm2 已经为我们考虑好了这些。  
-先执行开机自启动脚本命令      
+如果服务器重启，我们还要手动开启webhooks服务，所以我们将上面的命令加入开机启动就可以了，将命令加入`/etc/rc.d/rc.local`中，即可实现开机自启  
+先将命令写到脚本`/root/webhooks_auto.sh`中：  
+
+```  
+/sbin/runuser -l root -c "/usr/bin/pm2 start /root/hexo-blog/webhooks.js"
+```
+
+
+然后在`/etc/rc.d/rc.local`中添加刚才的脚本：  
 
 ```
-[root@California_VPS hexo-blog]# pm2 startup
+/root/webhooks_auto.sh 2>&1 > /dev/null &
 ```
 
-再执行下面的命令，将当前任务列表中的进程都加入开启自启动    
-
-    
-```
-[root@California_VPS hexo-blog]# pm2 save 
-```
 
 重启VPS，然后用命令`pm2 show webhooks`查看 webhooks 是否已经启动。
 
