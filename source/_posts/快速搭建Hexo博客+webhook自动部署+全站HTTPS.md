@@ -10,7 +10,7 @@ permalink: hexo-init
 
 本文档主要用来记录自己借助[Hexo](https://hexo.io)搭建博客的一些步骤和命令，方便以后重装；新人也可以通过此篇文章快速搭建自己的个人博客。
 下文的环境为:  
-VPS： CentOS 6.9
+VPS： CentOS6.9
 本地： MacOS  
 
 ## 搭建博客
