@@ -62,7 +62,7 @@ permalink: SSR
 > This kernel is not supported. Trying fuzzy matching...
 Serverspeeder is not supported on this kernel! View all supported systems and kernels here: https://www.91yun.org/serverspeeder91yun  
 
-需要手动修改内核，或者重新安装系统， 由于我的系统内核不支持，所以要手动修改。 如果很不幸你看到了上面的报错，请直接往下看，如果你没有看到上面内容，而是看到了   
+需要手动修改内核，或者重新安装系统， 由于我的系统内核不支持，所以要手动修改。 如果很不幸你看到了上面的报错，请直接看第2小节，如果你没有看到上面内容，而是看到了   
 
 ```
 [Running Status]
