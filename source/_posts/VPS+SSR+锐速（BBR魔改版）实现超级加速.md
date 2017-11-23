@@ -18,7 +18,7 @@ permalink: SSR
 # 1、准备 VPS
 
 [搬瓦工VPS](https://bwh1.net/aff.php?aff=10505)是我目前使用过性价比较高的 VPS，速度也比较稳定。  
-[Vultr](https://www.vultr.com/?ref=7260141) 也是一个比较不错的选择，不过没有搬瓦工稳定。这个就根据个人喜好来选择吧。  
+[Vultr](https://www.vultr.com/?ref=7260141) 也是一个比较不错的选择，不过没有搬瓦工稳定。当然其他海外的VPS也都是可以的，至于选哪个这个就根据个人喜好来选择吧。  
 **如何购买比较稳定的 VPS 可以参考我之前写的[VPS搭建高速SS服务器](https://www.gaoshilei.com/2016/05/19/VPS/)**   
 
 
