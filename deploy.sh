@@ -1,2 +1,2 @@
 git pull origin master  
-hexo g
+hexo generate
