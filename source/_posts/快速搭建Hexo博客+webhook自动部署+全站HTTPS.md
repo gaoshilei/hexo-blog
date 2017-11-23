@@ -301,8 +301,10 @@ try {
 将下面代码拷贝进去
 
 ```shell  
-git pull origin master
-hexo g
+cd /root/hexo-blog/
+git reset --hard
+git pull origin master  
+hexo generate
 ```
 
 然后运行  
