@@ -17,8 +17,10 @@ permalink: SSR
 
 # 1、准备 VPS
 
-[搬瓦工VPS](https://bwh1.net/aff.php?aff=10505)是我目前使用过性价比较高的 VPS，速度也比较稳定。
-**如何购买比较稳定的 VPS 可以参考我之前写的[VPS搭建高速SS服务器](https://www.gaoshilei.com/2016/05/19/VPS/)**  
+[搬瓦工VPS](https://bwh1.net/aff.php?aff=10505)是我目前使用过性价比较高的 VPS，速度也比较稳定。  
+[Vultr](https://www.vultr.com/?ref=7260141) 也是一个比较不错的选择，不过没有搬瓦工稳定。
+**如何购买比较稳定的 VPS 可以参考我之前写的[VPS搭建高速SS服务器](https://www.gaoshilei.com/2016/05/19/VPS/)**   
+
 
 由于天朝的网络环境，之前的 SS 虽然营运商破解不了协议，但是通过流量监测和干扰的方式会严重影响我们的访问网络，最明显的特征就是响应慢，网络卡。所以 SS 现在已经有很大的局限性了，SSR + 加速 应该是我们最好的选择。下文会介绍如何加速，如何安装 SSR 服务。   
 
