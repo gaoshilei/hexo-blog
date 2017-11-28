@@ -63,7 +63,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: jacman
+theme: next
 baidu_tongji: true
 
 #RSS订阅
@@ -77,7 +77,7 @@ limit: 20
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type: git
-  repo: git@github.com:gaoshilei/hexo-blog.git
-  branch: master
+#deploy:
+ # type: git
+ # repo: git@github.com:gaoshilei/hexo-blog.git
+ # branch: master

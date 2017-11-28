@@ -1,17 +1,96 @@
+<!DOCTYPE html>
 
- <!DOCTYPE HTML>
-<html lang="zh-Hans">
-<head>
-  <meta charset="UTF-8">
+
+
   
-    <title>手把手教你逆向微信之朋友圈小视频转发（上） | LeonLei的博客</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-    
-    <meta name="author" content="LeonLei">
-    
 
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
     
-    <meta name="description" content="前言此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。本篇文章由于篇幅太长分成了两篇，上篇讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，下篇讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢">
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="微信,汇编语言,IDA,重签名," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。本篇文章由于篇幅太长分成了两篇，上篇讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，下篇讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢">
 <meta name="keywords" content="微信,汇编语言,IDA,重签名">
 <meta property="og:type" content="article">
 <meta property="og:title" content="手把手教你逆向微信之朋友圈小视频转发（上）">
@@ -30,81 +109,257 @@
 <meta name="twitter:description" content="前言此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。本篇文章由于篇幅太长分成了两篇，上篇讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，下篇讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢">
 <meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91Reveal.png">
 
-    
-    <link rel="alternative" href="/atom.xml" title="LeonLei的博客" type="application/atom+xml">
-    
-    
-    <link rel="icon" href="/img/favicon.ico">
-    
-    
-    <link rel="apple-touch-icon" href="/img/jacman.jpg">
-    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
-    
-    <link rel="stylesheet" href="/css/style.css">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.gaoshilei.com/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（上）/"/>
+
+
+
+
+
+  <title>手把手教你逆向微信之朋友圈小视频转发（上） | LeonLei的博客</title>
+  
+
+
+
+
+
+
+
+
 </head>
 
-  <body>
-    <header>
-      
-<div>
-		
-			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="LeonLei的博客">LeonLei的博客</a></h1>
-				<h2 class="blog-motto">代码略懂，精通LOL</h2>
-			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
-			</a></div>
-			<nav class="animated">
-				<ul>
-					<ul>
-					 
-						<li><a href="/">Home</a></li>
-					
-						<li><a href="/archives">Archives</a></li>
-					
-						<li><a href="/about">About</a></li>
-					
-					<li>
- 					
-					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
-						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
-						<input type="hidden" name="q" value="site:www.gaoshilei.com">
-					</form>
-					
-					</li>
-				</ul>
-			</nav>			
-</div>
-    </header>
-    <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
   
-	<article itemprop="articleBody"> 
-		<header class="article-info clearfix">
-  <h1 itemprop="name">
+  
     
-      <a href="/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（上）/" title="手把手教你逆向微信之朋友圈小视频转发（上）" itemprop="url">手把手教你逆向微信之朋友圈小视频转发（上）</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="LeonLei" target="_blank" itemprop="author">LeonLei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-11-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-11-10</time>
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
     
-  </p>
-</header>
-	<div class="article-content">
-		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#逆向微信朋友圈（上篇）"><span class="toc-number">2.</span> <span class="toc-text">逆向微信朋友圈（上篇）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、获取朋友圈的小视频"><span class="toc-number">2.1.</span> <span class="toc-text">一、获取朋友圈的小视频</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#本文涉及到的工具"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">本文涉及到的工具</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、实现转发功能"><span class="toc-number">2.2.</span> <span class="toc-text">二、实现转发功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-“走进死胡同”"><span class="toc-number">2.2.1.</span> <span class="toc-text">1.“走进死胡同”</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）找到小视频拍摄完成调用的方法名称"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">（1）找到小视频拍摄完成调用的方法名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）找到小视频拍摄完成跳转到发布界面的方法"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">（2）找到小视频拍摄完成跳转到发布界面的方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-“另辟蹊径”"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.“另辟蹊径”</span></a></li></ol></li></ol></li></ol>
-		
-		</div>
-		
-		<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。<br>本篇文章由于篇幅太长分成了两篇，<strong>上篇</strong>讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，<strong>下篇</strong>讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。<br><strong>正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢按照本文的套路一步步逆向找到，这里就不再赘述。</strong><br>在实践之前，需要准备好一部越狱的手机，然后将下文列出的所有工具安装好。IDA跟Reveal都是破解版，IDA的正版要2000多刀，对于这么牛逼的逆向工具确实物有所值，不过不是专门研究逆向的公司也没必要用正版的，下个Windows的破解版就好，Mac上暂时没找到。Mac上可以用hopper代替IDA，也是一款很牛逼的逆向工具。废话不多说，正式开始吧！</p>
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LeonLei的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">代码略懂，精通LOL</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（上）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LeonLei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeonLei的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">手把手教你逆向微信之朋友圈小视频转发（上）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-10T00:00:00+08:00">
+                2016-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS逆向/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS逆向</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。<br>本篇文章由于篇幅太长分成了两篇，<strong>上篇</strong>讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，<strong>下篇</strong>讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。<br><strong>正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢按照本文的套路一步步逆向找到，这里就不再赘述。</strong><br>在实践之前，需要准备好一部越狱的手机，然后将下文列出的所有工具安装好。IDA跟Reveal都是破解版，IDA的正版要2000多刀，对于这么牛逼的逆向工具确实物有所值，不过不是专门研究逆向的公司也没必要用正版的，下个Windows的破解版就好，Mac上暂时没找到。Mac上可以用hopper代替IDA，也是一款很牛逼的逆向工具。废话不多说，正式开始吧！</p>
 <a id="more"></a>
 <p>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a>  </p>
 <h1 id="逆向微信朋友圈（上篇）"><a href="#逆向微信朋友圈（上篇）" class="headerlink" title="逆向微信朋友圈（上篇）"></a>逆向微信朋友圈（上篇）</h1><h2 id="一、获取朋友圈的小视频"><a href="#一、获取朋友圈的小视频" class="headerlink" title="一、获取朋友圈的小视频"></a>一、获取朋友圈的小视频</h2><blockquote>
@@ -255,440 +510,401 @@
 <p>小视频的发布界面可以正常显示并且所有功能都可以正常使用，唯一的问题是返回按钮没有效果，并不能销毁SightMomentEditViewController。用cycript查看左侧按钮的actionEvent找到它的响应函数是<code>- (void)popSelf;</code>，点击左侧返回触发的是pop方法，但是这个控制器并不在navgationController里面，所以无效，我们要对这个方法进行重写  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)popSelf</div><div class="line">&#123;</div><div class="line">    [self dismissViewControllerAnimated:YES completion:^&#123;</div><div class="line"></div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>此时再点击返回按钮就可以正常退出了，此外，在WCContentItemViewTemplateNewSight中发现了一个方法叫做<code>- (void)sendSightToFriend;</code>，可以直接将小视频转发给好友，至此小视频转发的功能已经找到了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/微信/" rel="tag"># 微信</a>
+          
+            <a href="/tags/汇编语言/" rel="tag"># 汇编语言</a>
+          
+            <a href="/tags/IDA/" rel="tag"># IDA</a>
+          
+            <a href="/tags/重签名/" rel="tag"># 重签名</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/16/iOSAppToLibrary/" rel="next" title="【转载】黑科技：把第三方iOS应用转成动态库">
+                <i class="fa fa-chevron-left"></i> 【转载】黑科技：把第三方iOS应用转成动态库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/" rel="prev" title="手把手教你逆向微信之朋友圈小视频转发（下）">
+                手把手教你逆向微信之朋友圈小视频转发（下） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
   
-	</div>
-		<footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/iOS逆向/">iOS逆向</a>
-</div>
-
-
-  <div class="article-tags">
   
-  <span></span> <a href="/tags/微信/">微信</a><a href="/tags/汇编语言/">汇编语言</a><a href="/tags/IDA/">IDA</a><a href="/tags/重签名/">重签名</a>
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
-</div>
+
+          </div>
+          
 
 
-
-	<div class="article-share" id="share">
-	
-	  <div data-url="http://www.gaoshilei.com/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（上）/" data-title="手把手教你逆向微信之朋友圈小视频转发（上） | LeonLei的博客" data-tsina="null" class="share clearfix">
-	  </div>
-	
-	</div>
-
-
-</footer>
-
-   	       
-	</article>
-	
-<nav class="article-nav clearfix">
- 
- <div class="prev" >
- <a href="/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/" title="手把手教你逆向微信之朋友圈小视频转发（下）">
-  <strong>上一篇：</strong><br/>
-  <span>
-  手把手教你逆向微信之朋友圈小视频转发（下）</span>
-</a>
-</div>
-
-
-<div class="next">
-<a href="/2016/10/16/iOSAppToLibrary/"  title="【转载】黑科技：把第三方iOS应用转成动态库">
- <strong>下一篇：</strong><br/> 
- <span>【转载】黑科技：把第三方iOS应用转成动态库
-</span>
-</a>
-</div>
-
-</nav>
-
-	
-
-
-</div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
+          
 
   
 
 
-  
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-		  
-			<li><a href="/categories/iOS逆向/" title="iOS逆向">iOS逆向<sup>4</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/他山之石/" title="他山之石">他山之石<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/备忘录/" title="备忘录">备忘录<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/实用工具/" title="实用工具">实用工具<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/技术笔记/" title="技术笔记">技术笔记<sup>5</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/跳坑指南/" title="跳坑指南">跳坑指南<sup>1</sup></a></li>
-		  
-		
-		</ul>
-</div>
 
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			
-				<li><a href="/tags/Weex/" title="Weex">Weex<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Vue/" title="Vue">Vue<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/JS/" title="JS">JS<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/前端/" title="前端">前端<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/动态库/" title="动态库">动态库<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/微信/" title="微信">微信<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/汇编语言/" title="汇编语言">汇编语言<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/IDA/" title="IDA">IDA<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/重签名/" title="重签名">重签名<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/砸壳/" title="砸壳">砸壳<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/NSTimer/" title="NSTimer">NSTimer<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Xcode/" title="Xcode">Xcode<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Cocopods/" title="Cocopods">Cocopods<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/dumpdecrypted/" title="dumpdecrypted">dumpdecrypted<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/VPN/" title="VPN">VPN<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/block/" title="block">block<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/retain-cycle/" title="retain cycle">retain cycle<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/静态库/" title="静态库">静态库<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/AutoreleasePool/" title="AutoreleasePool">AutoreleasePool<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/framework/" title="framework">framework<sup>1</sup></a></li>
-			
-		
-		</ul>
-</div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
+        </div>
         
-    </ul>
-</div>
-
+          
   
-
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-  <div class="weiboshow">
-  <p class="asidetitle">新浪微博</p>
-    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
-</div>
-
-
-</aside>
-</div>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
-    <footer><div id="footer" >
-	
-	
-	<div class="social-font" class="clearfix">
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</div>
-			
-		
+  </div>
 
-		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
-		
-		<a href="/about" target="_blank" title="LeonLei">LeonLei</a>
-		
-		
-		</p>
-</div>
-</footer>
-    <script src="/js/jquery-2.0.3.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
 
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.navbar').click(function(){
-    $('header nav').toggleClass('shownav');
-  });
-  var myWidth = 0;
-  function getSize(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-  };
-  var m = $('#main'),
-      a = $('#asidepart'),
-      c = $('.closeaside'),
-      o = $('.openaside');
-  c.click(function(){
-    a.addClass('fadeOut').css('display', 'none');
-    o.css('display', 'block').addClass('fadeIn');
-    m.addClass('moveMain');
-  });
-  o.click(function(){
-    o.css('display', 'none').removeClass('beforeFadeIn');
-    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
-    m.removeClass('moveMain');
-  });
-  $(window).scroll(function(){
-    o.css("top",Math.max(80,260-$(this).scrollTop()));
-  });
-  
-  $(window).resize(function(){
-    getSize(); 
-    if (myWidth >= 1024) {
-      $('header nav').removeClass('shownav');
-    }else{
-      m.removeClass('moveMain');
-      a.css('display', 'block').removeClass('fadeOut');
-      o.css('display', 'none');
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LeonLei</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逆向微信朋友圈（上篇）"><span class="nav-number">2.</span> <span class="nav-text">逆向微信朋友圈（上篇）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、获取朋友圈的小视频"><span class="nav-number">2.1.</span> <span class="nav-text">一、获取朋友圈的小视频</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本文涉及到的工具"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">本文涉及到的工具</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、实现转发功能"><span class="nav-number">2.2.</span> <span class="nav-text">二、实现转发功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-“走进死胡同”"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.“走进死胡同”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）找到小视频拍摄完成调用的方法名称"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">（1）找到小视频拍摄完成调用的方法名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）找到小视频拍摄完成跳转到发布界面的方法"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">（2）找到小视频拍摄完成跳转到发布界面的方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-“另辟蹊径”"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.“另辟蹊径”</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
         
-    }
-  });
-});
-</script>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeonLei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
 
 <script type="text/javascript">
-$(document).ready(function(){ 
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  c.click(function(){
-    ta.css('display', 'block').addClass('fadeIn');
-  });
-  o.click(function(){
-    ta.css('display', 'none');
-  });
-  $(window).scroll(function(){
-    ta.css("top",Math.max(140,320-$(this).scrollTop()));
-  });
-});
-</script>
-
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var $this = $('.share'),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      title = $this.attr('data-title'),
-      tsina = $this.attr('data-tsina'),
-      description = $this.attr('description');
-  var html = [
-  '<div class="hoverqrcode clearfix"></div>',
-  '<a class="overlay" id="qrcode"></a>',
-  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
-  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-  $this.append(html);
-
-  $('.hoverqrcode').hide();
-
-  var myWidth = 0;
-  function updatehoverqrcode(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-    var qrsize = myWidth > 1024 ? 200:100;
-    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
-    var p = $('.article-share-qrcode').position();
-    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
-                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
-                          .qrcode(options);
-  };
-  $(window).resize(function(){
-    $('.hoverqrcode').hide();
-  });
-  $('.article-share-qrcode').click(function(){
-    updatehoverqrcode();
-    $('.hoverqrcode').toggle();
-  });
-  $('.article-share-qrcode').hover(function(){}, function(){
-      $('.hoverqrcode').hide();
-  });
-});   
-</script>
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
   }
-}); 
 </script>
 
 
 
-<!-- Analytics Begin -->
 
 
 
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 
 
 
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1268002586'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s23.cnzz.com/z_stat.php%3Fid%3D1268002586' type='text/javascript'%3E%3C/script%3E"));</script>
-
-<!-- Analytics End -->
-
-<!-- Totop Begin -->
-
-	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
-	</div>
-	<script src="/js/totop.js"></script>
-
-<!-- Totop End -->
-
-<!-- MathJax Begin -->
-<!-- mathjax config similar to math.stackexchange -->
+  
 
 
-<!-- MathJax End -->
 
-<!-- Tiny_search Begin -->
 
-<!-- Tiny_search End -->
 
-  </body>
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
 </html>

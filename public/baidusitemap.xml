@@ -4,8 +4,28 @@
 
     
   <url>
+    <loc>http://www.gaoshilei.com/2017/11/27/wechatproservice/</loc>
+    <lastmod>2017-11-28T08:40:06.042Z</lastmod>
+    <data>
+        <display>
+        <title>搭建微信小程序服务</title>
+        <pubTime>2017-11-27T03:58:00.000Z</pubTime>
+        
+        <tag>个人博客</tag>
+         
+         
+           
+             
+              <breadCrumb title="备忘录" url="http://www.gaoshilei.com/categories/%E5%A4%87%E5%BF%98%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.gaoshilei.com/2017/10/30/hexo-init/</loc>
-    <lastmod>2017-11-06T11:53:48.448Z</lastmod>
+    <lastmod>2017-11-27T07:59:48.372Z</lastmod>
     <data>
         <display>
         <title>快速搭建Hexo博客+webhook自动部署+全站HTTPS</title>
@@ -22,6 +42,55 @@
     </data>
     </url>
 
+    
+  <url>
+    <loc>http://www.gaoshilei.com/2017/11/07/SSR/</loc>
+    <lastmod>2017-11-23T08:23:59.191Z</lastmod>
+    <data>
+        <display>
+        <title>VPS+SSR+锐速（BBR魔改版）实现超级加速</title>
+        <pubTime>2017-11-06T16:00:00.000Z</pubTime>
+        
+        <tag>VPS</tag>
+         
+        <tag>VPN</tag>
+         
+        <tag>Shadowsocks</tag>
+         
+         
+           
+             
+              <breadCrumb title="实用工具" url="http://www.gaoshilei.com/categories/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.gaoshilei.com/2016/05/20/VPS/</loc>
+    <lastmod>2017-11-20T09:40:55.440Z</lastmod>
+    <data>
+        <display>
+        <title>VPS搭建高速SS服务器</title>
+        <pubTime>2016-05-19T16:00:00.000Z</pubTime>
+        
+        <tag>VPS</tag>
+         
+        <tag>VPN</tag>
+         
+        <tag>Shadowsocks</tag>
+         
+         
+           
+             
+              <breadCrumb title="实用工具" url="http://www.gaoshilei.com/categories/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>http://www.gaoshilei.com/2017/09/26/weex-2/</loc>
@@ -98,7 +167,7 @@
 
     
   <url>
-    <loc>http://www.gaoshilei.com/2016/08/08/dumpdecrypted%E7%BB%99App%E7%A0%B8%E5%A3%B3/</loc>
+    <loc>http://www.gaoshilei.com/2016/08/09/dumpdecrypted%E7%BB%99App%E7%A0%B8%E5%A3%B3/</loc>
     <lastmod>2017-11-03T09:41:25.693Z</lastmod>
     <data>
         <display>
@@ -120,9 +189,8 @@
 
     
     
-    
   <url>
-    <loc>http://www.gaoshilei.com/2016/10/15/iOSAppToLibrary/</loc>
+    <loc>http://www.gaoshilei.com/2016/10/16/iOSAppToLibrary/</loc>
     <lastmod>2017-11-02T13:09:57.232Z</lastmod>
     <data>
         <display>
@@ -144,7 +212,7 @@
 
     
   <url>
-    <loc>http://www.gaoshilei.com/2016/11/09/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E9%80%86%E5%90%91%E5%BE%AE%E4%BF%A1%E4%B9%8B%E6%9C%8B%E5%8F%8B%E5%9C%88%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91%EF%BC%88%E4%B8%8A%EF%BC%89/</loc>
+    <loc>http://www.gaoshilei.com/2016/11/10/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E9%80%86%E5%90%91%E5%BE%AE%E4%BF%A1%E4%B9%8B%E6%9C%8B%E5%8F%8B%E5%9C%88%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91%EF%BC%88%E4%B8%8A%EF%BC%89/</loc>
     <lastmod>2017-11-02T13:09:57.232Z</lastmod>
     <data>
         <display>
@@ -170,7 +238,7 @@
 
     
   <url>
-    <loc>http://www.gaoshilei.com/2016/11/10/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E9%80%86%E5%90%91%E5%BE%AE%E4%BF%A1%E4%B9%8B%E6%9C%8B%E5%8F%8B%E5%9C%88%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91%EF%BC%88%E4%B8%8B%EF%BC%89/</loc>
+    <loc>http://www.gaoshilei.com/2016/11/11/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E9%80%86%E5%90%91%E5%BE%AE%E4%BF%A1%E4%B9%8B%E6%9C%8B%E5%8F%8B%E5%9C%88%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91%EF%BC%88%E4%B8%8B%EF%BC%89/</loc>
     <lastmod>2017-11-02T13:09:57.232Z</lastmod>
     <data>
         <display>
@@ -196,7 +264,7 @@
 
     
   <url>
-    <loc>http://www.gaoshilei.com/2016/09/07/iPhone%E6%9F%A5%E6%89%BE%E5%BA%8F%E5%88%97%E5%8F%B7%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/</loc>
+    <loc>http://www.gaoshilei.com/2016/09/08/iPhone%E6%9F%A5%E6%89%BE%E5%BA%8F%E5%88%97%E5%8F%B7%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/</loc>
     <lastmod>2017-11-02T13:09:57.230Z</lastmod>
     <data>
         <display>
@@ -218,7 +286,7 @@
 
     
   <url>
-    <loc>http://www.gaoshilei.com/2016/11/17/Static%20Library/</loc>
+    <loc>http://www.gaoshilei.com/2016/11/18/Static%20Library/</loc>
     <lastmod>2017-11-02T13:09:57.230Z</lastmod>
     <data>
         <display>
@@ -244,7 +312,7 @@
 
     
   <url>
-    <loc>http://www.gaoshilei.com/2016/03/15/Xcode%E7%BC%96%E8%AF%91%E6%8A%A5%E9%94%99Undefined%20symbols%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
+    <loc>http://www.gaoshilei.com/2016/03/16/Xcode%E7%BC%96%E8%AF%91%E6%8A%A5%E9%94%99Undefined%20symbols%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
     <lastmod>2017-11-02T13:09:57.229Z</lastmod>
     <data>
         <display>
@@ -259,30 +327,6 @@
            
              
               <breadCrumb title="跳坑指南" url="http://www.gaoshilei.com/categories/%E8%B7%B3%E5%9D%91%E6%8C%87%E5%8D%97/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.gaoshilei.com/2016/05/19/VPS/</loc>
-    <lastmod>2017-11-02T13:09:57.227Z</lastmod>
-    <data>
-        <display>
-        <title>VPS搭建高速VPN服务器</title>
-        <pubTime>2016-05-19T16:00:00.000Z</pubTime>
-        
-        <tag>VPS</tag>
-         
-        <tag>VPN</tag>
-         
-        <tag>Shadowsocks</tag>
-         
-         
-           
-             
-              <breadCrumb title="实用工具" url="http://www.gaoshilei.com/categories/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
