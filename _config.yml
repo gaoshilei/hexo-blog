@@ -81,3 +81,8 @@ limit: 20
  # type: git
  # repo: git@github.com:gaoshilei/hexo-blog.git
  # branch: master
+
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
