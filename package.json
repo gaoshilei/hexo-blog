@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "github-webhook-handler": "^0.6.0",
+    "gitment": "0.0.3",
     "hexo": "^3.2.0",
     "hexo-deployer-git": "^0.2.0",
     "hexo-generator-archive": "^0.1.4",
