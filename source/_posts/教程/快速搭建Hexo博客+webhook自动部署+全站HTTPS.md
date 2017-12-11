@@ -119,7 +119,7 @@ true
 [root@California_VPS ~]# ssh-keygen -t rsa -b 4096 -C "xxxxx@xxx.com"  
 ```
 
-一直回车全部使用默认的就行，这一步会生成ssh公钥，也就是 public key，生成之后可以通过下面的命令查看  
+一直回车全部使用默认设置就行，这一步会生成ssh公钥，也就是 public key，生成之后可以通过下面的命令查看  
 
 ```shell  
 ls -al ~/.ssh
