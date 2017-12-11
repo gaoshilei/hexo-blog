@@ -13,7 +13,7 @@ permalink: SSR
 
 谷歌2016年出了一个基于Linux内核的 BBR 拥塞控制算法，虽然咱不懂咋回事，还是大概知道它也是通过优化 TCP 底层协议来实现网速加速，跟锐速的原理一样。我是通过搬瓦工的 KiwiVM 后台安装的，用了之后感觉不咋地，网上查了一下，大部分网友都说锐速的加速效果要好于BBR。锐速已经停止新用户注册和维护了，之前虽然收费，但是现在已经有破解版。BBR不好用，有大神就开始魔改了，出了一个魔改版的BBR，据说效果比锐速还好！  
 下文对于锐速和BBR魔改版安装都有介绍，你可以尝试一下，看哪个速度更快。  
-下文的环境基于：CentOS6 X64
+下文的环境基于：CentOS6 X6
 
 # 1、准备 VPS
 
@@ -253,7 +253,7 @@ Linux 默认安装的 gcc 版本是4.4.7，而编译魔改 BBR 的 gcc 版本至
 然后解压：
 
 ```
-[root@California_VPS ~]# tar -jxvf cc-4.9.4.tar.bz2
+[root@California_VPS ~]# tar -jxvf gcc-4.9.4.tar.bz2
 ```
 
 解压主要消耗CPU性能，搬瓦工的低配VPS都是单核的，这个包将近90MB，所以要比较久大概等个十分钟左右就好了。  
@@ -263,7 +263,7 @@ Linux 默认安装的 gcc 版本是4.4.7，而编译魔改 BBR 的 gcc 版本至
 下载、配置安装依赖库，解压好的文件里面有安装脚本，依次执行下面的命令   
 
 ```
-[root@California_VPS ~]# cd cc-4.9.4
+[root@California_VPS ~]# cd gcc-4.9.4
 [root@California_VPS gcc-4.9.4]# ./contrib/download_prerequisites
 ```
 
