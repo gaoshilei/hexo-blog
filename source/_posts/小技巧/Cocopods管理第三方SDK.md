@@ -199,5 +199,20 @@ LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ pod repo add CocoapodsPrivate git@gi
 
 ![私有仓库搜索结果](http://oeat6c2zg.bkt.clouddn.com/QQ20180119-211208@2x.png)  
 
-让团队其他成员执行 `pod repo add CocoapodsPrivate git@git.internal.weyao.com:gaoshilei/CocoapodsPrivate.git` 之后，就可以使用这个私有中心仓库了。
+让团队其他成员执行 `pod repo add CocoapodsPrivate git@git.internal.weyao.com:gaoshilei/CocoapodsPrivate.git` 之后，就可以使用这个私有中心仓库了。  
+
+
+PS：当你可以搜到 `WechatSDK` 时却无法正常执行 `pod install`，会报这样的错：`[!] Unable to find a specification for 'WechatSDK'` ，那是因为项目的 Podfile 中需要添加响应的仓库地址才行：
+
+```shell
+platform :ios, '8.0'
+source 'https://github.com/CocoaPods/Specs.git'
+source 'git@git.internal.weyao.com:gaoshilei/CocoapodsPrivate.git'
+......
+  pod 'WechatSDK'
+......
+```
+
+把这两条添加进去，然后再执行 `pod install` 就没问题了。
+
 
