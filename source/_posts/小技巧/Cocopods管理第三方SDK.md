@@ -1,10 +1,10 @@
 ---
-title: 如何使用Cocopods管理第三方SDK
+title: 如何使用CocoaPods管理第三方SDK
 date: 2018-1-19
 categories:
 - 小技巧
 tags:
-- Cocopods
+- CocoaPods
 - SDK
 permalink: cocopods_private_sdk_repo  
 ---
@@ -14,16 +14,16 @@ permalink: cocopods_private_sdk_repo
 - SDK的lib包至少都是5M+，看着不是很大，但是当添加到git中将会是一个庞大的储存空间开销（不添加到git中不方便团队开发管理）
 - 当升级SDK的时候比较麻烦（次要原因）
 
-主要基于第一种原因，打算把这些乱七八糟的第三方SDK全都交给 Cocopods 来管理，这样 SDK 不会添加到 git 中，不会导致项目 git 仓库提交了两个月之后变成 1G+ 这种悲剧发生。
+主要基于第一种原因，打算把这些乱七八糟的第三方SDK全都交给 CocoaPods 来管理，这样 SDK 不会添加到 git 中，不会导致项目 git 仓库提交了两个月之后变成 1G+ 这种悲剧发生。
 
 <!-- more -->
 
-# 什么是Cocopods？
+# 什么是CocoaPods？
 
  ![一脸懵逼](http://oeat6c2zg.bkt.clouddn.com/DBCC6999A0786EF4772B24C1C0A97722.jpg)  
- 你不知道 Cocopods 是什么？给你个传送门 [https://cocoapods.org](https://cocoapods.org)
+ 你不知道 CocoaPods 是什么？给你个传送门 [https://cocoapods.org](https://cocoapods.org)
 
-# Cocopods 新建本地仓库
+# CocoaPods 新建本地仓库
 
 这里我用微信 SDK 来举个栗子，从微信开发者中心下载对应的 SDK。
 
@@ -40,7 +40,7 @@ permalink: cocopods_private_sdk_repo
     └── WXApiObject.h  
 ```
 
-要让 Cocopods 来管理第三方 SDK，我们需要将第三方 SDK 制作成一个仓库，跟平时我们使用 Podfile 一样。 下面我们要在  WechatSDK 目录下新建一个 `.podspec` 格式的文件，这个文件主要是用来描述当前仓库的一些信息，它的格式官网有介绍，不赘述。[http://guides.cocoapods.org/syntax/podspec.html](http://guides.cocoapods.org/syntax/podspec.html)  
+要让 CocoaPods 来管理第三方 SDK，我们需要将第三方 SDK 制作成一个仓库，跟平时我们使用 Podfile 一样。 下面我们要在  WechatSDK 目录下新建一个 `.podspec` 格式的文件，这个文件主要是用来描述当前仓库的一些信息，它的格式官网有介绍，不赘述。[http://guides.cocoapods.org/syntax/podspec.html](http://guides.cocoapods.org/syntax/podspec.html)  
 
 转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com)   
 
@@ -75,7 +75,7 @@ end
 
 ```
 
- `s.source` 这个键需要详细讲解一下。这是 Cocopods 需要读取的 git 仓库地址，这里直接写成本地的仓库路径就可以了，不过要在 WechatSDK 文件夹中新建 git 仓库。然后 tag 能对应上就可以了。在当前目录下执行下面的命令：
+ `s.source` 这个键需要详细讲解一下。这是 CocoaPods 需要读取的 git 仓库地址，这里直接写成本地的仓库路径就可以了，不过要在 WechatSDK 文件夹中新建 git 仓库。然后 tag 能对应上就可以了。在当前目录下执行下面的命令：
 
  ```
 git init 
@@ -103,7 +103,7 @@ git tag 1.8.2
 [!] Invalid `WechatSDK.podspec` file: undefined local variable or method `tag` for Pod:Module
 ```
 
-这种情况是 Cocopods 没有找到仓库的 podspec 配置文件，原因是 Podfile 中的路径写错了，改成仓库相对于 Podfile 的路径就可以了。
+这种情况是 CocoaPods 没有找到仓库的 podspec 配置文件，原因是 Podfile 中的路径写错了，改成仓库相对于 Podfile 的路径就可以了。
 
 第二种情况：  
 
@@ -126,7 +126,7 @@ fatal: repository '$HOME/Desktop/LittleBee/LittleBee_iOS/Vendors/WechatSDK' does
 
 这种情况就是 podspec 配置文件格式不对，对照官网的文档修改一下就行。   
 
-**上面是将第三方 SDK 制作成了 Cocopods 库，你也可以将你自己的代码制作成库，将 s.source 改成 github 上的地址，就制作了一个线上可以共享的 cocopods 库，类似于 AFNetworking，这个要多一个步骤，将自己的开源库配置文件推送到 Cocopods 的 podspec 仓库中（我还没有制作过，具体步骤自行百度或者谷歌吧）**
+**上面是将第三方 SDK 制作成了 CocoaPods 库，你也可以将你自己的代码制作成库，将 s.source 改成 github 上的地址，就制作了一个线上可以共享的 CocoaPods 库，类似于 AFNetworking，这个要多一个步骤，将自己的开源库配置文件推送到 CocoaPods 的 podspec 仓库中（我还没有制作过，具体步骤自行百度或者谷歌吧）**
 
 # 创建私有中心仓库  
 
@@ -138,15 +138,15 @@ fatal: repository '$HOME/Desktop/LittleBee/LittleBee_iOS/Vendors/WechatSDK' does
   ......
 ```
 
-这样岂不就完美了！Cocopods 其实是通过 podspec 来管理所有的仓库的，在我们的本地有一个目录 
+这样岂不就完美了！CocoaPods 其实是通过 podspec 来管理所有的仓库的，在我们的本地有一个目录 
 
 ```shell
 ~/.cocoapods/repos
 ```
 
-Cocopods 把中心仓库放在了这个位置，所以平时我们执行 `pod install` 都会去这个中心仓库查看是否有对应的目标开源组件，然后`git clone`下来，所以有时候明明有这个开源组件，但是我们执行 `pod install` 总提示安装失败，没有这个目录。那是因为本地的 repos 太旧了，这个时候执行 `pod repo update` 一下就可以了。基于 Cocopods 这个原理，我们就可以实现上面提到的方式了。
+CocoaPods 把中心仓库放在了这个位置，所以平时我们执行 `pod install` 都会去这个中心仓库查看是否有对应的目标开源组件，然后`git clone`下来，所以有时候明明有这个开源组件，但是我们执行 `pod install` 总提示安装失败，没有这个目录。那是因为本地的 repos 太旧了，这个时候执行 `pod repo update` 一下就可以了。基于 CocoaPods 这个原理，我们就可以实现上面提到的方式了。
 
-先看下 Cocopods 的中心仓库是怎么管理这些开源插件的
+先看下 CocoaPods 的中心仓库是怎么管理这些开源插件的
 
 ![AFNetworking](http://oeat6c2zg.bkt.clouddn.com/QQ20180119-204806@2x.png)  
 
@@ -174,7 +174,7 @@ LeonLeiMBP15-145:WechatSDK gaoshilei$ cd 1.8.2/
 LeonLeiMBP15-145:1.8.2 gaoshilei$ cp ~/Desktop/LittleBee/LittleBee_iOS/Vendors/WechatSDK/WechatSDK.podspec .
 ```
 
-此时私有中心仓库已经建好了，下面就是要让 Cocopods 知道这个仓库的存在，为了方便团队开发时直接使用，这个中心仓库需要放到公司 git 上共享：  
+此时私有中心仓库已经建好了，下面就是要让 CocoaPods 知道这个仓库的存在，为了方便团队开发时直接使用，这个中心仓库需要放到公司 git 上共享：  
 
 ```shell
 LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ git init
@@ -188,7 +188,7 @@ LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ git remote add origin git@git.intern
 LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ git push origin master
 ```
 
-然后再将这个私有中心仓库添加到 Cocopods 中  
+然后再将这个私有中心仓库添加到 CocoaPods 中  
 
 ```shell
 LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ pod repo add CocoapodsPrivate git@git.internal.weyao.com:gaoshilei/CocoapodsPrivate.git
