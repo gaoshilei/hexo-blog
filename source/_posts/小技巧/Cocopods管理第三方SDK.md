@@ -128,9 +128,9 @@ fatal: repository '$HOME/Desktop/LittleBee/LittleBee_iOS/Vendors/WechatSDK' does
 
 **上面是将第三方 SDK 制作成了 Cocopods 库，你也可以将你自己的代码制作成库，将 s.source 改成 github 上的地址，就制作了一个线上可以共享的 cocopods 库，类似于 AFNetworking，这个要多一个步骤，将自己的开源库配置文件推送到 Cocopods 的 podspec 仓库中（我还没有制作过，具体步骤自行百度或者谷歌吧）**
 
-# 创建私有仓库管理中心  
+# 创建私有中心仓库  
 
-上面都完成，貌似是挺完美，但还是有缺陷的。明显跟我们平时使用的 pod 格式不一样，后面还要配置路径，好麻烦！  
+上面都完成，貌似是挺完美，但还是有缺陷的。明显跟我们平时使用的 pod 格式不一样，后面还要配置路径太麻烦了，如果能这样用：  
 
 ```ruby
   pod 'AFNetworking'
@@ -138,7 +138,7 @@ fatal: repository '$HOME/Desktop/LittleBee/LittleBee_iOS/Vendors/WechatSDK' does
   ......
 ```
 
-如果能这样用那岂不就完美了。Cocopods 其实是通过 podspec 来管理所有的仓库的，在我们的本地有一个目录 
+这样岂不就完美了！Cocopods 其实是通过 podspec 来管理所有的仓库的，在我们的本地有一个目录 
 
 ```shell
 ~/.cocoapods/repos
