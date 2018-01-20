@@ -9,14 +9,7 @@ tags:
 permalink: cocopods_private_sdk_repo  
 ---
 
-最近整理项目，发现用到了很多第三方的SDK，这些SDK都是直接拖到项目里面的，这么做有两点不好：  
-
-- SDK的lib包至少都是5M+，看着不是很大，但是当添加到git中将会是一个庞大的储存空间开销（不添加到git中不方便团队开发管理）
-- 当升级SDK的时候比较麻烦（次要原因）
-
-主要基于第一种原因，打算把这些乱七八糟的第三方SDK全都交给 CocoaPods 来管理，这样 SDK 不会添加到 git 中，不会导致项目 git 仓库提交了两个月之后变成 1G+ 这种悲剧发生。
-
-<!-- more -->
+最近整理项目，发现用到了很多第三方的SDK，这些SDK都是直接拖到项目里面的比较乱，打算把这些乱七八糟的第三方SDK全都交给 CocoaPods 来管理。
 
 # 什么是CocoaPods？
 
@@ -26,6 +19,8 @@ permalink: cocopods_private_sdk_repo
 # CocoaPods 新建本地仓库
 
 这里我用微信 SDK 来举个栗子，从微信开发者中心下载对应的 SDK。
+
+<!-- more -->
 
  <img src="http://oeat6c2zg.bkt.clouddn.com/timg.jpeg" width = "50%" height = "50%" alt="举个栗子" align=center />  
 
