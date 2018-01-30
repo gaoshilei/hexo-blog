@@ -30,8 +30,9 @@ permalink: SSR
 
 你购买或者配置VPS过程中遇到什么问题，可以通过邮箱 goslei1315@gmail.com 联系我，工作日一般2个小时之内回复，询问之前请描述清楚你遇到的问题。
 
-**注意：购买 VPS 要选择 KVM 虚拟的，不要选择 OpenVZ 虚拟，后面你就会知道原因。**
+**注意：购买 VPS 要选择 KVM 虚拟的，不要选择 OpenVZ 虚拟，后面你就会知道原因。**  
 
+转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com)   
 
 # 2、安装锐速破解版  
 ## 1、执行脚本安装
@@ -429,6 +430,8 @@ SSR 一些常用的命令
 代码安装目录：/usr/local/shadowsocks
 
 ```
+
+转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com)   
 
 如果后面想修改 SSR 的一些配置可以直接修改 `shadowsocks.json` ，然后重启 SSR 即可。  
 
