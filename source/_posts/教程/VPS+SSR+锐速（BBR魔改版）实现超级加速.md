@@ -437,7 +437,7 @@ SSR 一些常用的命令
 
 最后配置 SSR 客户端就可以畅快的刷 YouTube 了，当然你也可以去 tumblr。【手动邪恶】    
 **奉上各个平台 SSR 的下载链接：**  
-MAC版下载地址：[ShadowsocksX-NG.1.5.1.zip](https://github.com/iMeiji/shadowsocks_install/releases/download/0.13/ShadowsocksX-NG.1.5.1.zip)  
+MAC版下载地址：[ShadowsocksX-NG-R8.dmg](https://github.com/gaoshilei/ShadowsocksX-NG/releases/download/1.4.3-R8-build3/ShadowsocksX-NG-R8.dmg)  
 windows版下载地址：[ssr-win.4.7.0-fix.7z](https://github.com/iMeiji/shadowsocks_install/releases/download/0.13/ssr-win.4.7.0-fix.7z)  
 iOS版下载地址：[wingy](https://itunes.apple.com/us/app/wingy-http-s-socks5-proxy-utility/id1178584911?mt=8)（中国区已下架，换个美国账号下载）
 安卓版下载地址：[ssr-android-3.4.0.5.apk](https://github.com/iMeiji/shadowsocks_install/releases/download/0.13/ssr-android-3.4.0.5.apk)
