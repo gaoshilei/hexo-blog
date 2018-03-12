@@ -13,7 +13,7 @@ permalink: cocopods_private_sdk_repo
 
 # 什么是CocoaPods？
 
- ![一脸懵逼](http://oeat6c2zg.bkt.clouddn.com/DBCC6999A0786EF4772B24C1C0A97722.jpg)  
+ ![一脸懵逼](http://www.leonlei.top/DBCC6999A0786EF4772B24C1C0A97722.jpg)  
  你不知道 CocoaPods 是什么？给你个传送门 [https://cocoapods.org](https://cocoapods.org)
 
 # CocoaPods 新建本地仓库
