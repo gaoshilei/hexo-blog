@@ -12,7 +12,7 @@ permalink: weex-1
 
 ---
 
-![](http://oeat6c2zg.bkt.clouddn.com/Weex_logo.png)
+![](http://www.leonlei.top/Weex_logo.png)
 
 随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？  
   
@@ -20,7 +20,7 @@ permalink: weex-1
 <!-- more -->
 
 去年阿里巴巴开源了一个类似 RN 的框架 **[Weex](http://weex.apache.org/cn/)** ，虽然面世才一年多，已经收获了广泛的关注，今年 Weex 已经被纳入 Apache 基金会的孵化项目。
-![](http://oeat6c2zg.bkt.clouddn.com/Weex_Apache.png)
+![](http://www.leonlei.top/Weex_Apache.png)
 
 ##		为什么选择 Weex  
 
@@ -49,7 +49,7 @@ Weex 在很大程度上借鉴了 RN 的思想和方式，对比一下 RN 和 Wee
 不管选择 RN 还是 Weex ，我们的目的都是一样：通过 js 语法渲染成  Native 的页面，至于该选择哪个，这就要结合自己公司的实际情况来选，没有绝对的好与坏。  
 由于我们公司的 H5 项目是用 Vue 开发的，所以我们也就毫不犹豫的选择了 Weex。  
 
-![](http://oeat6c2zg.bkt.clouddn.com/weex&vue.png)  
+![](http://www.leonlei.top/weex&vue.png)  
 
 可能大部分 Native 开发者看到这里就要说一句：*球都麻袋！Weex 都还搞明白怎么又提到 Vue ，这是什么鬼*；Vue 是国人开发的一个 JS 框架，大家可以去官网看看，文档都是中文比较方便，这里就不再赘述，有一点 H5 基础都可以很快上手。**[Vue官网](https://cn.vuejs.org)**
 
@@ -112,7 +112,7 @@ Weex 前端的项目目录大概就是这样，Weex 前端的源码不在这次�
 ##		Weex 运行原理 
 官方也给出了 Weex 的运行原理图，顺手牵羊拿了过来：
 
-![](http://oeat6c2zg.bkt.clouddn.com/Weex_theroy.png)  
+![](http://www.leonlei.top/Weex_theroy.png)  
 
 不难发现，Weex 其实就是将 `.vue` 、`.we` 文件编译成 js 文件，打包成所谓的 JS Bundle 放到 dist 文件夹中，然后将编译好的 JS Bundle 部署到服务器上，我们的 iOS、安卓、浏览器就可以访问对应的 JS 然后由 SDK 渲染成 Native 的页面，或者浏览器的内核渲染成 DOM 节点显示。**这里有个坑要提一下：虽然说是三端统一的，实际开发中还是要做兼容处理的。**  
 

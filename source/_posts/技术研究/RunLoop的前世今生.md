@@ -86,7 +86,7 @@ RunLoop的主要组成部分如下：
 
 RunLoop共包含5个类，但公开的只有Source、Timer、Observer相关的三个类。
 这5个类之间的关系关系：  
-![](http://oeat6c2zg.bkt.clouddn.com/RunLoop.png)
+![](http://www.leonlei.top/RunLoop.png)
 
 下面对这几个部分作详细的讲解。  
 
@@ -172,7 +172,7 @@ typedef enum CFRunLoopActivity CFRunLoopActivity;
 
 ##	3.	RunLoop 运行机制  
 这是我从别人博客上面摘录的一张图片，详细的描述了RunLoop运行机制  
-![](http://oeat6c2zg.bkt.clouddn.com/RunLoop_1.png)  
+![](http://www.leonlei.top/RunLoop_1.png)  
 
 每次线程运行RunLoop都会自动处理之前未处理的消息，并且将消息发送给观察者，让事件得到执行。RunLoop运行时首先根据modeName找到对应mode，如果mode里没有source/timer/observer，直接返回。   
 **流程如下：**  
@@ -297,7 +297,7 @@ UIImage *downloadImage = ...
 
 ###	1.	网络请求接口
 iOS中的网络请求接口自下而上有这么几层  
-![](http://oeat6c2zg.bkt.clouddn.com/runloop-nsnetwork.png)  
+![](http://www.leonlei.top/runloop-nsnetwork.png)  
 
 **CFSocket** 是最底层的接口，只负责 socket 通信。  
 **CFNetwork** 是基于 CFSocket 等接口的上层封装，ASIHttpRequest 工作在这层。  

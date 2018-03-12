@@ -39,10 +39,10 @@ PayPal分国内版和国际版，国内版是不支持美元支付的，而且�
 ###	二.	配置服务器  
 ####	1.	进入控制面板，修改当前的root密码  
 进入账户之后我们可以在MyServices中看到服务器列表：
-![服务器列表](http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPN%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%97%E8%A1%A8.png)  
+![服务器列表](http://www.leonlei.top/%E6%90%AD%E5%BB%BAVPN%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%97%E8%A1%A8.png)  
 进入KiwiVM管理后台，我们可以看到左侧有个菜单栏，点击Root Shell-interactive，此时会以H5的形式打开一个terminal窗口，执行`passwd`命令修改root密码  
 （*如果你不嫌系统分配的root密码不好记、每次ssh进主机都要复制粘贴密码，那么略过这步，***如果你忘记了root密码也可以直接通过这里修改，什么？！你忘记搬瓦工的账号密码无法进入后台面板？用你注册填写的邮箱或者手机号找回吧！**）
-![修改root密码](http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPN%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81.png)
+![修改root密码](http://www.leonlei.top/%E6%90%AD%E5%BB%BAVPN%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81.png)
 
 ####	2.	安装一个你喜欢的Linux OS  
 左侧菜单栏找到Install New OS，选一个你喜欢的系统吧（*系统默认安装的是32位CentOS6，如果你不想换其他系统这步也可以略过，***需要注意每次安装系统，主机所有数据都会丢失**）  

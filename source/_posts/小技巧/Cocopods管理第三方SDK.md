@@ -22,7 +22,7 @@ permalink: cocopods_private_sdk_repo
 
 <!-- more -->
 
- <img src="http://oeat6c2zg.bkt.clouddn.com/timg.jpeg" width = "50%" height = "50%" alt="举个栗子" align=center />  
+ <img src="http://www.leonlei.top/timg.jpeg" width = "50%" height = "50%" alt="举个栗子" align=center />  
 
  我们得到一个 WechatSDK 文件夹，里面的内容也比较简单
 
@@ -143,7 +143,7 @@ CocoaPods 把中心仓库放在了这个位置，所以平时我们执行 `pod i
 
 先看下 CocoaPods 的中心仓库是怎么管理这些开源插件的
 
-![AFNetworking](http://oeat6c2zg.bkt.clouddn.com/QQ20180119-204806@2x.png)  
+![AFNetworking](http://www.leonlei.top/QQ20180119-204806@2x.png)  
 
 路径是这个样子的  
 
@@ -192,7 +192,7 @@ LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ pod repo add CocoapodsPrivate git@gi
 
 添加成功之后，执行 `pod search WechatSDK` 可以看到，刚才添加的已经可以搜到了，并且版本号后面显示来自仓库`CocoapodsPrivate`  
 
-![私有仓库搜索结果](http://oeat6c2zg.bkt.clouddn.com/QQ20180119-211208@2x.png)  
+![私有仓库搜索结果](http://www.leonlei.top/QQ20180119-211208@2x.png)  
 
 让团队其他成员执行 `pod repo add CocoapodsPrivate git@git.internal.weyao.com:gaoshilei/CocoapodsPrivate.git` 之后，就可以使用这个私有中心仓库了。  
 

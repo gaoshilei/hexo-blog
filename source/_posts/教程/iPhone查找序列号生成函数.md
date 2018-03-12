@@ -431,6 +431,6 @@ after-install::
 	install.exec "killall -9 SpringBoard"
 ```
 其中有一行`SerialNumber_LDFLAGS = -lMobileGestalt`千万要注意，使用的时候要加载这个静态库，因为SpringBoard加载的时候我也不确定是否有加载这个库，然后我们验证一下吧！
-![序列号验证-获取](http://oeat6c2zg.bkt.clouddn.com/%E6%9F%A5%E6%89%BE%E5%BA%8F%E5%88%97%E5%8F%B7%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B01.jpg)![序列号验证-系统](http://oeat6c2zg.bkt.clouddn.com/%E6%9F%A5%E6%89%BE%E5%BA%8F%E5%88%97%E5%8F%B7%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B02.jpg)  
+![序列号验证-获取](http://www.leonlei.top/%E6%9F%A5%E6%89%BE%E5%BA%8F%E5%88%97%E5%8F%B7%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B01.jpg)![序列号验证-系统](http://www.leonlei.top/%E6%9F%A5%E6%89%BE%E5%BA%8F%E5%88%97%E5%8F%B7%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B02.jpg)  
 
  [此文参考了《iOS逆向工程（第二版）》](https://www.amazon.cn/iOS应用逆向工程-沙梓社/dp/B00VFDVY7E/ref=sr_1_1?ie=UTF8&qid=1477453672&sr=8-1&keywords=iOS逆向工程)

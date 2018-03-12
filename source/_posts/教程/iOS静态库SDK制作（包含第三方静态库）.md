@@ -77,43 +77,43 @@ Framework的英文释意是框架，主要由Headers、binary文件、.bundle这
 动态库与静态库的制作流程基本一样，包括头文件的暴露等，唯一不同的是Mach-O文件的编译形式。本节将介绍Xcode制作Framework的过程，本次制作的Framework静态库依赖其他第三方静态库（Framework和.a）。
 
 1>	新建工程
-![新建Framework工程](http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png)  
+![新建Framework工程](http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png)  
 这里要选Framework，如果选择右边的Static Library制作出来的是.a静态库。
 
 2>	导入所有要打包的文件和其他第三方静态库  
 正常导入要打包的文件就可以了，在导入第三方静态库的时候要注意，不要选择添加到target中，如果添加进去要去target里面把第三方静态库删掉（只需导入，不要添加进target）
-![导入第三方静态库](http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E9%9D%99%E6%80%81%E5%BA%93.png)  
+![导入第三方静态库](http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E9%9D%99%E6%80%81%E5%BA%93.png)  
 导入第三方静态库之后再link依赖的系统库，像这样  
-![link依赖库](http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E5%BA%93.png)  
+![link依赖库](http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E5%BA%93.png)  
 注意上面的运行目标，因为我用的是Xcode8，最低支持到iOS8。  
 要打包的文件和第三方静态库全部导入完成    
-![所有文件导入情况](http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E6%83%85%E5%86%B5.png)   
+![所有文件导入情况](http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E6%83%85%E5%86%B5.png)   
 
 3>	项目性质修改  
 把项目的membership需改为public，否则头文件暴露将会不正常  
-![修改项目的membership](http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%B7%A5%E7%A8%8B%E6%80%A7%E8%B4%A8.png)  
+![修改项目的membership](http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%B7%A5%E7%A8%8B%E6%80%A7%E8%B4%A8.png)  
 
 4>	暴露头文件  
 将头文件暴露出去，供外界使用，所有的编译文件都在Project中，需要右击添加到public里面  
-![暴露头文件](http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9A%B4%E9%9C%B2%E5%A4%B4%E6%96%87%E4%BB%B6.png)  
+![暴露头文件](http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9A%B4%E9%9C%B2%E5%A4%B4%E6%96%87%E4%BB%B6.png)  
 
 **5>	选择Mach-O的编译方式**  
 这是最重要的一步，这一步决定我们制作出来的是静态库还是动态库，默认选择的是Dynamic Library，要手动选择Static Library
-![Mach-O 形式](http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%80%89%E6%8B%A9%E7%BC%96%E8%AF%91%E6%96%B9%E5%BC%8F.png)
+![Mach-O 形式](http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%80%89%E6%8B%A9%E7%BC%96%E8%AF%91%E6%96%B9%E5%BC%8F.png)
 
 6>	编译  
 如果你的依赖库里面有lib开头的dylib动态库，此时应该会报错  
-![动态库链接报错](http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E7%B3%BB%E7%BB%9F%E5%8A%A8%E6%80%81%E5%BA%93%E6%8A%A5%E9%94%99.png)  
+![动态库链接报错](http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E7%B3%BB%E7%BB%9F%E5%8A%A8%E6%80%81%E5%BA%93%E6%8A%A5%E9%94%99.png)  
 什么意思呢？大概就是没找到对应的库文件，因为tbd是苹果提供的新的动态库格式，之前都是dylib，不知道这里又抽什么风，下面解决问题。  
 
 7>	tbd动态库报错修改  
 先把原来的.tbd删掉，然后再次添加，这个时候选择add other，在弹出的窗口中按快捷键shift + command + G 调出finder的前往窗口，输入/usr/lib，然后添加相应的dylib动态库 
-![修改的动态库](http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9B%BF%E6%8D%A2%E4%BE%9D%E8%B5%96%E5%BA%93.png)  
+![修改的动态库](http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9B%BF%E6%8D%A2%E4%BE%9D%E8%B5%96%E5%BA%93.png)  
 替换完成之后重新编译项目，生成Framework(可在Product文件中右击在finder中显示找到)  
 
 8>	使用  
 新建一个文件夹，将制作好的静态库拷贝出来放进去，再将第三方静态库拷贝到相同的文件夹中，此时只要将这个文件夹提供给外界使用就可以了，这是我写的测试demo验证打包好的SDK是否可以正常使用 
-![制作完成使用](http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%88%B6%E4%BD%9C%E5%AE%8C%E6%88%90%E4%BD%BF%E7%94%A8.png)  
+![制作完成使用](http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%88%B6%E4%BD%9C%E5%AE%8C%E6%88%90%E4%BD%BF%E7%94%A8.png)  
 至此我们已经完成了Framework中包含其他第三方静态库的制作。  
 **如果需要制作动态库，只需要在第5步中将Mach-O的形式改为Dynamic Library就可以了，其他步骤一样**   
  
