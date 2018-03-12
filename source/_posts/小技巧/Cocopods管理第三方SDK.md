@@ -22,7 +22,7 @@ permalink: cocopods_private_sdk_repo
 
 <!-- more -->
 
- <img src="http://www.leonlei.top/timg.jpeg" width = "50%" height = "50%" alt="举个栗子" align=center />  
+ <img src="http://www.leonlei.top/timg.jpeg/thumbnail/!<45>p" alt="举个栗子" align=center />  
 
  我们得到一个 WechatSDK 文件夹，里面的内容也比较简单
 

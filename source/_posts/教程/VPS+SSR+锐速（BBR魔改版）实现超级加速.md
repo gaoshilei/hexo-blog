@@ -444,11 +444,11 @@ iOS版下载地址：[wingy](https://itunes.apple.com/us/app/wingy-http-s-socks5
 
 最后看看效果吧，YouTube 1080P 视频亲测截图  
 
-![YouTube 1080P视频](http://www.leonlei.top/QQ20171107-174706@2x.png)
+![YouTube 1080P视频](http://www.leonlei.top/QQ20171107-174706@2x.png/format/<jpg>/quality/<45>/)
 
 
 再来一张YouTube的下载速度：  
 
-![YouTube视频下载速度](http://www.leonlei.top/QQ20171107-175234@2x.png)  
+![YouTube视频下载速度](http://www.leonlei.top/QQ20171107-175234@2x.png/format/<jpg>/quality/<45>/)  
 
 是不是感觉帮帮哒！
