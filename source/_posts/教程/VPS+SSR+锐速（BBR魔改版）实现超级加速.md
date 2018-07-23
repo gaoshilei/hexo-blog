@@ -431,6 +431,8 @@ SSR 一些常用的命令
 
 ```
 
+**安装完成后重启VPS！安装完成后重启VPS！安装完成后重启VPS！**
+
 转载请注明出处：[来自LeonLei的博客http://www.gaoshilei.com](http://www.gaoshilei.com)   
 
 如果后面想修改 SSR 的一些配置可以直接修改 `shadowsocks.json` ，然后重启 SSR 即可。  
