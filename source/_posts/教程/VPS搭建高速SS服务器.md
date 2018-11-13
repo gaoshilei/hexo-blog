@@ -32,7 +32,7 @@ permalink: VPS
 
 > **我在购买主机的时候有一个小坑要提一下，~~搬瓦工的支付方式只支持PayPal，国内强大的支付宝居然不能支付！所以又去注册一个PayPal，~~坑来了：** 
 PayPal分国内版和国际版，国内版是不支持美元支付的，而且两者的账户是不通的，所以你注册了国内版是无法支付的，国际版的地址是：[https://www.paypal.com](https://www.paypal.com/c2/webapps/mpp/home)，虽然是中文，但是货币是USD美元，绑定一张银联的卡就可以购物了。
-<img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNPayPal.png" width="500"/>   
+<img src="http://www.leonlei.top/%E6%90%AD%E5%BB%BAVPNPayPal.png" width="500"/>   
  
 **这里做个修正：搬瓦工已经推出支付宝支付了，check out的时候选择alipay就可以了**
 
@@ -46,7 +46,7 @@ PayPal分国内版和国际版，国内版是不支持美元支付的，而且�
 
 ####	2.	安装一个你喜欢的Linux OS  
 左侧菜单栏找到Install New OS，选一个你喜欢的系统吧（*系统默认安装的是32位CentOS6，如果你不想换其他系统这步也可以略过，***需要注意每次安装系统，主机所有数据都会丢失**）  
-<img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPN%E5%AE%89%E8%A3%85%E6%96%B0%E7%B3%BB%E7%BB%9F.png" width="500"/>    
+<img src="http://www.leonlei.top/%E6%90%AD%E5%BB%BAVPN%E5%AE%89%E8%A3%85%E6%96%B0%E7%B3%BB%E7%BB%9F.png" width="500"/>    
 这里推荐安装64位系统，后面装插件支持都好一点。
 ####	3.	安装Shadowsocks Server  
 > 搬瓦工也提供了openVPN一键安装，个人感觉Shadowsocks更好用，有两种加速模式，访问会更快速。  
@@ -55,9 +55,9 @@ PayPal分国内版和国际版，国内版是不支持美元支付的，而且�
 现在搬瓦工的后台也可以一键安装 ShadowsocksR Server（SSR）了，操作流程基本一致。
 
 左侧菜单栏找到Shadowsocks Server，点进去安装就好了（**注意：搬瓦工提供的一键安装功能只支持CentOS6**，你也可以通过命令行的方式安装），安装好的Shadowsocks Server界面是这样的：  
-<img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server.png" width="500"/>  
+<img src="http://www.leonlei.top/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server.png" width="500"/>  
 此时SS已经可以用了，不过还差一个客户端，Windows版本的客户端在后台面板就有链接，Mac用户请[点击这里下载](https://sourceforge.net/projects/shadowsocksgui/)如果无法访问，我已经下载好放到我的网盘了[ShadowsocksX-2.6.3.dmg](https://pan.baidu.com/s/1boXspQJ)，安装好打开Shadowsocks Server，在Mac的工具栏会有一个小飞机的图标  
-<img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E4%BD%BF%E7%94%A8%E7%95%8C%E9%9D%A2.png" width="300" height="400" />  
+<img src="http://www.leonlei.top/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E4%BD%BF%E7%94%A8%E7%95%8C%E9%9D%A2.png" width="300" height="400" />  
 
 **2017.11.16更新：**  
 由于SS服务在部分地区受到运营商的流量干扰，出现网速慢甚至断网的现象，有类似情况的朋友请安装SSR，抗干扰效果更好。请参考我近期写的一篇文章[VPS+SSR+锐速（BBR魔改版）实现超级加速](https://gaoshilei.com/2017/11/06/SSR/)  
@@ -66,7 +66,7 @@ PayPal分国内版和国际版，国内版是不支持美元支付的，而且�
 >  2016.11.25更新：由于iPhone的Shadowsocks Server只在英国地区销售，国内的AppStore是下载不到的，大家可以在AppStore搜wingy，配置过程跟mac差不多，主要是IP、 Port和密码，加密协议都用默认的aes-256-cfb就行，然后手机也可以愉快的上网了。
 
 点开服务器，配置IP和密码，只需要修改地址和密码，其他不用改就OK了。
-<img src="http://oeat6c2zg.bkt.clouddn.com/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E8%AE%BE%E7%BD%AE.png" width="500" height="300"/>  
+<img src="http://www.leonlei.top/%E6%90%AD%E5%BB%BAVPNShadowsocks%20Server%E8%AE%BE%E7%BD%AE.png" width="500" height="300"/>  
 上两张图显示Shadowsocks Server有两种加速模式 ，**一般情况下勾选自动代理模式就可以了，这个这个模式下会自动判断你当前访问的域名是否在GFW名单里面，如果是就启用代理，如果不是就正常访问，这样我们在访问墙内网站的时候也不会受到任何影响** ，如果你遇到网站无法访问，有可能是这个网站近期被墙了，你没有更新本地的GFW名单，如果你确定这个网站是可以打开的，切换到全局模式就可以访问了 
 > Shadowsocks Server自动代理模式原理是根据GFWList配置了一个PAC文件，名单中的域名全部走代理，你可以手动修改这个配置文件，添加你要访问的被墙的网站，它就是一个js文件，你点击编辑自动模式的PAC文件便会跳转到这个js所在的位置，那个GFWList自动更新功能坏掉了，作者一直也没更新，不过不影响平时使用。  
   
