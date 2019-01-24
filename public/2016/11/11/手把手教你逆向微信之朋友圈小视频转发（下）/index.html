@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -98,15 +98,15 @@
 <meta property="og:site_name" content="LeonLei的博客">
 <meta property="og:description" content="接上篇《手把手教你逆向微信之朋友圈小视频转发（上）》  代码编写及重签名打包安装 （下篇）小视频的转发支持4个功能，转发至朋友圈、转发至好友、保存到本地相册、拷贝小视频链接到粘贴板。如果小视频没有下载长按时只会出现拷贝url链接。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8DiOSDev.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E7%BC%96%E8%AF%91%E5%A5%BD%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-iOSAppSigner.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91%E6%95%88%E6%9E%9C%E5%9B%BE.jpg">
-<meta property="og:updated_time" content="2017-11-02T13:09:57.232Z">
+<meta property="og:image" content="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8DiOSDev.png">
+<meta property="og:image" content="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E7%BC%96%E8%AF%91%E5%A5%BD%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93.png">
+<meta property="og:image" content="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-iOSAppSigner.png">
+<meta property="og:image" content="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91%E6%95%88%E6%9E%9C%E5%9B%BE.jpg">
+<meta property="og:updated_time" content="2018-03-12T03:25:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手把手教你逆向微信之朋友圈小视频转发（下）">
 <meta name="twitter:description" content="接上篇《手把手教你逆向微信之朋友圈小视频转发（上）》  代码编写及重签名打包安装 （下篇）小视频的转发支持4个功能，转发至朋友圈、转发至好友、保存到本地相册、拷贝小视频链接到粘贴板。如果小视频没有下载长按时只会出现拷贝url链接。">
-<meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8DiOSDev.png">
+<meta name="twitter:image" content="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8DiOSDev.png">
 
 
 
@@ -114,9 +114,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Muse',
     version: '5.1.3',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -148,6 +148,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -207,12 +217,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            关于
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -227,12 +247,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            归档
+            关于
           </a>
         </li>
       
@@ -274,7 +294,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -418,7 +438,7 @@
 <p>   因为AppStore的包是被加密（有壳），无法进行重签名，所以要用砸壳的，可以用dumpdecrypted自己砸壳，也可以直接利用PP助手或者itool助手下载越狱版已经砸过壳的微信应用。  </p>
 </blockquote>
 <p>（4）    安装yololib<br>yololib可以将dylib注入进WeChat二进制文件中，这样才能是你的Hook有作用，下载之后编译得到<a href="https://github.com/gaoshilei/yololib" target="_blank" rel="external">yololib</a></p>
-<h4 id="代码注入以及打包安装"><a href="#代码注入以及打包安装" class="headerlink" title="代码注入以及打包安装"></a>代码注入以及打包安装</h4><h5 id="（1）生成静态库"><a href="#（1）生成静态库" class="headerlink" title="（1）生成静态库"></a>（1）生成静态库</h5><p>在上一步中已经安装好iOSOpendev，此时打开Xcode新建项目，在选择工程界面会出现iOSOpendev的工程，这里我们要选择CaptainHook Tweak项目<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8DiOSDev.png" alt="iOSOpenDev"><br>新建好的工程只有一个.mm文件，我们只需要把所有hook方法写在这个文件中即可。<br>因为非越狱机不能像越狱机一样可以安装tweak插件对原来的应用进行hook，CaptainHook使用的Runtime机制实现，利用宏命令封装类定义、方法替换等功能，简单介绍它的使用方法：  </p>
+<h4 id="代码注入以及打包安装"><a href="#代码注入以及打包安装" class="headerlink" title="代码注入以及打包安装"></a>代码注入以及打包安装</h4><h5 id="（1）生成静态库"><a href="#（1）生成静态库" class="headerlink" title="（1）生成静态库"></a>（1）生成静态库</h5><p>在上一步中已经安装好iOSOpendev，此时打开Xcode新建项目，在选择工程界面会出现iOSOpendev的工程，这里我们要选择CaptainHook Tweak项目<br><img src="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8DiOSDev.png" alt="iOSOpenDev"><br>新建好的工程只有一个.mm文件，我们只需要把所有hook方法写在这个文件中即可。<br>因为非越狱机不能像越狱机一样可以安装tweak插件对原来的应用进行hook，CaptainHook使用的Runtime机制实现，利用宏命令封装类定义、方法替换等功能，简单介绍它的使用方法：  </p>
 <ol>
 <li>hook某个类</li>
 </ol>
@@ -442,7 +462,7 @@
 <blockquote>
 <p>   注意：如果用到了系统的类记住要导入相应的类库（比方说UIKit）和头文件否则编译的时候会报错。</p>
 </blockquote>
-<p>编译成功之后就可以在Products文件夹中找到编译好的静态库了<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E7%BC%96%E8%AF%91%E5%A5%BD%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93.png" alt="编译好的静态库"><br>在finder中找到它，拷贝出来待用。</p>
+<p>编译成功之后就可以在Products文件夹中找到编译好的静态库了<br><img src="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E7%BC%96%E8%AF%91%E5%A5%BD%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93.png" alt="编译好的静态库"><br>在finder中找到它，拷贝出来待用。</p>
 <h5 id="2-签名-打包-安装"><a href="#2-签名-打包-安装" class="headerlink" title="(2)    签名+打包+安装"></a>(2)    签名+打包+安装</h5><p>进行到这里目前应该有的材料有：</p>
 <ul>
 <li>砸壳的微信app    </li>
@@ -454,11 +474,11 @@
 <p>从原来的微信app中找到WeChat二进制文件拷贝出来待用，<strong>删除weChat.app中的Watch文件夹、PlugIns文件夹中的WeChatShareExtensionNew.appex</strong>，这步操作必须要做，不然安装的时候会报签名错误。<br>执行下面的命令将MMPlugin.dylib注入到WeChat二进制文件中，命令如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:WeChat gaoshilei$ ./yololib WeChat MMPlugin.dylib</div></pre></td></tr></table></figure>
 <p><strong>执行这个命令时要确保yololib、WeChat、WeChat.app处于同一目录下。</strong> </p>
-<p>完成之后将MMPlugin.dylib和WeChat拷贝到原来的WeChat.app中，覆盖掉原来的WeChat文件。<br>打开iOS App Signer按照下图选择好各项参数：<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-iOSAppSigner.png" alt="iOS App Signer"><br>我这里选择的是企业级证书，个人开发者证书也是可以的，个人开发者一定要选择开发环境的并且要将需要安装的机器udid添加到prov文件里面去，选好之后点击start，稍等片刻一个经过重签名的ipa包就生成了。<br>连上你的手机执行下面的命令查看ideviceinstaller是否连接上手机：</p>
+<p>完成之后将MMPlugin.dylib和WeChat拷贝到原来的WeChat.app中，覆盖掉原来的WeChat文件。<br>打开iOS App Signer按照下图选择好各项参数：<br><img src="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-iOSAppSigner.png" alt="iOS App Signer"><br>我这里选择的是企业级证书，个人开发者证书也是可以的，个人开发者一定要选择开发环境的并且要将需要安装的机器udid添加到prov文件里面去，选好之后点击start，稍等片刻一个经过重签名的ipa包就生成了。<br>连上你的手机执行下面的命令查看ideviceinstaller是否连接上手机：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:WeChat gaoshilei$ ideviceinfo</div></pre></td></tr></table></figure>
 <p>如果打印出一大堆手机的信息表示连接成功可以安装ipa包，如果不成功请根据错误提示进行调整。执行下面的命令进行安装：  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:WeChat gaoshilei$ ideviceinstaller -i WeChat.ipa </div><div class="line">WARNING: could not locate iTunesMetadata.plist in archive!</div><div class="line">WARNING: could not locate Payload/WeChat.app/SC_Info/WeChat.sinf in archive!</div><div class="line">Copying &apos;WeChat.ipa&apos; to device... DONE.</div><div class="line">Installing &apos;com.xxxxxxxxxxxx&apos;</div><div class="line"> - CreatingStagingDirectory (5%)</div><div class="line"> - ExtractingPackage (15%)</div><div class="line"> - InspectingPackage (20%)</div><div class="line"> - TakingInstallLock (20%)</div><div class="line"> - PreflightingApplication (30%)</div><div class="line"> - InstallingEmbeddedProfile (30%)</div><div class="line"> - VerifyingApplication (40%)</div><div class="line"> - CreatingContainer (50%)</div><div class="line"> - InstallingApplication (60%)</div><div class="line"> - PostflightingApplication (70%)</div><div class="line"> - SandboxingApplication (80%)</div><div class="line"> - GeneratingApplicationMap (90%)</div><div class="line"> - Complete</div></pre></td></tr></table></figure>
-<p>安装完成，在手机上打开微信试试我们添加的新功能吧！如果某个环节卡住会报错，请根据报错信息进行修改。请看效果图：<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91%E6%95%88%E6%9E%9C%E5%9B%BE.jpg" alt="小视频转发">  </p>
+<p>安装完成，在手机上打开微信试试我们添加的新功能吧！如果某个环节卡住会报错，请根据报错信息进行修改。请看效果图：<br><img src="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E9%87%8D%E7%AD%BE%E5%90%8D-%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91%E6%95%88%E6%9E%9C%E5%9B%BE.jpg" alt="小视频转发">  </p>
 <h4 id="有任何问题请在文章评论区留言，或者在博客首页点击邮件联系我。"><a href="#有任何问题请在文章评论区留言，或者在博客首页点击邮件联系我。" class="headerlink" title="有任何问题请在文章评论区留言，或者在博客首页点击邮件联系我。"></a>有任何问题请在文章评论区留言，或者在博客首页点击邮件联系我。</h4>
       
     </div>
@@ -537,6 +557,13 @@
           
 
   
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
 
 
 
@@ -553,8 +580,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
-      <div id="sidebar-dimmer"></div>
     
     <div class="sidebar-inner">
 
@@ -575,6 +600,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="LeonLei" />
+            
               <p class="site-author-name" itemprop="name">LeonLei</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -586,7 +615,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -596,10 +625,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">6</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -607,10 +636,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">29</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -619,6 +648,20 @@
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gaoshilei" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:goslei1315@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
             
           </div>
 
@@ -663,7 +706,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -681,12 +724,32 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
 
 
 
@@ -701,6 +764,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -781,13 +846,6 @@
   
   
 
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
-
-
-
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
@@ -829,6 +887,43 @@
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'gaoshilei',
+            repo: 'hexo-blog',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b946abb2465eb43577179f70e428b6a8ecacbab8',
+            
+                client_id: '4c55f9f88f8a23e444c2'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
 
 
 
@@ -850,6 +945,8 @@
   
 
   
+  
+
 
   
 

@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -98,14 +98,14 @@
 <meta property="og:site_name" content="LeonLei的博客">
 <meta property="og:description" content="一、    RunLoop初识日常的开发工作中，我们几乎很少注意RunLoop，因为我们基本上“用不到”RunLoop。包括我在内应该有很多人都不了解这个东西，只是听说过。最近有空查了不少资料终于把RunLoop运行原理搞清楚了。本文会对RunLoop的原理进行深入探讨，但是不涉及底层的实现。我们平时开发中的很多东西都和RunLoop相关，比如：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/RunLoop.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/RunLoop_1.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/runloop-nsnetwork.png">
-<meta property="og:updated_time" content="2017-11-02T13:09:57.226Z">
+<meta property="og:image" content="http://www.leonlei.top/RunLoop.png">
+<meta property="og:image" content="http://www.leonlei.top/RunLoop_1.png">
+<meta property="og:image" content="http://www.leonlei.top/runloop-nsnetwork.png">
+<meta property="og:updated_time" content="2018-03-12T03:22:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RunLoop的前世今生">
 <meta name="twitter:description" content="一、    RunLoop初识日常的开发工作中，我们几乎很少注意RunLoop，因为我们基本上“用不到”RunLoop。包括我在内应该有很多人都不了解这个东西，只是听说过。最近有空查了不少资料终于把RunLoop运行原理搞清楚了。本文会对RunLoop的原理进行深入探讨，但是不涉及底层的实现。我们平时开发中的很多东西都和RunLoop相关，比如：">
-<meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/RunLoop.png">
+<meta name="twitter:image" content="http://www.leonlei.top/RunLoop.png">
 
 
 
@@ -113,9 +113,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Muse',
     version: '5.1.3',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -147,6 +147,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -206,12 +216,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            关于
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -226,12 +246,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            归档
+            关于
           </a>
         </li>
       
@@ -273,7 +293,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -404,7 +424,7 @@
 <li>Run Loop Observer（CFRunLoopObserverRef）</li>
 <li>Run Loop Modes（CFRunLoopModeRef）</li>
 </ul>
-<p>RunLoop共包含5个类，但公开的只有Source、Timer、Observer相关的三个类。<br>这5个类之间的关系关系：<br><img src="http://oeat6c2zg.bkt.clouddn.com/RunLoop.png" alt=""></p>
+<p>RunLoop共包含5个类，但公开的只有Source、Timer、Observer相关的三个类。<br>这5个类之间的关系关系：<br><img src="http://www.leonlei.top/RunLoop.png" alt=""></p>
 <p>下面对这几个部分作详细的讲解。  </p>
 <h3 id="1-RunLoop-Modes"><a href="#1-RunLoop-Modes" class="headerlink" title="1.    RunLoop Modes"></a>1.    RunLoop Modes</h3><blockquote>
 <p>   Run Loop Mode就是流水线上能够生产的产品类型，流水线在一个时刻只能在一种模式下运行，生产某一类型的产品。消息事件就是订单。  </p>
@@ -434,7 +454,7 @@
 <h3 id="3-RunLoop-Timer"><a href="#3-RunLoop-Timer" class="headerlink" title="3.    RunLoop Timer"></a>3.    RunLoop Timer</h3><p>CFRunLoopTimerRef是基于时间的触发器，基本上说的就是NSTimer，它受RunLoop的Mode影响（GCD的定时器不受RunLoop的Mode影响），当其加入到 RunLoop 时，RunLoop会注册对应的时间点，当时间点到时，RunLoop会被唤醒以执行那个回调。如果线程阻塞或者不在这个Mode下，触发点将不会执行，一直等到下一个周期时间点触发。</p>
 <h3 id="4-RunLoop-Observer"><a href="#4-RunLoop-Observer" class="headerlink" title="4.    RunLoop Observer"></a>4.    RunLoop Observer</h3><p>CFRunLoopObserverRef 是观察者，每个 Observer 都包含了一个回调（函数指针），当 RunLoop 的状态发生变化时，观察者就能通过回调接受到这个变化。可以观测的时间点有以下几个</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">enum</span> <span class="built_in">CFRunLoopActivity</span> &#123;</div><div class="line">    kCFRunLoopEntry                     = (<span class="number">1</span> &lt;&lt; <span class="number">0</span>),    <span class="comment">// 即将进入Loop   </span></div><div class="line">    kCFRunLoopBeforeTimers 		= (<span class="number">1</span> &lt;&lt; <span class="number">1</span>),    <span class="comment">// 即将处理 Timer    	</span></div><div class="line">    kCFRunLoopBeforeSources		= (<span class="number">1</span> &lt;&lt; <span class="number">2</span>),    <span class="comment">// 即将处理 Source  </span></div><div class="line">    kCFRunLoopBeforeWaiting		= (<span class="number">1</span> &lt;&lt; <span class="number">5</span>),    <span class="comment">// 即将进入休眠     </span></div><div class="line">    kCFRunLoopAfterWaiting 		= (<span class="number">1</span> &lt;&lt; <span class="number">6</span>),    <span class="comment">// 刚从休眠中唤醒   </span></div><div class="line">    kCFRunLoopExit                      = (<span class="number">1</span> &lt;&lt; <span class="number">7</span>),    <span class="comment">// 即将退出Loop  </span></div><div class="line">    kCFRunLoopAllActivities		= <span class="number">0x0FFFFFFF</span>U  <span class="comment">// 包含上面所有状态  </span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> <span class="built_in">CFRunLoopActivity</span> <span class="built_in">CFRunLoopActivity</span>;</div></pre></td></tr></table></figure>
-<h2 id="3-RunLoop-运行机制"><a href="#3-RunLoop-运行机制" class="headerlink" title="3.    RunLoop 运行机制"></a>3.    RunLoop 运行机制</h2><p>这是我从别人博客上面摘录的一张图片，详细的描述了RunLoop运行机制<br><img src="http://oeat6c2zg.bkt.clouddn.com/RunLoop_1.png" alt="">  </p>
+<h2 id="3-RunLoop-运行机制"><a href="#3-RunLoop-运行机制" class="headerlink" title="3.    RunLoop 运行机制"></a>3.    RunLoop 运行机制</h2><p>这是我从别人博客上面摘录的一张图片，详细的描述了RunLoop运行机制<br><img src="http://www.leonlei.top/RunLoop_1.png" alt="">  </p>
 <p>每次线程运行RunLoop都会自动处理之前未处理的消息，并且将消息发送给观察者，让事件得到执行。RunLoop运行时首先根据modeName找到对应mode，如果mode里没有source/timer/observer，直接返回。<br><strong>流程如下：</strong>  </p>
 <p><strong>Step1</strong>  通知观察者 RunLoop 启动（之后调用内部函数，进入Loop，下面的流程都在Loop内部do-while函数中执行）<br><strong>Step2</strong>  通知观察者: RunLoop 即将触发 Timer 回调。（kCFRunLoopBeforeTimers）<br><strong>Step3</strong>  通知观察者: RunLoop 即将触发 Source0 回调。（kCFRunLoopBeforeSources）<br><strong>Step4</strong>  RunLoop 触发 Source0 回调。<br><strong>Step5</strong>     如果有 Source1 处于等待状态，直接处理这个 Source1 然后跳转到第9步处理消息。<br><strong>Step6</strong>    通知观察者：RunLoop 的线程即将进入休眠(sleep)。（kCFRunLoopBeforeWaiting）<br><strong>Step7</strong>    调用 <code>mach_msg</code> 等待接受 <code>mach_port</code> 的消息。线程将进入休眠, 直到被下面某一个事件唤醒  </p>
 <blockquote>
@@ -502,7 +522,7 @@
 <p>一般我们可以设置代理，当用户滑动结束的时候通知代理加载图片，这样比较麻烦太low，基于RunLoop的原理我们只要一行代码即可搞定  </p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIImage</span> *downloadImage = ...</div><div class="line">[<span class="keyword">self</span>.imageView performSelector:<span class="keyword">@selector</span>(setImage:) </div><div class="line">						withObject: downloadImage </div><div class="line">						afterDelay:<span class="number">3.0</span> </div><div class="line">						inModes:@[<span class="built_in">NSDefaultRunLoopMode</span>]];</div></pre></td></tr></table></figure>
 <p>通过将图片的设置 <code>setImage:</code> 添加到 DefaultMode 里面，确保在 UITrackingRunLoopMode 下该操作不会被执行，保证了滑动的流畅性。  </p>
-<h2 id="4-网络请求"><a href="#4-网络请求" class="headerlink" title="4.    网络请求"></a>4.    网络请求</h2><h3 id="1-网络请求接口"><a href="#1-网络请求接口" class="headerlink" title="1.    网络请求接口"></a>1.    网络请求接口</h3><p>iOS中的网络请求接口自下而上有这么几层<br><img src="http://oeat6c2zg.bkt.clouddn.com/runloop-nsnetwork.png" alt="">  </p>
+<h2 id="4-网络请求"><a href="#4-网络请求" class="headerlink" title="4.    网络请求"></a>4.    网络请求</h2><h3 id="1-网络请求接口"><a href="#1-网络请求接口" class="headerlink" title="1.    网络请求接口"></a>1.    网络请求接口</h3><p>iOS中的网络请求接口自下而上有这么几层<br><img src="http://www.leonlei.top/runloop-nsnetwork.png" alt="">  </p>
 <p><strong>CFSocket</strong> 是最底层的接口，只负责 socket 通信。<br><strong>CFNetwork</strong> 是基于 CFSocket 等接口的上层封装，ASIHttpRequest 工作在这层。<br><strong>NSURLConnection</strong> 是基于 CFNetwork 更高层的封装，提供了面向对象的接口，AFNetworking 工作在这一层。<br><strong>NSURLSession</strong> 看似是和 NSURLConnection 并列的，实际上它也用到了 NSURLConnection 的部分功能(比如 com.apple.NSURLConnectionLoader 线程)</p>
 <p>开始网络传输时，NSURLConnection 创建了两个新线程：<code>com.apple.NSURLConnectionLoader</code> 和 <code>com.apple.CFSocket.private</code>。<br>其中 CFSocket 线程是处理底层 socket 连接的，NSURLConnectionLoader 这个线程的RunLoop 创建了一个 Source1 事件源用来监听底层 socket 事件。当 CFSocket 处理好 socket 事件之后会通过 mach port 通知 NSURLConnectionLoader，然后 NSURLConnectionLoader 所在的线程再将消息通过 mach prot 转发给上层的 Delegate 所在的线程，同时唤醒 Delegate 线程的 RunLoop 来让其处理这些通知。  </p>
 <h3 id="2-AFNetworking-的工作原理"><a href="#2-AFNetworking-的工作原理" class="headerlink" title="2.    AFNetworking 的工作原理"></a>2.    AFNetworking 的工作原理</h3><p>在AFNetworking2.6.3版本之前是有 AFURLConnectionOperation 这个类的，<br>AFNetworking 3.0 版本开始已经移除了这个类，AFN没有自己创建线程，而是采用的下面的这种方式  </p>
@@ -598,6 +618,13 @@
           
 
   
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
 
 
 
@@ -614,8 +641,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
-      <div id="sidebar-dimmer"></div>
     
     <div class="sidebar-inner">
 
@@ -636,6 +661,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="LeonLei" />
+            
               <p class="site-author-name" itemprop="name">LeonLei</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -647,7 +676,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -657,10 +686,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">6</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -668,10 +697,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">29</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -680,6 +709,20 @@
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gaoshilei" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:goslei1315@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
             
           </div>
 
@@ -724,7 +767,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -742,12 +785,32 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
 
 
 
@@ -762,6 +825,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -842,13 +907,6 @@
   
   
 
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
-
-
-
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
@@ -890,6 +948,43 @@
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'gaoshilei',
+            repo: 'hexo-blog',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b946abb2465eb43577179f70e428b6a8ecacbab8',
+            
+                client_id: '4c55f9f88f8a23e444c2'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
 
 
 
@@ -911,6 +1006,8 @@
   
 
   
+  
+
 
   
 

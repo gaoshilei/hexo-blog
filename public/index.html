@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hexo, NexT, Leon, iOS, 博客, LeonLei, VPS, SS, SSR" />
 
 
 
@@ -104,9 +104,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Muse',
     version: '5.1.3',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -138,6 +138,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -198,12 +208,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            关于
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -218,12 +238,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            归档
+            关于
           </a>
         </li>
       
@@ -260,12 +280,304 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2019/01/22/docs/15481533702048/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LeonLei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeonLei的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/22/docs/15481533702048/" itemprop="url">未命名</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-22T18:36:10+08:00">
+                2019-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JS浮点计算的一些坑"><a href="#JS浮点计算的一些坑" class="headerlink" title="JS浮点计算的一些坑"></a>JS浮点计算的一些坑</h1><p>平时在写js代码时会用到一些简单的计算，比方说我们数据库储存的金额是分，前端展示的是元，所以在用户输入元之后要转成分传给后台，这个公式小学一年级就学过了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1.11*100 = 111</div></pre></td></tr></table></figure></p>
+<p>一般来说这个计算结果看上去是那么的可信，但是在js里面却有这样的尴尬<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1.11*100 = 111.00000000000001</div></pre></td></tr></table></figure></p>
+<p>结果不是我们想要的111，类似的情况还有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">0.1+0.2 = 0.30000000000000004   //加法</div><div class="line">0.27-0.11 = 0.16000000000000003 //减法</div><div class="line">19.9*100 = 1989.9999999999998   //乘法</div><div class="line">0.3/0.1 = 2.9999999999999996    //除法</div></pre></td></tr></table></figure></p>
+<p>一般遇到这种问题，我们都有成熟的解决方案解决</p>
+<ul>
+<li><a href="https://github.com/MikeMcl/big.js/" target="_blank" rel="external">big.js</a></li>
+<li><a href="https://github.com/MikeMcl/decimal.js" target="_blank" rel="external">decimal.js</a></li>
+</ul>
+<p>用着用着就习惯了，一直没有搞清楚为什么会有这样的误差。这两天正好有空，看了一些博客终于搞清楚了。</p>
+<h2 id="双精度浮点数"><a href="#双精度浮点数" class="headerlink" title="双精度浮点数"></a>双精度浮点数</h2><p>JS 的数据类型比较特别，和<code>C、Java</code> 等语言的的数据类型不一样，不管是 <code>int、double、float</code> 在 JS 里面都是<code>Number</code>类型。<br>要搞清楚为什么有这个误差，就要先介绍一下<strong>双精度浮点</strong>(double)</p>
+<p>双精度浮点数(double)使用 64 位（8字节） 来储存一个浮点数。 它可以表示十进位制的15或16位有效数字，其可以表示的数字的绝对值范围大约是 [2.23<em>10^(-308),1.79</em>10^(308)]。</p>
+<p>这其中的64位bit又可以分为下面的格式</p>
+<ul>
+<li>sign bit(符号位)：0代表正数，1代表负数</li>
+<li>exponent(指数)：中间的11位用来表示次方数</li>
+<li>mantissa(尾数)：最后的52位用来表示精确度</li>
+</ul>
+<p><img src="www.leonlei.top/687474703a2f2f617461322d696d672e636e2d68616e677a686f752e696d672d7075622e616c6979756e2d696e632e636f6d2f37323637613538623239383932633362373233653364366333663733393035612e706e67.png" alt="687474703a2f2f617461322d696d672e636e2d68616e677a686f752e696d672d7075622e616c6979756e2d696e632e636f6d2f37323637613538623239383932633362373233653364366333663733393035612e706e67"></p>
+<p>看起来不是很好理解，先看一下这个公式<br><img src="www.leonlei.top/Xnip2019-01-22_18-33-33.png" alt="Xnip2019-01-22_18-33-33"></p>
+<p>再来看看数字 1 是怎么储存的</p>
+<p><img src="www.leonlei.top/Xnip2019-01-22_19-18-53.png" alt="Xnip2019-01-22_19-18-53"></p>
+<p>将上图的二进制数据转成16进制为 <code>0x3FF0000000000000</code> ，再看一下 - 1 的储存形式</p>
+<p><img src="www.leonlei.top/Xnip2019-01-22_19-29-55.png" alt="Xnip2019-01-22_19-29-55"><br>将上图的二进制转成16进制为<code>0xBFF0000000000000</code>，可以发现64位的前12位用来表示<strong>符号位</strong>和<strong>指数</strong>，后面的52位用来表示<strong>尾数</strong>。搞清楚这个，我们再看看上面提到的 <code>1.11*100 = 111.00000000000001</code> 这个问题。  </p>
+<p>将 1.11 转换成64位浮点数是这样的<br><img src="www.leonlei.top/Xnip2019-01-22_19-37-10.png" alt="Xnip2019-01-22_19-37-10"><br>最后再转成10进制的就变成了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1.11000000000000009769962616701</div></pre></td></tr></table></figure></p>
+<p>所以这里出现了问题，误差就有了，究其根本还是精度的问题。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2018/01/19/cocopods_private_sdk_repo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LeonLei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeonLei的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/19/cocopods_private_sdk_repo/" itemprop="url">如何使用CocoaPods管理第三方SDK</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-19T00:00:00+08:00">
+                2018-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/小技巧/" itemprop="url" rel="index">
+                    <span itemprop="name">小技巧</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近整理项目，发现用到了很多第三方的SDK，这些SDK都是直接拖到项目里面的比较乱，打算把这些乱七八糟的第三方SDK全都交给 CocoaPods 来管理。</p>
+<h1 id="什么是CocoaPods？"><a href="#什么是CocoaPods？" class="headerlink" title="什么是CocoaPods？"></a>什么是CocoaPods？</h1><p> <img src="http://www.leonlei.top/whats_cocoapods.jpg" alt="一脸懵逼"><br> 你不知道 CocoaPods 是什么？给你个传送门 <a href="https://cocoapods.org" target="_blank" rel="external">https://cocoapods.org</a></p>
+<h1 id="CocoaPods-新建本地仓库"><a href="#CocoaPods-新建本地仓库" class="headerlink" title="CocoaPods 新建本地仓库"></a>CocoaPods 新建本地仓库</h1><p>这里我用微信 SDK 来举个栗子，从微信开发者中心下载对应的 SDK。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/19/cocopods_private_sdk_repo/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2017/11/27/wechatproservice/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -352,12 +664,12 @@
 
       
         
-          <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p> 1、域名<br> 2、注册开发者账号<br> 3、开发者后台配置服务器信息  </p>
+          <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p> 1、域名<br> 2、注册开发者账号<br> 3、开发者后台配置服务器信息  </p>
 <h1 id="配置服务"><a href="#配置服务" class="headerlink" title="配置服务"></a>配置服务</h1><h2 id="搭建HTTP服务"><a href="#搭建HTTP服务" class="headerlink" title="搭建HTTP服务"></a>搭建HTTP服务</h2><h3 id="安装NodeJS和NPM"><a href="#安装NodeJS和NPM" class="headerlink" title="安装NodeJS和NPM"></a>安装NodeJS和NPM</h3><p>执行下面的命令安装：  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -</div><div class="line">yum install nodejs -y</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/27/wechatproservice/#more" rel="contents">
+            <a class="btn" href="/2017/11/27/wechatproservice/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -413,7 +725,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -502,13 +814,9 @@
         
           <p>谷歌2016年出了一个基于Linux内核的 BBR 拥塞控制算法，虽然咱不懂咋回事，还是大概知道它也是通过优化 TCP 底层协议来实现网速加速，跟锐速的原理一样。我是通过搬瓦工的 KiwiVM 后台安装的，用了之后感觉不咋地，网上查了一下，大部分网友都说锐速的加速效果要好于BBR。锐速已经停止新用户注册和维护了，之前虽然收费，但是现在已经有破解版。BBR不好用，有大神就开始魔改了，出了一个魔改版的BBR，据说效果比锐速还好！<br>下文对于锐速和BBR魔改版安装都有介绍，你可以尝试一下，看哪个速度更快。<br>下文的环境基于：CentOS6 X64</p>
 <h1 id="1、准备-VPS"><a href="#1、准备-VPS" class="headerlink" title="1、准备 VPS"></a>1、准备 VPS</h1><p><a href="https://bwh1.net/aff.php?aff=10505" target="_blank" rel="external">搬瓦工VPS</a>是我目前使用过性价比较高的 VPS，速度也比较稳定。<br><a href="https://www.vultr.com/?ref=7260141" target="_blank" rel="external">Vultr</a> 也是一个比较不错的选择，不过没有搬瓦工稳定。当然其他海外的VPS也都是可以的，至于选哪个这个就根据个人喜好来选择吧。<br><strong>如何购买比较稳定的 VPS 可以参考我之前写的<a href="https://www.gaoshilei.com/2016/05/19/VPS/">VPS搭建高速SS服务器</a></strong>   </p>
-<p>由于天朝的网络环境，之前的 SS 虽然营运商破解不了协议，但是通过流量监测和干扰的方式会严重影响我们的访问网络，最明显的特征就是响应慢，网络卡。所以 SS 现在已经有很大的局限性了，SSR + 加速 应该是我们最好的选择。下文会介绍如何加速，如何安装 SSR 服务。   </p>
-<p>或许有的同学会问 SS 和 SSR 有什么区别？<br>答：SSR 只是在 SS 的基础上增加了一些新的协议和混淆功能，抗检测和干扰能力更强，简单点说如果你所在的地区没有运营商干扰你访问墙外网站，那么是没有区别的，如果你所在地区的国际出口宽带流量被检测和干扰的很严重，SSR 这个时候优势就体现出来了。不过就目前的形势来看，SS 被干扰已经是很普遍的情况了，个人建议安装 SSR，然后设置好协议和混淆，干扰不严重可以不用混淆，后面会有介绍。  </p>
-<p>你购买或者配置VPS过程中遇到什么问题，可以通过邮箱 goslei1315@gmail.com 联系我，工作日一般2个小时之内回复，询问之前请描述清楚你遇到的问题。</p>
-<p><strong>注意：购买 VPS 要选择 KVM 虚拟的，不要选择 OpenVZ 虚拟，后面你就会知道原因。</strong></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/07/SSR/#more" rel="contents">
+            <a class="btn" href="/2017/11/07/SSR/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -564,7 +872,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -657,7 +965,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS ~]# yum install -y nodejs</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/10/30/hexo-init/#more" rel="contents">
+            <a class="btn" href="/2017/10/30/hexo-init/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -713,7 +1021,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -800,10 +1108,10 @@
 
       
         
-          <p>距离我写的上一篇文章 <a href="https://gaoshilei.com/2017/05/26/weex-1/">Weex从入门到超神（一）</a> 已经过了挺久了（惭愧而不失礼貌的微笑），起初写那篇文章的初衷是因为项目中使用到了 Weex ,所以准备对 Weex 做一个心得式的笔记，后来无意间发现<a href="http://www.jianshu.com/u/12201cdd5d7a">简书“霜神”</a>已经对 Weex 写过几篇剖析比较深刻的文章，还有其他一些原因（懒），所以就没有继续写下去。<br>最近由于Facebook的 <a href="https://github.com/facebook/react/blob/master/LICENSE">BSD license</a>，React 被前端社区的同学们推到了风口浪尖，React&amp;RN、Vue&amp;Weex 又成为了大家码前码后讨论的话题。Apache 社区还因为 Facebook 的 BSD license，全面封杀使用了 BSD license 的开源项目，貌似一切都很精彩，迫于前端同(da)学(lao)的淫威还有社区的强烈谴责，上周 Facebook 终于认怂了，承诺这周将 React 以及 gayhub 上面的其他几个项目的开源协议从 BSD 改成 MIT，下图是我脑补的场景：<br><img src="http://oeat6c2zg.bkt.clouddn.com/FA269E01D9C3794449AA6748EA6280C6.png" alt=""><br>鉴于对于项目中使用 Weex 的一些经验和心得，还是希望写出来和大家一起分享。<br>
+          <p>距离我写的上一篇文章 <a href="https://gaoshilei.com/2017/05/26/weex-1/" target="_blank" rel="external">Weex从入门到超神（一）</a> 已经过了挺久了（惭愧而不失礼貌的微笑），起初写那篇文章的初衷是因为项目中使用到了 Weex ,所以准备对 Weex 做一个心得式的笔记，后来无意间发现<a href="http://www.jianshu.com/u/12201cdd5d7a" target="_blank" rel="external">简书“霜神”</a>已经对 Weex 写过几篇剖析比较深刻的文章，还有其他一些原因（懒），所以就没有继续写下去。<br>最近由于Facebook的 <a href="https://github.com/facebook/react/blob/master/LICENSE" target="_blank" rel="external">BSD license</a>，React 被前端社区的同学们推到了风口浪尖，React&amp;RN、Vue&amp;Weex 又成为了大家码前码后讨论的话题。Apache 社区还因为 Facebook 的 BSD license，全面封杀使用了 BSD license 的开源项目，貌似一切都很精彩，迫于前端同(da)学(lao)的淫威还有社区的强烈谴责，上周 Facebook 终于认怂了，承诺这周将 React 以及 gayhub 上面的其他几个项目的开源协议从 BSD 改成 MIT，下图是我脑补的场景：<br><img src="http://www.leonlei.top/FA269E01D9C3794449AA6748EA6280C6.png" alt=""><br>鉴于对于项目中使用 Weex 的一些经验和心得，还是希望写出来和大家一起分享。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/09/26/weex-2/#more" rel="contents">
+            <a class="btn" href="/2017/09/26/weex-2/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -859,7 +1167,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -946,12 +1254,12 @@
 
       
         
-          <p><img src="http://oeat6c2zg.bkt.clouddn.com/Weex_logo.png" alt=""></p>
+          <p><img src="http://www.leonlei.top/Weex_logo.png" alt=""></p>
 <p>随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？  </p>
 <p>两年前 Facebook 团队发布了一个全新的移动端和前端无缝衔接的框架 React Native，很明显是用 React 开发的，支持在 Native 上运行的这么一个玩意，这相对于苹果漫长的审核机制的确是一个福音。可是 React 的学习曲线比较陡，网上大部分教程的性质都是 <strong>“React Native 从入门到放弃”</strong>，RN虽好，但是对于大多数移动开发者来说学习成本过高。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/05/26/weex-1/#more" rel="contents">
+            <a class="btn" href="/2017/05/26/weex-1/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1007,7 +1315,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1103,7 +1411,7 @@
 <p>我们习惯了这样用，<strong>貌似这样用了之后可以解决循环引用的问题，而且可以保证block执行之前self不会被释放掉？真相总是残酷的，然而事实并非如此！</strong>下面将会对block中引用self的三种方式进行讨论，并给出原因和另外一种解决方案。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/01/16/strong-weak_dance/#more" rel="contents">
+            <a class="btn" href="/2017/01/16/strong-weak_dance/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1159,7 +1467,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1249,7 +1557,7 @@
           <h1 id="一、-RunLoop初识"><a href="#一、-RunLoop初识" class="headerlink" title="一、    RunLoop初识"></a>一、    RunLoop初识</h1><p>日常的开发工作中，我们几乎很少注意RunLoop，因为我们基本上“用不到”RunLoop。包括我在内应该有很多人都不了解这个东西，只是听说过。最近有空查了不少资料终于把RunLoop运行原理搞清楚了。<br>本文会对RunLoop的原理进行深入探讨，但是不涉及底层的实现。<br>我们平时开发中的很多东西都和RunLoop相关，比如：<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/20/RunLoop/#more" rel="contents">
+            <a class="btn" href="/2016/11/20/RunLoop/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1305,7 +1613,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1398,302 +1706,7 @@
 <p>最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少走弯路。 制作之前最好把功课做足，看看静态库和动态库到底是什么东西。  </p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/18/Static Library/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LeonLei">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LeonLei的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/" itemprop="url">手把手教你逆向微信之朋友圈小视频转发（下）</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-11T00:00:00+08:00">
-                2016-11-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS逆向/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS逆向</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>   接上篇<a href="http://www.gaoshilei.com/2016/11/09/手把手教你逆向微信之朋友圈小视频转发（上）/">《手把手教你逆向微信之朋友圈小视频转发（上）》</a></p>
-</blockquote>
-<h2 id="代码编写及重签名打包安装-（下篇）"><a href="#代码编写及重签名打包安装-（下篇）" class="headerlink" title="代码编写及重签名打包安装 （下篇）"></a>代码编写及重签名打包安装 （下篇）</h2><p>小视频的转发支持4个功能，转发至朋友圈、转发至好友、保存到本地相册、拷贝小视频链接到粘贴板。如果小视频没有下载长按时只会出现拷贝url链接。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（上）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LeonLei">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LeonLei的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（上）/" itemprop="url">手把手教你逆向微信之朋友圈小视频转发（上）</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-10T00:00:00+08:00">
-                2016-11-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS逆向/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS逆向</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。<br>本篇文章由于篇幅太长分成了两篇，<strong>上篇</strong>讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，<strong>下篇</strong>讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。<br><strong>正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢按照本文的套路一步步逆向找到，这里就不再赘述。</strong><br>在实践之前，需要准备好一部越狱的手机，然后将下文列出的所有工具安装好。IDA跟Reveal都是破解版，IDA的正版要2000多刀，对于这么牛逼的逆向工具确实物有所值，不过不是专门研究逆向的公司也没必要用正版的，下个Windows的破解版就好，Mac上暂时没找到。Mac上可以用hopper代替IDA，也是一款很牛逼的逆向工具。废话不多说，正式开始吧！</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（上）/#more" rel="contents">
+            <a class="btn" href="/2016/11/18/Static Library/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1760,8 +1773,6 @@
 
   <aside id="sidebar" class="sidebar">
     
-      <div id="sidebar-dimmer"></div>
-    
     <div class="sidebar-inner">
 
       
@@ -1771,6 +1782,10 @@
       <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="LeonLei" />
             
               <p class="site-author-name" itemprop="name">LeonLei</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -1783,7 +1798,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1793,10 +1808,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">6</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -1804,10 +1819,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">29</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -1816,6 +1831,20 @@
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gaoshilei" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:goslei1315@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
             
           </div>
 
@@ -1844,7 +1873,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1862,12 +1891,32 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
 
 
 
@@ -1882,6 +1931,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -1962,13 +2013,6 @@
   
   
 
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
-
-
-
   
 
   
@@ -2006,6 +2050,19 @@
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+
+
 
 
 
@@ -2027,6 +2084,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

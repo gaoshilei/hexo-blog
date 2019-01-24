@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -98,16 +98,16 @@
 <meta property="og:site_name" content="LeonLei的博客">
 <meta property="og:description" content="前言此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。本篇文章由于篇幅太长分成了两篇，上篇讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，下篇讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91Reveal.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91-%E8%BD%AC%E5%8F%91%E5%B0%8F%E8%A7%86%E9%A2%91%E4%B8%BA%E7%A9%BA.jpg">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-selRef_section%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E8%80%85.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-btnRelease.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91sub_10261D0AC.png">
-<meta property="og:updated_time" content="2017-11-02T13:09:57.232Z">
+<meta property="og:image" content="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91Reveal.png">
+<meta property="og:image" content="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91-%E8%BD%AC%E5%8F%91%E5%B0%8F%E8%A7%86%E9%A2%91%E4%B8%BA%E7%A9%BA.jpg">
+<meta property="og:image" content="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-selRef_section%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E8%80%85.png">
+<meta property="og:image" content="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-btnRelease.png">
+<meta property="og:image" content="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91sub_10261D0AC.png">
+<meta property="og:updated_time" content="2018-03-12T03:24:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手把手教你逆向微信之朋友圈小视频转发（上）">
 <meta name="twitter:description" content="前言此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。本篇文章由于篇幅太长分成了两篇，上篇讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，下篇讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢">
-<meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91Reveal.png">
+<meta name="twitter:image" content="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91Reveal.png">
 
 
 
@@ -115,9 +115,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Muse',
     version: '5.1.3',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -149,6 +149,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -208,12 +218,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            关于
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -228,12 +248,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            归档
+            关于
           </a>
         </li>
       
@@ -275,7 +295,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -383,7 +403,7 @@
 </ol>
 <p><strong>逆向环境为MacOS    +    iPhone5S 9.1越狱机</strong><br>先用dumpdecrypted给微信砸壳（不会的请我写的看<a href="http://www.gaoshilei.com/2016/08/08/dumpdecrypted给App砸壳/">这篇教程</a>），获得一个WeChat.decrypted文件，先把这个文件扔到IDA中分析（60MB左右的二进制文件，IDA差不多40分钟才能分析完），用class-dump导出所有头文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:~ gaoshilei$ class-dump -S -s -H /Users/gaoshilei/Desktop/reverse/binary_for_class-dump/WeChat.decrypted -o /Users/gaoshilei/Desktop/reverse/binary_for_class-dump/class-Header/WeChat</div></pre></td></tr></table></figure>
-<p>我滴个亲娘！一共有8000个头文件，微信果然工程量浩大！稳定一下情绪，理一理思路继续搞。要取得小视频的下载链接，找到播放视频的View，顺藤摸瓜就能找到小视频的URL。用Reveal查看小视频的播放窗口<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91Reveal.png" alt="Reveal"><br>可以看出来WCContentItemViewTemplateNewSigh这个对象是小视频的播放窗口，它的subView有WCSightView，SightView、SightPlayerView，这几个类就是我们的切入点。<br>保存视频到favorite的时候是长按视频弹出选项的，那么在WCContentItemViewTemplateNewSight这个类里面可能有手势相关的方法，去刚才导出的头文件中找线索。</p>
+<p>我滴个亲娘！一共有8000个头文件，微信果然工程量浩大！稳定一下情绪，理一理思路继续搞。要取得小视频的下载链接，找到播放视频的View，顺藤摸瓜就能找到小视频的URL。用Reveal查看小视频的播放窗口<br><img src="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91Reveal.png" alt="Reveal"><br>可以看出来WCContentItemViewTemplateNewSigh这个对象是小视频的播放窗口，它的subView有WCSightView，SightView、SightPlayerView，这几个类就是我们的切入点。<br>保存视频到favorite的时候是长按视频弹出选项的，那么在WCContentItemViewTemplateNewSight这个类里面可能有手势相关的方法，去刚才导出的头文件中找线索。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)onLongTouch;</div><div class="line">- (void)onLongPressedWCSight:(id)arg1;</div><div class="line">- (void)onLongPressedWCSightFullScreenWindow:(id)arg1;</div></pre></td></tr></table></figure>
 <p>这几个方法跟长按手势相关，再去IDA中找到这些函数，逐个查看。onLongPressedWCSight和onLongPressedWCSightFullScreenWindow都比较简单，onLongTouch比较长，而且发现了内部调用了方法Favorites_Add，因为长按视频的时候出来一个选项就是Favorites，并且我看到这个函数调用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ADRP            X8, #selRef_sightVideoPath@PAGE</div><div class="line">LDR             X1, [X8,#selRef_sightVideoPath@PAGEOFF]</div></pre></td></tr></table></figure>
@@ -409,7 +429,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">(lldb) po $x0</div><div class="line">Class name: WCDataItem, addr: 0x15f5f03b0</div><div class="line">tid: 12393001887435993280</div><div class="line">username: wxid_z8twcz4o18fg12</div><div class="line">createtime: 1477360950</div><div class="line">commentUsers: (</div><div class="line">)</div><div class="line">contentObj: &lt;WCContentItem: 0x15f57d000&gt;</div></pre></td></tr></table></figure>
 <p>得到一个WCDataItem的对象，这里x0的值就是<code>selRef_getTimelineDataItemOfIndex_</code>执行完的返回值，然后把x0的值改掉</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(lldb) register write $x0 0</div><div class="line">(lldb) c</div></pre></td></tr></table></figure>
-<p>此时会发现我们要刷新的那条小视频内容全部为空<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91-%E8%BD%AC%E5%8F%91%E5%B0%8F%E8%A7%86%E9%A2%91%E4%B8%BA%E7%A9%BA.jpg" alt="小视频内容为空"><br>到这里已经找到了小视频的源数据获取方法，问题是我们怎么拿到这个WCDataItem呢？继续看IDA分析函数的调用情况：  </p>
+<p>此时会发现我们要刷新的那条小视频内容全部为空<br><img src="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91-%E8%BD%AC%E5%8F%91%E5%B0%8F%E8%A7%86%E9%A2%91%E4%B8%BA%E7%A9%BA.jpg" alt="小视频内容为空"><br>到这里已经找到了小视频的源数据获取方法，问题是我们怎么拿到这个WCDataItem呢？继续看IDA分析函数的调用情况：  </p>
 <blockquote>
 <p>   WCTimeLineViewController - (void)genNormalCell:(id) indexPath:(id)  </p>
 </blockquote>
@@ -417,7 +437,7 @@
 <p><code>selRef_getTimelineDataItemOfIndex_</code>传入的参数是x2，可以看到传值给x2的x21是函数<code>selRef_calcDataItemIndex_</code>的返回值，是一个unsigned long数据类型。继续分析，<code>selRef_getTimelineDataItemOfIndex_</code>函数的调用者是上一步<code>selRef_getService_</code>的返回值，经过断点分析发现是一个<code>WCFacade</code>对象。整理一下<code>selRef_getTimelineDataItemOfIndex_</code>的调用：<br><strong>调用者是<code>selRef_getService_</code>的返回值；参数是<code>selRef_calcDataItemIndex_</code>的返回值</strong><br>下面把目光转向那两个函数，用相同的原理分析它们各自怎么实现调用  </p>
 <ol>
 <li>先看<code>selRef_getService_</code>：<br>在0x101287CB4这个位置可以发现，这个函数的调用者是从通过x19 MOV的，打印x19发现是一个<code>MMServiceCenter</code>对象，往上找x19是在0x101287C88这个位置赋值的，结果很清晰x19是<code>[MMServiceCenter defaultCenter]</code>的返回值。<br>在0x101287CA4位置可以找到传入的参数x2，往上分析可以看出来它的参数是<code>[WCFacade class]</code>的返回值。  </li>
-<li>接着找<code>selRef_calcDataItemIndex_</code>：<br>在0x101287C58的位置找到它的调用者x0，x0通过x22赋值，继续向上寻找，发现在最上面0x101287BF0的位置，x22是x0赋值的，一开始的x0就是<code>WCTimeLineViewController</code>自身。<br>在0x101287C4C位置发现传入的参数来自x2,x2是通过上一步<code>selRef_section</code>函数的返回值x0赋值的，在0x101287C30位置可以发现<code>selRef_section</code>函数的调用者是x20赋值的，如下图所示，最终找到<code>selRef_section</code>的调用者是x3<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-selRef_section%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E8%80%85.png" alt="selRef_section函数的调用者"><br>x3就是函数<code>WCTimeLineViewController - (void)genNormalCell:(id) indexPath:(id)</code>的第二个参数indexPath,，所以<code>selRef_calcDataItemIndex_</code>的参数是<code>[IndexPath section]</code>。<br>对上面的分析结果做个梳理：<br>因此<code>getTimelineDataItemOfIndex:</code>的调用者可以通过</li>
+<li>接着找<code>selRef_calcDataItemIndex_</code>：<br>在0x101287C58的位置找到它的调用者x0，x0通过x22赋值，继续向上寻找，发现在最上面0x101287BF0的位置，x22是x0赋值的，一开始的x0就是<code>WCTimeLineViewController</code>自身。<br>在0x101287C4C位置发现传入的参数来自x2,x2是通过上一步<code>selRef_section</code>函数的返回值x0赋值的，在0x101287C30位置可以发现<code>selRef_section</code>函数的调用者是x20赋值的，如下图所示，最终找到<code>selRef_section</code>的调用者是x3<br><img src="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-selRef_section%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E8%80%85.png" alt="selRef_section函数的调用者"><br>x3就是函数<code>WCTimeLineViewController - (void)genNormalCell:(id) indexPath:(id)</code>的第二个参数indexPath,，所以<code>selRef_calcDataItemIndex_</code>的参数是<code>[IndexPath section]</code>。<br>对上面的分析结果做个梳理：<br>因此<code>getTimelineDataItemOfIndex:</code>的调用者可以通过</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[MMServiceCenter defaultCenter] getService:[WCFacade class]]</div></pre></td></tr></table></figure>
 <p>来获得,它的参数可以通过下面的函数获取</p>
@@ -461,7 +481,7 @@
 <p>结果发现这三个ContrlEvent有对应的action，我们再看看这三个枚举的值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">typedef enum UIControlEvents : NSUInteger &#123;</div><div class="line">    UIControlEventTouchDown = 1 &lt;&lt;  0,</div><div class="line">    UIControlEventTouchDownRepeat = 1 &lt;&lt;  1,</div><div class="line">    UIControlEventTouchDragInside = 1 &lt;&lt;  2,</div><div class="line">    UIControlEventTouchDragOutside = 1 &lt;&lt;  3,</div><div class="line">    UIControlEventTouchDragEnter = 1 &lt;&lt;  4,</div><div class="line">    UIControlEventTouchDragExit = 1 &lt;&lt;  5,</div><div class="line">    UIControlEventTouchUpInside = 1 &lt;&lt;  6,</div><div class="line">    UIControlEventTouchUpOutside = 1 &lt;&lt;  7,</div><div class="line">    UIControlEventTouchCancel = 1 &lt;&lt;  8,</div><div class="line">	......</div><div class="line">&#125; UIControlEvents;</div></pre></td></tr></table></figure>
 <p>可以看出来UIControlEventTouchDown对应1，UIControlEventTouchUpInside对应128，UIControlEventTouchUpOutside对应64，三者相加正好193！原来调用<code>[#0x1277a9d70 allControlEvents]</code>的时候返回的应该是枚举，有多个枚举则把它们的值相加，是不是略坑？我也是这样觉得的！刚才我们把三种ControlEvent对应的action都打印出来了，继续LLDB+IDA进行动态分析。</p>
-<h4 id="（2）找到小视频拍摄完成跳转到发布界面的方法"><a href="#（2）找到小视频拍摄完成跳转到发布界面的方法" class="headerlink" title="（2）找到小视频拍摄完成跳转到发布界面的方法"></a>（2）找到小视频拍摄完成跳转到发布界面的方法</h4><p>因为要找到小视频发布的方法，所以对应的<code>btnPress</code>函数我们并不关心，把重点放在<code>btnRelease</code>上面，拍摄按钮松开后就会调用的方法。在IDA中找到这个方法<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-btnRelease.png" alt="MainFrameSightViewController - (void)btnRelease"><br>找到之后下个断点</p>
+<h4 id="（2）找到小视频拍摄完成跳转到发布界面的方法"><a href="#（2）找到小视频拍摄完成跳转到发布界面的方法" class="headerlink" title="（2）找到小视频拍摄完成跳转到发布界面的方法"></a>（2）找到小视频拍摄完成跳转到发布界面的方法</h4><p>因为要找到小视频发布的方法，所以对应的<code>btnPress</code>函数我们并不关心，把重点放在<code>btnRelease</code>上面，拍摄按钮松开后就会调用的方法。在IDA中找到这个方法<br><img src="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91-btnRelease.png" alt="MainFrameSightViewController - (void)btnRelease"><br>找到之后下个断点</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">(lldb) br s -a 0xac000+0x10209369C</div><div class="line">Breakpoint 4: where = WeChat`___lldb_unnamed_symbol108894$$WeChat + 32, address = 0x000000010213f69c</div><div class="line">Process 3813 stopped</div><div class="line">* thread #1: tid = 0xf1ef0, 0x000000010213f69c WeChat`___lldb_unnamed_symbol108894$$WeChat + 32, queue = &apos;com.apple.main-thread&apos;, stop reason = breakpoint 4.1</div><div class="line">    frame #0: 0x000000010213f69c WeChat`___lldb_unnamed_symbol108894$$WeChat + 32</div><div class="line">WeChat`___lldb_unnamed_symbol108894$$WeChat:</div><div class="line">-&gt;  0x10213f69c &lt;+32&gt;: bl     0x1028d0b60               ; symbol stub for: objc_msgSend</div><div class="line">    0x10213f6a0 &lt;+36&gt;: cmp    w0, #2                    ; =2 </div><div class="line">    0x10213f6a4 &lt;+40&gt;: b.ne   0x10213f6dc               ; &lt;+96&gt;</div><div class="line">    0x10213f6a8 &lt;+44&gt;: adrp   x8, 5489</div></pre></td></tr></table></figure>
 <p>用手机拍摄小视频然后松开，触发了断点，说明我们的猜想是正确的。继续分析发现代码是从上图的右边走的，看了一下没有什么方法是跳转到发布视频的，不过仔细看一下有一个block，是系统的延时block，位置在0x102093760。然后我们跟着断点进去，在0x1028255A0跳转到x16所存的地址</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">(lldb) si</div><div class="line">Process 3873 stopped</div><div class="line">* thread #1: tid = 0xf62c4, 0x00000001028d9598 WeChat`dispatch_after, queue = &apos;com.apple.main-thread&apos;, stop reason = instruction step into</div><div class="line">    frame #0: 0x00000001028d9598 WeChat`dispatch_after</div><div class="line">WeChat`dispatch_after:</div><div class="line">-&gt;  0x1028d9598 &lt;+0&gt;: adrp   x16, 1655</div><div class="line">    0x1028d959c &lt;+4&gt;: ldr    x16, [x16, #1056]</div><div class="line">    0x1028d95a0 &lt;+8&gt;: br     x16</div><div class="line"></div><div class="line">WeChat`dispatch_apply:</div><div class="line">    0x1028d95a4 &lt;+0&gt;: adrp   x16, 1655</div><div class="line">(lldb) po $x2</div><div class="line">&lt;__NSStackBlock__: 0x16fd49f88&gt;</div></pre></td></tr></table></figure>
@@ -479,7 +499,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">loc_1020951C4</div><div class="line">ADRP            X8, #selRef_hideTips@PAGE</div><div class="line">LDR             X1, [X8,#selRef_hideTips@PAGEOFF]</div><div class="line">MOV             X0, X19</div><div class="line">BL              _objc_msgSend</div><div class="line">ADRP            X8, #selRef_finishWriter@PAGE</div><div class="line">LDR             X1, [X8,#selRef_finishWriter@PAGEOFF]</div><div class="line">MOV             X0, X19</div><div class="line">BL              _objc_msgSend</div><div class="line">ADRP            X8, #selRef_turnCancelBtnForFinishRecording@PAGE</div><div class="line">LDR             X1, [X8,#selRef_turnCancelBtnForFinishRecording@PAGEOFF]</div><div class="line">MOV             X0, X19</div><div class="line">BL              _objc_msgSend</div><div class="line">B               loc_102095288</div></pre></td></tr></table></figure>
 <p>其中<code>selRef_finishWriter</code>和<code>selRef_turnCancelBtnForFinishRecording</code>需要重点关注，这两个方法看上去都是小视频录制结束的意思，线索极有可能就在这两个函数中。通过查看调用者发现这两个方法都属于MainFrameSightViewController，继续在IDA中查看这两个方法。在<code>selRef_finishWriter</code>中靠近末尾0x102094248的位置发现一个方法名叫做<code>f_switchToSendingPanel</code>，下个断点，然后拍摄视频，发现这个方法并没有被触发。应该不是通过这个方法调用发布界面的，继续回到<code>selRef_finishWriter</code>方法中；在0x1020941DC的位置调用方法<code>selRef_stopRecording</code>，打印它的调用者发现这个方法属于<code>SightFacade</code>，继续在IDA中寻找这个方法的实现。在这个方法的0x101F9BED4位置又调用了<code>selRef_stopRecord</code>，同样打印调用者发现这个方法属于SightCaptureLogicF4，有点像剥洋葱，继续在寻找这个方法的实现。在这个方法内部0x101A98778位置又调用了<code>selRef_finishWriting</code>，同样的原理找到这个方法是属于SightMovieWriter。已经剥了3层了，继续往下：<br>在<code>SightMovieWriter - (void)finishWriting</code>中的0x10261D004位置分了两条线，这个位置下个断点，然后拍摄完小视频触发断点，打印x19的值  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(lldb) po $x19</div><div class="line">&lt;OS_dispatch_queue: CAPTURE.CALLBACK[0x13610bcd0] = &#123; xrefcnt = 0x4, refcnt = 0x4, suspend_cnt = 0x0, locked = 1, target = com.apple.root.default-qos.overcommit[0x1a0aa3700], width = 0x0, running = 0x0, barrier = 1 &#125;&gt;</div></pre></td></tr></table></figure>
-<p>所以代码不会跳转到loc_10261D054而是走的左侧，在左侧的代码中发现启用了一个block，这个block是子程序sub_10261D0AC，地址为0x10261D0AC，找到这个地址，结构如下图所示：<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91sub_10261D0AC.png" alt="sub_10261D0AC"><br>可以看出来主要分两条线，我们在第一个方框的末尾也就是0x10261D108位置下个断点，等拍摄完毕触发断点之后打印x0的值为1，这里的汇编代码为  </p>
+<p>所以代码不会跳转到loc_10261D054而是走的左侧，在左侧的代码中发现启用了一个block，这个block是子程序sub_10261D0AC，地址为0x10261D0AC，找到这个地址，结构如下图所示：<br><img src="http://www.leonlei.top/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8F%91sub_10261D0AC.png" alt="sub_10261D0AC"><br>可以看出来主要分两条线，我们在第一个方框的末尾也就是0x10261D108位置下个断点，等拍摄完毕触发断点之后打印x0的值为1，这里的汇编代码为  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">__text:000000010261D104                 CMP             X0, #2</div><div class="line">__text:000000010261D108                 B.EQ            loc_10261D234</div></pre></td></tr></table></figure>
 <p>B.EQ是在上一步的结果为0才会跳转到loc_10261D234，但是这里的结果是不为0的，将x0的值改为2让上一步的结果为0  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(lldb) po $x0</div><div class="line">1</div><div class="line">(lldb) register write $x0 2</div><div class="line">(lldb) po $x0</div><div class="line">2</div></pre></td></tr></table></figure>
@@ -588,6 +608,13 @@
           
 
   
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
 
 
 
@@ -604,8 +631,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
-      <div id="sidebar-dimmer"></div>
     
     <div class="sidebar-inner">
 
@@ -626,6 +651,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="LeonLei" />
+            
               <p class="site-author-name" itemprop="name">LeonLei</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -637,7 +666,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -647,10 +676,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">6</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -658,10 +687,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">29</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -670,6 +699,20 @@
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gaoshilei" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:goslei1315@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
             
           </div>
 
@@ -714,7 +757,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -732,12 +775,32 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
 
 
 
@@ -752,6 +815,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -832,13 +897,6 @@
   
   
 
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
-
-
-
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
@@ -880,6 +938,43 @@
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'gaoshilei',
+            repo: 'hexo-blog',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b946abb2465eb43577179f70e428b6a8ecacbab8',
+            
+                client_id: '4c55f9f88f8a23e444c2'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
 
 
 
@@ -901,6 +996,8 @@
   
 
   
+  
+
 
   
 

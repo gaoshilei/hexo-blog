@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SDK,CocoaPods," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近整理项目，发现用到了很多第三方的SDK，这些SDK都是直接拖到项目里面的比较乱，打算把这些乱七八糟的第三方SDK全都交给 CocoaPods 来管理。 什么是CocoaPods？  你不知道 CocoaPods 是什么？给你个传送门 https://cocoapods.org CocoaPods 新建本地仓库这里我用微信 SDK 来举个栗子，从微信开发者中心下载对应的 SDK。">
+<meta name="keywords" content="SDK,CocoaPods">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用CocoaPods管理第三方SDK">
+<meta property="og:url" content="http://www.gaoshilei.com/2018/01/19/cocopods_private_sdk_repo/index.html">
+<meta property="og:site_name" content="LeonLei的博客">
+<meta property="og:description" content="最近整理项目，发现用到了很多第三方的SDK，这些SDK都是直接拖到项目里面的比较乱，打算把这些乱七八糟的第三方SDK全都交给 CocoaPods 来管理。 什么是CocoaPods？  你不知道 CocoaPods 是什么？给你个传送门 https://cocoapods.org CocoaPods 新建本地仓库这里我用微信 SDK 来举个栗子，从微信开发者中心下载对应的 SDK。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.leonlei.top/whats_cocoapods.jpg">
+<meta property="og:image" content="http://www.leonlei.top/cocopods_example.jpeg?imageMogr2/thumbnail/!45p">
+<meta property="og:image" content="http://www.leonlei.top/cocopods_central_repo.png">
+<meta property="og:image" content="http://www.leonlei.top/pod_search_wechatsdk_CocoapodsPrivate.png">
+<meta property="og:updated_time" content="2018-03-28T01:58:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何使用CocoaPods管理第三方SDK">
+<meta name="twitter:description" content="最近整理项目，发现用到了很多第三方的SDK，这些SDK都是直接拖到项目里面的比较乱，打算把这些乱七八糟的第三方SDK全都交给 CocoaPods 来管理。 什么是CocoaPods？  你不知道 CocoaPods 是什么？给你个传送门 https://cocoapods.org CocoaPods 新建本地仓库这里我用微信 SDK 来举个栗子，从微信开发者中心下载对应的 SDK。">
+<meta name="twitter:image" content="http://www.leonlei.top/whats_cocoapods.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.gaoshilei.com/2018/01/19/cocopods_private_sdk_repo/"/>
+
+
+
+
+
+  <title>如何使用CocoaPods管理第三方SDK | LeonLei的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LeonLei的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">代码略懂，精通LOL</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2018/01/19/cocopods_private_sdk_repo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LeonLei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeonLei的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">如何使用CocoaPods管理第三方SDK</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-19T00:00:00+08:00">
+                2018-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/小技巧/" itemprop="url" rel="index">
+                    <span itemprop="name">小技巧</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近整理项目，发现用到了很多第三方的SDK，这些SDK都是直接拖到项目里面的比较乱，打算把这些乱七八糟的第三方SDK全都交给 CocoaPods 来管理。</p>
+<h1 id="什么是CocoaPods？"><a href="#什么是CocoaPods？" class="headerlink" title="什么是CocoaPods？"></a>什么是CocoaPods？</h1><p> <img src="http://www.leonlei.top/whats_cocoapods.jpg" alt="一脸懵逼"><br> 你不知道 CocoaPods 是什么？给你个传送门 <a href="https://cocoapods.org" target="_blank" rel="external">https://cocoapods.org</a></p>
+<h1 id="CocoaPods-新建本地仓库"><a href="#CocoaPods-新建本地仓库" class="headerlink" title="CocoaPods 新建本地仓库"></a>CocoaPods 新建本地仓库</h1><p>这里我用微信 SDK 来举个栗子，从微信开发者中心下载对应的 SDK。</p>
+<a id="more"></a>
+<p> <img src="http://www.leonlei.top/cocopods_example.jpeg?imageMogr2/thumbnail/!45p" alt="举个栗子" align="center">  </p>
+<p> 我们得到一个 WechatSDK 文件夹，里面的内容也比较简单</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">└── WechatSDK  </div><div class="line">    ├── libWeChatSDK.a </div><div class="line">    ├── README.txt</div><div class="line">    ├── WechatAuthSDK.h</div><div class="line">    ├── WXApi.h</div><div class="line">    └── WXApiObject.h</div></pre></td></tr></table></figure>
+<p>要让 CocoaPods 来管理第三方 SDK，我们需要将第三方 SDK 制作成一个仓库，跟平时我们使用 Podfile 一样。 下面我们要在  WechatSDK 目录下新建一个 <code>.podspec</code> 格式的文件，这个文件主要是用来描述当前仓库的一些信息，它的格式官网有介绍，不赘述。<a href="http://guides.cocoapods.org/syntax/podspec.html" target="_blank" rel="external">http://guides.cocoapods.org/syntax/podspec.html</a>  </p>
+<p>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a>   </p>
+<p>按照他要求的格式，新建 WechatSDK.podspec 并填入下面这些信息：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># coding: utf-8</span></div><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">  s.name         = <span class="string">"WechatSDK"</span> <span class="comment">#必填，仓库的名称，Podfile中会用到，类似于 AFNetworking</span></div><div class="line"></div><div class="line">  s.version      = <span class="string">"1.8.2"</span> <span class="comment">#必填，版本号</span></div><div class="line"></div><div class="line">  s.summary      = <span class="string">"微信SDK"</span> <span class="comment"># 随便写写吧</span></div><div class="line"></div><div class="line">  s.description  = &lt;&lt;-DESC <span class="comment"># 随便写写吧</span></div><div class="line">                    WechatSDK repo</div><div class="line">                     DESC</div><div class="line"></div><div class="line">  s.homepage     = <span class="string">"http://git.internal.weyao.com/gaoshilei/WechatSDK"</span> <span class="comment"># 随便写写吧</span></div><div class="line">  s.license    =  <span class="string">'MIT'</span> <span class="comment"># 随便写写吧</span></div><div class="line">  s.authors      = &#123; <span class="string">"gaoshilei"</span> =&gt; <span class="string">"goslei@163.com"</span> &#125; <span class="comment"># 随便写写吧</span></div><div class="line">  s.platform     = <span class="symbol">:ios</span> <span class="comment"># 必填</span></div><div class="line">  s.ios.deployment_target = <span class="string">'8.0'</span> <span class="comment"># 必填</span></div><div class="line">  s.source =  &#123; <span class="symbol">:git</span> =&gt; <span class="string">'./Vendors/WechatSDK'</span>, <span class="symbol">:tag</span> =&gt; <span class="string">"1.8.2"</span> &#125; <span class="comment"># 必填，这是你的仓库相对于 Podfile 的路径（我试过写绝对路径，最后报错了）</span></div><div class="line">  s.source_files = <span class="string">'*.&#123;h,m,mm,c&#125;'</span> <span class="comment"># 必填，代码文件。如果你还有二级目录，要包含所有二级目录中的代码文件，用**表示。上面给的链接中也有介绍</span></div><div class="line">  <span class="comment"># s.frameworks = 'QuartzCore', 'CoreData' #这里是第三方 SDK 使用到的一些系统 Framework</span></div><div class="line">  s.vendored_libraries = <span class="string">'libWeChatSDK.a'</span> <span class="comment"># 如果第三方 SDK 有lib包，这个是必填的（注意路径）</span></div><div class="line">  <span class="comment"># s.vendored_frameworks = 'ThirdPartyFramework.framework' #第三方SDK如果有 Framework，需要在这里加上（注意路径）</span></div><div class="line">  s.requires_arc = <span class="literal">true</span> <span class="comment"># 加上就行，除非你还在写MRC的代码</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p> <code>s.source</code> 这个键需要详细讲解一下。这是 CocoaPods 需要读取的 git 仓库地址，这里直接写成本地的仓库路径就可以了，不过要在 WechatSDK 文件夹中新建 git 仓库。然后 tag 能对应上就可以了。在当前目录下执行下面的命令：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git init </div><div class="line">git add.</div><div class="line">git commit -m &quot;commit&quot;</div><div class="line">git tag 1.8.2</div></pre></td></tr></table></figure>
+<p>注意 git 仓库地址的路径要填相对于你项目 Podfile 的路径，我的项目 Podfile 跟 文件夹 Vendors 是同级的，所以我应该这么写 <code>./Vendors/WechatSDK</code> 。<br>到这里工作已经完成一大半了，下面就是要在项目 Podfile 文件中正确配置  </p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">pod <span class="string">'AFNetworking'</span></div><div class="line">......</div><div class="line">pod <span class="string">'WechatSDK'</span>, <span class="symbol">:podspec</span> =&gt; <span class="string">'./Vendors/WechatSDK/WechatSDK.podspec'</span></div><div class="line">......</div></pre></td></tr></table></figure>
+<p>后面指定仓库配置文件的路径就可以了，这里也要注意是相对于 Podfile 文件的路径。然后在项目中执行 <code>pod install --no-repo-update</code> 安装，一般可能会有以下的问题（我在制作过程中遇到的）  </p>
+<p>第一种情况： </p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[!] Failed to load <span class="string">'WechatSDK'</span> <span class="symbol">podspec:</span></div><div class="line">[!] Invalid <span class="string">`WechatSDK.podspec`</span> <span class="symbol">file:</span> undefined local variable <span class="keyword">or</span> method <span class="string">`tag`</span> <span class="keyword">for</span> <span class="symbol">Pod:</span>Module</div></pre></td></tr></table></figure>
+<p>这种情况是 CocoaPods 没有找到仓库的 podspec 配置文件，原因是 Podfile 中的路径写错了，改成仓库相对于 Podfile 的路径就可以了。</p>
+<p>第二种情况：  </p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[!] Error installing WechatSDK</div><div class="line">[!] /usr/bin/git clone $HOME/Desktop/LittleBee/LittleBee_iOS/Vendors/WechatSDK /var/folders/<span class="number">6</span>y/w9bcrs915g17gt732n84x6p40000gn/T/d20180119-<span class="number">75062</span>-<span class="number">1</span>jdxrw8 --template= --single-branch --depth <span class="number">1</span> --branch <span class="number">1.8</span>.<span class="number">2</span></div><div class="line"></div><div class="line"><span class="symbol">fatal:</span> repository <span class="string">'$HOME/Desktop/LittleBee/LittleBee_iOS/Vendors/WechatSDK'</span> does <span class="keyword">not</span> exist</div></pre></td></tr></table></figure>
+<p>这就很明显了，仓库找不到，因为 <code>WechatSDK.podspec</code> 中<code>s.source</code>路径写的是绝对路径，解决方法就是改成相对路径。  </p>
+<p>第三种情况：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[!] The <span class="string">`WechatSDK`</span> pod failed to validate due to <span class="number">1</span> <span class="symbol">error:</span></div><div class="line">    - ERROR <span class="params">| [iOS] File Patterns: File patterns must be relative <span class="keyword">and</span> cannot start with a slash (source_files).</span></div></pre></td></tr></table></figure>
+<p>这种情况就是 podspec 配置文件格式不对，对照官网的文档修改一下就行。   </p>
+<p><strong>上面是将第三方 SDK 制作成了 CocoaPods 库，你也可以将你自己的代码制作成库，将 s.source 改成 github 上的地址，就制作了一个线上可以共享的 CocoaPods 库，类似于 AFNetworking，这个要多一个步骤，将自己的开源库配置文件推送到 CocoaPods 的 podspec 仓库中（我还没有制作过，具体步骤自行百度或者谷歌吧）</strong></p>
+<h1 id="创建私有中心仓库"><a href="#创建私有中心仓库" class="headerlink" title="创建私有中心仓库"></a>创建私有中心仓库</h1><p>上面都完成，貌似是挺完美，但还是有缺陷的。明显跟我们平时使用的 pod 格式不一样，后面还要配置路径太麻烦了，如果能这样用：  </p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pod <span class="string">'AFNetworking'</span></div><div class="line">pod <span class="string">'WechatSDK'</span></div><div class="line">......</div></pre></td></tr></table></figure>
+<p>这样岂不就完美了！CocoaPods 其实是通过 podspec 来管理所有的仓库的，在我们的本地有一个目录 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~/.cocoapods/repos</div></pre></td></tr></table></figure>
+<p>CocoaPods 把中心仓库放在了这个位置，所以平时我们执行 <code>pod install</code> 都会去这个中心仓库查看是否有对应的目标开源组件，然后<code>git clone</code>下来，所以有时候明明有这个开源组件，但是我们执行 <code>pod install</code> 总提示安装失败，没有这个目录。那是因为本地的 repos 太旧了，这个时候执行 <code>pod repo update</code> 一下就可以了。基于 CocoaPods 这个原理，我们就可以实现上面提到的方式了。</p>
+<p>先看下 CocoaPods 的中心仓库是怎么管理这些开源插件的</p>
+<p><img src="http://www.leonlei.top/cocopods_central_repo.png" alt="AFNetworking">  </p>
+<p>路径是这个样子的  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">LeonLeiMBP15-145:AFNetworking gaoshilei$ pwd</div><div class="line">/Users/gaoshilei/.cocoapods/repos/master/Specs/a/7/5/AFNetworking</div><div class="line">LeonLeiMBP15-145:AFNetworking gaoshilei$ cd 3.1.0/</div><div class="line">LeonLeiMBP15-145:3.1.0 gaoshilei$ ls -o</div><div class="line">total 8</div><div class="line">-rw-r--r--  1 gaoshilei  2889 12 19  2016 AFNetworking.podspec.json</div></pre></td></tr></table></figure>
+<p>AFNetworking 下面有很多版本号的文件夹，每个版本号下面对应的是仓库的配置文件.podspec格式化的json文件。照葫芦画瓢我们就可以创建自己的私有中心仓库。找个目录建立自己的私有中心仓库  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">LeonLeiMBP15-145:~ gaoshilei$ cd Desktop/</div><div class="line">LeonLeiMBP15-145:Desktop gaoshilei$ mkdir CocopodsPrivate</div><div class="line">LeonLeiMBP15-145:Desktop gaoshilei$ cd CocopodsPrivate/</div><div class="line">LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ mkdir WechatSDK</div><div class="line">LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ cd WechatSDK/</div><div class="line">LeonLeiMBP15-145:WechatSDK gaoshilei$ mkdir 1.8.2</div><div class="line">LeonLeiMBP15-145:WechatSDK gaoshilei$ cd 1.8.2/</div><div class="line">LeonLeiMBP15-145:1.8.2 gaoshilei$ cp ~/Desktop/LittleBee/LittleBee_iOS/Vendors/WechatSDK/WechatSDK.podspec .</div></pre></td></tr></table></figure>
+<p>此时私有中心仓库已经建好了，下面就是要让 CocoaPods 知道这个仓库的存在，为了方便团队开发时直接使用，这个中心仓库需要放到公司 git 上共享：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ git init</div><div class="line">Initialized empty Git repository in /Users/gaoshilei/Desktop/CocopodsPrivate/.git/</div><div class="line">LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ git add .</div><div class="line">LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ git commit -m &quot;first commit&quot;</div><div class="line">[master (root-commit) aa27f56] first commit</div><div class="line"> 1 file changed, 25 insertions(+)</div><div class="line"> create mode 100644 WechatSDK/1.8.2/WechatSDK.podspec</div><div class="line">LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ git remote add origin git@git.internal.weyao.com:gaoshilei/CocoapodsPrivate.git</div><div class="line">LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ git push origin master</div></pre></td></tr></table></figure>
+<p>然后再将这个私有中心仓库添加到 CocoaPods 中  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LeonLeiMBP15-145:CocopodsPrivate gaoshilei$ pod repo add CocoapodsPrivate git@git.internal.weyao.com:gaoshilei/CocoapodsPrivate.git</div></pre></td></tr></table></figure>
+<p>添加成功之后，执行 <code>pod search WechatSDK</code> 可以看到，刚才添加的已经可以搜到了，并且版本号后面显示来自仓库<code>CocoapodsPrivate</code>  </p>
+<p><img src="http://www.leonlei.top/pod_search_wechatsdk_CocoapodsPrivate.png" alt="私有仓库搜索结果">  </p>
+<p>让团队其他成员执行 <code>pod repo add CocoapodsPrivate git@git.internal.weyao.com:gaoshilei/CocoapodsPrivate.git</code> 之后，就可以使用这个私有中心仓库了。  </p>
+<p>PS：当你可以搜到 <code>WechatSDK</code> 时却无法正常执行 <code>pod install</code>，会报这样的错：<code>[!] Unable to find a specification for &#39;WechatSDK&#39;</code> ，那是因为项目的 Podfile 中需要添加相应的仓库地址才行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">platform :ios, &apos;8.0&apos;</div><div class="line">source &apos;https://github.com/CocoaPods/Specs.git&apos;</div><div class="line">source &apos;git@git.internal.weyao.com:gaoshilei/CocoapodsPrivate.git&apos;</div><div class="line">......</div><div class="line">  pod &apos;WechatSDK&apos;</div><div class="line">......</div></pre></td></tr></table></figure>
+<p>把这两条添加进去，然后再执行 <code>pod install</code> 就没问题了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SDK/" rel="tag"># SDK</a>
+          
+            <a href="/tags/CocoaPods/" rel="tag"># CocoaPods</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/27/wechatproservice/" rel="next" title="搭建微信小程序服务">
+                <i class="fa fa-chevron-left"></i> 搭建微信小程序服务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/22/docs/15481533702048/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="LeonLei" />
+            
+              <p class="site-author-name" itemprop="name">LeonLei</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gaoshilei" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:goslei1315@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是CocoaPods？"><span class="nav-number">1.</span> <span class="nav-text">什么是CocoaPods？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CocoaPods-新建本地仓库"><span class="nav-number">2.</span> <span class="nav-text">CocoaPods 新建本地仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建私有中心仓库"><span class="nav-number">3.</span> <span class="nav-text">创建私有中心仓库</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeonLei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'gaoshilei',
+            repo: 'hexo-blog',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b946abb2465eb43577179f70e428b6a8ecacbab8',
+            
+                client_id: '4c55f9f88f8a23e444c2'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

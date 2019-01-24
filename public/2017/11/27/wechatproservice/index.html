@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="准备工作 1、域名 2、注册开发者账号 3、开发者后台配置服务器信息   配置服务搭建HTTP服务安装NodeJS和NPM执行下面的命令安装：   12curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -yum install nodejs -y">
+<meta name="description" content="准备 1、域名 2、注册开发者账号 3、开发者后台配置服务器信息   配置服务搭建HTTP服务安装NodeJS和NPM执行下面的命令安装：   12curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -yum install nodejs -y">
 <meta name="keywords" content="个人博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="搭建微信小程序服务">
 <meta property="og:url" content="http://www.gaoshilei.com/2017/11/27/wechatproservice/index.html">
 <meta property="og:site_name" content="LeonLei的博客">
-<meta property="og:description" content="准备工作 1、域名 2、注册开发者账号 3、开发者后台配置服务器信息   配置服务搭建HTTP服务安装NodeJS和NPM执行下面的命令安装：   12curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -yum install nodejs -y">
+<meta property="og:description" content="准备 1、域名 2、注册开发者账号 3、开发者后台配置服务器信息   配置服务搭建HTTP服务安装NodeJS和NPM执行下面的命令安装：   12curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -yum install nodejs -y">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-28T08:40:06.042Z">
+<meta property="og:updated_time" content="2017-12-13T02:50:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建微信小程序服务">
-<meta name="twitter:description" content="准备工作 1、域名 2、注册开发者账号 3、开发者后台配置服务器信息   配置服务搭建HTTP服务安装NodeJS和NPM执行下面的命令安装：   12curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -yum install nodejs -y">
+<meta name="twitter:description" content="准备 1、域名 2、注册开发者账号 3、开发者后台配置服务器信息   配置服务搭建HTTP服务安装NodeJS和NPM执行下面的命令安装：   12curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -yum install nodejs -y">
 
 
 
@@ -109,9 +109,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Muse',
     version: '5.1.3',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -143,6 +143,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -202,12 +212,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            关于
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -222,12 +242,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            归档
+            关于
           </a>
         </li>
       
@@ -259,7 +279,7 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -269,7 +289,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -353,10 +373,10 @@
       
 
       
-        <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p> 1、域名<br> 2、注册开发者账号<br> 3、开发者后台配置服务器信息  </p>
+        <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p> 1、域名<br> 2、注册开发者账号<br> 3、开发者后台配置服务器信息  </p>
 <h1 id="配置服务"><a href="#配置服务" class="headerlink" title="配置服务"></a>配置服务</h1><h2 id="搭建HTTP服务"><a href="#搭建HTTP服务" class="headerlink" title="搭建HTTP服务"></a>搭建HTTP服务</h2><h3 id="安装NodeJS和NPM"><a href="#安装NodeJS和NPM" class="headerlink" title="安装NodeJS和NPM"></a>安装NodeJS和NPM</h3><p>执行下面的命令安装：  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -</div><div class="line">yum install nodejs -y</div></pre></td></tr></table></figure>
-<a id="more"></a>
+ <a id="more"></a>
 <h3 id="编写-HTTP-Server-源码"><a href="#编写-HTTP-Server-源码" class="headerlink" title="编写 HTTP Server 源码"></a>编写 HTTP Server 源码</h3><p>先创建一个工作目录  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root@172.17.0.9:~</div><div class="line"># mkdir -p /data/release/weapp</div></pre></td></tr></table></figure>
 <p>然后进入这个目录  </p>
@@ -464,6 +484,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/01/19/cocopods_private_sdk_repo/" rel="prev" title="如何使用CocoaPods管理第三方SDK">
+                如何使用CocoaPods管理第三方SDK <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -492,6 +516,13 @@
           
 
   
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
 
 
 
@@ -508,8 +539,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
-      <div id="sidebar-dimmer"></div>
     
     <div class="sidebar-inner">
 
@@ -530,6 +559,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="LeonLei" />
+            
               <p class="site-author-name" itemprop="name">LeonLei</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -541,7 +574,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -551,10 +584,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">6</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -562,10 +595,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">29</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -574,6 +607,20 @@
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gaoshilei" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:goslei1315@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
             
           </div>
 
@@ -598,7 +645,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置服务"><span class="nav-number">2.</span> <span class="nav-text">配置服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建HTTP服务"><span class="nav-number">2.1.</span> <span class="nav-text">搭建HTTP服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装NodeJS和NPM"><span class="nav-number">2.1.1.</span> <span class="nav-text">安装NodeJS和NPM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写-HTTP-Server-源码"><span class="nav-number">2.1.2.</span> <span class="nav-text">编写 HTTP Server 源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行HTTP服务"><span class="nav-number">2.1.3.</span> <span class="nav-text">运行HTTP服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建HTTPS服务"><span class="nav-number">2.2.</span> <span class="nav-text">搭建HTTPS服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Nginx"><span class="nav-number">2.2.1.</span> <span class="nav-text">安装Nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置HTTPS反向代理"><span class="nav-number">2.2.2.</span> <span class="nav-text">配置HTTPS反向代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置小程序会话"><span class="nav-number">2.3.</span> <span class="nav-text">配置小程序会话</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装MongoDB"><span class="nav-number">2.3.1.</span> <span class="nav-text">安装MongoDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动MongoDB"><span class="nav-number">2.3.2.</span> <span class="nav-text">启动MongoDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-MongoDB-用户"><span class="nav-number">2.3.3.</span> <span class="nav-text">添加 MongoDB 用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Node模块"><span class="nav-number">2.3.4.</span> <span class="nav-text">安装Node模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现小程序会话"><span class="nav-number">2.3.5.</span> <span class="nav-text">实现小程序会话</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocket-服务"><span class="nav-number">2.4.</span> <span class="nav-text">WebSocket 服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Node模块-1"><span class="nav-number">2.4.1.</span> <span class="nav-text">安装Node模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现WebSocket服务"><span class="nav-number">2.4.2.</span> <span class="nav-text">实现WebSocket服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新Nginx代理"><span class="nav-number">2.4.3.</span> <span class="nav-text">更新Nginx代理</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置服务"><span class="nav-number">2.</span> <span class="nav-text">配置服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建HTTP服务"><span class="nav-number">2.1.</span> <span class="nav-text">搭建HTTP服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装NodeJS和NPM"><span class="nav-number">2.1.1.</span> <span class="nav-text">安装NodeJS和NPM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写-HTTP-Server-源码"><span class="nav-number">2.1.2.</span> <span class="nav-text">编写 HTTP Server 源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行HTTP服务"><span class="nav-number">2.1.3.</span> <span class="nav-text">运行HTTP服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建HTTPS服务"><span class="nav-number">2.2.</span> <span class="nav-text">搭建HTTPS服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Nginx"><span class="nav-number">2.2.1.</span> <span class="nav-text">安装Nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置HTTPS反向代理"><span class="nav-number">2.2.2.</span> <span class="nav-text">配置HTTPS反向代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置小程序会话"><span class="nav-number">2.3.</span> <span class="nav-text">配置小程序会话</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装MongoDB"><span class="nav-number">2.3.1.</span> <span class="nav-text">安装MongoDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动MongoDB"><span class="nav-number">2.3.2.</span> <span class="nav-text">启动MongoDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-MongoDB-用户"><span class="nav-number">2.3.3.</span> <span class="nav-text">添加 MongoDB 用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Node模块"><span class="nav-number">2.3.4.</span> <span class="nav-text">安装Node模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现小程序会话"><span class="nav-number">2.3.5.</span> <span class="nav-text">实现小程序会话</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocket-服务"><span class="nav-number">2.4.</span> <span class="nav-text">WebSocket 服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Node模块-1"><span class="nav-number">2.4.1.</span> <span class="nav-text">安装Node模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现WebSocket服务"><span class="nav-number">2.4.2.</span> <span class="nav-text">实现WebSocket服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新Nginx代理"><span class="nav-number">2.4.3.</span> <span class="nav-text">更新Nginx代理</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -618,7 +665,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -636,12 +683,32 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
 
 
 
@@ -656,6 +723,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -736,13 +805,6 @@
   
   
 
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
-
-
-
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
@@ -784,6 +846,43 @@
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'gaoshilei',
+            repo: 'hexo-blog',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b946abb2465eb43577179f70e428b6a8ecacbab8',
+            
+                client_id: '4c55f9f88f8a23e444c2'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
 
 
 
@@ -805,6 +904,8 @@
   
 
   
+  
+
 
   
 

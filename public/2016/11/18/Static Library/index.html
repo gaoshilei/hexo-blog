@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -98,21 +98,21 @@
 <meta property="og:site_name" content="LeonLei的博客">
 <meta property="og:description" content="前言    以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。  最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E9%9D%99%E6%80%81%E5%BA%93.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E5%BA%93.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E6%83%85%E5%86%B5.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%B7%A5%E7%A8%8B%E6%80%A7%E8%B4%A8.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9A%B4%E9%9C%B2%E5%A4%B4%E6%96%87%E4%BB%B6.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%80%89%E6%8B%A9%E7%BC%96%E8%AF%91%E6%96%B9%E5%BC%8F.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E7%B3%BB%E7%BB%9F%E5%8A%A8%E6%80%81%E5%BA%93%E6%8A%A5%E9%94%99.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9B%BF%E6%8D%A2%E4%BE%9D%E8%B5%96%E5%BA%93.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%88%B6%E4%BD%9C%E5%AE%8C%E6%88%90%E4%BD%BF%E7%94%A8.png">
-<meta property="og:updated_time" content="2017-11-02T13:09:57.230Z">
+<meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png">
+<meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E9%9D%99%E6%80%81%E5%BA%93.png">
+<meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E5%BA%93.png">
+<meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E6%83%85%E5%86%B5.png">
+<meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%B7%A5%E7%A8%8B%E6%80%A7%E8%B4%A8.png">
+<meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9A%B4%E9%9C%B2%E5%A4%B4%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%80%89%E6%8B%A9%E7%BC%96%E8%AF%91%E6%96%B9%E5%BC%8F.png">
+<meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E7%B3%BB%E7%BB%9F%E5%8A%A8%E6%80%81%E5%BA%93%E6%8A%A5%E9%94%99.png">
+<meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9B%BF%E6%8D%A2%E4%BE%9D%E8%B5%96%E5%BA%93.png">
+<meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%88%B6%E4%BD%9C%E5%AE%8C%E6%88%90%E4%BD%BF%E7%94%A8.png">
+<meta property="og:updated_time" content="2018-03-12T03:26:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS静态库SDK制作（包含第三方静态库）">
 <meta name="twitter:description" content="前言    以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。  最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
-<meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png">
+<meta name="twitter:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png">
 
 
 
@@ -120,9 +120,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Muse',
     version: '5.1.3',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -154,6 +154,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -213,12 +223,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            关于
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -233,12 +253,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            归档
+            关于
           </a>
         </li>
       
@@ -280,7 +300,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -406,14 +426,14 @@
 <h4 id="2-a静态库"><a href="#2-a静态库" class="headerlink" title="2.    .a静态库"></a>2.    .a静态库</h4><p>这类静态库与Framework基本类似，不同的是在打包成.a文件的同时，还需要提供头文件，使用时相较于Framework比较麻烦，（例如<a href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&amp;t=resource/res_list&amp;verify=1&amp;id=open1419319164&amp;token=&amp;lang=zh_CN" target="_blank" rel="external">微信支付SDK</a>使用的是.a，不同的是<a href="https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.Ijm3sG&amp;treeId=193&amp;articleId=104509&amp;docType=1" target="_blank" rel="external">支付宝SDK</a>是以framework的形式打包的）。.a这样打包不够方便，而Framework编译完成暴露的头文件都已经放好了。 </p>
 <h4 id="3-dylib-tbd-动态库"><a href="#3-dylib-tbd-动态库" class="headerlink" title="3.    .dylib/.tbd 动态库"></a>3.    .dylib/.tbd 动态库</h4><p>这类动态库我们也经常用，基本上都是系统提供的，一般不能自己制作，就算你通过其他方式制作使用，也肯定不能上架的，这里没什么好讲的。 </p>
 <h2 id="二-Framework的制作"><a href="#二-Framework的制作" class="headerlink" title="二.    Framework的制作"></a>二.    Framework的制作</h2><p>动态库与静态库的制作流程基本一样，包括头文件的暴露等，唯一不同的是Mach-O文件的编译形式。本节将介绍Xcode制作Framework的过程，本次制作的Framework静态库依赖其他第三方静态库（Framework和.a）。</p>
-<p>1&gt;    新建工程<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png" alt="新建Framework工程"><br>这里要选Framework，如果选择右边的Static Library制作出来的是.a静态库。</p>
-<p>2&gt;    导入所有要打包的文件和其他第三方静态库<br>正常导入要打包的文件就可以了，在导入第三方静态库的时候要注意，不要选择添加到target中，如果添加进去要去target里面把第三方静态库删掉（只需导入，不要添加进target）<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E9%9D%99%E6%80%81%E5%BA%93.png" alt="导入第三方静态库"><br>导入第三方静态库之后再link依赖的系统库，像这样<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E5%BA%93.png" alt="link依赖库"><br>注意上面的运行目标，因为我用的是Xcode8，最低支持到iOS8。<br>要打包的文件和第三方静态库全部导入完成<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E6%83%85%E5%86%B5.png" alt="所有文件导入情况">   </p>
-<p>3&gt;    项目性质修改<br>把项目的membership需改为public，否则头文件暴露将会不正常<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%B7%A5%E7%A8%8B%E6%80%A7%E8%B4%A8.png" alt="修改项目的membership">  </p>
-<p>4&gt;    暴露头文件<br>将头文件暴露出去，供外界使用，所有的编译文件都在Project中，需要右击添加到public里面<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9A%B4%E9%9C%B2%E5%A4%B4%E6%96%87%E4%BB%B6.png" alt="暴露头文件">  </p>
-<p><strong>5&gt;    选择Mach-O的编译方式</strong><br>这是最重要的一步，这一步决定我们制作出来的是静态库还是动态库，默认选择的是Dynamic Library，要手动选择Static Library<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%80%89%E6%8B%A9%E7%BC%96%E8%AF%91%E6%96%B9%E5%BC%8F.png" alt="Mach-O 形式"></p>
-<p>6&gt;    编译<br>如果你的依赖库里面有lib开头的dylib动态库，此时应该会报错<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E7%B3%BB%E7%BB%9F%E5%8A%A8%E6%80%81%E5%BA%93%E6%8A%A5%E9%94%99.png" alt="动态库链接报错"><br>什么意思呢？大概就是没找到对应的库文件，因为tbd是苹果提供的新的动态库格式，之前都是dylib，不知道这里又抽什么风，下面解决问题。  </p>
-<p>7&gt;    tbd动态库报错修改<br>先把原来的.tbd删掉，然后再次添加，这个时候选择add other，在弹出的窗口中按快捷键shift + command + G 调出finder的前往窗口，输入/usr/lib，然后添加相应的dylib动态库<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9B%BF%E6%8D%A2%E4%BE%9D%E8%B5%96%E5%BA%93.png" alt="修改的动态库"><br>替换完成之后重新编译项目，生成Framework(可在Product文件中右击在finder中显示找到)  </p>
-<p>8&gt;    使用<br>新建一个文件夹，将制作好的静态库拷贝出来放进去，再将第三方静态库拷贝到相同的文件夹中，此时只要将这个文件夹提供给外界使用就可以了，这是我写的测试demo验证打包好的SDK是否可以正常使用<br><img src="http://oeat6c2zg.bkt.clouddn.com/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%88%B6%E4%BD%9C%E5%AE%8C%E6%88%90%E4%BD%BF%E7%94%A8.png" alt="制作完成使用"><br>至此我们已经完成了Framework中包含其他第三方静态库的制作。<br><strong>如果需要制作动态库，只需要在第5步中将Mach-O的形式改为Dynamic Library就可以了，其他步骤一样</strong>   </p>
+<p>1&gt;    新建工程<br><img src="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png" alt="新建Framework工程"><br>这里要选Framework，如果选择右边的Static Library制作出来的是.a静态库。</p>
+<p>2&gt;    导入所有要打包的文件和其他第三方静态库<br>正常导入要打包的文件就可以了，在导入第三方静态库的时候要注意，不要选择添加到target中，如果添加进去要去target里面把第三方静态库删掉（只需导入，不要添加进target）<br><img src="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E9%9D%99%E6%80%81%E5%BA%93.png" alt="导入第三方静态库"><br>导入第三方静态库之后再link依赖的系统库，像这样<br><img src="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E5%BA%93.png" alt="link依赖库"><br>注意上面的运行目标，因为我用的是Xcode8，最低支持到iOS8。<br>要打包的文件和第三方静态库全部导入完成<br><img src="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E6%83%85%E5%86%B5.png" alt="所有文件导入情况">   </p>
+<p>3&gt;    项目性质修改<br>把项目的membership需改为public，否则头文件暴露将会不正常<br><img src="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%B7%A5%E7%A8%8B%E6%80%A7%E8%B4%A8.png" alt="修改项目的membership">  </p>
+<p>4&gt;    暴露头文件<br>将头文件暴露出去，供外界使用，所有的编译文件都在Project中，需要右击添加到public里面<br><img src="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9A%B4%E9%9C%B2%E5%A4%B4%E6%96%87%E4%BB%B6.png" alt="暴露头文件">  </p>
+<p><strong>5&gt;    选择Mach-O的编译方式</strong><br>这是最重要的一步，这一步决定我们制作出来的是静态库还是动态库，默认选择的是Dynamic Library，要手动选择Static Library<br><img src="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E9%80%89%E6%8B%A9%E7%BC%96%E8%AF%91%E6%96%B9%E5%BC%8F.png" alt="Mach-O 形式"></p>
+<p>6&gt;    编译<br>如果你的依赖库里面有lib开头的dylib动态库，此时应该会报错<br><img src="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E7%B3%BB%E7%BB%9F%E5%8A%A8%E6%80%81%E5%BA%93%E6%8A%A5%E9%94%99.png" alt="动态库链接报错"><br>什么意思呢？大概就是没找到对应的库文件，因为tbd是苹果提供的新的动态库格式，之前都是dylib，不知道这里又抽什么风，下面解决问题。  </p>
+<p>7&gt;    tbd动态库报错修改<br>先把原来的.tbd删掉，然后再次添加，这个时候选择add other，在弹出的窗口中按快捷键shift + command + G 调出finder的前往窗口，输入/usr/lib，然后添加相应的dylib动态库<br><img src="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9B%BF%E6%8D%A2%E4%BE%9D%E8%B5%96%E5%BA%93.png" alt="修改的动态库"><br>替换完成之后重新编译项目，生成Framework(可在Product文件中右击在finder中显示找到)  </p>
+<p>8&gt;    使用<br>新建一个文件夹，将制作好的静态库拷贝出来放进去，再将第三方静态库拷贝到相同的文件夹中，此时只要将这个文件夹提供给外界使用就可以了，这是我写的测试demo验证打包好的SDK是否可以正常使用<br><img src="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%88%B6%E4%BD%9C%E5%AE%8C%E6%88%90%E4%BD%BF%E7%94%A8.png" alt="制作完成使用"><br>至此我们已经完成了Framework中包含其他第三方静态库的制作。<br><strong>如果需要制作动态库，只需要在第5步中将Mach-O的形式改为Dynamic Library就可以了，其他步骤一样</strong>   </p>
 <p>如果有问题请在留言区留言，或者邮件给我，互相交流学习！  </p>
 
       
@@ -493,6 +513,13 @@
           
 
   
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
 
 
 
@@ -509,8 +536,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
-      <div id="sidebar-dimmer"></div>
     
     <div class="sidebar-inner">
 
@@ -531,6 +556,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="LeonLei" />
+            
               <p class="site-author-name" itemprop="name">LeonLei</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -542,7 +571,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -552,10 +581,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">6</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -563,10 +592,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">29</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -575,6 +604,20 @@
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gaoshilei" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:goslei1315@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
             
           </div>
 
@@ -619,7 +662,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -637,12 +680,32 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
 
 
 
@@ -657,6 +720,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -737,13 +802,6 @@
   
   
 
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
-
-
-
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
@@ -785,6 +843,43 @@
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'gaoshilei',
+            repo: 'hexo-blog',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b946abb2465eb43577179f70e428b6a8ecacbab8',
+            
+                client_id: '4c55f9f88f8a23e444c2'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
 
 
 
@@ -806,6 +901,8 @@
   
 
   
+  
+
 
   
 

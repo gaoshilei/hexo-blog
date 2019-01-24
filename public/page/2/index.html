@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hexo, NexT, Leon, iOS, 博客, LeonLei, VPS, SS, SSR" />
 
 
 
@@ -104,9 +104,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Muse',
     version: '5.1.3',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -138,6 +138,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -198,12 +208,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            关于
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -218,12 +238,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            归档
+            关于
           </a>
         </li>
       
@@ -260,12 +280,307 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LeonLei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeonLei的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/" itemprop="url">手把手教你逆向微信之朋友圈小视频转发（下）</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-11T00:00:00+08:00">
+                2016-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS逆向/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS逆向</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>   接上篇<a href="http://www.gaoshilei.com/2016/11/09/手把手教你逆向微信之朋友圈小视频转发（上）/">《手把手教你逆向微信之朋友圈小视频转发（上）》</a></p>
+</blockquote>
+<h2 id="代码编写及重签名打包安装-（下篇）"><a href="#代码编写及重签名打包安装-（下篇）" class="headerlink" title="代码编写及重签名打包安装 （下篇）"></a>代码编写及重签名打包安装 （下篇）</h2><p>小视频的转发支持4个功能，转发至朋友圈、转发至好友、保存到本地相册、拷贝小视频链接到粘贴板。如果小视频没有下载长按时只会出现拷贝url链接。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/11/11/手把手教你逆向微信之朋友圈小视频转发（下）/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（上）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LeonLei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeonLei的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（上）/" itemprop="url">手把手教你逆向微信之朋友圈小视频转发（上）</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-10T00:00:00+08:00">
+                2016-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS逆向/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS逆向</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>此文为逆向微信二进制文件，实现朋友圈小视频转发的教程，从最开始的汇编代码入手到最后重签名安装等操作，手把手教你玩转微信！学会之后再去逆向微信其他功能易如反掌。<br>本篇文章由于篇幅太长分成了两篇，<strong>上篇</strong>讲解的是逆向工作，也就是怎么找到相关的函数和方法实现，<strong>下篇</strong>讲解的是怎么在非越狱机重签名安装和越狱机tweak安装的详细过程。<br><strong>正文的第二部分还提供了微信自动抢红包、修改微信步数的代码，这些都可以照葫芦画瓢按照本文的套路一步步逆向找到，这里就不再赘述。</strong><br>在实践之前，需要准备好一部越狱的手机，然后将下文列出的所有工具安装好。IDA跟Reveal都是破解版，IDA的正版要2000多刀，对于这么牛逼的逆向工具确实物有所值，不过不是专门研究逆向的公司也没必要用正版的，下个Windows的破解版就好，Mac上暂时没找到。Mac上可以用hopper代替IDA，也是一款很牛逼的逆向工具。废话不多说，正式开始吧！</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/11/10/手把手教你逆向微信之朋友圈小视频转发（上）/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2016/10/16/iOSAppToLibrary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -356,7 +671,7 @@
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文会介绍一个自己写的工具，能够把第三方iOS应用转成动态库，并加载到自己的App中，文章最后会以支付宝为例，展示如何调用其中的C函数和OC方法。<br>工具开源地址：<br><a href="https://github.com/tobefuturer/app2dylib" target="_blank" rel="external">https://github.com/tobefuturer/app2dylib</a><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/10/16/iOSAppToLibrary/#more" rel="contents">
+            <a class="btn" href="/2016/10/16/iOSAppToLibrary/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -407,12 +722,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2016/09/08/iPhone查找序列号生成函数/">
+    <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2016/09/08/教程/iPhone查找序列号生成函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -426,7 +741,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/09/08/iPhone查找序列号生成函数/" itemprop="url">iPhone查找序列号生成函数</a></h2>
+                <a class="post-title-link" href="/2016/09/08/教程/iPhone查找序列号生成函数/" itemprop="url">iPhone查找序列号生成函数</a></h2>
         
 
         <div class="post-meta">
@@ -507,7 +822,7 @@
 <p>这两种模式都有个弊端，用户重置手机或者刷机唯一标识符会发生变化，不过对于大多数情况是够用了。看来苹果是把路给封死了，有没有办法拿到之前的UDID呢？我们注意到iPhone的设置通用关于里面有手机的硬件信息，其中有一个serialNumber，这个serialnumber就是我们查询手机是否过保的依据，那么它肯定是唯一的，所以下文是围绕这个进行的探索。最终是可以拿到这个serialNumber的， 不过由于苹果的沙盒限制，所以只能在越狱机中拿到，如果想在非越狱机中拿到必须添加entitlements文件来获取权限，可想而知这个应用是无法上架的。<strong>下文仅作为逆向工程的一种思路和探索</strong><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/09/08/iPhone查找序列号生成函数/#more" rel="contents">
+            <a class="btn" href="/2016/09/08/教程/iPhone查找序列号生成函数/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -563,7 +878,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -655,7 +970,7 @@
 </blockquote>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/08/09/dumpdecrypted给App砸壳/#more" rel="contents">
+            <a class="btn" href="/2016/08/09/dumpdecrypted给App砸壳/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -711,7 +1026,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -802,7 +1117,7 @@
 <li>作为一名有着远大理想和抱负的codeMonkey，平时查资料必须Google，百度一下会真的死啊！不是黑百度，确实百度出来的资料内容看一下大致是相同的，搜到的内容就是copy+paste，花了很多时间结果找不到我们想要的东西，最最重要的是搜索结果有一半是广告，这个时候只能求助于Google，无奈天朝的GFW，一直追求自由明主的Google早在10年就被GCD轰出了墙外，所以VPN成了连接我们和整个世界的桥梁。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/05/20/VPS/#more" rel="contents">
+            <a class="btn" href="/2016/05/20/VPS/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -858,7 +1173,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -948,7 +1263,7 @@
           <h4 id="当我们用cocopods管理第三方类库时，经常遇到编译报错的问题："><a href="#当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：" class="headerlink" title="当我们用cocopods管理第三方类库时，经常遇到编译报错的问题："></a>当我们用cocopods管理第三方类库时，经常遇到编译报错的问题：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">`Undefined symbols for architecture x86_64:</div><div class="line">  &quot;_OBJC_CLASS_$_AFHTTPRequestOperation&quot;, referenced from:</div><div class="line">      objc-class-ref in ZRAPIClient.o</div><div class="line">  &quot;_OBJC_CLASS_$_AFHTTPRequestSerializer&quot;, referenced from:</div><div class="line">      objc-class-ref in ZRAPIClient.o</div><div class="line">  &quot;_OBJC_CLASS_$_AFJSONResponseSerializer&quot;, referenced from:</div><div class="line">      objc-class-ref in ZRAPIClient.o</div><div class="line">  &quot;_OBJC_CLASS_$_BITHockeyManager&quot;, referenced from:</div><div class="line">      objc-class-ref in ZRAppDelegate.o`</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/03/16/Xcode编译报错Undefined symbols解决方案/#more" rel="contents">
+            <a class="btn" href="/2016/03/16/Xcode编译报错Undefined symbols解决方案/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1015,8 +1330,6 @@
 
   <aside id="sidebar" class="sidebar">
     
-      <div id="sidebar-dimmer"></div>
-    
     <div class="sidebar-inner">
 
       
@@ -1026,6 +1339,10 @@
       <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="LeonLei" />
             
               <p class="site-author-name" itemprop="name">LeonLei</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -1038,7 +1355,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1048,10 +1365,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">6</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -1059,10 +1376,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">29</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -1071,6 +1388,20 @@
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gaoshilei" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:goslei1315@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
             
           </div>
 
@@ -1099,7 +1430,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1117,12 +1448,32 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
 
 
 
@@ -1137,6 +1488,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -1217,13 +1570,6 @@
   
   
 
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
-
-
-
   
 
   
@@ -1261,6 +1607,19 @@
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+
+
 
 
 
@@ -1282,6 +1641,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

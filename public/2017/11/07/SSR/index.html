@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -98,16 +98,16 @@
 <meta property="og:site_name" content="LeonLei的博客">
 <meta property="og:description" content="谷歌2016年出了一个基于Linux内核的 BBR 拥塞控制算法，虽然咱不懂咋回事，还是大概知道它也是通过优化 TCP 底层协议来实现网速加速，跟锐速的原理一样。我是通过搬瓦工的 KiwiVM 后台安装的，用了之后感觉不咋地，网上查了一下，大部分网友都说锐速的加速效果要好于BBR。锐速已经停止新用户注册和维护了，之前虽然收费，但是现在已经有破解版。BBR不好用，有大神就开始魔改了，出了一个魔改版的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/newOSForSSR.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/5272396EC1518BCC63AA0092F77C2D44.jpg">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/QQ20171109-110554@2x.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/QQ20171107-174706@2x.png">
-<meta property="og:image" content="http://oeat6c2zg.bkt.clouddn.com/QQ20171107-175234@2x.png">
-<meta property="og:updated_time" content="2017-11-23T08:23:59.191Z">
+<meta property="og:image" content="http://www.leonlei.top/newOSForSSR.png">
+<meta property="og:image" content="http://www.leonlei.top/KiwiVM_CPU_warning.jpg">
+<meta property="og:image" content="http://www.leonlei.top/CPU_clock_limit.png">
+<meta property="og:image" content="http://www.leonlei.top/SS_YouTube_1080P.png?imageMogr2/format/jpg/quality/45">
+<meta property="og:image" content="http://www.leonlei.top/QQ20171107-175234@2x.png?imageMogr2/format/jpg/quality/45">
+<meta property="og:updated_time" content="2018-07-23T08:03:52.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPS+SSR+锐速（BBR魔改版）实现超级加速">
 <meta name="twitter:description" content="谷歌2016年出了一个基于Linux内核的 BBR 拥塞控制算法，虽然咱不懂咋回事，还是大概知道它也是通过优化 TCP 底层协议来实现网速加速，跟锐速的原理一样。我是通过搬瓦工的 KiwiVM 后台安装的，用了之后感觉不咋地，网上查了一下，大部分网友都说锐速的加速效果要好于BBR。锐速已经停止新用户注册和维护了，之前虽然收费，但是现在已经有破解版。BBR不好用，有大神就开始魔改了，出了一个魔改版的">
-<meta name="twitter:image" content="http://oeat6c2zg.bkt.clouddn.com/newOSForSSR.png">
+<meta name="twitter:image" content="http://www.leonlei.top/newOSForSSR.png">
 
 
 
@@ -115,9 +115,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Muse',
     version: '5.1.3',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -149,6 +149,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa5932171fa37a04ffd60b500f75d9fa";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -208,12 +218,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            关于
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -228,12 +248,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            归档
+            关于
           </a>
         </li>
       
@@ -275,7 +295,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -361,11 +381,12 @@
       
         <p>谷歌2016年出了一个基于Linux内核的 BBR 拥塞控制算法，虽然咱不懂咋回事，还是大概知道它也是通过优化 TCP 底层协议来实现网速加速，跟锐速的原理一样。我是通过搬瓦工的 KiwiVM 后台安装的，用了之后感觉不咋地，网上查了一下，大部分网友都说锐速的加速效果要好于BBR。锐速已经停止新用户注册和维护了，之前虽然收费，但是现在已经有破解版。BBR不好用，有大神就开始魔改了，出了一个魔改版的BBR，据说效果比锐速还好！<br>下文对于锐速和BBR魔改版安装都有介绍，你可以尝试一下，看哪个速度更快。<br>下文的环境基于：CentOS6 X64</p>
 <h1 id="1、准备-VPS"><a href="#1、准备-VPS" class="headerlink" title="1、准备 VPS"></a>1、准备 VPS</h1><p><a href="https://bwh1.net/aff.php?aff=10505" target="_blank" rel="external">搬瓦工VPS</a>是我目前使用过性价比较高的 VPS，速度也比较稳定。<br><a href="https://www.vultr.com/?ref=7260141" target="_blank" rel="external">Vultr</a> 也是一个比较不错的选择，不过没有搬瓦工稳定。当然其他海外的VPS也都是可以的，至于选哪个这个就根据个人喜好来选择吧。<br><strong>如何购买比较稳定的 VPS 可以参考我之前写的<a href="https://www.gaoshilei.com/2016/05/19/VPS/">VPS搭建高速SS服务器</a></strong>   </p>
+<a id="more"></a>
 <p>由于天朝的网络环境，之前的 SS 虽然营运商破解不了协议，但是通过流量监测和干扰的方式会严重影响我们的访问网络，最明显的特征就是响应慢，网络卡。所以 SS 现在已经有很大的局限性了，SSR + 加速 应该是我们最好的选择。下文会介绍如何加速，如何安装 SSR 服务。   </p>
 <p>或许有的同学会问 SS 和 SSR 有什么区别？<br>答：SSR 只是在 SS 的基础上增加了一些新的协议和混淆功能，抗检测和干扰能力更强，简单点说如果你所在的地区没有运营商干扰你访问墙外网站，那么是没有区别的，如果你所在地区的国际出口宽带流量被检测和干扰的很严重，SSR 这个时候优势就体现出来了。不过就目前的形势来看，SS 被干扰已经是很普遍的情况了，个人建议安装 SSR，然后设置好协议和混淆，干扰不严重可以不用混淆，后面会有介绍。  </p>
 <p>你购买或者配置VPS过程中遇到什么问题，可以通过邮箱 goslei1315@gmail.com 联系我，工作日一般2个小时之内回复，询问之前请描述清楚你遇到的问题。</p>
-<p><strong>注意：购买 VPS 要选择 KVM 虚拟的，不要选择 OpenVZ 虚拟，后面你就会知道原因。</strong></p>
-<a id="more"></a>
+<p><strong>注意：购买 VPS 要选择 KVM 虚拟的，不要选择 OpenVZ 虚拟，后面你就会知道原因。</strong>  </p>
+<p>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a>   </p>
 <h1 id="2、安装锐速破解版"><a href="#2、安装锐速破解版" class="headerlink" title="2、安装锐速破解版"></a>2、安装锐速破解版</h1><h2 id="1、执行脚本安装"><a href="#1、执行脚本安装" class="headerlink" title="1、执行脚本安装"></a>1、执行脚本安装</h2><p>首先介绍一下锐速是干嘛的，下面的介绍来自Google</p>
 <blockquote>
 <p>锐速serverspeeder是一款TCP网络加速软件，能在Linux系统和Windows系统的服务器中安装，安装后能启到提高网络连接稳定性、带宽利用率、低访问失败率等作用，从而提高服务器网络访问速度。锐速并非实际增大服务器带宽，只是提高网络的稳定性和利用率而已。一个明显变化就是在同一VPS安装科学上网工具观看YouTube，没安装锐速前观看YouTube 720P视频非常不流畅，经常会出现缓冲现象；而安装锐速后能流畅观看YouTube 720P视频。  </p>
@@ -386,7 +407,7 @@
 <p>恭喜你，锐速已经安装完成。  </p>
 <p>锐速常用的命令  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">service serverSpeeder start #启动</div><div class="line">service serverSpeeder stop #停止</div><div class="line">service serverSpeeder reload #重新加载配置</div><div class="line">service serverSpeeder restart #重启</div><div class="line">service serverSpeeder status #状态</div><div class="line">service serverSpeeder stats #统计</div><div class="line">service serverSpeeder renewLic #更新许可文件</div><div class="line">service serverSpeeder update #更新</div><div class="line">chattr -i /serverspeeder/etc/apx* &amp;&amp; /serverspeeder/bin/serverSpeeder.sh uninstall -f #卸载</div></pre></td></tr></table></figure>
-<h2 id="2、手动修改内核（非必须）"><a href="#2、手动修改内核（非必须）" class="headerlink" title="2、手动修改内核（非必须）"></a>2、手动修改内核（非必须）</h2><p>注意在搬瓦工的后台面板（KiwiVM）查看你现在的系统类型，如后面带有 bbr 字样的，需要重新安装不带 bbr 的，否则你将无法成功修改内核<br><img src="http://oeat6c2zg.bkt.clouddn.com/newOSForSSR.png" alt=""></p>
+<h2 id="2、手动修改内核（非必须）"><a href="#2、手动修改内核（非必须）" class="headerlink" title="2、手动修改内核（非必须）"></a>2、手动修改内核（非必须）</h2><p>注意在搬瓦工的后台面板（KiwiVM）查看你现在的系统类型，如后面带有 bbr 字样的，需要重新安装不带 bbr 的，否则你将无法成功修改内核<br><img src="http://www.leonlei.top/newOSForSSR.png" alt=""></p>
 <p>查看当前的系统内核版本：  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS ~]# uname -r</div><div class="line">2.6.32-642.el6.x86_64</div></pre></td></tr></table></figure>
 <p>锐速支持的 CentOS6 内核版本为 2.6.32-504.3.3.el6.x86_64，下面就要开始修改内核了，准备好内核文件执行安装：  </p>
@@ -415,15 +436,15 @@
 <h4 id="1、升级-gcc-版本"><a href="#1、升级-gcc-版本" class="headerlink" title="1、升级 gcc 版本"></a>1、升级 gcc 版本</h4><p>因为需要4.9以上的gcc版本，所以我们升级gcc版本到4.9.4，有人要问为什么不升级到最新版，我的原则是够用就行，你也可以到<code>http://ftp.gnu.org/gnu</code>查找最新版然后升级下载对应的包就可以了。  </p>
 <h5 id="1、-下载安装包："><a href="#1、-下载安装包：" class="headerlink" title="1、 下载安装包："></a>1、 下载安装包：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS ~]# wget http://ftp.gnu.org/gnu/gcc/gcc-4.9.4/gcc-4.9.4.tar.bz2</div></pre></td></tr></table></figure>
 <p>然后解压：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS ~]# tar -jxvf cc-4.9.4.tar.bz2</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS ~]# tar -jxvf gcc-4.9.4.tar.bz2</div></pre></td></tr></table></figure>
 <p>解压主要消耗CPU性能，搬瓦工的低配VPS都是单核的，这个包将近90MB，所以要比较久大概等个十分钟左右就好了。  </p>
 <h5 id="2、下载供编译需求的依赖库"><a href="#2、下载供编译需求的依赖库" class="headerlink" title="2、下载供编译需求的依赖库"></a>2、下载供编译需求的依赖库</h5><p>下载、配置安装依赖库，解压好的文件里面有安装脚本，依次执行下面的命令   </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS ~]# cd cc-4.9.4</div><div class="line">[root@California_VPS gcc-4.9.4]# ./contrib/download_prerequisites</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS ~]# cd gcc-4.9.4</div><div class="line">[root@California_VPS gcc-4.9.4]# ./contrib/download_prerequisites</div></pre></td></tr></table></figure>
 <h5 id="3、新建目录供编译存放文件"><a href="#3、新建目录供编译存放文件" class="headerlink" title="3、新建目录供编译存放文件"></a>3、新建目录供编译存放文件</h5><p>首先新建一个文件夹用来存放编译的文件  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS gcc-4.9.4]# mkdir gcc-build-4.9.4  </div><div class="line">[root@California_VPS gcc-4.9.4]# cd gcc-build-4.9.4/</div></pre></td></tr></table></figure>
 <h5 id="4、生成-Makefile-文件"><a href="#4、生成-Makefile-文件" class="headerlink" title="4、生成 Makefile 文件"></a>4、生成 Makefile 文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS gcc-build-4.9.4]# ../configure -enable-checking=release -enable-languages=c,c++ -disable-multilib</div></pre></td></tr></table></figure>
 <h5 id="5、编译gcc"><a href="#5、编译gcc" class="headerlink" title="5、编译gcc"></a>5、编译gcc</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS gcc-build-4.9.4]# make</div></pre></td></tr></table></figure>
-<p>这一步时间比较长，大概需要一个多小时（取决于你的CPU性能）。不要重复编译，因为编译期间CPU的使用率基本上都是100%，因为之前装错了内核，后面又编译了一次，于是我在KiwiVM后台看到了这样的提示<br><img src="http://oeat6c2zg.bkt.clouddn.com/5272396EC1518BCC63AA0092F77C2D44.jpg" alt=""><br>CPU长时间处于满负荷状态，把我的CPU时钟限制了。<br><img src="http://oeat6c2zg.bkt.clouddn.com/QQ20171109-110554@2x.png" alt=""><br>所以 CentOS 安装 BBR魔改还是要谨慎啊，gcc4.9 编译太费CPU了。</p>
+<p>这一步时间比较长，大概需要一个多小时（取决于你的CPU性能）。不要重复编译，因为编译期间CPU的使用率基本上都是100%，因为之前装错了内核，后面又编译了一次，于是我在KiwiVM后台看到了这样的提示<br><img src="http://www.leonlei.top/KiwiVM_CPU_warning.jpg" alt=""><br>CPU长时间处于满负荷状态，把我的CPU时钟限制了。<br><img src="http://www.leonlei.top/CPU_clock_limit.png" alt=""><br>所以 CentOS 安装 BBR魔改还是要谨慎啊，gcc4.9 编译太费CPU了。</p>
 <h5 id="6、安装gcc"><a href="#6、安装gcc" class="headerlink" title="6、安装gcc"></a>6、安装gcc</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS gcc-build-4.9.4]# make install</div></pre></td></tr></table></figure>
 <p>安装完成之后重启服务器，然后查看gcc版本号  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@California_VPS ~]# gcc -v</div><div class="line">使用内建 specs。</div><div class="line">COLLECT_GCC=gcc</div><div class="line">COLLECT_LTO_WRAPPER=/usr/local/libexec/gcc/x86_64-unknown-linux-gnu/4.9.4/lto-wrapper</div><div class="line">目标：x86_64-unknown-linux-gnu</div><div class="line">配置为：../configure -enable-checking=release -enable-languages=c,c++ -disable-multilib</div><div class="line">线程模型：posix</div><div class="line">gcc 版本 4.9.4 (GCC)</div></pre></td></tr></table></figure>
@@ -452,12 +473,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">启动：/etc/init.d/shadowsocks start</div><div class="line">停止：/etc/init.d/shadowsocks stop</div><div class="line">重启：/etc/init.d/shadowsocks restart</div><div class="line">状态：/etc/init.d/shadowsocks status</div></pre></td></tr></table></figure>
 <p>日志路径</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">配置文件路径：/etc/shadowsocks.json</div><div class="line">日志文件路径：/var/log/shadowsocksr.log</div><div class="line">代码安装目录：/usr/local/shadowsocks</div></pre></td></tr></table></figure>
+<p><strong>安装完成后重启VPS！安装完成后重启VPS！安装完成后重启VPS！</strong></p>
+<p>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a>   </p>
 <p>如果后面想修改 SSR 的一些配置可以直接修改 <code>shadowsocks.json</code> ，然后重启 SSR 即可。  </p>
-<p>最后配置 SSR 客户端就可以畅快的刷 YouTube 了，当然你也可以去 tumblr。【手动邪恶】<br><strong>奉上各个平台 SSR 的下载链接：</strong><br>MAC版下载地址：<a href="https://github.com/iMeiji/shadowsocks_install/releases/download/0.13/ShadowsocksX-NG.1.5.1.zip" target="_blank" rel="external">ShadowsocksX-NG.1.5.1.zip</a><br>windows版下载地址：<a href="https://github.com/iMeiji/shadowsocks_install/releases/download/0.13/ssr-win.4.7.0-fix.7z" target="_blank" rel="external">ssr-win.4.7.0-fix.7z</a><br>iOS版下载地址：<a href="https://itunes.apple.com/us/app/wingy-http-s-socks5-proxy-utility/id1178584911?mt=8" target="_blank" rel="external">wingy</a>（中国区已下架，换个美国账号下载）<br>安卓版下载地址：<a href="https://github.com/iMeiji/shadowsocks_install/releases/download/0.13/ssr-android-3.4.0.5.apk" target="_blank" rel="external">ssr-android-3.4.0.5.apk</a></p>
+<p>最后配置 SSR 客户端就可以畅快的刷 YouTube 了，当然你也可以去 tumblr。【手动邪恶】<br><strong>奉上各个平台 SSR 的下载链接：</strong><br>MAC版下载地址：<a href="https://github.com/gaoshilei/ShadowsocksX-NG/releases/download/1.4.3-R8-build3/ShadowsocksX-NG-R8.dmg" target="_blank" rel="external">ShadowsocksX-NG-R8.dmg</a>（2018.2.23更新）<br>windows版下载地址：<a href="https://github.com/iMeiji/shadowsocks_install/releases/download/0.13/ssr-win.4.7.0-fix.7z" target="_blank" rel="external">ssr-win.4.7.0-fix.7z</a><br>iOS版下载地址：<a href="https://itunes.apple.com/us/app/wingy-http-s-socks5-proxy-utility/id1178584911?mt=8" target="_blank" rel="external">wingy</a>（中国区已下架，换个美国账号下载）<br>安卓版下载地址：<a href="https://github.com/iMeiji/shadowsocks_install/releases/download/0.13/ssr-android-3.4.0.5.apk" target="_blank" rel="external">ssr-android-3.4.0.5.apk</a></p>
 <p>最后看看效果吧，YouTube 1080P 视频亲测截图  </p>
-<p><img src="http://oeat6c2zg.bkt.clouddn.com/QQ20171107-174706@2x.png" alt="YouTube 1080P视频"></p>
+<p><img src="http://www.leonlei.top/SS_YouTube_1080P.png?imageMogr2/format/jpg/quality/45" alt="YouTube 1080P视频"></p>
 <p>再来一张YouTube的下载速度：  </p>
-<p><img src="http://oeat6c2zg.bkt.clouddn.com/QQ20171107-175234@2x.png" alt="YouTube视频下载速度">  </p>
+<p><img src="http://www.leonlei.top/QQ20171107-175234@2x.png?imageMogr2/format/jpg/quality/45" alt="YouTube视频下载速度">  </p>
 <p>是不是感觉帮帮哒！</p>
 
       
@@ -535,6 +558,13 @@
           
 
   
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
 
 
 
@@ -551,8 +581,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
-      <div id="sidebar-dimmer"></div>
     
     <div class="sidebar-inner">
 
@@ -573,6 +601,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="LeonLei" />
+            
               <p class="site-author-name" itemprop="name">LeonLei</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -584,7 +616,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -594,10 +626,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">6</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -605,10 +637,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">29</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -617,6 +649,20 @@
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gaoshilei" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:goslei1315@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
             
           </div>
 
@@ -661,7 +707,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -679,12 +725,32 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
 
 
 
@@ -699,6 +765,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
@@ -779,13 +847,6 @@
   
   
 
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
-
-
-
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
@@ -827,6 +888,43 @@
 
 
 
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'gaoshilei',
+            repo: 'hexo-blog',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b946abb2465eb43577179f70e428b6a8ecacbab8',
+            
+                client_id: '4c55f9f88f8a23e444c2'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
 
 
 
@@ -848,6 +946,8 @@
   
 
   
+  
+
 
   
 
