@@ -27,7 +27,7 @@ permalink: js_double
 ```
 一般遇到这种问题，我们都有成熟的解决方案解决
 
-- [big.js](https://github.com/MikeMcl/big.js/)
+- [Math.js](https://github.com/josdejong/mathjs)
 - [decimal.js](https://github.com/MikeMcl/decimal.js)
 
 用着用着就习惯了，一直没有搞清楚为什么会有这样的误差。这两天正好有空，看了一些博客终于搞清楚了。
