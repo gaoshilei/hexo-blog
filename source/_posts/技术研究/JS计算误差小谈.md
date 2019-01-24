@@ -1,6 +1,6 @@
 ---
 title: JS计算误差小谈
-date: 2019-01-08
+date: 2019-01-08 00:00:01
 categories:  
 - 技术笔记  
 tags:  
