@@ -118,7 +118,7 @@ chattr -i /serverspeeder/etc/apx* && /serverspeeder/bin/serverSpeeder.sh uninsta
 ## 2、手动修改内核（非必须）  
 
 注意在搬瓦工的后台面板（KiwiVM）查看你现在的系统类型，如后面带有 bbr 字样的，需要重新安装不带 bbr 的，否则你将无法成功修改内核   
-![](http://www.leonlei.top/newOSForSSR.png)
+![](http://img.gaoshilei.com/newOSForSSR.png)
 
 查看当前的系统内核版本：  
 
@@ -290,9 +290,9 @@ Linux 默认安装的 gcc 版本是4.4.7，而编译魔改 BBR 的 gcc 版本至
 ```
 
 这一步时间比较长，大概需要一个多小时（取决于你的CPU性能）。不要重复编译，因为编译期间CPU的使用率基本上都是100%，因为之前装错了内核，后面又编译了一次，于是我在KiwiVM后台看到了这样的提示  
-![](http://www.leonlei.top/KiwiVM_CPU_warning.jpg)     
+![](http://img.gaoshilei.com/KiwiVM_CPU_warning.jpg)     
 CPU长时间处于满负荷状态，把我的CPU时钟限制了。    
-![](http://www.leonlei.top/CPU_clock_limit.png)   
+![](http://img.gaoshilei.com/CPU_clock_limit.png)   
 所以 CentOS 安装 BBR魔改还是要谨慎啊，gcc4.9 编译太费CPU了。
 
 
@@ -446,11 +446,11 @@ iOS版下载地址：[wingy](https://itunes.apple.com/us/app/wingy-http-s-socks5
 
 最后看看效果吧，YouTube 1080P 视频亲测截图  
 
-![YouTube 1080P视频](http://www.leonlei.top/SS_YouTube_1080P.png?imageMogr2/format/jpg/quality/45)
+![YouTube 1080P视频](http://img.gaoshilei.com/SS_YouTube_1080P.png?imageMogr2/format/jpg/quality/45)
 
 
 再来一张YouTube的下载速度：  
 
-![YouTube视频下载速度](http://www.leonlei.top/QQ20171107-175234@2x.png?imageMogr2/format/jpg/quality/45)  
+![YouTube视频下载速度](http://img.gaoshilei.com/QQ20171107-175234@2x.png?imageMogr2/format/jpg/quality/45)  
 
 是不是感觉帮帮哒！

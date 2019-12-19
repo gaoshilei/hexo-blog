@@ -14,13 +14,13 @@ permalink: weex-2
 
 距离我写的上一篇文章 [Weex从入门到超神（一）](https://gaoshilei.com/2017/05/26/weex-1/) 已经过了挺久了（惭愧而不失礼貌的微笑），起初写那篇文章的初衷是因为项目中使用到了 Weex ,所以准备对 Weex 做一个心得式的笔记，后来无意间发现[简书“霜神”](http://www.jianshu.com/u/12201cdd5d7a)已经对 Weex 写过几篇剖析比较深刻的文章，还有其他一些原因（懒），所以就没有继续写下去。  
 最近由于Facebook的 [BSD license](https://github.com/facebook/react/blob/master/LICENSE)，React 被前端社区的同学们推到了风口浪尖，React&RN、Vue&Weex 又成为了大家码前码后讨论的话题。Apache 社区还因为 Facebook 的 BSD license，全面封杀使用了 BSD license 的开源项目，貌似一切都很精彩，迫于前端同(da)学(lao)的淫威还有社区的强烈谴责，上周 Facebook 终于认怂了，承诺这周将 React 以及 gayhub 上面的其他几个项目的开源协议从 BSD 改成 MIT，下图是我脑补的场景：  
-![](http://www.leonlei.top/FA269E01D9C3794449AA6748EA6280C6.png)  
+![](http://img.gaoshilei.com/FA269E01D9C3794449AA6748EA6280C6.png)  
 鉴于对于项目中使用 Weex 的一些经验和心得，还是希望写出来和大家一起分享。  
 <!-- more -->
 ## 应用层核心组件
 Weex 运行时会先注入一段位于 `pre-build` 下的 `native-bundle-main.js` 代码。不过在注入这段代码之前会先注册一些默认的 `Component`、`Module`和`Handler`，**这就是 Weex 与 Native 应用层交互最核心的部分**，可以理解为“组件”。其中 Component 是为了映射 Html 的一些标签，Module 中是提供一些 Native 的一些方法供 Weex 调用，Handler 是一些协议的实现。  
 
-![](http://www.leonlei.top/weex-component.png)  
+![](http://img.gaoshilei.com/weex-component.png)  
 
 注册完 Weex 默认的“组件” 之后，注入刚才那段 JS，这个时候 Vue 的标签和动作才能被 Weex 所识别和转换。  
 **为了便于下文的描述和理解，我把 Native 这边的 SDK 称作 Weex，前端的 Vue 和 Weex 库以及 Vue 编译后的 js 统称为 Vue**
