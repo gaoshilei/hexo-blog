@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="静态库,动态库,framework,SDK," />
+  <meta name="keywords" content="SDK,静态库,动态库,framework," />
 
 
 
@@ -90,14 +90,18 @@
 
 
 
-<meta name="description" content="前言    以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。  最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
-<meta name="keywords" content="静态库,动态库,framework,SDK">
+<meta name="description" content="前言
+   以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。
+
+最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS静态库SDK制作（包含第三方静态库）">
 <meta property="og:url" content="http://www.gaoshilei.com/2016/11/18/Static Library/index.html">
 <meta property="og:site_name" content="LeonLei的博客">
-<meta property="og:description" content="前言    以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。  最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="前言
+   以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。
+
+最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
 <meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png">
 <meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E9%9D%99%E6%80%81%E5%BA%93.png">
 <meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E5%BA%93.png">
@@ -108,10 +112,13 @@
 <meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E7%B3%BB%E7%BB%9F%E5%8A%A8%E6%80%81%E5%BA%93%E6%8A%A5%E9%94%99.png">
 <meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%9B%BF%E6%8D%A2%E4%BE%9D%E8%B5%96%E5%BA%93.png">
 <meta property="og:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E5%88%B6%E4%BD%9C%E5%AE%8C%E6%88%90%E4%BD%BF%E7%94%A8.png">
-<meta property="og:updated_time" content="2018-03-12T03:26:36.000Z">
+<meta property="og:updated_time" content="2019-06-24T16:28:29.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS静态库SDK制作（包含第三方静态库）">
-<meta name="twitter:description" content="前言    以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。  最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
+<meta name="twitter:description" content="前言
+   以下所涉及的框架和库只针对iOS而言，不确保在其他平台也适用。
+
+最近由于公司业务需要，要求封装一个支付SDK，需要用到微信支付和支付宝，之前做过的Framework没有依赖其他第三方的库所以比较好做，这次有所不同；一开始我想把支付宝和微信支付的SDK全部融合进来，折腾一天才发现我之前的想法有很多误区，这样是根本行不通的，不过最后还是封装成功了，下面把我的经验分享出来，供有需要的同学少">
 <meta name="twitter:image" content="http://www.leonlei.top/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A8%E6%80%81%E5%BA%93%E5%88%B6%E4%BD%9C-%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B.png">
 
 
@@ -452,13 +459,13 @@
       
         <div class="post-tags">
           
+            <a href="/tags/SDK/" rel="tag"># SDK</a>
+          
             <a href="/tags/静态库/" rel="tag"># 静态库</a>
           
             <a href="/tags/动态库/" rel="tag"># 动态库</a>
           
             <a href="/tags/framework/" rel="tag"># framework</a>
-          
-            <a href="/tags/SDK/" rel="tag"># SDK</a>
           
         </div>
       
@@ -593,7 +600,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -687,7 +694,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
     <span class="site-uv">

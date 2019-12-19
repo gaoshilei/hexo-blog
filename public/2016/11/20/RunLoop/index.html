@@ -91,17 +91,15 @@
 
 
 <meta name="description" content="一、    RunLoop初识日常的开发工作中，我们几乎很少注意RunLoop，因为我们基本上“用不到”RunLoop。包括我在内应该有很多人都不了解这个东西，只是听说过。最近有空查了不少资料终于把RunLoop运行原理搞清楚了。本文会对RunLoop的原理进行深入探讨，但是不涉及底层的实现。我们平时开发中的很多东西都和RunLoop相关，比如：">
-<meta name="keywords" content="RunLoop,NSTimer,AutoreleasePool,AFNetworking">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RunLoop的前世今生">
 <meta property="og:url" content="http://www.gaoshilei.com/2016/11/20/RunLoop/index.html">
 <meta property="og:site_name" content="LeonLei的博客">
 <meta property="og:description" content="一、    RunLoop初识日常的开发工作中，我们几乎很少注意RunLoop，因为我们基本上“用不到”RunLoop。包括我在内应该有很多人都不了解这个东西，只是听说过。最近有空查了不少资料终于把RunLoop运行原理搞清楚了。本文会对RunLoop的原理进行深入探讨，但是不涉及底层的实现。我们平时开发中的很多东西都和RunLoop相关，比如：">
-<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.leonlei.top/RunLoop.png">
 <meta property="og:image" content="http://www.leonlei.top/RunLoop_1.png">
 <meta property="og:image" content="http://www.leonlei.top/runloop-nsnetwork.png">
-<meta property="og:updated_time" content="2018-03-12T03:22:09.000Z">
+<meta property="og:updated_time" content="2019-06-24T16:28:27.547Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RunLoop的前世今生">
 <meta name="twitter:description" content="一、    RunLoop初识日常的开发工作中，我们几乎很少注意RunLoop，因为我们基本上“用不到”RunLoop。包括我在内应该有很多人都不了解这个东西，只是听说过。最近有空查了不少资料终于把RunLoop运行原理搞清楚了。本文会对RunLoop的原理进行深入探讨，但是不涉及底层的实现。我们平时开发中的很多东西都和RunLoop相关，比如：">
@@ -698,7 +696,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -792,7 +790,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
     <span class="site-uv">

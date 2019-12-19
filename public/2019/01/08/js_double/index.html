@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="dumpdecrypted,砸壳," />
+  <meta name="keywords" content="JS,双精度浮点,数据误差," />
 
 
 
@@ -90,19 +90,28 @@
 
 
 
-<meta name="description" content="1.前言
-我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这">
+<meta name="description" content="平时在写js代码时会用到一些简单的计算，比方说系统中我们数据库储存的金额是分，前端展示的是元，所以在用户输入元之后要转成分传给后台，这个公式小学一年级就学过了11.11*100 = 111
+一般来说这个计算结果是没问题的，但是在js里面却有这样的尴尬11.11*100 = 111.00000000000001
+结果不是我们想要的111，类似的情况还有12340.1+0.2 = 0.30000000">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dumpdecrypted给App砸壳">
-<meta property="og:url" content="http://www.gaoshilei.com/2016/08/09/dumpdecrypted给App砸壳/index.html">
+<meta property="og:title" content="JS计算误差小谈">
+<meta property="og:url" content="http://www.gaoshilei.com/2019/01/08/js_double/index.html">
 <meta property="og:site_name" content="LeonLei的博客">
-<meta property="og:description" content="1.前言
-我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这">
-<meta property="og:updated_time" content="2019-06-24T16:28:29.591Z">
+<meta property="og:description" content="平时在写js代码时会用到一些简单的计算，比方说系统中我们数据库储存的金额是分，前端展示的是元，所以在用户输入元之后要转成分传给后台，这个公式小学一年级就学过了11.11*100 = 111
+一般来说这个计算结果是没问题的，但是在js里面却有这样的尴尬11.11*100 = 111.00000000000001
+结果不是我们想要的111，类似的情况还有12340.1+0.2 = 0.30000000">
+<meta property="og:image" content="http://www.leonlei.top/687474703a2f2f617461322d696d672e636e2d68616e677a686f752e696d672d7075622e616c6979756e2d696e632e636f6d2f37323637613538623239383932633362373233653364366333663733393035612e706e67.png">
+<meta property="og:image" content="http://www.leonlei.top/Xnip2019-01-22_18-33-33.png">
+<meta property="og:image" content="http://www.leonlei.top/Xnip2019-01-22_19-18-53.png">
+<meta property="og:image" content="http://www.leonlei.top/Xnip2019-01-24_11-09-30.png">
+<meta property="og:image" content="http://www.leonlei.top/Xnip2019-01-22_19-37-10.png">
+<meta property="og:updated_time" content="2019-06-24T16:28:27.181Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dumpdecrypted给App砸壳">
-<meta name="twitter:description" content="1.前言
-我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的壳，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称砸壳。long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这">
+<meta name="twitter:title" content="JS计算误差小谈">
+<meta name="twitter:description" content="平时在写js代码时会用到一些简单的计算，比方说系统中我们数据库储存的金额是分，前端展示的是元，所以在用户输入元之后要转成分传给后台，这个公式小学一年级就学过了11.11*100 = 111
+一般来说这个计算结果是没问题的，但是在js里面却有这样的尴尬11.11*100 = 111.00000000000001
+结果不是我们想要的111，类似的情况还有12340.1+0.2 = 0.30000000">
+<meta name="twitter:image" content="http://www.leonlei.top/687474703a2f2f617461322d696d672e636e2d68616e677a686f752e696d672d7075622e616c6979756e2d696e632e636f6d2f37323637613538623239383932633362373233653364366333663733393035612e706e67.png">
 
 
 
@@ -132,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://www.gaoshilei.com/2016/08/09/dumpdecrypted给App砸壳/"/>
+  <link rel="canonical" href="http://www.gaoshilei.com/2019/01/08/js_double/"/>
 
 
 
 
 
-  <title>dumpdecrypted给App砸壳 | LeonLei的博客</title>
+  <title>JS计算误差小谈 | LeonLei的博客</title>
   
 
 
@@ -285,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2016/08/09/dumpdecrypted给App砸壳/">
+    <link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/2019/01/08/js_double/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LeonLei">
@@ -302,7 +311,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">dumpdecrypted给App砸壳</h2>
+          <h2 class="post-title" itemprop="name headline">JS计算误差小谈</h2>
         
 
         <div class="post-meta">
@@ -314,8 +323,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-09T00:00:00+08:00">
-                2016-08-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T00:00:01+08:00">
+                2019-01-08
               </time>
             
 
@@ -337,8 +346,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS逆向/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS逆向</span>
+                  <a href="/categories/技术笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">技术笔记</span>
                   </a>
                 </span>
 
@@ -374,65 +383,40 @@
       
 
       
-        <h4 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h4><blockquote>
-<p>我们都知道从AppStore下载的应用二进制文件被苹果进行了加密处理，也就是我们俗称的<em>壳</em>，我们要想对目标App进行逆向分析，必须解密目标二进制文件，俗称<em>砸壳</em>。<br>long long ago有一种傻瓜式的砸壳方式，利用iPhoneCake源的AppCrackr进行一键砸壳，这种方式简单粗暴，省时省力，但正是因为它过于方便，导致几乎所有用户都可轻松上手，随便亵玩，所以不少用户都拿它来破解程序，这也导致了iOS越狱开发社区普遍认为这个软件助长了盗版的气焰，对iPhoneCake源进行了强烈谴责。迫于压力，iPhoneCake将AppCrackr下架。从此利用纯UI方式砸壳的行为已经走入绝路，只能利用更加geek更加niubility的方式来砸壳，这也是这篇文章介绍的主角<strong>dumpdecrypted</strong>  </p>
+        <p>平时在写js代码时会用到一些简单的计算，比方说系统中我们数据库储存的金额是分，前端展示的是元，所以在用户输入元之后要转成分传给后台，这个公式小学一年级就学过了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1.11*100 = 111</div></pre></td></tr></table></figure></p>
+<p>一般来说这个计算结果是没问题的，但是在js里面却有这样的尴尬<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1.11*100 = 111.00000000000001</div></pre></td></tr></table></figure></p>
+<p>结果不是我们想要的111，类似的情况还有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">0.1+0.2 = 0.30000000000000004   //加法</div><div class="line">0.27-0.11 = 0.16000000000000003 //减法</div><div class="line">19.9*100 = 1989.9999999999998   //乘法</div><div class="line">0.3/0.1 = 2.9999999999999996    //除法</div></pre></td></tr></table></figure></p>
+<p>一般遇到这种问题，我们都有成熟的解决方案解决</p>
+<ul>
+<li><a href="https://github.com/josdejong/mathjs" target="_blank" rel="external">Math.js</a></li>
+<li><a href="https://github.com/MikeMcl/decimal.js" target="_blank" rel="external">decimal.js</a></li>
+</ul>
+<p>用着用着就习惯了，一直没有搞清楚为什么会有这样的误差。这两天正好有空，看了一些博客终于搞清楚了。<br><a id="more"></a></p>
+<h2 id="双精度浮点数"><a href="#双精度浮点数" class="headerlink" title="双精度浮点数"></a>双精度浮点数</h2><p>JS 的数据类型比较特别，和<code>C、Java</code> 等语言的的数据类型不一样，不管是 <code>int、double、float</code> 在 JS 里面都是<code>Number</code>类型。<br>要搞清楚为什么有这个误差，就要先介绍一下<strong>双精度浮点</strong>(double)</p>
+<p>双精度浮点数(double)使用 64 位（8字节） 来储存一个浮点数。 它可以表示十进位制的15或16位有效数字，其可以表示的数字的绝对值范围大约是 <code>[2.23*10^(-308),1.79*10^(308)]</code>。</p>
+<p>这其中的64位bit又可以分为下面的格式</p>
+<ul>
+<li>sign bit(符号位)：0代表正数，1代表负数</li>
+<li>exponent(指数)：中间的11位用来表示次方数</li>
+<li>mantissa(尾数)：最后的52位用来表示精确度</li>
+</ul>
+<p><img src="http://www.leonlei.top/687474703a2f2f617461322d696d672e636e2d68616e677a686f752e696d672d7075622e616c6979756e2d696e632e636f6d2f37323637613538623239383932633362373233653364366333663733393035612e706e67.png" alt=""></p>
+<p>上面的格式可以转换成这个这个公式<br><img src="http://www.leonlei.top/Xnip2019-01-22_18-33-33.png" alt=""></p>
+<p>在十进制中，整数部分可以是0~9，在二进制中整数部分只能是0~1，所以可以看到上面公式对应的整数部分只能是1，这样就可以不用管整数部分直接保留后面的小数部分就可以了。指数 exponent(E) 是一个无符号整型 (unsigned int) ，那么问题就来了，我们怎么保留小数呢？按照科学计数法，如果E小于0才可以表示成小数，因为E是11位的，最大可以表示为2047，所以取一个中间值1023（十六进制为ox3FF），0~1022表示为负，1023~2047表示为正，这样就解决了小数的表示问题。  </p>
+<p>我们来看看数字 1 是怎么储存的</p>
+<p><img src="http://www.leonlei.top/Xnip2019-01-22_19-18-53.png" alt=""></p>
+<p>用上面的公式表示就是：<code>(-1)^0 * 2^(1024-1023) * 1.0 = 1</code>，再看一下 0.5 的储存形式</p>
+<p><img src="http://www.leonlei.top/Xnip2019-01-24_11-09-30.png" alt=""></p>
+<p><code>(-1)^0 * 2^(1022-1023) * 1.0 = 0.5</code>，搞清楚这个，我们再看看上面提到的 <code>1.11*100 = 111.00000000000001</code> 这个问题。  </p>
+<p>将 1.11 转换成二进制是这样的<code>1.0001110000101000111101011100001010001111010111000011...</code>(11100001010001111010循环)（<a href="https://www.sojson.com/hexconvert.html" target="_blank" rel="external">十进制小数转二进制方法</a>)，换成64位浮点来表示，S为0，E为1023，mantissa(M)为0001110000101000111101011100001010001111010111000011，因为位数只有52位，后面循环的部分就被舍弃了，转成64位浮点数是这样的<br><img src="http://www.leonlei.top/Xnip2019-01-22_19-37-10.png" alt=""><br>然后转成10进制的就变成了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1.11000000000000009769962616701</div></pre></td></tr></table></figure></p>
+<p>所以这里出现了问题，误差就有了，究其根本还是精度的问题。</p>
+<h2 id="还有一个问题？"><a href="#还有一个问题？" class="headerlink" title="还有一个问题？"></a>还有一个问题？</h2><blockquote>
+<p>为什么我直接输入 1.11 得到的结果是 1.11，而不是1.11000000000000009769962616701 呢？</p>
 </blockquote>
-<a id="more"></a> 
-<p>转载请注明出处：<a href="http://www.gaoshilei.com">来自LeonLei的博客http://www.gaoshilei.com</a>  </p>
-<h4 id="2-准备工作"><a href="#2-准备工作" class="headerlink" title="2.准备工作"></a>2.准备工作</h4><ol>
-<li>一部已经越狱的手机 <code>我这里用的是iPhone 5S; iOS 9.1</code></li>
-<li>已经安装了OpenSSH</li>
-<li>已经安装了<a href="http://www.cycript.org" target="_blank" rel="external">Cycript</a></li>
-<li><a href="https://github.com/stefanesser/dumpdecrypted/archive/master.zip" target="_blank" rel="external">dumpdecrypted源码</a>  </li>
-</ol>
-<h4 id="3-编译dumpdecrypted"><a href="#3-编译dumpdecrypted" class="headerlink" title="3.编译dumpdecrypted"></a>3.编译dumpdecrypted</h4><p>下载好之后将文件放到你自己的文件夹中，下面开始编译：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:~ gaoshilei$ cd /Users/gaoshilei/Desktop/reverse/dumpdecrypted  </div><div class="line">LeonLei-MBP:dumpdecrypted gaoshilei$ make</div><div class="line">`xcrun --sdk iphoneos --find gcc` -Os  -Wimplicit -isysroot `xcrun --sdk iphoneos --show-sdk-path` -F`xcrun --sdk iphoneos --show-sdk-path`/System/Library/Frameworks -F`xcrun --sdk iphoneos --show-sdk-path`/System/Library/PrivateFrameworks -arch armv7 -arch armv7s -arch arm64 -dynamiclib -o dumpdecrypted.dylib dumpdecrypted.o</div></pre></td></tr></table></figure>
-<p>进入dumpdecrypted目录下之后，执行make命令，此时目录下会生成一个<code>dumpdecrypted.dylib</code>，这个文件生成一次即可，下次砸壳可以直接使用。</p>
-<h4 id="4-开始砸壳"><a href="#4-开始砸壳" class="headerlink" title="4.开始砸壳"></a>4.开始砸壳</h4><h5 id="定位目标App可执行文件的位置"><a href="#定位目标App可执行文件的位置" class="headerlink" title="定位目标App可执行文件的位置"></a>定位目标App可执行文件的位置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">LeonLei-MBP:~ gaoshilei$ ssh root@192.168.0.115</div><div class="line">iPhone-5S:~ root# ps -e</div><div class="line">  PID TTY           TIME CMD</div><div class="line">    1 ??         5:23.51 /sbin/launchd</div><div class="line">   23 ??         0:00.81 /usr/libexec/amfid</div><div class="line">   34 ??         1:28.92 /usr/sbin/mediaserverd</div><div class="line">   36 ??         4:23.49 /usr/libexec/fseventsd</div><div class="line">   38 ??         1:21.05 /System/Library/PrivateFrameworks/AssistantServices.framework/assistantd</div><div class="line">   40 ??         0:01.13 /System/Library/PrivateFrameworks/FileProvider.framework/Support/fileproviderd</div><div class="line">   42 ??         1:56.46 /usr/libexec/routined</div><div class="line">   46 ??         0:03.34 /System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoted</div><div class="line">   48 ??         0:00.86 /usr/libexec/misd</div><div class="line">   50 ??         0:18.48 /System/Library/Frameworks/HealthKit.framework/healthd</div><div class="line">   52 ??        19:18.39 /usr/libexec/configd</div><div class="line">   54 ??         3:30.26 /System/Library/CoreServices/powerd.bundle/powerd</div><div class="line">   58 ??         0:50.73 /usr/libexec/atc</div><div class="line">   60 ??        13:47.50 /usr/sbin/wifid</div><div class="line">   ···              ···</div><div class="line"> 5673 ??         0:04.41 /var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat</div><div class="line"> 5732 ??         0:00.32 /usr/libexec/ptpd -t usb</div><div class="line"> 5735 ??         0:00.07 /usr/libexec/webinspectord</div><div class="line"> 5741 ??         0:00.18 sshd: root@ttys000 </div><div class="line"> 5770 ??         0:00.16 /System/Library/PrivateFrameworks/SyncedDefaults.framework/Support/syncdefaultsd</div><div class="line"> 5785 ??         0:00.05 /System/Library/CoreServices/CFNetworkAgent</div></pre></td></tr></table></figure>
-<p>可以看到目前手机运行的进程中有微信的影子<code>/var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat</code> 我们已经找到微信可执行文件的位置</p>
-<h5 id="目标锁定，定位到目标App的Documents位置"><a href="#目标锁定，定位到目标App的Documents位置" class="headerlink" title="目标锁定，定位到目标App的Documents位置"></a>目标锁定，定位到目标App的Documents位置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">iPhone-5S:~ root# cycript -p WeChat  </div><div class="line">cy# [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]</div><div class="line">#file:///var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/</div></pre></td></tr></table></figure>
-<p>执行到这里我们已经找到了微信的Documents位置，正式开始砸壳！</p>
-<blockquote>
-<p>这里有两种方式，一种是scp命令行拷贝<br>另一种是iFunBox工具操作  </p>
-</blockquote>
-<p>我这里采用的是第一种scp命令行  </p>
-<pre><code>LeonLei-MBP:~ gaoshilei$ scp /Users/gaoshilei/Desktop/reverse/dumpdecrypted/dumpdecrypted.dylib   root@192.168.0.115:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents  
-dumpdecrypted.dylib                                                              100%  193KB 192.9KB/s   00:00
-</code></pre><p>我们已经将dumpdecrypted.dylib拷贝到了微信沙盒的Document目录中，可以砸壳了：  </p>
-<pre><code>iPhone-5S:~ root# cd /var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents/
-iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat
-mach-o decryption dumper
-DISCLAIMER: This tool is only meant for security research purposes, not for application crackers.
-[+] detected 64bit ARM binary in memory.
-[+] offset to cryptid found: @0x100024ca8(from 0x100024000) = ca8
-[+] Found encrypted data at address 00004000 of length 45678592 bytes - type 1.
-[+] Opening /private/var/mobile/Containers/Bundle/Application/2A4313C7-6B36-40AF-9BEC-2C77FF1AC484/WeChat.app/WeChat for reading.
-[+] Reading header
-[+] Detecting header type
-[+] Executable is a plain MACH-O image
-[+] Opening WeChat.decrypted for writing.
-[+] Copying the not encrypted start of the file
-[+] Dumping the decrypted data into the file
-[+] Copying the not encrypted remainder of the file
-[+] Setting the LC_ENCRYPTION_INFO-&gt;cryptid to 0 at offset ca8
-[+] Closing original file
-[+] Closing dump file
-iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root#
-</code></pre><p>等待命令执行完，此时已经完成砸壳，我们看一下当前目录都有啥：  </p>
-<pre><code>iPhone-5S:/var/mobile/Containers/Data/Application/B591D3D1-5B75-4F55-923B-C9FBF339EFE5/Documents root# ls -o
-total 55272
-drwxr-xr-x  6 mobile      272 Aug 26 13:48 00000000000000000000000000000000
-drwxr-xr-x 20 mobile     1122 Oct 10 15:28 6f696a1b596ce2499419d844f90418aa
-drwxr-xr-x  3 mobile      136 Oct  9 10:56 CrashReport
--rw-r--r--  1 mobile      310 Aug 26 13:49 Ksid
--rw-r--r--  1 mobile     1036 Oct 10 13:40 LocalInfo.lst
-drwxr-xr-x  5 mobile      272 Aug 26 13:49 MMResourceMgr
-drwxr-xr-x  2 mobile      748 Aug 26 13:51 MMappedKV
--rw-r--r--  1 mobile       15 Oct 10 13:40 SafeMode.dat
--rw-r--r--  1 root   56380816 Oct 10 15:37 WeChat.decrypted
--rwxr-xr-x  1 root     197528 Oct 10 15:34 dumpdecrypted.dylib
--rw-r--r--  1 mobile      448 Aug 26 13:49 mmupdateinfo.archive
-</code></pre><p>砸好壳的微信可执行文件<code>WeChat.decrypted</code>已经生成，现在就可以把文件拷到Mac上利用IDA或者Hopper的分析了。</p>
+<p>这个还是<strong>精度</strong>问题，64位浮点的尾数是52位，因为整数部分只能是1所以可以省略一位，比方说<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">11.101 * 2^1001 可以格式化为 1.1101 * 2^1010，尾数部分M直接储存1101即可；</div><div class="line">0.0011101 * 2^-1001 可以格式化为 1.1101 * 2^-1100，尾数部分M储存1101即可。</div></pre></td></tr></table></figure></p>
+<p>所以他可以表示的最大长度是53，即2^53 = 9007199254740992，所以<strong>双精度浮点</strong>能表示的最大精度是 16 位的，JS 会调用 toPrecision(16) 来做运算<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1.11.toPrecision(16) = 1.110000000000000 //自动取整之后就是1.11</div></pre></td></tr></table></figure></p>
+<p>如果精度调整一下，结果就不一样了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1.11.toPrecision(17) = 1.1100000000000001</div><div class="line">1.11.toPrecision(20) = 1.1100000000000000977</div></pre></td></tr></table></figure></p>
+<p>到这里终于真相大白了！</p>
 
       
     </div>
@@ -450,9 +434,11 @@ drwxr-xr-x  2 mobile      748 Aug 26 13:51 MMappedKV
       
         <div class="post-tags">
           
-            <a href="/tags/dumpdecrypted/" rel="tag"># dumpdecrypted</a>
+            <a href="/tags/JS/" rel="tag"># JS</a>
           
-            <a href="/tags/砸壳/" rel="tag"># 砸壳</a>
+            <a href="/tags/双精度浮点/" rel="tag"># 双精度浮点</a>
+          
+            <a href="/tags/数据误差/" rel="tag"># 数据误差</a>
           
         </div>
       
@@ -465,8 +451,8 @@ drwxr-xr-x  2 mobile      748 Aug 26 13:51 MMappedKV
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/20/VPS/" rel="next" title="VPS搭建高速SS服务器">
-                <i class="fa fa-chevron-left"></i> VPS搭建高速SS服务器
+              <a href="/2018/01/19/cocopods_private_sdk_repo/" rel="next" title="如何使用CocoaPods管理第三方SDK">
+                <i class="fa fa-chevron-left"></i> 如何使用CocoaPods管理第三方SDK
               </a>
             
           </div>
@@ -474,10 +460,6 @@ drwxr-xr-x  2 mobile      748 Aug 26 13:51 MMappedKV
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/08/iPhone查找序列号生成函数/" rel="prev" title="iPhone查找序列号生成函数">
-                iPhone查找序列号生成函数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -636,7 +618,7 @@ drwxr-xr-x  2 mobile      748 Aug 26 13:51 MMappedKV
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1.前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-准备工作"><span class="nav-number">2.</span> <span class="nav-text">2.准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-编译dumpdecrypted"><span class="nav-number">3.</span> <span class="nav-text">3.编译dumpdecrypted</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-开始砸壳"><span class="nav-number">4.</span> <span class="nav-text">4.开始砸壳</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定位目标App可执行文件的位置"><span class="nav-number">4.1.</span> <span class="nav-text">定位目标App可执行文件的位置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#目标锁定，定位到目标App的Documents位置"><span class="nav-number">4.2.</span> <span class="nav-text">目标锁定，定位到目标App的Documents位置</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#双精度浮点数"><span class="nav-number">1.</span> <span class="nav-text">双精度浮点数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#还有一个问题？"><span class="nav-number">2.</span> <span class="nav-text">还有一个问题？</span></a></li></ol></div>
             
 
           </div>

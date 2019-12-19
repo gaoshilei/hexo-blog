@@ -90,18 +90,25 @@
 
 
 
-<meta name="description" content="下文的讨论基于ARC    平时开发中我们遇到block里面引用self的情况，大部分都是这样处理的   123456__weak typeof(self) weakSelf = self;self.myBlock =  ^&amp;#123;__strong typeof(self) strongSelf = weakSelf;    [strongSelf doSomething];">
-<meta name="keywords" content="block,retain cycle">
+<meta name="description" content="下文的讨论基于ARC  
+
+平时开发中我们遇到block里面引用self的情况，大部分都是这样处理的  
+123456__weak typeof(self) weakSelf = self;self.myBlock =  ^&amp;#123;__strong typeof(self) strongSelf = weakSelf;    [strongSelf doSomething];">
 <meta property="og:type" content="article">
 <meta property="og:title" content="你真的会用strong-weak dance吗？">
 <meta property="og:url" content="http://www.gaoshilei.com/2017/01/16/strong-weak_dance/index.html">
 <meta property="og:site_name" content="LeonLei的博客">
-<meta property="og:description" content="下文的讨论基于ARC    平时开发中我们遇到block里面引用self的情况，大部分都是这样处理的   123456__weak typeof(self) weakSelf = self;self.myBlock =  ^&amp;#123;__strong typeof(self) strongSelf = weakSelf;    [strongSelf doSomething];">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-06T03:50:52.000Z">
+<meta property="og:description" content="下文的讨论基于ARC  
+
+平时开发中我们遇到block里面引用self的情况，大部分都是这样处理的  
+123456__weak typeof(self) weakSelf = self;self.myBlock =  ^&amp;#123;__strong typeof(self) strongSelf = weakSelf;    [strongSelf doSomething];">
+<meta property="og:updated_time" content="2019-06-24T16:28:27.164Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你真的会用strong-weak dance吗？">
-<meta name="twitter:description" content="下文的讨论基于ARC    平时开发中我们遇到block里面引用self的情况，大部分都是这样处理的   123456__weak typeof(self) weakSelf = self;self.myBlock =  ^&amp;#123;__strong typeof(self) strongSelf = weakSelf;    [strongSelf doSomething];">
+<meta name="twitter:description" content="下文的讨论基于ARC  
+
+平时开发中我们遇到block里面引用self的情况，大部分都是这样处理的  
+123456__weak typeof(self) weakSelf = self;self.myBlock =  ^&amp;#123;__strong typeof(self) strongSelf = weakSelf;    [strongSelf doSomething];">
 
 
 
@@ -565,7 +572,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -659,7 +666,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
     <span class="site-uv">
