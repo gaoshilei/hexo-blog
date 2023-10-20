@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="zh-CN"><head><!-- hexo injector head_begin start --><link href="/css/hexo-tag-common.css" rel="stylesheet"/><!-- hexo injector head_begin end --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="LeonLei"><meta name="copyright" content="LeonLei"><meta name="generator" content="Hexo 6.3.0"><meta name="theme" content="hexo-theme-yun"><title>JS计算误差小谈 | 路是月的痕</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"www.gaoshilei.com","root":"/","title":"大石头的小站","version":"1.10.7","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="路是月的痕" type="application/atom+xml"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-1LL0D86CY9"></script><script>if (CONFIG.hostname === location.hostname) {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-1LL0D86CY9');
+}</script><script data-ad-client="ca-pub-2245427233262012" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(function(){
+  var bp = document.createElement('script');
+  var curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else {
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();</script><meta name="description" content="平时在写js代码时会用到一些简单的计算，比方说系统中我们数据库储存的金额是分，前端展示的是元，所以在用户输入元之后要转成分传给后台，这个公式小学一年级就学过了 11.11*100 &#x3D; 111 一般来说这个计算结果是没问题的，但是在js里面却有这样的尴尬 11.11*100 &#x3D; 111.00000000000001 结果不是我们想要的111，类似的情况还有 12340.1+0.2 &#x3D; 0.30000">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS计算误差小谈">
+<meta property="og:url" content="http://www.gaoshilei.com/js_double/index.html">
+<meta property="og:site_name" content="路是月的痕">
+<meta property="og:description" content="平时在写js代码时会用到一些简单的计算，比方说系统中我们数据库储存的金额是分，前端展示的是元，所以在用户输入元之后要转成分传给后台，这个公式小学一年级就学过了 11.11*100 &#x3D; 111 一般来说这个计算结果是没问题的，但是在js里面却有这样的尴尬 11.11*100 &#x3D; 111.00000000000001 结果不是我们想要的111，类似的情况还有 12340.1+0.2 &#x3D; 0.30000">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.gaoshilei.com/687474703a2f2f617461322d696d672e636e2d68616e677a686f752e696d672d7075622e616c6979756e2d696e632e636f6d2f37323637613538623239383932633362373233653364366333663733393035612e706e67.png">
+<meta property="og:image" content="http://img.gaoshilei.com/Xnip2019-01-22_18-33-33.png">
+<meta property="og:image" content="http://img.gaoshilei.com/Xnip2019-01-22_19-18-53.png">
+<meta property="og:image" content="http://img.gaoshilei.com/Xnip2019-01-24_11-09-30.png">
+<meta property="og:image" content="http://img.gaoshilei.com/Xnip2019-01-22_19-37-10.png">
+<meta property="article:published_time" content="2019-01-07T16:00:01.000Z">
+<meta property="article:modified_time" content="2023-10-20T08:44:35.699Z">
+<meta property="article:author" content="LeonLei">
+<meta property="article:tag" content="JS">
+<meta property="article:tag" content="双精度浮点">
+<meta property="article:tag" content="数据误差">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.gaoshilei.com/687474703a2f2f617461322d696d672e636e2d68616e677a686f752e696d672d7075622e616c6979756e2d696e632e636f6d2f37323637613538623239383932633362373233653364366333663733393035612e706e67.png"><script>(function() {
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="LeonLei"><img width="96" loading="lazy" src="/images/avatar.png" alt="LeonLei"></a><div class="site-author-name"><a href="/about/">LeonLei</a></div><span class="site-name">路是月的痕</span><sub class="site-subtitle">代码略懂，精通LOL</sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">15</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">6</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">29</span></a></div><a class="site-state-item hty-icon-button" href="/about/#comment" title="留言板"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:clipboard-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E7%B2%BE%E5%BA%A6%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">双精度浮点数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%98%E6%9C%89%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">还有一个问题？</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/js_double/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="LeonLei"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="路是月的痕"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">JS计算误差小谈<a class="post-edit-link" href="https://github.com/YunYouJun/yunyoujun.github.io/tree/hexo/source/_posts/posts/JS计算误差小谈.md" target="_blank" title="编辑" rel="noopener"><span class="icon iconify" data-icon="ri:edit-line"></span></a></h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2019-01-08 00:00:01" itemprop="dateCreated datePublished" datetime="2019-01-08T00:00:01+08:00">2019-01-08</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2023-10-20 16:44:35" itemprop="dateModified" datetime="2023-10-20T16:44:35+08:00">2023-10-20</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">技术笔记</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/JS/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">JS</span></a><a class="tag-item" href="/tags/%E5%8F%8C%E7%B2%BE%E5%BA%A6%E6%B5%AE%E7%82%B9/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">双精度浮点</span></a><a class="tag-item" href="/tags/%E6%95%B0%E6%8D%AE%E8%AF%AF%E5%B7%AE/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">数据误差</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>平时在写js代码时会用到一些简单的计算，比方说系统中我们数据库储存的金额是分，前端展示的是元，所以在用户输入元之后要转成分传给后台，这个公式小学一年级就学过了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.11*100 = 111</span><br></pre></td></tr></table></figure>
+<p>一般来说这个计算结果是没问题的，但是在js里面却有这样的尴尬</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.11*100 = 111.00000000000001</span><br></pre></td></tr></table></figure>
+<p>结果不是我们想要的111，类似的情况还有</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0.1+0.2 = 0.30000000000000004   //加法</span><br><span class="line">0.27-0.11 = 0.16000000000000003 //减法</span><br><span class="line">19.9*100 = 1989.9999999999998   //乘法</span><br><span class="line">0.3/0.1 = 2.9999999999999996    //除法</span><br></pre></td></tr></table></figure>
+<p>一般遇到这种问题，我们都有成熟的解决方案解决</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/josdejong/mathjs">Math.js</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MikeMcl/decimal.js">decimal.js</a></li>
+</ul>
+<p>用着用着就习惯了，一直没有搞清楚为什么会有这样的误差。这两天正好有空，看了一些博客终于搞清楚了。</p>
+<span id="more"></span>
+
+<h2 id="双精度浮点数"><a href="#双精度浮点数" class="headerlink" title="双精度浮点数"></a>双精度浮点数</h2><p>JS 的数据类型比较特别，和<code>C、Java</code> 等语言的的数据类型不一样，不管是 <code>int、double、float</code> 在 JS 里面都是<code>Number</code>类型。<br>要搞清楚为什么有这个误差，就要先介绍一下<strong>双精度浮点</strong>(double)</p>
+<p>双精度浮点数(double)使用 64 位（8字节） 来储存一个浮点数。 它可以表示十进位制的15或16位有效数字，其可以表示的数字的绝对值范围大约是 <code>[2.23*10^(-308),1.79*10^(308)]</code>。</p>
+<p>这其中的64位bit又可以分为下面的格式</p>
+<ul>
+<li>sign bit(符号位)：0代表正数，1代表负数</li>
+<li>exponent(指数)：中间的11位用来表示次方数</li>
+<li>mantissa(尾数)：最后的52位用来表示精确度</li>
+</ul>
+<p><img src="http://img.gaoshilei.com/687474703a2f2f617461322d696d672e636e2d68616e677a686f752e696d672d7075622e616c6979756e2d696e632e636f6d2f37323637613538623239383932633362373233653364366333663733393035612e706e67.png" loading="lazy"></p>
+<p>上面的格式可以转换成这个这个公式<br><img src="http://img.gaoshilei.com/Xnip2019-01-22_18-33-33.png" loading="lazy"></p>
+<p>在十进制中，整数部分可以是0<del>9，在二进制中整数部分只能是0</del>1，所以可以看到上面公式对应的整数部分只能是1，这样就可以不用管整数部分直接保留后面的小数部分就可以了。指数 exponent(E) 是一个无符号整型 (unsigned int) ，那么问题就来了，我们怎么保留小数呢？按照科学计数法，如果E小于0才可以表示成小数，因为E是11位的，最大可以表示为2047，所以取一个中间值1023（十六进制为ox3FF），0<del>1022表示为负，1023</del>2047表示为正，这样就解决了小数的表示问题。  </p>
+<p>我们来看看数字 1 是怎么储存的</p>
+<p><img src="http://img.gaoshilei.com/Xnip2019-01-22_19-18-53.png" loading="lazy"></p>
+<p>用上面的公式表示就是：<code>(-1)^0 * 2^(1024-1023) * 1.0 = 1</code>，再看一下 0.5 的储存形式</p>
+<p><img src="http://img.gaoshilei.com/Xnip2019-01-24_11-09-30.png" loading="lazy"></p>
+<p><code>(-1)^0 * 2^(1022-1023) * 1.0 = 0.5</code>，搞清楚这个，我们再看看上面提到的 <code>1.11*100 = 111.00000000000001</code> 这个问题。  </p>
+<p>将 1.11 转换成二进制是这样的<code>1.0001110000101000111101011100001010001111010111000011...</code>(11100001010001111010循环)（<a target="_blank" rel="noopener" href="https://www.sojson.com/hexconvert.html">十进制小数转二进制方法</a>)，换成64位浮点来表示，S为0，E为1023，mantissa(M)为0001110000101000111101011100001010001111010111000011，因为位数只有52位，后面循环的部分就被舍弃了，转成64位浮点数是这样的<br><img src="http://img.gaoshilei.com/Xnip2019-01-22_19-37-10.png" loading="lazy"><br>然后转成10进制的就变成了 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.11000000000000009769962616701</span><br></pre></td></tr></table></figure>
+<p>所以这里出现了问题，误差就有了，究其根本还是精度的问题。</p>
+<h2 id="还有一个问题？"><a href="#还有一个问题？" class="headerlink" title="还有一个问题？"></a>还有一个问题？</h2><blockquote>
+<p>为什么我直接输入 1.11 得到的结果是 1.11，而不是1.11000000000000009769962616701 呢？</p>
+</blockquote>
+<p>这个还是<strong>精度</strong>问题，64位浮点的尾数是52位，因为整数部分只能是1所以可以省略一位，比方说  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">11.101 * 2^1001 可以格式化为 1.1101 * 2^1010，尾数部分M直接储存1101即可；</span><br><span class="line">0.0011101 * 2^-1001 可以格式化为 1.1101 * 2^-1100，尾数部分M储存1101即可。  </span><br></pre></td></tr></table></figure>
+<p>所以他可以表示的最大长度是53，即2^53 &#x3D; 9007199254740992，所以<strong>双精度浮点</strong>能表示的最大精度是 16 位的，JS 会调用 toPrecision(16) 来做运算</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.11.toPrecision(16) = 1.110000000000000 //自动取整之后就是1.11</span><br></pre></td></tr></table></figure>
+<p>如果精度调整一下，结果就不一样了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.11.toPrecision(17) = 1.1100000000000001</span><br><span class="line">1.11.toPrecision(20) = 1.1100000000000000977</span><br></pre></td></tr></table></figure>
+<p>到这里终于真相大白了！</p>
+</div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>LeonLei</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://www.gaoshilei.com/js_double/" title="JS计算误差小谈">http://www.gaoshilei.com/js_double/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/cocopods_private_sdk_repo/" rel="next" title="如何使用CocoaPods管理第三方SDK"><span class="post-nav-text">如何使用CocoaPods管理第三方SDK</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>如果您有任何内容想要讨论，欢迎前往 <a href="https://github.com/gaoshilei" target="_blank">GitHub</a> 与我交流。</span><br></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备19073416号</a></div><div class="copyright"><span>&copy; 2016 – 2023 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> LeonLei</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.7</span></div><div class="footer-support"><span>本网站由</span><a class="footer-support-logo" href="https://s.qiniu.com/IVvymu" target="blank" title="七牛云"><img height="30" src="https://img.gaoshilei.com/qiniuyun-logo.png" alt="七牛云"></a><span>提供储存和 CDN 加速</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><!-- hexo injector body_end start --><script src="/js/hexo-tag-common.js"></script><!-- hexo injector body_end end --></body></html>

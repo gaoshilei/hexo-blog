@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="zh-CN"><head><!-- hexo injector head_begin start --><link href="/css/hexo-tag-common.css" rel="stylesheet"/><!-- hexo injector head_begin end --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="LeonLei"><meta name="copyright" content="LeonLei"><meta name="generator" content="Hexo 6.3.0"><meta name="theme" content="hexo-theme-yun"><title>快速搭建Hexo博客+webhook自动部署+全站HTTPS | 路是月的痕</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"www.gaoshilei.com","root":"/","title":"大石头的小站","version":"1.10.7","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="路是月的痕" type="application/atom+xml"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-1LL0D86CY9"></script><script>if (CONFIG.hostname === location.hostname) {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-1LL0D86CY9');
+}</script><script data-ad-client="ca-pub-2245427233262012" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(function(){
+  var bp = document.createElement('script');
+  var curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else {
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();</script><meta name="description" content="本文档主要用来记录自己借助Hexo搭建博客的一些步骤和命令，方便以后重装；新人也可以通过此篇文章快速搭建自己的个人博客。下文的环境为:VPS： CentOS6.9本地： MacOS   搭建博客1、安装 NodeJS 和 NPM1[root@California_VPS ~]# curl --silent --location https:&#x2F;&#x2F;rpm.nodesource.com&#x2F;setup_8.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="快速搭建Hexo博客+webhook自动部署+全站HTTPS">
+<meta property="og:url" content="http://www.gaoshilei.com/hexo-init/index.html">
+<meta property="og:site_name" content="路是月的痕">
+<meta property="og:description" content="本文档主要用来记录自己借助Hexo搭建博客的一些步骤和命令，方便以后重装；新人也可以通过此篇文章快速搭建自己的个人博客。下文的环境为:VPS： CentOS6.9本地： MacOS   搭建博客1、安装 NodeJS 和 NPM1[root@California_VPS ~]# curl --silent --location https:&#x2F;&#x2F;rpm.nodesource.com&#x2F;setup_8.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-10-30T11:09:00.000Z">
+<meta property="article:modified_time" content="2023-10-20T08:42:24.462Z">
+<meta property="article:author" content="LeonLei">
+<meta property="article:tag" content="个人博客">
+<meta name="twitter:card" content="summary"><script>(function() {
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="LeonLei"><img width="96" loading="lazy" src="/images/avatar.png" alt="LeonLei"></a><div class="site-author-name"><a href="/about/">LeonLei</a></div><span class="site-name">路是月的痕</span><sub class="site-subtitle">代码略懂，精通LOL</sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">15</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">6</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">29</span></a></div><a class="site-state-item hty-icon-button" href="/about/#comment" title="留言板"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:clipboard-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.</span> <span class="toc-text">搭建博客</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%AE%89%E8%A3%85-NodeJS-%E5%92%8C-NPM"><span class="toc-number">1.1.</span> <span class="toc-text">1、安装 NodeJS 和 NPM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85-Nginx"><span class="toc-number">1.2.</span> <span class="toc-text">2、安装 Nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85-Hexo"><span class="toc-number">1.3.</span> <span class="toc-text">3、安装 Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E9%85%8D%E7%BD%AE%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.4.</span> <span class="toc-text">4、配置博客</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-webhooks-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E5%8D%9A%E5%AE%A2"><span class="toc-number">2.</span> <span class="toc-text">配置 webhooks 自动更新博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E7%AB%99-HTTPS"><span class="toc-number">3.</span> <span class="toc-text">全站 HTTPS</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/hexo-init/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="LeonLei"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="路是月的痕"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">快速搭建Hexo博客+webhook自动部署+全站HTTPS<a class="post-edit-link" href="https://github.com/YunYouJun/yunyoujun.github.io/tree/hexo/source/_posts/posts/快速搭建Hexo博客+webhook自动部署+全站HTTPS.md" target="_blank" title="编辑" rel="noopener"><span class="icon iconify" data-icon="ri:edit-line"></span></a></h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2017-10-30 19:09:00" itemprop="dateCreated datePublished" datetime="2017-10-30T19:09:00+08:00">2017-10-30</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2023-10-20 16:42:24" itemprop="dateModified" datetime="2023-10-20T16:42:24+08:00">2023-10-20</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E5%A4%87%E5%BF%98%E5%BD%95/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">备忘录</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">个人博客</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文档主要用来记录自己借助<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>搭建博客的一些步骤和命令，方便以后重装；新人也可以通过此篇文章快速搭建自己的个人博客。<br>下文的环境为:<br>VPS： CentOS6.9<br>本地： MacOS  </p>
+<h2 id="搭建博客"><a href="#搭建博客" class="headerlink" title="搭建博客"></a>搭建博客</h2><h3 id="1、安装-NodeJS-和-NPM"><a href="#1、安装-NodeJS-和-NPM" class="headerlink" title="1、安装 NodeJS 和 NPM"></a>1、安装 NodeJS 和 NPM</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -  </span><br></pre></td></tr></table></figure>
+
+<p>执行完这个命令之后就可以安装NodeJS  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# yum install -y nodejs</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+
+<p>这里安装的是8.X版本，如果安装其他版本将<code>setup_8.x</code>中的8改成对应的版本就可以了。<br>安装完成之后执行命令检查安装结果：  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# node -v</span><br><span class="line">v8.8.1</span><br><span class="line">[root@California_VPS ~]# npm -v</span><br><span class="line">5.4.2</span><br></pre></td></tr></table></figure>
+
+<p>转载请注明出处：<a href="http://www.gaoshilei.com/">来自LeonLei的博客http://www.gaoshilei.com</a>  </p>
+<h3 id="2、安装-Nginx"><a href="#2、安装-Nginx" class="headerlink" title="2、安装 Nginx"></a>2、安装 Nginx</h3><p>通过 yum方式安装比较麻烦，还需要安装epel依赖库，下面介绍一种最简单的安装方法 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# vim /etc/yum.repos.d/nginx.repo </span><br></pre></td></tr></table></figure>
+<p>先在 yum.repos.d 文件下新建一个<code>nginx.repo</code>，然后将下面的内容拷贝进去，<code>:wq</code>保存退出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[nginx]</span><br><span class="line">name=nginx repo</span><br><span class="line">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1 </span><br></pre></td></tr></table></figure>
+
+<p>执行下面的命令直接从配置文件安装 nginx</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# yum install nginx -y</span><br></pre></td></tr></table></figure>
+
+<p>然后启动nginx  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@c_vps ~]# nginx</span><br></pre></td></tr></table></figure>
+
+<p>然后打开服务器所在的IP测试nginx是否安装完成。</p>
+<h3 id="3、安装-Hexo"><a href="#3、安装-Hexo" class="headerlink" title="3、安装 Hexo"></a>3、安装 Hexo</h3><p>按照官网的文档执行命令  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>顺利的话一会就安装好了，有时候会遇到 npm 权限问题  </p>
+<blockquote>
+<p>&#x2F;usr&#x2F;bin&#x2F;hexo -&gt; &#x2F;usr&#x2F;lib&#x2F;node_modules&#x2F;hexo-cli&#x2F;bin&#x2F;hexo<br><a href="mailto:&#x68;&#x65;&#120;&#x6f;&#45;&#117;&#x74;&#x69;&#108;&#x40;&#48;&#46;&#54;&#46;&#x31;">&#x68;&#x65;&#120;&#x6f;&#45;&#117;&#x74;&#x69;&#108;&#x40;&#48;&#46;&#54;&#46;&#x31;</a> postinstall &#x2F;usr&#x2F;lib&#x2F;node_modules&#x2F;hexo-cli&#x2F;node_modules&#x2F;hexo-util<br>npm run build:highlight<br><a href="mailto:&#104;&#101;&#x78;&#111;&#x2d;&#117;&#x74;&#x69;&#108;&#x40;&#48;&#46;&#x36;&#x2e;&#49;">&#104;&#101;&#x78;&#111;&#x2d;&#117;&#x74;&#x69;&#108;&#x40;&#48;&#46;&#x36;&#x2e;&#49;</a> build:highlight &#x2F;usr&#x2F;lib&#x2F;node_modules&#x2F;hexo-cli&#x2F;node_modules&#x2F;hexo-util<br>node scripts&#x2F;build_highlight_alias.js &gt; highlight_alias.json<br>sh: highlight_alias.json: 权限不够<br>npm ERR! code ELIFECYCLE<br>npm ERR! errno 1<br>npm ERR! <a href="mailto:&#104;&#101;&#x78;&#x6f;&#45;&#x75;&#x74;&#105;&#108;&#64;&#x30;&#46;&#54;&#x2e;&#49;">&#104;&#101;&#x78;&#x6f;&#45;&#x75;&#x74;&#105;&#108;&#64;&#x30;&#46;&#54;&#x2e;&#49;</a> build:highlight: <code>node scripts/build_highlight_alias.js &gt; highlight_alias.json</code><br>npm ERR! Exit status 1<br>npm ERR!<br>npm ERR! Failed at the <a href="mailto:&#x68;&#x65;&#x78;&#111;&#x2d;&#x75;&#x74;&#x69;&#108;&#x40;&#x30;&#x2e;&#54;&#x2e;&#49;">&#x68;&#x65;&#x78;&#111;&#x2d;&#x75;&#x74;&#x69;&#108;&#x40;&#x30;&#x2e;&#54;&#x2e;&#49;</a> build:highlight script.<br>npm ERR! This is probably not a problem with npm. There is likely additional logging output above.  </p>
+</blockquote>
+<p>这个时候需要开启 npm 的 unsafe-perm 模式  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# npm config set unsafe-perm &quot;true&quot;  </span><br></pre></td></tr></table></figure>
+
+<p>查看是否设置成功  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# npm config get unsafe-perm</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+
+<p>如果为 <code>true</code> 则设置成功，再次执行 hexo 的安装命令即可顺利安装成功。  </p>
+<p>因为需要把之前在 github 的博客备份重新拷贝新的服务器上，所以要配置 ssh 公钥方便 git 操作。</p>
+<p>先生成公钥</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# ssh-keygen -t rsa -b 4096 -C &quot;xxxxx@xxx.com&quot;  </span><br></pre></td></tr></table></figure>
+
+<p>一直回车全部使用默认设置就行，这一步会生成ssh公钥，也就是 public key，生成之后可以通过下面的命令查看  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -al ~/.ssh</span><br></pre></td></tr></table></figure>
+
+<p>如果有 <code>id_rsa</code> <code>id_rsa.pub</code> 证明生成成功，然后通过下面的命令查看 ssh 公钥</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>再将这个公钥拷贝到 github 的账户配置中即可。   </p>
+<p><strong>注意：  为了方便在本地修改博客、实时预览、自动部署，以上（除了Nginx安装）所有步骤在本地机器上也需要重新操作一遍，以后在本地直接修改之后推送github，配合下文的webhook，服务器会自动更新</strong>  </p>
+<h3 id="4、配置博客"><a href="#4、配置博客" class="headerlink" title="4、配置博客"></a>4、配置博客</h3><p>新安装：参照 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/setup.html">Hexo官方教程</a><br>重装：从 github 上把之前的博客 clone 下来，放到 root 目录下：  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:gaoshilei/hexo-blog.git  </span><br></pre></td></tr></table></figure>
+
+<p>进入博客目录，一次执行下面的命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@c_vps hexo-blog]# npm install hexo</span><br><span class="line">[root@c_vps hexo-blog]# npm install</span><br></pre></td></tr></table></figure>
+
+<p>然后配置 nginx，让 80 端口指向博客静态页面首页，在 nginx 配置文件目中新建一个<code>hexo.conf</code>文件 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# vim /etc/nginx/conf.d/hexo.conf  </span><br></pre></td></tr></table></figure>
+
+<p>写入相应的配置  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen          80;</span><br><span class="line">    server_name     gaoshilei.com www.gaoshilei.com;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root        /root/hexo-blog/public;</span><br><span class="line">        index       index.html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重启 nginx 使服务生效  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<p>此时去访问博客得到的是一个 404 或者 403 报错，因为 nginx 是以 nginx 用户运行的，他没有博客目录的读写权限，有两个方法可以解决：  </p>
+<ol>
+<li>给博客目录赋权，让 nginx 用户拥有读写权限</li>
+<li>让 nginx 以 root 用户运行</li>
+</ol>
+<p>我采用第二种方式，修改 nginx 的配置文件  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# vim /etc/nginx/nginx.conf  </span><br></pre></td></tr></table></figure>
+
+<p>将 <code>user  nginx;</code> 改成 <code>user  root;</code> 即可。然后重启 nginx。  </p>
+<p>再去访问发现报错没了，但是页面是一片空白，找了半天原因，之前用到的主题并没有上传到 github 上，将主题拷贝到 <code>themes</code> 文件夹下，然后部署 hexo 就可以正常访问了。  </p>
+<p><strong>hexo 常用的命令</strong><br>生成静态文件并部署网站:  </p>
+<p>安装 hexo 服务（本地可以通过这个服务实现预览，不需要安装nginx）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># npm install hexo-server --save  </span><br></pre></td></tr></table></figure>
+
+<p>启动 hexo 服务，默认端口为 4000</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># hexo server</span><br></pre></td></tr></table></figure>
+
+<p>用指定端口(port)启动启动 hexo 服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># hexo server -p port</span><br></pre></td></tr></table></figure>
+
+<p>生成静态文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># hexo g</span><br></pre></td></tr></table></figure>
+
+<p>清除缓存文件 (db.json) 和已生成的静态文件 (public)  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># hexo clean  </span><br></pre></td></tr></table></figure>
+
+<p>生成站点map  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># npm install hexo-generator-sitemap --save</span><br><span class="line"># npm install hexo-generator-baidu-sitemap --save  </span><br></pre></td></tr></table></figure>
+
+
+<h2 id="配置-webhooks-自动更新博客"><a href="#配置-webhooks-自动更新博客" class="headerlink" title="配置 webhooks 自动更新博客"></a>配置 webhooks 自动更新博客</h2><p>每次在本地更新了博客，push 到 github 上，还要去 VPS 再 git pull 一下，确实很麻烦，配置好 webhooks 就可以在 github 有 push 操作时自动更新并部署博客。  </p>
+<p>webhooks 在 github 对应仓库直接设置就行，重点是服务器的接收和相应的操作。<br>有 Python、PHP、NodeJS 多种方式可以接收 webhooks , 由于 hexo 是基于 NodeJS 的，所以这里用 NodeJS 来接收 github 的 push 事件。 </p>
+<p>安装依赖库 <code>github-webhook-handler</code>：  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# npm install -g github-webhook-handler</span><br></pre></td></tr></table></figure>
+
+<p>安装完成之后配置 <code>webhooks.js</code>  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS hexo-blog]# vim webhooks.js </span><br></pre></td></tr></table></figure>
+
+<p>然后将下面代码的拷贝进去  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> createHandler = <span class="built_in">require</span>(<span class="string">&#x27;github-webhook-handler&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> handler = <span class="title function_">createHandler</span>(&#123; <span class="attr">path</span>: <span class="string">&#x27;/webhooks_push&#x27;</span>, <span class="attr">secret</span>: <span class="string">&#x27;leonlei1226&#x27;</span> &#125;)</span><br><span class="line"><span class="comment">// 上面的 secret 保持和 GitHub 后台设置的一致</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">run_cmd</span>(<span class="params">cmd, args, callback</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> spawn = <span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>).<span class="property">spawn</span>;</span><br><span class="line">  <span class="keyword">var</span> child = <span class="title function_">spawn</span>(cmd, args);</span><br><span class="line">  <span class="keyword">var</span> resp = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">  child.<span class="property">stdout</span>.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="keyword">function</span>(<span class="params">buffer</span>) &#123; resp += buffer.<span class="title function_">toString</span>(); &#125;);</span><br><span class="line">  child.<span class="property">stdout</span>.<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123; callback (resp) &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">handler.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, err.<span class="property">message</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">handler.<span class="title function_">on</span>(<span class="string">&#x27;push&#x27;</span>, <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Received a push event for %s to %s&#x27;</span>,</span><br><span class="line">    event.<span class="property">payload</span>.<span class="property">repository</span>.<span class="property">name</span>,</span><br><span class="line">    event.<span class="property">payload</span>.<span class="property">ref</span>);</span><br><span class="line">    <span class="title function_">run_cmd</span>(<span class="string">&#x27;sh&#x27;</span>, [<span class="string">&#x27;./deploy.sh&#x27;</span>], <span class="keyword">function</span>(<span class="params">text</span>)&#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(text) &#125;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  http.<span class="title function_">createServer</span>(<span class="keyword">function</span> (<span class="params">req, res</span>) &#123;</span><br><span class="line">    <span class="title function_">handler</span>(req, res, <span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">      res.<span class="property">statusCode</span> = <span class="number">404</span></span><br><span class="line">      res.<span class="title function_">end</span>(<span class="string">&#x27;no such location&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;).<span class="title function_">listen</span>(<span class="number">6666</span>)</span><br><span class="line">&#125;<span class="keyword">catch</span>(err)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, err.<span class="property">message</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <strong>secret</strong> 要和 github 仓库中 webhooks 设置的一致，<strong>6666</strong> 是监听端口可以随便改，不要冲突就行，**.&#x2F;deploy.sh** 是接收到 push 事件时需要执行的shell脚本，与 <code>webhooks.js</code> 都存放在博客目录下；<strong>path: ‘&#x2F;webhooks_push</strong> 是 github 通知服务器的地址，完整的地址是这样的<code>http://www.gaoshilei.com:6666/webhooks_push</code>  </p>
+<blockquote>
+<p>用 https 会报错，github 设置页面会 deliver error，所以把地址改成了 http</p>
+</blockquote>
+<p>配置<code>./deploy.sh</code>  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS hexo-blog]# vim deploy.sh</span><br></pre></td></tr></table></figure>
+
+<p>将下面代码拷贝进去</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /root/hexo-blog/</span><br><span class="line">git reset --hard</span><br><span class="line">git pull origin master  </span><br><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>然后运行  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS hexo-blog]# node webhooks.js </span><br></pre></td></tr></table></figure>
+
+<p>就可以实现本地更新 push 到 github ，服务器会自动更新部署博客。<br>最后要将进程加入守护，通过 pm2 来实现  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS ~]# npm install pm2 --global</span><br></pre></td></tr></table></figure>
+
+<p>然后通过 pm2 启动 <code>webhooks.js</code>  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS hexo-blog]# pm2 start /root/hexo-blog/webhooks.js </span><br><span class="line">[PM2] Starting /root/hexo-blog/webhooks.js in fork_mode (1 instance)</span><br><span class="line">[PM2] Done.</span><br><span class="line">┌──────────┬────┬──────┬───────┬────────┬─────────┬────────┬─────┬───────────┬──────┬──────────┐</span><br><span class="line">│ App name │ id │ mode │ pid   │ status │ restart │ uptime │ cpu │ mem       │ user │ watching │</span><br><span class="line">├──────────┼────┼──────┼───────┼────────┼─────────┼────────┼─────┼───────────┼──────┼──────────┤</span><br><span class="line">│ webhooks │ 0  │ fork │ 10010 │ online │ 0       │ 0s     │ 14% │ 24.2 MB   │ root │ disabled │</span><br><span class="line">└──────────┴────┴──────┴───────┴────────┴─────────┴────────┴─────┴───────────┴──────┴──────────┘</span><br><span class="line"> Use `pm2 show &lt;id|name&gt;` to get more details about an app  </span><br></pre></td></tr></table></figure>
+
+<p>如果服务器重启，我们还要手动开启webhooks服务，所以我们将上面的命令加入开机启动就可以了，将命令加入<code>/etc/rc.d/rc.local</code>中，即可实现开机自启<br>先将命令写到脚本<code>/root/webhooks_auto.sh</code>中：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sbin/runuser -l root -c &quot;/usr/bin/pm2 start /root/hexo-blog/webhooks.js&quot;</span><br></pre></td></tr></table></figure>
+
+
+<p>然后在<code>/etc/rc.d/rc.local</code>中添加刚才的脚本：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/root/webhooks_auto.sh 2&gt;&amp;1 &gt; /dev/null &amp;</span><br></pre></td></tr></table></figure>
+
+
+<p>重启VPS，然后用命令<code>pm2 show webhooks</code>查看 webhooks 是否已经启动。</p>
+<h2 id="全站-HTTPS"><a href="#全站-HTTPS" class="headerlink" title="全站 HTTPS"></a>全站 HTTPS</h2><p>使用 Let’s Encrypt 的免费证书，不过每三个月要续签一次。安装可以通过 Certbot 的傻瓜式操作  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS www]# wget https://dl.eff.org/certbot-auto</span><br><span class="line">[root@California_VPS www]# chmod a+x certbot-auto  </span><br></pre></td></tr></table></figure>
+
+<p>下载脚本，然后赋权  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS www]# sudo ./certbot-auto --nginx</span><br></pre></td></tr></table></figure>
+
+<p>执行脚本，获取证书，Certbot 会自动帮我们配置 nginx 的一些配置。走到最后可能遇到这种情况  </p>
+<blockquote>
+<p>Cannot find a VirtualHost matching domain <a href="http://www.gaoshilei.com/">www.gaoshilei.com</a>. In order for Certbot to correctly perform the challenge please add a corresponding server_name directive to your nginx configuration: <a target="_blank" rel="noopener" href="https://nginx.org/en/docs/http/server_names.html">https://nginx.org/en/docs/http/server_names.html</a></p>
+</blockquote>
+<p>之前在配置 nginx.conf 文件的时候忘记加域名了，把 server_name 补全就行了，然后重新执行一次脚本。你还可能遇到这样的问题  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Creating virtual environment...</span><br><span class="line">[root@California_VPS www]# ./certbot-auto: line 864: virtualenv: command not found</span><br></pre></td></tr></table></figure>
+
+<p>缺少<code>virtualenv</code>环境，依次执行下面的命令下面进行安装：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS www]# curl https://bootstrap.pypa.io/get-pip.py | python -</span><br><span class="line">[root@California_VPS www]# pip install virtualenv</span><br></pre></td></tr></table></figure>
+
+<p>然后执行上面的命令<code>sudo ./certbot-auto --nginx</code>继续安装证书，中间需要我们输入邮箱，域名等等，按照步骤操作就可以，最后顺利申请了证书，而且 Certbot 都帮我配置好了，nice！<br>不过这个证书有效期只有三个月，所以需要续签，可以手动续签，证书快过期的时候执行  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">sudo /root/www/certbot-auto renew</span></span><br></pre></td></tr></table></figure>
+
+<p>或者将上面的命令加入 <code>crontab</code> 定时任务  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS etc]# ps -ef | grep cron</span><br><span class="line">root      1164     1  0 Oct30 ?        00:00:00 crond</span><br><span class="line">root      8507  8222  0 07:31 pts/0    00:00:00 grep cron  </span><br><span class="line">[root@California_VPS etc]# service crond status</span><br><span class="line">crond (pid  1164) is running...</span><br></pre></td></tr></table></figure>
+
+<p>先检查一下有没有安装 crontab，并且查看 crontab 的运行状态。最后配置  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS etc]# crontab -e</span><br></pre></td></tr></table></figure>
+
+<p>添加下面这条命令到配置文件中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 * * 0 /root/www/certbot-auto renew  </span><br></pre></td></tr></table></figure>
+
+<p>这条命令的意思是每周日的0点0分执行<code>/root/www/certbot-auto renew</code>这条命令。执行下面这条命令查看定时任务列表中是否有刚才添加的任务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@California_VPS etc]# crontab -l </span><br><span class="line">0 0 * * 0 /root/www/certbot-auto renew</span><br></pre></td></tr></table></figure>
+
+<p>大功告成！</p>
+</div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>LeonLei</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://www.gaoshilei.com/hexo-init/" title="快速搭建Hexo博客+webhook自动部署+全站HTTPS">http://www.gaoshilei.com/hexo-init/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/wechatproservice/" rel="prev" title="搭建微信小程序服务"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">搭建微信小程序服务</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/weex-2/" rel="next" title="Weex从入门到超神（二）"><span class="post-nav-text">Weex从入门到超神（二）</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>如果您有任何内容想要讨论，欢迎前往 <a href="https://github.com/gaoshilei" target="_blank">GitHub</a> 与我交流。</span><br></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备19073416号</a></div><div class="copyright"><span>&copy; 2016 – 2023 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> LeonLei</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.7</span></div><div class="footer-support"><span>本网站由</span><a class="footer-support-logo" href="https://s.qiniu.com/IVvymu" target="blank" title="七牛云"><img height="30" src="https://img.gaoshilei.com/qiniuyun-logo.png" alt="七牛云"></a><span>提供储存和 CDN 加速</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><!-- hexo injector body_end start --><script src="/js/hexo-tag-common.js"></script><!-- hexo injector body_end end --></body></html>

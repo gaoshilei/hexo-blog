@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="zh-CN"><head><!-- hexo injector head_begin start --><link href="/css/hexo-tag-common.css" rel="stylesheet"/><!-- hexo injector head_begin end --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="LeonLei"><meta name="copyright" content="LeonLei"><meta name="generator" content="Hexo 6.3.0"><meta name="theme" content="hexo-theme-yun"><title>Weex从入门到超神（一） | 路是月的痕</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"www.gaoshilei.com","root":"/","title":"大石头的小站","version":"1.10.7","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="路是月的痕" type="application/atom+xml"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-1LL0D86CY9"></script><script>if (CONFIG.hostname === location.hostname) {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-1LL0D86CY9');
+}</script><script data-ad-client="ca-pub-2245427233262012" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(function(){
+  var bp = document.createElement('script');
+  var curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else {
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();</script><meta name="description" content="随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？   两年前 Facebook 团队发布了一个全新的移动端和前端无缝衔接的框架 React Native，很明显是用 React 开发的，支持在 Native 上运">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Weex从入门到超神（一）">
+<meta property="og:url" content="http://www.gaoshilei.com/weex-1/index.html">
+<meta property="og:site_name" content="路是月的痕">
+<meta property="og:description" content="随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？   两年前 Facebook 团队发布了一个全新的移动端和前端无缝衔接的框架 React Native，很明显是用 React 开发的，支持在 Native 上运">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.gaoshilei.com/Weex_logo.png">
+<meta property="og:image" content="http://img.gaoshilei.com/Weex_Apache.png">
+<meta property="og:image" content="http://img.gaoshilei.com/weex&vue.png">
+<meta property="og:image" content="http://img.gaoshilei.com/Weex_theroy.png">
+<meta property="article:published_time" content="2017-05-26T06:23:11.000Z">
+<meta property="article:modified_time" content="2023-10-20T08:43:48.583Z">
+<meta property="article:author" content="LeonLei">
+<meta property="article:tag" content="JS">
+<meta property="article:tag" content="Weex">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.gaoshilei.com/Weex_logo.png"><script>(function() {
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="LeonLei"><img width="96" loading="lazy" src="/images/avatar.png" alt="LeonLei"></a><div class="site-author-name"><a href="/about/">LeonLei</a></div><span class="site-name">路是月的痕</span><sub class="site-subtitle">代码略懂，精通LOL</sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">15</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">6</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">29</span></a></div><a class="site-state-item hty-icon-button" href="/about/#comment" title="留言板"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:clipboard-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9-Weex"><span class="toc-number">1.</span> <span class="toc-text">为什么选择 Weex</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Weex-%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">Weex 项目结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Weex-%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">2.1.</span> <span class="toc-text">Weex 的目录结构</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://www.gaoshilei.com/weex-1/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="LeonLei"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="路是月的痕"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Weex从入门到超神（一）<a class="post-edit-link" href="https://github.com/YunYouJun/yunyoujun.github.io/tree/hexo/source/_posts/posts/Weex从入门到超神（一）.md" target="_blank" title="编辑" rel="noopener"><span class="icon iconify" data-icon="ri:edit-line"></span></a></h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2017-05-26 14:23:11" itemprop="dateCreated datePublished" datetime="2017-05-26T14:23:11+08:00">2017-05-26</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2023-10-20 16:43:48" itemprop="dateModified" datetime="2023-10-20T16:43:48+08:00">2023-10-20</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">技术笔记</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/JS/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">JS</span></a><a class="tag-item" href="/tags/Weex/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">Weex</span></a><a class="tag-item" href="/tags/Vue/" style="--text-color:#4fc08d"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">Vue</span></a><a class="tag-item" href="/tags/%E5%89%8D%E7%AB%AF/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">前端</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img src="http://img.gaoshilei.com/Weex_logo.png" loading="lazy"></p>
+<p>随着移动端发展进入白热化阶段，很多中小型公司越来越注重于APP的更新迭代速度。加上去年微信小程序的问世，前端同学似乎迎来了“第二春”，越来越多的 Native 开发者感受到了前所未有的压力，人家已经打到家门口了，难道就这样两眼旁观吗？  </p>
+<p>两年前 Facebook 团队发布了一个全新的移动端和前端无缝衔接的框架 React Native，很明显是用 React 开发的，支持在 Native 上运行的这么一个玩意，这相对于苹果漫长的审核机制的确是一个福音。可是 React 的学习曲线比较陡，网上大部分教程的性质都是 <strong>“React Native 从入门到放弃”</strong>，RN虽好，但是对于大多数移动开发者来说学习成本过高。   </p>
+<span id="more"></span>
+
+<p>去年阿里巴巴开源了一个类似 RN 的框架 <strong><a target="_blank" rel="noopener" href="http://weex.apache.org/cn/">Weex</a></strong> ，虽然面世才一年多，已经收获了广泛的关注，今年 Weex 已经被纳入 Apache 基金会的孵化项目。<br><img src="http://img.gaoshilei.com/Weex_Apache.png" loading="lazy"></p>
+<h2 id="为什么选择-Weex"><a href="#为什么选择-Weex" class="headerlink" title="为什么选择 Weex"></a>为什么选择 Weex</h2><p>转载请注明出处：<a href="http://www.gaoshilei.com/">来自LeonLei的博客http://www.gaoshilei.com</a>  </p>
+<p>作为 Native 开发者，我们很清楚 Native 走到今天所面临的困境，相较于前端比较呆板不够灵活，任何改动都需要重新打包提交审核然后发布版本，这个周期最短也要1~2天的时间，一直有人在说要用 H5 替代 Native ,这不是危言耸听，移动端市场正在遭受着冲击。  </p>
+<p>大部分中小型的互联网公司都是小步快走的模式进行版本迭代，版本发布的灵活性就显得尤为重要，可能产品早上想的功能点晚上就要上线，Native 肯定是办不到的，H5 这个时候就显示出它的优势了；但是 H5 有一个致命的缺点就是性能太差，用户体验远达不到 Native 带来的那种丝滑流畅般的享受。所以这两年，RN 和 Weex 悄然崛起就是为了解决这种矛盾。</p>
+<p>不管是 RN 还是 Weex 都能做到实时修改页面不需要 Native 发版，他们的原理都是一样的，通过 js 来渲染 Native 界面。<br>Weex 在很大程度上借鉴了 RN 的思想和方式，对比一下 RN 和 Weex 的差异和优缺点：  </p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>由于 Weex 采用了 Vue 作为上层框架，相较于 React 更加轻量，Vue 的官网宣传就是非常轻量，体积小巧，语法简单。</li>
+<li>Vue 的学习成本相较于 React 更加小，大部分 Native 开发者更容易上手。</li>
+<li>Weex 吸收了 RN 的精华，可以说 Weex 是站在巨人的肩膀上问世。</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>   Weex 相较于 RN 起步比较晚，社区没有 RN 活跃。</li>
+<li><pre><code>从问世的时间上来看，RN 具有更大的优势，Weex 的学习资料比较少。
+</code></pre>
+</li>
+<li><pre><code>Weex 现在存在的 BUG 相较于 RN 还比较多，对于使用来说会有一些影响。
+</code></pre>
+</li>
+</ul>
+<p>不管选择 RN 还是 Weex ，我们的目的都是一样：通过 js 语法渲染成  Native 的页面，至于该选择哪个，这就要结合自己公司的实际情况来选，没有绝对的好与坏。<br>由于我们公司的 H5 项目是用 Vue 开发的，所以我们也就毫不犹豫的选择了 Weex。  </p>
+<p><img src="http://img.gaoshilei.com/weex&vue.png" loading="lazy">  </p>
+<p>可能大部分 Native 开发者看到这里就要说一句：<em>球都麻袋！Weex 都还搞明白怎么又提到 Vue ，这是什么鬼</em>；Vue 是国人开发的一个 JS 框架，大家可以去官网看看，文档都是中文比较方便，这里就不再赘述，有一点 H5 基础都可以很快上手。**<a target="_blank" rel="noopener" href="https://cn.vuejs.org/">Vue官网</a>**</p>
+<h2 id="Weex-项目结构"><a href="#Weex-项目结构" class="headerlink" title="Weex 项目结构"></a>Weex 项目结构</h2><p>想必大多数 Native 开发者对于前端的知识还是匮乏的，虽然 Weex 官网有教程会教你怎么安装怎么运行，大部分同学任然会卡在某一个步骤走不下去，所以基础工作还是要做好，后面的路才会顺畅。  </p>
+<p>首先给大家介绍 Node.js 和 npm ，刚开始接触这个我也是懵逼的，这两者之间有什么关系？为什么要安装 Node.js ？ 搞懂这个关系后面对 weex 中结构理解会有很好的帮助，npm 是 Node.js 默认的包管理器，从 Node.js 0.6.3 开始，npm 集成到了 Node.js 的安装包里面，所以我们安装 Node.js 的目的是使用 npm 来管理 weex 所用到的一些依赖库。</p>
+<p>至于怎么安装，可以参考 Weex 的<a target="_blank" rel="noopener" href="http://weex.apache.org/cn/guide/">官方教程</a></p>
+<blockquote>
+<p> 前端同学用到的 npm 有点类似我们用的 Cocopods 来管理第三方依赖库，安装 Cocopods 之前你必须安装 ruby ，因为 Cocopods 依赖 ruby 才能运行， npm 也是一样的道理，npm 依赖 Node.js 才能运行。</p>
+</blockquote>
+<p>Weex 的文件格式有两种，分别是 <code>.we</code> 、<code>.vue</code>，可以很明显的发现用 Vue 可以直接写 Weex 页面。笔者开始接触 Weex 的时候也是直接学 Vue ,不仅可以用来写 Weex 还可以写写其他 H5 页面。 <strong>所以我建议学 Weex 直接看 Vue 就可以了。</strong></p>
+<h3 id="Weex-的目录结构"><a href="#Weex-的目录结构" class="headerlink" title="Weex 的目录结构"></a>Weex 的目录结构</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">├── src  </span><br><span class="line">├── node_modules </span><br><span class="line">├── dist</span><br><span class="line">├── build</span><br><span class="line">├── bin</span><br><span class="line">├── package.<span class="property">json</span></span><br><span class="line">├── webpack.<span class="property">config</span>.<span class="property">js</span>    </span><br><span class="line">└── config.<span class="property">js</span>   </span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+
+<p><strong>src</strong>  </p>
+<blockquote>
+<p>源码存放的位置，如<code>.we</code> <code>.vue</code>  </p>
+</blockquote>
+<p><strong>node_modules</strong> </p>
+<blockquote>
+<p>依赖库的存放位置，类似于Xcode项目中的 Pods 文件夹。在 package.json 所在目录执行 npm install 就会自动安装好所有的依赖，有点像 pod install。</p>
+</blockquote>
+<p><strong>dist</strong>  </p>
+<blockquote>
+<p>存放编译好的js文件 </p>
+</blockquote>
+<p><strong>build</strong></p>
+<blockquote>
+<p>存放npm build 时的 js 文件，可在 package.json 文件中配置</p>
+</blockquote>
+<p><strong>bin</strong>  </p>
+<blockquote>
+<p>存放一些 shell 脚本，一般用不到</p>
+</blockquote>
+<p><strong>package.json</strong>  </p>
+<blockquote>
+<p>项目的配置和依赖库文件，有点类似 podfile 文件</p>
+</blockquote>
+<p><strong>webpack.config.js</strong></p>
+<blockquote>
+<p>webpack 的配置文件</p>
+</blockquote>
+<p><strong>config.js</strong>  </p>
+<blockquote>
+<p>项目的相关配置文件，你可以在这个文件中配置切换不同的环境</p>
+</blockquote>
+<p>提到 webpack ，这个比较复杂，我们只需要知道 Weex 用 webpack 进行打包编译就行了，当然也可以用其他工具来打包；感兴趣的同学可以看一下 webpack 的<a target="_blank" rel="noopener" href="http://webpack.github.io/">官网</a>。<br>当你运行 <code>npm bulid</code> 时，对应的是运行 package.json 中配置的 <code>scripts: build</code> 命令，src 文件夹中的文件都会被编译好并存放到 dist 文件夹中，这个路径在 webpack.config.js 文件中可以进行配置。<code>npm run</code> 后面跟的命令都是在 package.json 的 <code>scripts</code> 配置的。  </p>
+<p>转载请注明出处：<a href="http://www.gaoshilei.com/">来自LeonLei的博客http://www.gaoshilei.com</a>   </p>
+<p>Weex 前端的项目目录大概就是这样，Weex 前端的源码不在这次的讨论范围之类，如果大家感兴趣想看 Weex 前端的源码，在 node_modules 文件夹中就可以找到。<strong>关于 Weex SDK源码在后续文章中会进行深度解析。</strong><br>##		Weex 运行原理<br>官方也给出了 Weex 的运行原理图，顺手牵羊拿了过来：</p>
+<p><img src="http://img.gaoshilei.com/Weex_theroy.png" loading="lazy">  </p>
+<p>不难发现，Weex 其实就是将 <code>.vue</code> 、<code>.we</code> 文件编译成 js 文件，打包成所谓的 JS Bundle 放到 dist 文件夹中，然后将编译好的 JS Bundle 部署到服务器上，我们的 iOS、安卓、浏览器就可以访问对应的 JS 然后由 SDK 渲染成 Native 的页面，或者浏览器的内核渲染成 DOM 节点显示。<strong>这里有个坑要提一下：虽然说是三端统一的，实际开发中还是要做兼容处理的。</strong>  </p>
+<blockquote>
+<p>本篇文章浅显的介绍了 Weex 的应用背景和工作原理，下篇文章将深入分析 Weex 的实现原理。 </p>
+</blockquote>
+<p><a href="https://www.gaoshilei.com/2017/09/26/weex-2/">Weex从入门到超神（二）</a></p>
+</div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>LeonLei</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://www.gaoshilei.com/weex-1/" title="Weex从入门到超神（一）">http://www.gaoshilei.com/weex-1/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/weex-2/" rel="prev" title="Weex从入门到超神（二）"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">Weex从入门到超神（二）</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/strong-weak_dance/" rel="next" title="你真的会用strong-weak dance吗？"><span class="post-nav-text">你真的会用strong-weak dance吗？</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>如果您有任何内容想要讨论，欢迎前往 <a href="https://github.com/gaoshilei" target="_blank">GitHub</a> 与我交流。</span><br></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备19073416号</a></div><div class="copyright"><span>&copy; 2016 – 2023 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> LeonLei</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.7</span></div><div class="footer-support"><span>本网站由</span><a class="footer-support-logo" href="https://s.qiniu.com/IVvymu" target="blank" title="七牛云"><img height="30" src="https://img.gaoshilei.com/qiniuyun-logo.png" alt="七牛云"></a><span>提供储存和 CDN 加速</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><!-- hexo injector body_end start --><script src="/js/hexo-tag-common.js"></script><!-- hexo injector body_end end --></body></html>

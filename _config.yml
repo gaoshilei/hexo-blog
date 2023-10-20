@@ -7,15 +7,26 @@ title: 路是月的痕
 subtitle: 代码略懂，精通LOL
 description:
 author: LeonLei
-language: zh-Hans
+language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+# # If your site is put in a subdirectory, set url as 'https://yoursite.com/child' and root as '/child/'
 url: http://www.gaoshilei.com
 root: /
-permalink: :year/:month/:day/:title/
+# posts/:name/
+permalink: :title/ # :category/:title
 permalink_defaults:
+  lang: en
+pretty_urls:
+  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
+  trailing_html: true # Set to false to remove trailing '.html' from permalinks
+
+# URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+# root: /
+# permalink: :year/:month/:day/:title/
+# permalink_defaults:
 
 # Directory
 source_dir: source
@@ -26,6 +37,7 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+  - README.md
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -42,11 +54,30 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
+prismjs:
+  enable: true
+  preprocess: true
+  line_number: false
+  tab_replace: ""
+
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ""
+  per_page: 7
+  order_by: -updated
+  pagination_dir: page
 
 # Category & Tag
 default_category: uncategorized
 category_map:
 tag_map:
+
+# Metadata elements
+# # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+meta_generator: true
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
@@ -54,6 +85,8 @@ tag_map:
 ## http://momentjs.com/docs/#/displaying/format/
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
+# # updated_option supports 'mtime', 'date', 'empty'
+updated_option: mtime
 
 # Pagination
 ## Set per_page to 0 to disable pagination
@@ -63,12 +96,12 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
-baidu_tongji: true
+theme: yun
+# baidu_tongji: true
 
 #RSS订阅
 plugin:
-- hexo-generator-feed
+  - hexo-generator-feed
 #Feed Atom
 feed:
 type: atom
@@ -78,9 +111,85 @@ limit: 20
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 #deploy:
- # type: git
- # repo: git@github.com:gaoshilei/hexo-blog.git
- # branch: master
+# type: git
+# repo: git@github.com:gaoshilei/hexo-blog.git
+# branch: master
+
+# https://github.com/hexojs/hexo-renderer-marked
+marked:
+  gfm: true
+  pedantic: false
+  breaks: true
+  smartLists: true
+  smartypants: true
+  quotes: “”‘’
+  modifyAnchors: 0
+  autolink: true
+  mangle: true
+  sanitizeUrl: false
+  headerIds: true
+  lazyload: false
+  prependRoot: false
+  postAsset: false
+  external_link:
+    enable: false
+    exclude: []
+    nofollow: false
+  disableNunjucks: false
+
+# https://github.com/hexojs/hexo-server
+server:
+  compress: true
+
+# https://github.com/MoePlayer/hexo-tag-aplayer
+aplayer:
+  meting: true
+  asset_inject: false
+
+# https://github.com/chenzhutian/hexo-all-minifier
+all_minifier: true
+html_minifier:
+  enable: false
+  ignore_error: false
+  silent: false
+  exclude:
+css_minifier:
+  enable: true
+  silent: false
+  exclude:
+    - "*.min.css"
+# we have esbuild!
+js_minifier:
+  enable: false
+image_minifier:
+  enable: false
+  interlaced: false
+  multipass: false
+  optimizationLevel: 2
+  pngquant: false
+  progressive: false
+  silent: false
+
+# hexo-tag-common
+# https://github.com/YunYouJun/hexo-tag-common
+tag_common:
+  cdn: false
+  # cdn: https://fastly.jsdelivr.net/npm/
+  layout:
+    - post
+    - page
+    # - home
+
+# hexo-widget-tree
+# https://github.com/YunYouJun/hexo-widget-tree
+widget_tree:
+  cdn: true
+  hide: false
+  layout: tree
+  showCount: true
+  toc:
+    enable: true
+    list_number: false
 
 sitemap:
   path: sitemap.xml
